@@ -9,7 +9,8 @@ import { createOrienCache } from "../research/orienSearch.js";
 export async function buildGraph(topic: string, profile: StudentProfile, options: { cacheId?: string } = {}): Promise<KnowledgeGraph> {
   const cached = buildGraphFromCachedExa(topic, profile, options.cacheId);
   if (cached) {
-    devLog("info", "cache", options.cacheId ? "Using selected Exa cache" : "Using matched Exa cache", {
+    const cacheKind = options.cacheId?.startsWith("orien_") ? "OrienSearch" : "Exa";
+    devLog("info", "cache", options.cacheId ? `Using selected ${cacheKind} cache` : "Using matched Exa cache", {
       graphId: cached.id,
       topic: cached.topic,
       sourcePacketIds: cached.sourcePacketIds
