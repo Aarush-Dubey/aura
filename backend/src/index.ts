@@ -2,6 +2,7 @@ import express from "express";
 import { CONFIG } from "./config.js";
 import { migrate } from "./db/migrate.js";
 import { ensureLocalLLM, llmStatus } from "./llm/runtime.js";
+import { ensureOrienSearch, orienStatus } from "./research/runtime.js";
 import sessionRouter from "./api/session.js";
 import profileRouter from "./api/profile.js";
 import { devLog } from "./dev/logs.js";
@@ -23,11 +24,16 @@ app.use("/", profileRouter);
 
 app.get("/health", async (_req, res) => {
   const llm = await llmStatus();
-  res.json({ ok: true, backend: "running", llm });
+  const orien = await orienStatus();
+  res.json({ ok: true, backend: "running", llm, orien });
 });
 
 app.post("/llm/start", async (_req, res) => {
   res.json(await ensureLocalLLM());
+});
+
+app.post("/orien/start", async (_req, res) => {
+  res.json(await ensureOrienSearch());
 });
 
 app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
@@ -40,5 +46,8 @@ app.listen(CONFIG.backendPort, async () => {
   console.log(`Aura backend on :${CONFIG.backendPort}`);
   ensureLocalLLM().then((status) => {
     if (!status.ready) console.warn("Aura LLM setup needed:", status.detail ?? status.setup?.message);
+  });
+  ensureOrienSearch().then((status) => {
+    if (status.state === "setup_required") console.warn("Aura Orien setup needed:", status.detail ?? status.setup?.message);
   });
 });

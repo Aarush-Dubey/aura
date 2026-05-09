@@ -3,6 +3,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { CONFIG } from "../config.js";
 import { devLog } from "../dev/logs.js";
+import { ensureOrienSearch } from "./runtime.js";
 
 type SearxngResult = {
   title?: string;
@@ -69,6 +70,59 @@ async function searxngSearch(topic: string): Promise<SearxngResult[]> {
     .slice(0, Math.max(1, CONFIG.orienMaxResults));
 }
 
+function decodeHtml(value = "") {
+  return value
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&#x27;/g, "'")
+    .replace(/&quot;/g, "\"");
+}
+
+function duckUrl(value: string) {
+  try {
+    const decoded = decodeURIComponent(value).replace(/&amp;/g, "&");
+    const parsed = new URL(decoded.startsWith("//") ? `https:${decoded}` : decoded);
+    const uddg = parsed.searchParams.get("uddg");
+    return uddg ? decodeURIComponent(uddg) : parsed.toString();
+  } catch {
+    return value;
+  }
+}
+
+async function duckDuckGoHtmlSearch(topic: string): Promise<SearxngResult[]> {
+  const url = new URL("https://html.duckduckgo.com/html/");
+  url.searchParams.set("q", topic);
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": "Mozilla/5.0 AuraLocalResearch/0.1",
+      "Accept": "text/html"
+    },
+    signal: AbortSignal.timeout(CONFIG.orienFetchTimeoutMs)
+  });
+  if (!response.ok) throw new Error(`DuckDuckGo HTML error ${response.status}: ${await response.text()}`);
+  const html = await response.text();
+  const matches = [...html.matchAll(/<a[^>]+class="result__a"[^>]+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>[\s\S]*?<a[^>]+class="result__snippet"[^>]*>([\s\S]*?)<\/a>/gi)];
+  return matches.slice(0, Math.max(1, CONFIG.orienMaxResults)).map((match, index) => ({
+    url: duckUrl(decodeHtml(match[1] ?? "")),
+    title: compactText(decodeHtml(match[2] ?? ""), 180),
+    content: compactText(decodeHtml(match[3] ?? ""), 700),
+    score: scoreChunk(topic, `${match[2] ?? ""} ${match[3] ?? ""}`, index)
+  }));
+}
+
+async function openSearch(topic: string): Promise<SearxngResult[]> {
+  try {
+    return await searxngSearch(topic);
+  } catch (error) {
+    devLog("warn", "orien", "SearXNG unavailable; falling back to DuckDuckGo HTML", {
+      message: error instanceof Error ? error.message : String(error)
+    });
+    return duckDuckGoHtmlSearch(topic);
+  }
+}
+
 async function extractPage(url: string | undefined) {
   if (!url || !/^https?:\/\//i.test(url)) return "";
   try {
@@ -96,6 +150,11 @@ function scoreChunk(topic: string, text: string, rank: number) {
 
 export async function createOrienCache(topic: string): Promise<OrienCache | null> {
   if (!CONFIG.useOrienSearch) return null;
+  const status = await ensureOrienSearch();
+  if (!status.ready) {
+    devLog("warn", "orien", "OrienSearch setup required", { detail: status.detail, setup: status.setup });
+    return null;
+  }
 
   const id = stableId(topic);
   const dir = path.join(cacheRoot(), id);
@@ -108,10 +167,10 @@ export async function createOrienCache(topic: string): Promise<OrienCache | null
     }
   }
 
-  devLog("info", "orien", "Searching open web through SearXNG", { topic, searxngUrl: CONFIG.orienSearxngUrl });
-  const results = await searxngSearch(topic);
+  devLog("info", "orien", "Searching open web through OrienSearch", { topic, endpoint: CONFIG.orienSearxngUrl });
+  const results = await openSearch(topic);
   if (!results.length) {
-    devLog("warn", "orien", "SearXNG returned no results", { topic });
+    devLog("warn", "orien", "OrienSearch returned no results", { topic });
     return null;
   }
 
