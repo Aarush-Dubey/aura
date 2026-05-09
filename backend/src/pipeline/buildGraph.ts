@@ -4,6 +4,7 @@ import type { KnowledgeGraph, StudentProfile } from "../types.js";
 import { fallbackGraph } from "./fallbacks.js";
 import { buildGraphFromCachedExa } from "../exa/cacheInput.js";
 import { devLog } from "../dev/logs.js";
+import { createOrienCache } from "../research/orienSearch.js";
 
 export async function buildGraph(topic: string, profile: StudentProfile, options: { cacheId?: string } = {}): Promise<KnowledgeGraph> {
   const cached = buildGraphFromCachedExa(topic, profile, options.cacheId);
@@ -14,6 +15,18 @@ export async function buildGraph(topic: string, profile: StudentProfile, options
       sourcePacketIds: cached.sourcePacketIds
     });
     return cached;
+  }
+
+  const orienCache = await createOrienCache(topic);
+  if (orienCache) {
+    const openGraph = buildGraphFromCachedExa(topic, profile, orienCache.id);
+    if (openGraph) {
+      devLog("info", "orien", "Using OrienSearch cache for graph", {
+        graphId: openGraph.id,
+        chunks: orienCache.chunks
+      });
+      return openGraph;
+    }
   }
 
   try {
