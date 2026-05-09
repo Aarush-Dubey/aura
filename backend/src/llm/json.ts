@@ -8,11 +8,11 @@ function extractJson(raw: string) {
   return match?.[1] ?? trimmed;
 }
 
-export async function callLLMJson<T>(system: string, user: string, temperature = 0.2): Promise<T> {
+export async function callLLMJson<T>(system: string, user: string, temperature = 0.2, timeoutMs = 30_000, maxTokens = 8192): Promise<T> {
   let lastErr: unknown;
   for (let i = 0; i < 2; i += 1) {
     try {
-      const raw = await callLLM(system, `${user}\n\nReturn valid JSON only.`, { json: true, temperature, maxTokens: 8192 });
+      const raw = await callLLM(system, `${user}\n\nReturn valid JSON only.`, { json: true, temperature, maxTokens, timeoutMs });
       const jsonText = extractJson(raw);
       try {
         return JSON.parse(jsonText) as T;

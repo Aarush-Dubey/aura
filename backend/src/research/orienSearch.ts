@@ -4,6 +4,8 @@ import crypto from "node:crypto";
 import { CONFIG } from "../config.js";
 import { devLog } from "../dev/logs.js";
 import { ensureOrienSearch } from "./runtime.js";
+import { ensureLocalLLM } from "../llm/runtime.js";
+import { callLLMJson } from "../llm/json.js";
 
 type SearxngResult = {
   title?: string;
@@ -30,6 +32,7 @@ type ResearchPlan = {
   intent: ResearchIntent;
   label: string;
   query: string;
+  reason?: string;
 };
 
 type ResearchChunk = {
@@ -48,6 +51,49 @@ type ResearchClaim = {
   evidence: string;
   confidence: number;
 };
+
+type PlannerOutput = {
+  topicUnderstanding: string;
+  queryVersions: {
+    intent: ResearchIntent;
+    label: string;
+    query: string;
+    reason: string;
+  }[];
+};
+
+type SupervisorOutput = {
+  chunks: {
+    title: string;
+    text: string;
+    type: ResearchClaim["type"];
+    teachingGoal: string;
+    evidenceIds: string[];
+  }[];
+  rejectedEvidenceIds?: string[];
+  notes?: string;
+};
+
+type IntentSupervisorOutput = {
+  title: string;
+  text: string;
+  type: ResearchClaim["type"];
+  teachingGoal: string;
+  usedEvidenceIds: string[];
+  quality: "use" | "weak";
+  note?: string;
+};
+
+type FinalSupervisorOutput = {
+  chunks: {
+    title: string;
+    text: string;
+    type: ResearchClaim["type"];
+    teachingGoal: string;
+  }[];
+};
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function cacheRoot() {
   return path.resolve(process.cwd(), CONFIG.exaCacheDir);
@@ -141,6 +187,50 @@ function researchPlan(topic: string): ResearchPlan[] {
     { intent: "misconceptions", label: "common mistakes", query: `${t} common mistakes misconceptions equally likely outcomes` },
     { intent: "practice", label: "exam practice", query: `${t} practice questions solved examples NCERT exercise` }
   ];
+}
+
+async function planResearchWithGemma(topic: string): Promise<ResearchPlan[]> {
+  const status = await ensureLocalLLM();
+  if (!status.ready) throw new Error(status.detail || status.setup?.message || "Gemma planner is not ready.");
+
+  const system = [
+    "You are Aura's local research planner. You only plan search queries; you do not teach yet.",
+    "The goal is to gather enough evidence to build a meaningful class-ready lesson packet.",
+    "Rewrite the learner topic into multiple focused web-search queries.",
+    "Rules:",
+    "- Use the learner's class/grade if present.",
+    "- Create different query versions for: overview, concepts, formula, examples, misconceptions, practice.",
+    "- Prefer educational source language: notes, examples, worked examples, common mistakes, NCERT/CBSE when relevant.",
+    "- Avoid broad or SEO-only queries like just the topic name.",
+    "- Return valid JSON only."
+  ].join("\n");
+  const output = await callLLMJson<PlannerOutput>(system, JSON.stringify({
+    task: "Create focused query versions for local open web research.",
+    topic,
+    allowedIntents: ["overview", "concepts", "formula", "examples", "misconceptions", "practice"],
+    schema: {
+      topicUnderstanding: "one sentence",
+      queryVersions: [{ intent: "overview|concepts|formula|examples|misconceptions|practice", label: "short label", query: "search query", reason: "why this version exists" }]
+    }
+  }), 0.2);
+
+  const seen = new Set<string>();
+  const planned = (output.queryVersions ?? [])
+    .filter((item) => item.intent && item.query)
+    .filter((item) => {
+      const key = `${item.intent}:${item.query.toLowerCase()}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 10)
+    .map((item) => ({
+      intent: item.intent,
+      label: item.label || item.intent,
+      query: item.query,
+      reason: item.reason
+    }));
+  return planned.length >= 4 ? planned : researchPlan(topic);
 }
 
 async function searxngSearch(topic: string): Promise<SearxngResult[]> {
@@ -254,8 +344,7 @@ function domainBoost(url = "") {
   return 0;
 }
 
-async function collectResearch(topic: string) {
-  const plan = researchPlan(topic);
+async function collectResearch(topic: string, plan: ResearchPlan[]) {
   const byKey = new Map<string, SearxngResult>();
   for (const item of plan) {
     devLog("info", "orien", "Running focused research query", { intent: item.intent, query: item.query });
@@ -273,6 +362,164 @@ async function collectResearch(topic: string) {
     }
   }
   return [...byKey.values()].sort((a, b) => (b.score ?? 0) - (a.score ?? 0)).slice(0, Math.max(8, CONFIG.orienMaxResults * 3));
+}
+
+function evidenceId(index: number) {
+  return `ev_${index + 1}`;
+}
+
+function compactEvidencePacket(topic: string, results: SearxngResult[], extracted: string[]) {
+  const rows = results.map((result, index) => ({
+    result,
+    extracted: extracted[index] ?? "",
+    originalIndex: index
+  }));
+  const selected: typeof rows = [];
+  for (const intent of ["overview", "concepts", "formula", "examples", "misconceptions", "practice"] as ResearchIntent[]) {
+    selected.push(...rows.filter((row) => (row.result.intent ?? "overview") === intent).slice(0, 2));
+  }
+  if (!selected.length) selected.push(...rows.slice(0, 6));
+  return selected.slice(0, 12).map((row, index) => ({
+    id: evidenceId(index),
+    intent: row.result.intent ?? "overview",
+    query: row.result.query ?? topic,
+    title: safeTitle(row.result.title, `${topic} source ${row.originalIndex + 1}`),
+    snippet: compactText(row.result.content ?? "", 160),
+    passage: compactText(row.extracted, 280),
+    score: row.result.score ?? 0
+  })).filter((item) => item.snippet || item.passage);
+}
+
+async function superviseResearchWithGemma(topic: string, plan: ResearchPlan[], evidence: ReturnType<typeof compactEvidencePacket>): Promise<SupervisorOutput> {
+  const status = await ensureLocalLLM();
+  if (!status.ready) throw new Error(status.detail || status.setup?.message || "Gemma supervisor is not ready.");
+
+  const system = [
+    "You are Aura's local research supervisor and curriculum distiller.",
+    "You receive noisy web evidence gathered by the planner. Your job is to turn it into clean teaching chunks.",
+    "Hard rules:",
+    "- Do not copy SEO headings, source titles, download text, login text, course ads, or navigation.",
+    "- Do not summarize source pages as pages. Write teachable content for the learner.",
+    "- Make each chunk a useful lesson ingredient: concept, formula/rule, worked example, misconception, or practice.",
+    "- Use plain class-10-friendly language.",
+    "- Preserve math notation where useful.",
+    "- Every chunk must be self-contained and meaningful without source URLs.",
+    "- Reject weak evidence instead of using it.",
+    "- Return valid JSON only."
+  ].join("\n");
+
+  return callLLMJson<SupervisorOutput>(system, JSON.stringify({
+    task: "Synthesize final Orien research chunks from noisy evidence.",
+    topic,
+    plannerQueries: plan.map((item) => ({ intent: item.intent, query: item.query, reason: item.reason })),
+    evidence,
+    outputRules: {
+      chunkCount: "4 to 7 chunks, fewer if evidence is weak",
+      title: "short learning-node title, not a source title",
+      text: "120 to 260 words of clean teachable content; may include a tiny worked example",
+      teachingGoal: "one sentence saying what the learner can do after this chunk",
+      evidenceIds: "ids of evidence used",
+      type: "concept|example|misconception|practice"
+    },
+    schema: {
+      chunks: [{
+        title: "string",
+        text: "string",
+        type: "concept|example|misconception|practice",
+        teachingGoal: "string",
+        evidenceIds: ["ev_1"]
+      }],
+      rejectedEvidenceIds: ["ev_2"],
+      notes: "short quality note"
+    }
+  }), 0.15, 120_000, 4096);
+}
+
+async function superviseIntentWithGemma(topic: string, plan: ResearchPlan, evidence: ReturnType<typeof compactEvidencePacket>): Promise<IntentSupervisorOutput> {
+  const status = await ensureLocalLLM();
+  if (!status.ready) throw new Error(status.detail || status.setup?.message || "Gemma supervisor is not ready.");
+
+  const system = [
+    "You are Aura's local research supervisor.",
+    "You receive a few noisy search snippets/passages for one learning intent.",
+    "Create exactly one clean teaching chunk for a class 10 learner.",
+    "Hard rules:",
+    "- Do not copy source titles, SEO text, download text, login text, ads, navigation, or page descriptions.",
+    "- Do not say where the evidence came from.",
+    "- Write a useful learning chunk, not a search-result summary.",
+    "- Stay tightly on the requested intent. Do not turn every intent into a generic overview.",
+    "- If intent is not overview, do not begin by defining probability. Start directly with that intent.",
+    "- Use a title that names the intent: Core Idea, Sample Space, Formula Rules, Worked Example, Common Mistake, or Practice.",
+    "- For formulas, use plain text like P(E) = favourable outcomes / total outcomes. Do not use LaTeX commands.",
+    "- If the evidence is weak, still return JSON with quality='weak'.",
+    "- Use plain language and useful math notation.",
+    "- Return valid JSON only."
+  ].join("\n");
+
+  return callLLMJson<IntentSupervisorOutput>(system, JSON.stringify({
+    topic,
+    intent: plan.intent,
+    queryVersion: plan.query,
+    plannerReason: plan.reason,
+    requiredFocus: {
+      overview: "define the big idea without going deep into formulas; title should include Core Idea",
+      concepts: "explain experiment, outcome, sample space, event, and favourable outcome; title should include Sample Space or Outcomes",
+      formula: "explain P(E) = favourable outcomes / total outcomes, plus impossible, sure, and complementary events; title should include Formula Rules",
+      examples: "show one tiny worked example with coin, die, cards, or balls; title should include Worked Example",
+      misconceptions: "name specific mistakes and how to avoid them; title should include Common Mistake",
+      practice: "describe useful practice question types and what each trains; title should include Practice"
+    }[plan.intent],
+    evidence: evidence.slice(0, 2),
+    schema: {
+      title: "short learning title, not source title",
+      text: "90 to 170 words of clean teachable explanation for this intent",
+      type: "concept|example|misconception|practice",
+      teachingGoal: "one sentence describing what learner can do after this chunk",
+      usedEvidenceIds: ["ev_1"],
+      quality: "use|weak",
+      note: "short reason"
+    }
+  }), 0.1, 90_000, 1024);
+}
+
+async function finalPolishWithGemma(topic: string, chunks: {
+  title: string;
+  text: string;
+  type: ResearchClaim["type"];
+  teachingGoal: string;
+}[]): Promise<FinalSupervisorOutput> {
+  const status = await ensureLocalLLM();
+  if (!status.ready) throw new Error(status.detail || status.setup?.message || "Gemma final supervisor is not ready.");
+
+  const system = [
+    "You are Aura's final research supervisor.",
+    "You receive draft teaching chunks. Your job is to remove repetition and produce the final research packet.",
+    "Rules:",
+    "- Keep only distinct chunks. Do not repeat the same probability definition in every chunk.",
+    "- Preserve a useful learning arc: core idea, terms/sample space, formula/rules, worked example, common mistake or practice.",
+    "- Rewrite titles so each title clearly names a different node.",
+    "- Rewrite broken formulas. Use plain notation, e.g. P(E) = favourable outcomes / total outcomes.",
+    "- No source names, SEO text, URLs, PDF/download language, or page descriptions.",
+    "- Return valid JSON only."
+  ].join("\n");
+
+  return callLLMJson<FinalSupervisorOutput>(system, JSON.stringify({
+    topic,
+    draftChunks: chunks.map((chunk) => ({
+      title: chunk.title,
+      type: chunk.type,
+      teachingGoal: chunk.teachingGoal,
+      text: compactText(chunk.text, 650)
+    })),
+    schema: {
+      chunks: [{
+        title: "distinct learning-node title",
+        text: "100 to 220 words, clean teaching content",
+        type: "concept|example|misconception|practice",
+        teachingGoal: "one sentence"
+      }]
+    }
+  }), 0.1, 120_000, 4096);
 }
 
 function extractBestPassage(topic: string, intent: ResearchIntent, title: string, content: string, page: string) {
@@ -317,6 +564,12 @@ function claimType(intent: ResearchIntent): ResearchClaim["type"] {
   return "concept";
 }
 
+function normalizeClaimType(value: unknown, intent: ResearchIntent): ResearchClaim["type"] {
+  return value === "concept" || value === "example" || value === "misconception" || value === "practice"
+    ? value
+    : claimType(intent);
+}
+
 function claimFromChunk(topic: string, chunk: ResearchChunk, intent: ResearchIntent, index: number): ResearchClaim {
   const core = topicCore(topic);
   const labelByIntent: Record<ResearchIntent, string> = {
@@ -352,31 +605,96 @@ function claimFromChunk(topic: string, chunk: ResearchChunk, intent: ResearchInt
 }
 
 async function buildResearchPacket(topic: string) {
-  const results = await collectResearch(topic);
+  const plan = await planResearchWithGemma(topic);
+  devLog("info", "orien", "Gemma planned Orien query versions", {
+    topic,
+    queries: plan.map((item) => ({ intent: item.intent, query: item.query }))
+  });
+
+  const results = await collectResearch(topic, plan);
   const extracted = await Promise.all(results.map((result) => extractPage(result.url)));
-  const byIntent = new Map<ResearchIntent, ResearchChunk>();
-  let fallbackIndex = 0;
-  for (const [index, result] of results.entries()) {
-    const intent = result.intent ?? "overview";
-    const title = safeTitle(result.title, `${topic} ${intent}`);
-    const text = extractBestPassage(topic, intent, title, result.content ?? "", extracted[index] ?? "");
-    if (text.length < 160) continue;
-    const score = Number(((result.score ?? scoreChunk(topic, `${title} ${text}`, index)) + domainBoost(result.url)).toFixed(3));
-    const chunk: ResearchChunk = {
-      id: `orien_chunk_${byIntent.size + 1}`,
-      title: `${topicCore(topic)} - ${researchPlan(topic).find((item) => item.intent === intent)?.label ?? "source"}`,
-      text,
-      score
-    };
-    const current = byIntent.get(intent);
-    if (!current || chunk.score > current.score || chunk.text.length > current.text.length + 300) byIntent.set(intent, chunk);
+  const evidence = compactEvidencePacket(topic, results, extracted);
+  if (!evidence.length) return { chunks: [], claims: [] };
+
+  const supervisedChunks: {
+    id: string;
+    title: string;
+    text: string;
+    score: number;
+    type: ResearchClaim["type"];
+    teachingGoal: string;
+  }[] = [];
+  for (const item of plan.slice(0, 7)) {
+    const intentEvidence = evidence.filter((candidate) => candidate.intent === item.intent).slice(0, 2);
+    const fallbackEvidence = evidence.filter((candidate) => candidate.intent !== item.intent).slice(0, 1);
+    const scopedEvidence = intentEvidence.length ? intentEvidence : fallbackEvidence;
+    if (!scopedEvidence.length) continue;
+    try {
+      const chunk = await superviseIntentWithGemma(topic, item, scopedEvidence);
+      if (chunk.quality === "weak" || !chunk.title || !chunk.text || !chunk.teachingGoal) {
+        devLog("warn", "orien", "Gemma supervisor rejected weak intent evidence", { intent: item.intent, note: chunk.note ?? null });
+        continue;
+      }
+      supervisedChunks.push({
+        id: `orien_chunk_${supervisedChunks.length + 1}`,
+        title: compactText(chunk.title, 90),
+        text: compactText(chunk.text, 2600),
+        score: Number((0.92 - supervisedChunks.length * 0.02).toFixed(3)),
+        type: normalizeClaimType(chunk.type, item.intent),
+        teachingGoal: compactText(chunk.teachingGoal, 420)
+      });
+      devLog("info", "orien", "Gemma supervised Orien intent", { intent: item.intent, title: chunk.title });
+      await delay(750);
+    } catch (error) {
+      devLog("warn", "orien", "Gemma supervisor failed for intent", {
+        intent: item.intent,
+        message: error instanceof Error ? error.message : String(error)
+      });
+    }
   }
-  const chunks = [...byIntent.entries()]
-    .sort((a, b) => researchPlan(topic).findIndex((item) => item.intent === a[0]) - researchPlan(topic).findIndex((item) => item.intent === b[0]))
-    .map(([intent, chunk]) => ({ intent, chunk: { ...chunk, id: `orien_chunk_${++fallbackIndex}` } }));
-  const finalChunks = chunks.map((item) => item.chunk);
-  const claims = chunks.map((item, index) => claimFromChunk(topic, item.chunk, item.intent, index));
-  return { chunks: finalChunks, claims };
+
+  if (supervisedChunks.length >= 3) {
+    let finalChunks = supervisedChunks;
+    try {
+      const polished = await finalPolishWithGemma(topic, supervisedChunks);
+      const cleaned = (polished.chunks ?? [])
+        .filter((chunk) => chunk.title && chunk.text && chunk.teachingGoal)
+        .slice(0, 7)
+        .map((chunk, index) => ({
+          id: `orien_chunk_${index + 1}`,
+          title: compactText(chunk.title, 90),
+          text: compactText(chunk.text, 2600),
+          score: Number((0.94 - index * 0.02).toFixed(3)),
+          type: chunk.type,
+          teachingGoal: compactText(chunk.teachingGoal, 420)
+        }));
+      if (cleaned.length >= 3) {
+        finalChunks = cleaned;
+        devLog("info", "orien", "Gemma final supervisor polished Orien packet", { chunks: cleaned.length });
+      } else {
+        devLog("warn", "orien", "Gemma final supervisor returned too few chunks", { chunks: cleaned.length });
+      }
+    } catch (error) {
+      devLog("warn", "orien", "Gemma final supervisor failed; using per-intent supervised chunks", {
+        message: error instanceof Error ? error.message : String(error)
+      });
+    }
+
+    const claims = finalChunks.map((chunk, index) => ({
+      id: `orien_claim_${index + 1}`,
+      chunk_id: chunk.id,
+      label: chunk.title,
+      claim: chunk.teachingGoal,
+      type: chunk.type,
+      evidence: chunk.text,
+      confidence: Number(Math.max(0.72, chunk.score).toFixed(2))
+    } satisfies ResearchClaim));
+    devLog("info", "orien", "Gemma supervised Orien research packet", { chunks: finalChunks.length });
+    return { chunks: finalChunks.map(({ type, teachingGoal, ...chunk }) => chunk), claims };
+  }
+
+  devLog("warn", "orien", "Gemma supervisor produced too few usable chunks; refusing to write scraped fallback", { chunks: supervisedChunks.length });
+  return { chunks: [], claims: [] };
 }
 
 export async function createOrienCache(topic: string): Promise<OrienCache | null> {

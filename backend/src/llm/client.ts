@@ -1,6 +1,6 @@
 import { CONFIG } from "../config.js";
 
-type LLMOpts = { json?: boolean; temperature?: number; maxTokens?: number };
+type LLMOpts = { json?: boolean; temperature?: number; maxTokens?: number; timeoutMs?: number };
 
 function geminiUrl(model = CONFIG.llmModel) {
   const base = CONFIG.llmBaseUrl.replace(/\/$/, "");
@@ -27,7 +27,7 @@ export async function callLLM(system: string, user: string, opts: LLMOpts = {}):
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(30_000)
+    signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000)
   });
 
   if (!res.ok) throw new Error(`LLM error ${res.status}: ${await res.text()}`);
