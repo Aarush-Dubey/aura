@@ -1,0 +1,18 @@
+{
+  "subject": "Physics",
+  "grade_level": "9",
+  "topics": [
+    "force and acceleration"
+  ],
+  "learning_goals": [
+    "Understand force and acceleration",
+    "Apply force and acceleration with examples"
+  ],
+  "constraints": [
+    "Class 9 or 10 level",
+    "short teaching chunks",
+    "worked examples",
+    "avoid walls of text",
+    "include misconception checks"
+  ]
+}

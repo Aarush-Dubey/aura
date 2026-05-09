@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aura Animation Template Gallery</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0e1213;
+        --panel: #151b1d;
+        --panel-2: #1d2527;
+        --text: #f5f0e7;
+        --muted: #aab4af;
+        --line: rgba(255, 255, 255, 0.12);
+        --cyan: #70f0d1;
+        --blue: #91b8ff;
+        --amber: #f5c76a;
+        --green: #c6f56f;
+        --red: #ff8178;
+        --stone: #6f7b80;
+        --grass: #7fe38b;
+        --gold: #f4d66d;
+        --water: #78c8ff;
+        --redstone: #ff716b;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(112, 240, 209, 0.14), transparent 34rem),
+          radial-gradient(circle at top right, rgba(145, 184, 255, 0.1), transparent 30rem),
+          var(--bg);
+        color: var(--text);
+        font-family:
+          Atkinson Hyperlegible, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.55;
+      }
+
+      main {
+        width: min(1440px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 32px 0 56px;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        align-items: flex-end;
+        margin-bottom: 24px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(28px, 4vw, 48px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        max-width: 780px;
+        color: var(--muted);
+        margin-top: 12px;
+        font-size: 17px;
+      }
+
+      .pill-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .pill {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.04);
+        white-space: nowrap;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        min-height: 440px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+        background-size: 26px 26px;
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.52), transparent);
+      }
+
+      .card-head {
+        position: relative;
+        padding: 20px 20px 12px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .card-title {
+        font-size: 20px;
+        font-weight: 750;
+      }
+
+      .template-name {
+        color: var(--cyan);
+        font-size: 13px;
+        border: 1px solid rgba(112, 240, 209, 0.22);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: rgba(112, 240, 209, 0.08);
+        white-space: nowrap;
+      }
+
+      .stage {
+        position: relative;
+        min-height: 320px;
+        padding: 22px;
+      }
+
+      .caption {
+        color: var(--muted);
+        font-size: 14px;
+        margin-top: 14px;
+      }
+
+      .big-center {
+        display: grid;
+        place-items: center;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        height: 246px;
+      }
+
+      .compare-pane {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(0, 0, 0, 0.18);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .compare-pane::after {
+        content: "";
+        position: absolute;
+        inset: auto 12px 12px 12px;
+        height: 4px;
+        border-radius: 999px;
+        background: var(--pane-color, var(--cyan));
+        box-shadow: 0 0 24px var(--pane-color, var(--cyan));
+      }
+
+      .compare-label {
+        font-size: 44px;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 14px;
+      }
+
+      .compare-meaning {
+        color: var(--text);
+        font-size: 19px;
+      }
+
+      .compare-example {
+        color: var(--muted);
+        margin-top: 12px;
+        font-size: 14px;
+      }
+
+      .difference {
+        margin-top: 14px;
+        border: 1px solid rgba(245, 199, 106, 0.25);
+        background: rgba(245, 199, 106, 0.08);
+        color: #ffe1a0;
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+
+      .blocks {
+        height: 242px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 12px;
+        perspective: 800px;
+      }
+
+      .block {
+        width: 128px;
+        min-height: 72px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: grid;
+        place-items: center;
+        padding: 12px;
+        text-align: center;
+        color: #07100e;
+        font-weight: 800;
+        box-shadow:
+          inset -8px -8px 0 rgba(0, 0, 0, 0.12),
+          0 18px 30px rgba(0, 0, 0, 0.25);
+        transform: translateY(30px) rotateX(18deg);
+        opacity: 0;
+        animation: placeBlock 680ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+      }
+
+      .block small {
+        display: block;
+        font-weight: 650;
+        color: rgba(0, 0, 0, 0.58);
+        margin-top: 4px;
+      }
+
+      .block.stone {
+        background: linear-gradient(145deg, #9ba7ad, #65737a);
+      }
+
+      .block.grass {
+        background: linear-gradient(145deg, #a9f2a3, #5ad46f);
+      }
+
+      .block.gold {
+        background: linear-gradient(145deg, #ffe58d, #e5b93f);
+      }
+
+      .block.water {
+        background: linear-gradient(145deg, #9fe3ff, #58aef5);
+      }
+
+      .block.redstone {
+        background: linear-gradient(145deg, #ffaaa5, #fa5e58);
+      }
+
+      .structure-label {
+        text-align: center;
+        color: var(--green);
+        font-size: 18px;
+        font-weight: 750;
+        text-shadow: 0 0 20px rgba(198, 245, 111, 0.4);
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        align-items: center;
+        gap: 14px;
+        min-height: 246px;
+      }
+
+      .flow-step {
+        position: relative;
+        min-height: 142px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(0, 0, 0, 0.18);
+        padding: 16px;
+        display: grid;
+        align-content: center;
+        gap: 8px;
+        animation: fadeUp 560ms ease forwards;
+        opacity: 0;
+      }
+
+      .flow-icon {
+        font-size: 30px;
+      }
+
+      .flow-label {
+        font-size: 17px;
+        font-weight: 750;
+      }
+
+      .flow-detail {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .flow-step:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        width: 28px;
+        height: 2px;
+        top: 50%;
+        left: calc(100% + 1px);
+        background: linear-gradient(90deg, var(--cyan), transparent);
+        box-shadow: 0 0 12px rgba(112, 240, 209, 0.55);
+      }
+
+      .triangle-wrap {
+        height: 250px;
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+
+      svg {
+        overflow: visible;
+      }
+
+      .tri-side {
+        stroke: rgba(245, 240, 231, 0.9);
+        stroke-width: 6;
+        stroke-linecap: round;
+      }
+
+      .tri-highlight {
+        stroke-width: 9;
+        stroke-linecap: round;
+        filter: drop-shadow(0 0 10px currentColor);
+        stroke-dasharray: 360;
+        stroke-dashoffset: 360;
+        animation: drawLine 1200ms ease forwards;
+      }
+
+      .diagram-label {
+        position: absolute;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 12px;
+        background: rgba(21, 27, 29, 0.88);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+        animation: labelPop 520ms ease forwards;
+        opacity: 0;
+      }
+
+      .symbol-stage {
+        min-height: 242px;
+        display: grid;
+        place-items: center;
+        text-align: center;
+      }
+
+      .expression {
+        font-size: clamp(42px, 8vw, 76px);
+        font-weight: 850;
+        letter-spacing: 0;
+        margin-bottom: 16px;
+      }
+
+      .transform-steps {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .transform-chip {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 12px 14px;
+        min-width: 150px;
+        animation: fadeUp 540ms ease forwards;
+        opacity: 0;
+      }
+
+      .arrow {
+        color: var(--cyan);
+        font-size: 26px;
+      }
+
+      .map-stage {
+        min-height: 262px;
+        position: relative;
+      }
+
+      .map-node {
+        position: absolute;
+        width: 132px;
+        min-height: 78px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.22);
+        color: var(--text);
+        font-weight: 750;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+      }
+
+      .map-node.active,
+      .map-node.ready {
+        border-color: rgba(112, 240, 209, 0.42);
+        box-shadow: 0 0 28px rgba(112, 240, 209, 0.18), 0 18px 40px rgba(0, 0, 0, 0.28);
+      }
+
+      .map-node.shaky {
+        border-color: rgba(245, 199, 106, 0.55);
+        box-shadow: 0 0 28px rgba(245, 199, 106, 0.2), 0 18px 40px rgba(0, 0, 0, 0.28);
+      }
+
+      .map-node.repair {
+        border-color: rgba(145, 184, 255, 0.58);
+        box-shadow: 0 0 30px rgba(145, 184, 255, 0.28), 0 18px 40px rgba(0, 0, 0, 0.28);
+        animation: repairAppear 800ms cubic-bezier(0.18, 0.9, 0.2, 1.2) forwards;
+      }
+
+      .map-node.mastered {
+        border-color: rgba(198, 245, 111, 0.5);
+        background: rgba(198, 245, 111, 0.12);
+      }
+
+      .map-edge {
+        position: absolute;
+        height: 3px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.15);
+        transform-origin: left center;
+      }
+
+      .map-edge.active,
+      .map-edge.appearing {
+        background: linear-gradient(90deg, var(--blue), var(--cyan));
+        box-shadow: 0 0 16px rgba(145, 184, 255, 0.35);
+        animation: growEdge 900ms ease forwards;
+        transform: scaleX(0) rotate(var(--angle));
+      }
+
+      .map-edge.completed {
+        background: linear-gradient(90deg, var(--green), var(--gold));
+      }
+
+      .source-note {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 12px 14px;
+        color: var(--muted);
+        background: rgba(0, 0, 0, 0.14);
+        margin-top: 18px;
+      }
+
+      @keyframes placeBlock {
+        to {
+          transform: translateY(0) rotateX(0deg);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeUp {
+        from {
+          transform: translateY(12px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes drawLine {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes labelPop {
+        from {
+          transform: translateY(8px) scale(0.94);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes repairAppear {
+        from {
+          transform: scale(0.72);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes growEdge {
+        to {
+          transform: scaleX(1) rotate(var(--angle));
+        }
+      }
+
+      @media (max-width: 980px) {
+        header {
+          display: block;
+        }
+
+        .pill-row {
+          margin-top: 18px;
+        }
+
+        .gallery {
+          grid-template-columns: 1fr;
+        }
+
+        .flow {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 1ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <h1>Aura Animation Template Gallery</h1>
+          <p class="subtitle">
+            Reusable frontend-owned animation templates filled with diverse LLM-style JSON. The model supplies content; the UI keeps the motion safe, polished, and accessible.
+          </p>
+        </div>
+        <div class="pill-row" aria-label="Design constraints">
+          <span class="pill">No AI UI code</span>
+          <span class="pill">Reduced-motion ready</span>
+          <span class="pill">Minecraft-inspired</span>
+        </div>
+      </header>
+
+      <section id="gallery" class="gallery" aria-label="Animation templates"></section>
+
+      <p class="source-note">
+        Implementation note: this prototype is one static HTML file. In React, each template becomes a registry component and the JSON below becomes validated card data.
+      </p>
+    </main>
+
+    <script>
+      const samples = [
+        {
+          id: "anim_2x_vs_x2",
+          template: "side_by_side",
+          title: "2x and x² are different moves",
+          left: {
+            label: "2x",
+            meaning: "x + x",
+            examples: ["If x = 3, then 2x = 6"],
+            color: "blue",
+          },
+          right: {
+            label: "x²",
+            meaning: "x × x",
+            examples: ["If x = 3, then x² = 9"],
+            color: "amber",
+          },
+          highlightDifference: "2x doubles x. x² multiplies x by itself.",
+          reducedMotionFallback: "Show both meanings side by side without movement.",
+          accessibilityLabel: "Comparison of two x and x squared.",
+        },
+        {
+          id: "anim_sine_build",
+          template: "build_blocks",
+          title: "Build sine from three blocks",
+          blocks: [
+            { id: "right_triangle", label: "Right Triangle", description: "The base", state: "stable", color: "stone" },
+            { id: "opposite", label: "Opposite", description: "Across from angle", state: "placing", color: "grass" },
+            { id: "hypotenuse", label: "Hypotenuse", description: "Longest side", state: "placing", color: "gold" },
+          ],
+          buildOrder: ["right_triangle", "opposite", "hypotenuse"],
+          finalStructureLabel: "Sine = opposite / hypotenuse",
+          reducedMotionFallback: "Show the three blocks already stacked with labels.",
+          accessibilityLabel: "Sine built from right triangle, opposite side, and hypotenuse.",
+        },
+        {
+          id: "anim_photosynthesis_flow",
+          template: "flow_steps",
+          title: "Photosynthesis as a flow",
+          steps: [
+            { id: "light", label: "Light", detail: "Energy arrives", icon: "Light" },
+            { id: "chlorophyll", label: "Chlorophyll", detail: "Catches light", icon: "Leaf" },
+            { id: "glucose", label: "Glucose", detail: "Food is made", icon: "Sugar" },
+            { id: "oxygen", label: "Oxygen", detail: "Released out", icon: "O2" },
+          ],
+          arrows: [
+            { from: "light", to: "chlorophyll" },
+            { from: "chlorophyll", to: "glucose" },
+            { from: "glucose", to: "oxygen" },
+          ],
+          reducedMotionFallback: "Show the process as a numbered list.",
+          accessibilityLabel: "Photosynthesis flow from light to glucose and oxygen.",
+        },
+        {
+          id: "anim_triangle_sides",
+          template: "highlight_diagram",
+          title: "Find the two sides sine uses",
+          diagramType: "right_triangle",
+          labels: [
+            { id: "opposite", text: "Opposite", target: "side_across_angle", explanation: "Across from the angle" },
+            { id: "hypotenuse", text: "Hypotenuse", target: "longest_side", explanation: "Across from the square corner" },
+          ],
+          highlightOrder: ["opposite", "hypotenuse"],
+          reducedMotionFallback: "Show both labels at once.",
+          accessibilityLabel: "Right triangle showing opposite and hypotenuse.",
+        },
+        {
+          id: "anim_momentum_formula",
+          template: "symbol_transform",
+          title: "Unpack momentum",
+          startExpression: "p = mv",
+          steps: [
+            { expression: "m", explanation: "mass: how much stuff", highlight: "m" },
+            { expression: "v", explanation: "velocity: how fast and which way", highlight: "v" },
+            { expression: "m × v", explanation: "momentum combines both", highlight: "m × v" },
+          ],
+          finalMeaning: "More mass or more velocity means more momentum.",
+          reducedMotionFallback: "Show p equals mass times velocity.",
+          accessibilityLabel: "Momentum formula p equals m times v unpacked.",
+        },
+        {
+          id: "anim_repair_node_appears",
+          template: "map_path_unlock",
+          title: "A gentler path appears",
+          nodes: [
+            { id: "ratios", label: "Ratios", state: "shaky", x: 36, y: 90 },
+            { id: "ratio_intuition", label: "Ratio Intuition", state: "repair", x: 250, y: 38 },
+            { id: "sine", label: "Sine", state: "locked", x: 466, y: 90 },
+            { id: "side_names", label: "Side Names", state: "mastered", x: 36, y: 196 },
+          ],
+          edges: [
+            { from: "ratios", to: "ratio_intuition", state: "appearing" },
+            { from: "ratio_intuition", to: "sine", state: "active" },
+            { from: "side_names", to: "ratios", state: "completed" },
+          ],
+          focusNodeId: "ratio_intuition",
+          event: "repair_discovered",
+          reducedMotionFallback: "Show the new repair node already connected.",
+          accessibilityLabel: "A repair node called Ratio Intuition appears between Ratios and Sine.",
+        },
+      ];
+
+      const colorMap = {
+        blue: "var(--blue)",
+        green: "var(--green)",
+        amber: "var(--amber)",
+        red: "var(--red)",
+      };
+
+      function cardShell(item, body) {
+        return `
+          <article class="card" aria-label="${escapeHtml(item.accessibilityLabel || item.title)}">
+            <div class="card-head">
+              <h2 class="card-title">${escapeHtml(item.title)}</h2>
+              <span class="template-name">${escapeHtml(item.template)}</span>
+            </div>
+            <div class="stage">${body}</div>
+          </article>
+        `;
+      }
+
+      function renderSideBySide(item) {
+        const leftColor = colorMap[item.left.color] || "var(--blue)";
+        const rightColor = colorMap[item.right.color] || "var(--amber)";
+        return cardShell(
+          item,
+          `
+          <div class="split">
+            ${renderComparePane(item.left, leftColor)}
+            ${renderComparePane(item.right, rightColor)}
+          </div>
+          <div class="difference">${escapeHtml(item.highlightDifference)}</div>
+          <p class="caption">${escapeHtml(item.reducedMotionFallback)}</p>
+        `,
+        );
+      }
+
+      function renderComparePane(side, color) {
+        return `
+          <div class="compare-pane" style="--pane-color:${color}">
+            <div class="compare-label">${escapeHtml(side.label)}</div>
+            <div class="compare-meaning">${escapeHtml(side.meaning)}</div>
+            ${(side.examples || [])
+              .map((example) => `<div class="compare-example">${escapeHtml(example)}</div>`)
+              .join("")}
+          </div>
+        `;
+      }
+
+      function renderBuildBlocks(item) {
+        const order = new Map(item.buildOrder.map((id, index) => [id, index]));
+        const sorted = [...item.blocks].sort((a, b) => order.get(a.id) - order.get(b.id));
+        return cardShell(
+          item,
+          `
+          <div class="blocks">
+            ${sorted
+              .map(
+                (block, index) => `
+                  <div class="block ${escapeHtml(block.color || "stone")}" style="animation-delay:${index * 220}ms">
+                    ${escapeHtml(block.label)}
+                    ${block.description ? `<small>${escapeHtml(block.description)}</small>` : ""}
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+          <div class="structure-label">${escapeHtml(item.finalStructureLabel)}</div>
+          <p class="caption">${escapeHtml(item.accessibilityLabel)}</p>
+        `,
+        );
+      }
+
+      function renderFlowSteps(item) {
+        return cardShell(
+          item,
+          `
+          <div class="flow">
+            ${item.steps
+              .map(
+                (step, index) => `
+                  <div class="flow-step" style="animation-delay:${index * 170}ms">
+                    <div class="flow-icon">${escapeHtml(step.icon || String(index + 1))}</div>
+                    <div class="flow-label">${escapeHtml(step.label)}</div>
+                    ${step.detail ? `<div class="flow-detail">${escapeHtml(step.detail)}</div>` : ""}
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+          <p class="caption">${escapeHtml(item.accessibilityLabel)}</p>
+        `,
+        );
+      }
+
+      function renderHighlightDiagram(item) {
+        const labelPositions = {
+          opposite: "left: 84px; top: 64px;",
+          hypotenuse: "right: 62px; top: 128px;",
+          adjacent: "left: 250px; bottom: 46px;",
+        };
+        return cardShell(
+          item,
+          `
+          <div class="triangle-wrap">
+            <svg width="360" height="220" viewBox="0 0 360 220" role="img" aria-label="${escapeHtml(item.accessibilityLabel)}">
+              <line class="tri-side" x1="56" y1="178" x2="300" y2="178"></line>
+              <line class="tri-side" x1="56" y1="178" x2="56" y2="46"></line>
+              <line class="tri-side" x1="56" y1="46" x2="300" y2="178"></line>
+              <path d="M56 150 L84 150 L84 178" fill="none" stroke="rgba(245,240,231,0.65)" stroke-width="4"></path>
+              ${item.highlightOrder
+                .map((id, index) => {
+                  if (id === "opposite") {
+                    return `<line class="tri-highlight" style="color:var(--green); stroke:var(--green); animation-delay:${index * 700}ms" x1="56" y1="46" x2="56" y2="178"></line>`;
+                  }
+                  if (id === "hypotenuse") {
+                    return `<line class="tri-highlight" style="color:var(--amber); stroke:var(--amber); animation-delay:${index * 700}ms" x1="56" y1="46" x2="300" y2="178"></line>`;
+                  }
+                  return "";
+                })
+                .join("")}
+            </svg>
+            ${item.labels
+              .map(
+                (label, index) => `
+                  <div class="diagram-label" style="${labelPositions[label.id] || "left: 30px; top: 30px;"} animation-delay:${index * 700 + 260}ms">
+                    ${escapeHtml(label.text)}
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+          <p class="caption">${escapeHtml(item.reducedMotionFallback)}</p>
+        `,
+        );
+      }
+
+      function renderSymbolTransform(item) {
+        return cardShell(
+          item,
+          `
+          <div class="symbol-stage">
+            <div>
+              <div class="expression">${escapeHtml(item.startExpression)}</div>
+              <div class="transform-steps">
+                ${item.steps
+                  .map(
+                    (step, index) => `
+                      ${index > 0 ? `<span class="arrow">→</span>` : ""}
+                      <div class="transform-chip" style="animation-delay:${index * 190}ms">
+                        <strong>${escapeHtml(step.expression)}</strong>
+                        <div class="flow-detail">${escapeHtml(step.explanation)}</div>
+                      </div>
+                    `,
+                  )
+                  .join("")}
+              </div>
+            </div>
+          </div>
+          <div class="difference">${escapeHtml(item.finalMeaning)}</div>
+        `,
+        );
+      }
+
+      function renderMapPathUnlock(item) {
+        const nodeById = new Map(item.nodes.map((node) => [node.id, node]));
+        return cardShell(
+          item,
+          `
+          <div class="map-stage">
+            ${item.edges
+              .map((edge) => {
+                const from = nodeById.get(edge.from);
+                const to = nodeById.get(edge.to);
+                const x1 = from.x + 132;
+                const y1 = from.y + 39;
+                const x2 = to.x;
+                const y2 = to.y + 39;
+                const dx = x2 - x1;
+                const dy = y2 - y1;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const angle = Math.atan2(dy, dx) + "rad";
+                return `<div class="map-edge ${escapeHtml(edge.state)}" style="left:${x1}px; top:${y1}px; width:${length}px; --angle:${angle};"></div>`;
+              })
+              .join("")}
+            ${item.nodes
+              .map(
+                (node) => `
+                  <div class="map-node ${escapeHtml(node.state)}" style="left:${node.x}px; top:${node.y}px;">
+                    ${escapeHtml(node.label)}
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+          <div class="difference">New stepping stone discovered: Ratio Intuition.</div>
+        `,
+        );
+      }
+
+      const renderers = {
+        side_by_side: renderSideBySide,
+        build_blocks: renderBuildBlocks,
+        flow_steps: renderFlowSteps,
+        highlight_diagram: renderHighlightDiagram,
+        symbol_transform: renderSymbolTransform,
+        map_path_unlock: renderMapPathUnlock,
+      };
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      document.getElementById("gallery").innerHTML = samples
+        .map((item) => renderers[item.template](item))
+        .join("");
+    </script>
+  </body>
+</html>

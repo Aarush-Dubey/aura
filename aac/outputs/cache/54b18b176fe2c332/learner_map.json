@@ -1,0 +1,271 @@
+{
+  "topic": "quadratic equations",
+  "subject": "Mathematics",
+  "grade_level": "10",
+  "student_uuid": "neuromap-demo-learner",
+  "nodes": [
+    {
+      "id": "equation_balance",
+      "label": "Equation as balance",
+      "status": "known",
+      "reason": "Profile suggests Equation as balance may already be familiar, so keep it short.",
+      "source": "graph_plus_template",
+      "grade_level_fit": "safe",
+      "visual_type": "balance_scale",
+      "scene_goal": "An equation is a math sentence where both sides match.",
+      "depends_on": [],
+      "replaces_raw_node_ids": [
+        "0ba66b3c-cd5e-42a6-876a-2202c2c57c5b",
+        "ce413fe7-fd4f-463c-aa41-e21e47aa451b",
+        "6d56a4c3-5ee5-4272-9bb1-a88785e73f8d"
+      ]
+    },
+    {
+      "id": "equals_sign",
+      "label": "Equals sign",
+      "status": "new",
+      "reason": "Equals sign is needed before the main topic feels safe.",
+      "source": "generated_prerequisite",
+      "grade_level_fit": "safe",
+      "visual_type": "balance_scale",
+      "scene_goal": "The equals sign means the left and right sides have the same value.",
+      "depends_on": [
+        "equation_balance"
+      ],
+      "replaces_raw_node_ids": []
+    },
+    {
+      "id": "left_right_sides",
+      "label": "Left side / right side",
+      "status": "new",
+      "reason": "Left side / right side is needed before the main topic feels safe.",
+      "source": "generated_prerequisite",
+      "grade_level_fit": "safe",
+      "visual_type": "balance_scale",
+      "scene_goal": "Equations have two sides that we compare.",
+      "depends_on": [
+        "equals_sign"
+      ],
+      "replaces_raw_node_ids": []
+    },
+    {
+      "id": "variable",
+      "label": "Variable",
+      "status": "new",
+      "reason": "Variable is needed before the main topic feels safe.",
+      "source": "generated_prerequisite",
+      "grade_level_fit": "safe",
+      "visual_type": "flip_tile",
+      "scene_goal": "A variable like x is a number we do not know yet.",
+      "depends_on": [
+        "left_right_sides"
+      ],
+      "replaces_raw_node_ids": []
+    },
+    {
+      "id": "substitution",
+      "label": "Substitution",
+      "status": "new",
+      "reason": "Substitution is needed before the main topic feels safe.",
+      "source": "generated_prerequisite",
+      "grade_level_fit": "safe",
+      "visual_type": "drag_match",
+      "scene_goal": "Substitution means trying a value in place of x.",
+      "depends_on": [
+        "variable"
+      ],
+      "replaces_raw_node_ids": []
+    },
+    {
+      "id": "squared",
+      "label": "Squared",
+      "status": "new",
+      "reason": "Squared is needed before the main topic feels safe.",
+      "source": "generated_prerequisite",
+      "grade_level_fit": "safe",
+      "visual_type": "flip_tile",
+      "scene_goal": "x squared means x multiplied by itself.",
+      "depends_on": [
+        "variable"
+      ],
+      "replaces_raw_node_ids": []
+    },
+    {
+      "id": "x2_vs_2x",
+      "label": "x² vs 2x",
+      "status": "new",
+      "reason": "x² vs 2x is needed before the main topic feels safe.",
+      "source": "generated_prerequisite",
+      "grade_level_fit": "safe",
+      "visual_type": "drag_match",
+      "scene_goal": "x² and 2x look similar but mean different things.",
+      "depends_on": [
+        "squared"
+      ],
+      "replaces_raw_node_ids": []
+    },
+    {
+      "id": "quadratic_form",
+      "label": "Quadratic form",
+      "status": "new",
+      "reason": "Quadratic form is needed before the main topic feels safe.",
+      "source": "graph_plus_template",
+      "grade_level_fit": "safe",
+      "visual_type": "math_tiles",
+      "scene_goal": "A quadratic equation has an x² part.",
+      "depends_on": [
+        "x2_vs_2x"
+      ],
+      "replaces_raw_node_ids": [
+        "0ba66b3c-cd5e-42a6-876a-2202c2c57c5b",
+        "ce413fe7-fd4f-463c-aa41-e21e47aa451b",
+        "6d56a4c3-5ee5-4272-9bb1-a88785e73f8d"
+      ]
+    },
+    {
+      "id": "parabola",
+      "label": "Parabola",
+      "status": "new",
+      "reason": "Parabola is needed before the main topic feels safe.",
+      "source": "graph_plus_template",
+      "grade_level_fit": "safe",
+      "visual_type": "parabola_graph",
+      "scene_goal": "The graph of a quadratic is a smooth U-shaped curve.",
+      "depends_on": [
+        "quadratic_form"
+      ],
+      "replaces_raw_node_ids": [
+        "995ef3f8-2afb-4721-ae0d-1ac34853eb8a",
+        "6c9616f6-6005-4903-bc95-b76234a86c90",
+        "4a2130b5-4618-4f12-8608-94573be7e1f8"
+      ]
+    },
+    {
+      "id": "roots",
+      "label": "Roots",
+      "status": "new",
+      "reason": "Roots is needed before the main topic feels safe.",
+      "source": "graph_plus_template",
+      "grade_level_fit": "safe",
+      "visual_type": "root_dots",
+      "scene_goal": "Roots are where the curve touches the x-axis.",
+      "depends_on": [
+        "parabola"
+      ],
+      "replaces_raw_node_ids": [
+        "4ca4628a-3bd3-4b17-b0a6-05d56f277a9f",
+        "72748e6a-b706-4c7a-be25-096a5df26ebb"
+      ]
+    },
+    {
+      "id": "solving",
+      "label": "Solving",
+      "status": "new",
+      "reason": "Solving is needed before the main topic feels safe.",
+      "source": "graph_plus_template",
+      "grade_level_fit": "safe",
+      "visual_type": "drag_match",
+      "scene_goal": "Solving means finding the x-values that make the equation balance.",
+      "depends_on": [
+        "roots"
+      ],
+      "replaces_raw_node_ids": [
+        "0e37eebf-6a30-4dc8-890c-b5a44ccf6285",
+        "4797e1e3-4c97-4c9f-983e-263ae24271c9",
+        "30a104d4-3b30-4f6c-bb75-f26900d43a16"
+      ]
+    }
+  ],
+  "removed_raw_nodes": [
+    {
+      "id": "09134cdb-a1b6-4d77-9152-3199b97cc1bf",
+      "label": "Quadratic equation solutions",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "1b499fee-98b4-4e96-8ba8-51aa553923fd",
+      "label": "Quadratic equation definition",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "b74289e7-5680-432a-a32e-26b8c07af989",
+      "label": "Quadratic formula structure",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "1b592b53-60f5-4c9c-8cb7-a1600d5ce6fd",
+      "label": "Quadratic discriminant value",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "6427b2d3-907b-4ae2-a9ff-9aec669de017",
+      "label": "Quadratic equation solutions",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "e50d882b-45c6-4e08-ad22-6914377535c7",
+      "label": "Quadratic equation coefficients",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "771bd5a0-8623-49bb-8951-ba3422db21d1",
+      "label": "Equation degree definition",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "3a5d2a30-375f-4fc6-b2b5-c22b7371b28f",
+      "label": "Polynomial degree concept",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "dee8dbb6-fa54-420c-850a-0c088efa9808",
+      "label": "Zero finding solution values",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "9a27072d-a43b-4964-8a90-41a591edd2f2",
+      "label": "Graph solution x-intercepts",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "38be175b-0df4-400a-bea4-c00739702893",
+      "label": "Quadratic x-intercepts and solutions",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "cae2c41d-cfeb-4494-8376-9ad18c4cbc0b",
+      "label": "graphical solution checking",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "3d2f7d0d-0d83-4fa2-b139-bbfbeef79604",
+      "label": "Pure quadratic equation",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "779d42c6-8fc5-498b-a273-0c05c30703ba",
+      "label": "Factoring middle term efficiently",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "a3b2fd85-9645-4ac5-83c2-ed6951d90d69",
+      "label": "Quadratic equation factorization",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "fa508c85-0828-4632-884b-cb4933ab5116",
+      "label": "Quadratic equations in real life",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "d908ad16-f8a4-426a-ba23-2e28b2c6d135",
+      "label": "Quadratic equations are important",
+      "reason": "Hidden from student path; kept as backend evidence."
+    },
+    {
+      "id": "168987f9-af3d-46d5-9008-7fff2f1948f2",
+      "label": "Quadratic equation application and thinking",
+      "reason": "Hidden from student path; kept as backend evidence."
+    }
+  ]
+}

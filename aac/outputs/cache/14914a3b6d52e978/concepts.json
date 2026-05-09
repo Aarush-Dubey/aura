@@ -1,0 +1,506 @@
+[
+  {
+    "id": "17f5dea4-513d-4f25-9e21-7d9fa4cbb1c9",
+    "label": "Linear relationship equation",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+    "claims": [
+      {
+        "id": "806eb341-ef25-4d21-b9cd-d2bf7b46378f",
+        "chunk_id": "1e7715c4-7ca8-4e26-aa84-f6a225d857b6",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Linear relationship",
+        "claim": "A linear relationship can be represented by a linear equation.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+        "evidence": "linear relationship",
+        "confidence": 1.0
+      },
+      {
+        "id": "50f52120-473a-450f-bb71-eedbe48874df",
+        "chunk_id": "1e7715c4-7ca8-4e26-aa84-f6a225d857b6",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Linear equation",
+        "claim": "A linear equation can be written to represent a situation.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+        "evidence": "write equations from real situations",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "feeadcdb-a98d-4262-9ad2-baf9def295a4",
+    "label": "Line equation components",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+    "claims": [
+      {
+        "id": "b3ddda5d-618c-4ba2-9785-046dca6a7ecb",
+        "chunk_id": "1e7715c4-7ca8-4e26-aa84-f6a225d857b6",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Equation components",
+        "claim": "The equation of a line in an experiment has two numbers and two variables.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+        "evidence": "The equation of the line in the experiment has two numbers and two variables.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "bca7e17b-cde3-4bb5-90bc-87e924032843",
+    "label": "Line steepness meaning",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+    "claims": [
+      {
+        "id": "225ebc23-496b-4967-a2c0-550e7dc64092",
+        "chunk_id": "1e7715c4-7ca8-4e26-aa84-f6a225d857b6",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Slope meaning",
+        "claim": "The slope of the line in this situation has a specific meaning.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+        "evidence": "What does the slope mean in this situation?",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "0ec087b9-ddfb-4075-9273-9f83ae9f8180",
+    "label": "Vertical intercept meaning",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+    "claims": [
+      {
+        "id": "009864e2-558a-4589-b98b-c3fa4aa5cc9b",
+        "chunk_id": "1e7715c4-7ca8-4e26-aa84-f6a225d857b6",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Vertical intercept meaning",
+        "claim": "The vertical intercept of the line has a specific meaning in this situation.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+        "evidence": "What does vertical intercept mean in this situation?",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "0a38e26c-44a2-49f0-94da-f137da763b02",
+    "label": "linear relationship",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+    "claims": [
+      {
+        "id": "3c4731a7-7111-4d90-80fa-63b965d75293",
+        "chunk_id": "78628a1b-71de-401c-81c9-9d68ba014678",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Linear Relationship",
+        "claim": "A constant rate of change means there is a linear relationship between two quantities.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+        "evidence": "This constant rate of change means there is a linear relationship between the number of marbles and the height of the water.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "f8edbab8-7fc4-48ca-8324-213505b57c54",
+    "label": "Slope is rate of change",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+    "claims": [
+      {
+        "id": "b5a0404a-3052-4418-beed-9458e42442a2",
+        "chunk_id": "78628a1b-71de-401c-81c9-9d68ba014678",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Slope as Rate of Change",
+        "claim": "The number 3 represents the rate of change, or slope of the graph.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+        "evidence": "The 3 represents the rate of change, or slope of the graph",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "3cb7d182-05b6-4506-a486-de896e6c5e2a",
+    "label": "Vertical intercept of a graph",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+    "claims": [
+      {
+        "id": "6ce8aae7-bee4-44bb-8bc2-3e19877e8b88",
+        "chunk_id": "78628a1b-71de-401c-81c9-9d68ba014678",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Vertical Intercept",
+        "claim": "The 50 represents the initial amount, or vertical intercept of the graph.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+        "evidence": "the 50 represents the initial amount, or vertical intercept of the graph",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "f7da4028-09c1-4f0e-b811-081d95daa7f9",
+    "label": "Calculating line slope",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+    "claims": [
+      {
+        "id": "57ae37d0-5dfb-4a7d-af55-b54b67ec6fc7",
+        "chunk_id": "78628a1b-71de-401c-81c9-9d68ba014678",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Calculating Slope from Points",
+        "claim": "The slope of a line is the quotient of the length of the vertical side of the slope triangle and the length of the horizontal side of the slope triangle.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+        "evidence": "The slope of this line is the quotient of the length of the vertical side of the slope triangle and the length of the horizontal side of the slope triangle.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "a6a61dca-9208-47b6-b7ba-1c4662672c8b",
+    "label": "Linear equation form",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+    "claims": [
+      {
+        "id": "085d9cc3-9534-461b-a050-0d7cca1fbcf4",
+        "chunk_id": "78628a1b-71de-401c-81c9-9d68ba014678",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Equation Form for Linear Relationships",
+        "claim": "Any linear relationships can be expressed in the form using just the rate of change, and the initial amount.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://access.openupresources.org/curricula/our6-8math-v3/en/default/grade-8/unit-3/section-b/lesson-7/student.html",
+        "evidence": "Any linear relationships can be expressed in the form using just the rate of change, and the initial amount",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "c3ec0d6a-8c80-4c7f-87a3-b6429bca0874",
+    "label": "Equation balance metaphor",
+    "type": "analogy",
+    "difficulty": 0.0,
+    "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+    "claims": [
+      {
+        "id": "530556b6-0a8b-41c3-8658-d1f42f569282",
+        "chunk_id": "67168901-3321-46c4-9442-3d69ec1b767b",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Equation as a balanced hanger",
+        "claim": "An equation represents a balanced hanger where expressions on either side have equal value.",
+        "type": "analogy",
+        "difficulty": 0.0,
+        "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+        "evidence": "We can think of a balanced hanger as a metaphor for an equation. An equation says that the expressions on either side have equal value, just like a balanced hanger has equal weights on either side.",
+        "confidence": 1.0
+      },
+      {
+        "id": "c442656b-1a73-41a4-a498-b1b148e89de2",
+        "chunk_id": "bd6b7bb6-036d-4333-bee2-e804999d366c",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Hanger as Equation Metaphor",
+        "claim": "A balanced hanger can be thought of as a metaphor for an equation.",
+        "type": "analogy",
+        "difficulty": 0.0,
+        "source_url": "https://math.libretexts.org/Bookshelves/PreAlgebra/Pre-Algebra_II_(Illustrative_Mathematics_-_Grade_8)/04%3A_Linear_Equations_and_Linear_Systems/4.02%3A_New_Page/4.2.1%3A_Keeping_the_Equation_Balanced",
+        "evidence": "We can think of a balanced hanger as a metaphor for an equation.",
+        "confidence": 1.0
+      },
+      {
+        "id": "d2449cec-48b9-4493-8489-ca3ec64afba9",
+        "chunk_id": "bd6b7bb6-036d-4333-bee2-e804999d366c",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Balancing Equation Concept",
+        "claim": "Finding another pair of values that makes the hanger balance is a way to find a solution.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://math.libretexts.org/Bookshelves/PreAlgebra/Pre-Algebra_II_(Illustrative_Mathematics_-_Grade_8)/04%3A_Linear_Equations_and_Linear_Systems/4.02%3A_New_Page/4.2.1%3A_Keeping_the_Equation_Balanced",
+        "evidence": "Can you find another pair of values that makes the hanger balance?",
+        "confidence": 0.9
+      },
+      {
+        "id": "31e192a1-5a43-4177-b341-bbbba283d0e6",
+        "chunk_id": "fe45b2bb-842d-4a4e-bda1-58c3a40e7083",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Balance analogy",
+        "claim": "An equation is like a balanced hanger where the weights on each side are equal.",
+        "type": "analogy",
+        "difficulty": 0.0,
+        "source_url": "https://math.libretexts.org/Bookshelves/PreAlgebra/Pre-Algebra_II_(Illustrative_Mathematics_-_Grade_8)/04%3A_Linear_Equations_and_Linear_Systems/4.02%3A_New_Page/4.2.1%3A_Keeping_the_Equation_Balanced",
+        "evidence": "just like a balanced hanger has equal weights on each side",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "ade94da9-a049-4b31-ace5-09943879930f",
+    "label": "Balancing equations by adding or subtracting",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+    "claims": [
+      {
+        "id": "e771f68f-c48c-4244-bd60-48c48553efaf",
+        "chunk_id": "67168901-3321-46c4-9442-3d69ec1b767b",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Maintaining balance in equations",
+        "claim": "Adding or subtracting the same amount from both sides of an equation keeps the sides equal.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+        "evidence": "adding or subtracting the same amount from both sides of an equation keeps the sides equal to each other.",
+        "confidence": 1.0
+      },
+      {
+        "id": "889ef113-dcef-439c-b3c8-bc5698009f18",
+        "chunk_id": "fe45b2bb-842d-4a4e-bda1-58c3a40e7083",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Maintaining equality by addition/subtraction",
+        "claim": "Adding or subtracting the same amount from each side of an equation maintains the equality.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://math.libretexts.org/Bookshelves/PreAlgebra/Pre-Algebra_II_(Illustrative_Mathematics_-_Grade_8)/04%3A_Linear_Equations_and_Linear_Systems/4.02%3A_New_Page/4.2.1%3A_Keeping_the_Equation_Balanced",
+        "evidence": "adding or subtracting the same amount from each side of an equation maintains the equality",
+        "confidence": 1.0
+      },
+      {
+        "id": "4290bc6b-1f65-4a33-b4d1-6d124bbcba73",
+        "chunk_id": "fe45b2bb-842d-4a4e-bda1-58c3a40e7083",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Manipulating equations",
+        "claim": "We can perform adding or subtracting the same amount from each side of an equation.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://math.libretexts.org/Bookshelves/PreAlgebra/Pre-Algebra_II_(Illustrative_Mathematics_-_Grade_8)/04%3A_Linear_Equations_and_Linear_Systems/4.02%3A_New_Page/4.2.1%3A_Keeping_the_Equation_Balanced",
+        "evidence": "We can do these moves with equations as well: adding or subtracting the same amount from each side of an equation maintains the equality",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "a952fc05-7a83-4c0f-86fa-3bada3b37f97",
+    "label": "Solving linear equations",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+    "claims": [
+      {
+        "id": "82fef46d-68a7-48ce-888f-39bb3c1deff2",
+        "chunk_id": "67168901-3321-46c4-9442-3d69ec1b767b",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Solving linear equations",
+        "claim": "Using systematic moves on both sides of an equation can find the value of a variable, such as x.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+        "evidence": "Using these moves in systematic ways, we can find that x=-1 is a solution to this equation.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "eff312df-610d-46f3-99a0-53c7fb521636",
+    "label": "System of linear equations",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+    "claims": [
+      {
+        "id": "69f45b0d-6b84-428f-9b48-5cddb9980efd",
+        "chunk_id": "67168901-3321-46c4-9442-3d69ec1b767b",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "System of linear equations",
+        "claim": "A system of equations is a set of two or more equations where the letters represent the same values.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+        "evidence": "A system of equations is a set of 2 (or more) equations where the letters represent the same values.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "b9327fe8-4522-474f-9b77-b5df0e8c8444",
+    "label": "Distance speed time formula",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+    "claims": [
+      {
+        "id": "a88313f5-c2f0-4475-b995-e23109980bc6",
+        "chunk_id": "dae130c9-d706-44cd-b250-354d5a9f5b5e",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Linear Equation for Distance",
+        "claim": "The distance traveled by an object moving at a constant speed can be represented by an equation of the form d = rt, where d is distance, r is rate (speed), and t is time.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+        "evidence": "The distance in miles it has traveled from the rest area after t hours is d=75t.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "d5fd25fb-869b-4c7f-9400-fdde0c59d0b6",
+    "label": "Intersection Point Solving",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+    "claims": [
+      {
+        "id": "1b7f1b22-1eed-4006-b1ab-3ddc0deb773a",
+        "chunk_id": "dae130c9-d706-44cd-b250-354d5a9f5b5e",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Solving for Intersection Point",
+        "claim": "To find a time when two objects are at the same distance from a reference point, you set their distance equations equal to each other and solve for the time variable.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+        "evidence": "Since we are asking when the d values for each car will be the same, we are asking for what t value, if any, makes 75t=14−65t true.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "45f339f3-d7f2-46d2-a3c6-14ef91975b13",
+    "label": "Solving linear equations",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+    "claims": [
+      {
+        "id": "7440c2c4-ac5c-4ba4-8398-00da55da377a",
+        "chunk_id": "dae130c9-d706-44cd-b250-354d5a9f5b5e",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Example of Solving Linear Equation",
+        "claim": "Solving the equation 75t = 14 - 65t yields a solution of t = 0.1 hours, meaning both cars are 7.5 miles away at that time.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+        "evidence": "Solving this equation for t, we find that t=0.1 is a solution and at that time the cars are 7.5 miles away since 75t=75⋅0.1=7.5.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "c59bdedb-f8de-4520-8e9b-cb2f925a6573",
+    "label": "Meeting point distance equation",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+    "claims": [
+      {
+        "id": "260244c6-c896-426c-85cd-6ddd1a84b4ef",
+        "chunk_id": "dae130c9-d706-44cd-b250-354d5a9f5b5e",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Meeting Point Problem Setup",
+        "claim": "When two objects are moving toward each other or in the same direction, finding when they meet involves setting their distance equations equal to each other (when they have traveled the same total distance).",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+        "evidence": "To find when Lin and Diego meet, that is, when they have traveled the same total distance, we can set the two equations equal to one another: 18t=12(t+14).",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "id": "704df970-4c6d-4cb5-9468-71d707fa0753",
+    "label": "Solving linear equations for time",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+    "claims": [
+      {
+        "id": "e4b0b96d-0a57-4653-9c2d-d601c7bc2b08",
+        "chunk_id": "dae130c9-d706-44cd-b250-354d5a9f5b5e",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Solving Meeting Time Example",
+        "claim": "Solving the meeting equation 18t = 12(t+14) results in t = 12, meaning they meet after Diego rides for one half hour and Lin rides for three quarters of an hour.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://secondarymath.jordandistrict.org/8th-grade-unit-4/",
+        "evidence": "Solving this equation for t, 18t=12t+3 6t=3 t=12 They meet after Diego rides for one half hour and Lin rides for three quarters of an hour.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "e67b1393-66cb-4ca8-8da3-cb9755c15566",
+    "label": "Hanger balance and tilt",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://math.libretexts.org/Bookshelves/PreAlgebra/Pre-Algebra_II_(Illustrative_Mathematics_-_Grade_8)/04%3A_Linear_Equations_and_Linear_Systems/4.02%3A_New_Page/4.2.1%3A_Keeping_the_Equation_Balanced",
+    "claims": [
+      {
+        "id": "2d9d380e-9c88-4529-81d5-54edee8c3aa7",
+        "chunk_id": "bd6b7bb6-036d-4333-bee2-e804999d366c",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Balanced Hanger Concept",
+        "claim": "If we have equal weights on the ends of a hanger, then the hanger will be in balance.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://math.libretexts.org/Bookshelves/PreAlgebra/Pre-Algebra_II_(Illustrative_Mathematics_-_Grade_8)/04%3A_Linear_Equations_and_Linear_Systems/4.02%3A_New_Page/4.2.1%3A_Keeping_the_Equation_Balanced",
+        "evidence": "If we have equal weights on the ends of a hanger, then the hanger will be in balance.",
+        "confidence": 1.0
+      },
+      {
+        "id": "c4d819eb-8494-4bb1-b4d0-0933aa56d172",
+        "chunk_id": "bd6b7bb6-036d-4333-bee2-e804999d366c",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Unbalanced Hanger Concept",
+        "claim": "If there is more weight on one side than the other, the hanger will tilt to the heavier side.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://math.libretexts.org/Bookshelves/PreAlgebra/Pre-Algebra_II_(Illustrative_Mathematics_-_Grade_8)/04%3A_Linear_Equations_and_Linear_Systems/4.02%3A_New_Page/4.2.1%3A_Keeping_the_Equation_Balanced",
+        "evidence": "If there is more weight on one side than the other, the hanger will tilt to the heavier side.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "d5f47a89-4f93-42fe-aa75-fb68e276a797",
+    "label": "Equation definition",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://math.libretexts.org/Bookshelves/PreAlgebra/Pre-Algebra_II_(Illustrative_Mathematics_-_Grade_8)/04%3A_Linear_Equations_and_Linear_Systems/4.02%3A_New_Page/4.2.1%3A_Keeping_the_Equation_Balanced",
+    "claims": [
+      {
+        "id": "e2577c0c-e909-459a-a21e-75122873e2a4",
+        "chunk_id": "fe45b2bb-842d-4a4e-bda1-58c3a40e7083",
+        "topic": "linear equations smoke pipeline 20260505 fixed",
+        "label": "Equation definition",
+        "claim": "An equation says that the expressions on each side have equal value.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://math.libretexts.org/Bookshelves/PreAlgebra/Pre-Algebra_II_(Illustrative_Mathematics_-_Grade_8)/04%3A_Linear_Equations_and_Linear_Systems/4.02%3A_New_Page/4.2.1%3A_Keeping_the_Equation_Balanced",
+        "evidence": "An equation says that the expressions on each side have equal value",
+        "confidence": 1.0
+      }
+    ]
+  }
+]

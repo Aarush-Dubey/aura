@@ -1,0 +1,597 @@
+{
+  "student_uuid": "class-9-10-demo-learner",
+  "curriculum": {
+    "subject": "Physics",
+    "grade_level": "9",
+    "topics": [
+      "momentum"
+    ],
+    "learning_goals": [
+      "Understand momentum",
+      "Apply momentum with examples"
+    ],
+    "constraints": [
+      "Class 9 or 10 level",
+      "short teaching chunks",
+      "worked examples",
+      "avoid walls of text",
+      "include misconception checks"
+    ]
+  },
+  "modules": [
+    {
+      "order": 1,
+      "concept_id": "ba2f85f5-3dcb-454c-8259-c83fc4c74d2c",
+      "concept": "Linear momentum formula",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Linear momentum formula to audio plus two flip cards with one sentence each.",
+      "source_url": "https://openstax.org/books/university-physics-volume-1/pages/9-1-linear-momentum",
+      "reading_paragraph": "Linear momentum formula: The formula for linear momentum is mass times velocity. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Linear momentum formula: The formula for linear momentum is mass times velocity. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Linear momentum formula: The formula for linear momentum is mass times velocity. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 2,
+      "concept_id": "38730103-0081-4717-9ef5-d96f4ee34a3b",
+      "concept": "Object motion has momentum",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Object motion has momentum to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Object motion has momentum: If an object is in motion (on the move), then it has momentum. Key detail: If an object is in motion (on the move), then it has momentum. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Object motion has momentum: If an object is in motion (on the move), then it has momentum. Key detail: If an object is in motion (on the move), then it has momentum. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Object motion has momentum: If an object is in motion (on the move), then it has momentum. Key detail: If an object is in motion (on the move), then it has momentum.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 3,
+      "concept_id": "8e0118fd-4cb0-40b3-818d-d96af5fad7a7",
+      "concept": "Momentum unit standard",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Momentum unit standard to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Momentum unit standard: The standard metric unit for momentum is kg•m/s. Key detail: The standard metric unit for momentum is kg•m/s. Key detail: The standard metric unit of momentum is kg•m/s, but other units like kg•mi/hr, kg•km/hr, and g•cm/s are also acceptable. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Momentum unit standard: The standard metric unit for momentum is kg•m/s. Key detail: The standard metric unit for momentum is kg•m/s. Key detail: The standard metric unit of momentum is kg•m/s, but other units like kg•mi/hr, kg•km/hr, and g•cm/s are also acceptable. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Momentum unit standard: The standard metric unit for momentum is kg•m/s. Key detail: The standard metric unit for momentum is kg•m/s.",
+        "Key detail: The standard metric unit of momentum is kg•m/s, but other units like kg•mi/hr, kg•km/hr, and g•cm/s are also acceptable. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Momentum unit standard. Teach these exact points: Momentum unit standard: The standard metric unit for momentum is kg•m/s. Key detail: The standard metric unit for momentum is kg•m/s. Key detail: The standard metric unit of momentum is kg•m/s, but other units like kg•mi/hr, kg•km/hr, and g•cm/s are also acceptable. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 4,
+      "concept_id": "58f7b282-fbac-408c-8844-c6a06167fc88",
+      "concept": "Momentum direction equals velocity",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Momentum direction equals velocity to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Momentum direction equals velocity: The direction of the momentum vector is the same as the direction of the velocity of the ball. Key detail: The direction of the momentum vector is the same as the direction of the velocity of the object. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Momentum direction equals velocity: The direction of the momentum vector is the same as the direction of the velocity of the ball. Key detail: The direction of the momentum vector is the same as the direction of the velocity of the object. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Momentum direction equals velocity: The direction of the momentum vector is the same as the direction of the velocity of the ball. Key detail: The direction of the momentum vector is the same as the direction of the velocity of the object.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 5,
+      "concept_id": "a1705564-7af5-458d-8431-21d1b3ca436b",
+      "concept": "Large momentum condition",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Large momentum condition to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Large momentum condition: An object has large momentum if both its mass and its velocity are large. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Large momentum condition: An object has large momentum if both its mass and its velocity are large. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Large momentum condition: An object has large momentum if both its mass and its velocity are large. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 6,
+      "concept_id": "a7d7f19a-8ad1-4201-84a6-b881122a95ee",
+      "concept": "Object motion quantity",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Object motion quantity to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Object motion quantity: Momentum is a quantity that can be compared between objects, and the halfback and tight end have the greatest momentum, with both having the same amount. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Object motion quantity: Momentum is a quantity that can be compared between objects, and the halfback and tight end have the greatest momentum, with both having the same amount. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Object motion quantity: Momentum is a quantity that can be compared between objects, and the halfback and tight end have the greatest momentum, with both having the same amount. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Object motion quantity. Teach these exact points: Object motion quantity: Momentum is a quantity that can be compared between objects, and the halfback and tight end have the greatest momentum, with both having the same amount. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 7,
+      "concept_id": "9732c9c4-0e36-4166-87ed-73a0718350a5",
+      "concept": "Car momentum concept",
+      "format": "micro_chunk",
+      "duration_seconds": 112,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Car momentum concept to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a.cfm",
+      "reading_paragraph": "Car momentum concept: Momentum is a quantity possessed by a car, with an example of a car possessing 20,000 units of momentum. Key detail: A typical automobile with a speed of 15 m/s and a mass of 1400 kg has a momentum of 21,000 kg·ms. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Car momentum concept: Momentum is a quantity possessed by a car, with an example of a car possessing 20,000 units of momentum. Key detail: A typical automobile with a speed of 15 m/s and a mass of 1400 kg has a momentum of 21,000 kg·ms. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Car momentum concept: Momentum is a quantity possessed by a car, with an example of a car possessing 20,000 units of momentum. Key detail: A typical automobile with a speed of 15 m/s and a mass of 1400 kg has a momentum of 21,000 kg·ms.",
+        "Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 8,
+      "concept_id": "859fb1df-6d32-4819-bce3-1e4a58884f22",
+      "concept": "Momentum equation formula",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Momentum equation formula to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Momentum equation formula: The momentum equation is p = m*v. Key detail: The momentum equation is p = m*v. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Momentum equation formula: The momentum equation is p = m*v. Key detail: The momentum equation is p = m*v. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Momentum equation formula: The momentum equation is p = m*v. Key detail: The momentum equation is p = m*v.",
+        "Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 9,
+      "concept_id": "8038993e-f2a5-446c-808a-eb282d470bb3",
+      "concept": "Quantity of motion and mass",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quantity of motion and mass to audio plus two flip cards with one sentence each.",
+      "source_url": "https://openstax.org/books/university-physics-volume-1/pages/9-1-linear-momentum",
+      "reading_paragraph": "Quantity of motion and mass: Momentum is a physical quantity that includes both mass and velocity, characterizing the \"quantity of motion\" of an object. Key detail: The momentum (p) of an object is the product of its mass (m) and its velocity (v), represented by the formula p = mv. Key detail: The momentum of an object is equal to the mass of the object times the velocity of the object (p = m • v). Key detail: Unlike kinetic energy, momentum depends equally on an object’s mass and velocity.",
+      "audio_script": "I will go slowly. Quantity of motion and mass: Momentum is a physical quantity that includes both mass and velocity, characterizing the \"quantity of motion\" of an object. Key detail: The momentum (p) of an object is the product of its mass (m) and its velocity (v), represented by the formula p = mv. Key detail: The momentum of an object is equal to the mass of the object times the velocity of the object (p = m • v). Key detail: Unlike kinetic energy, momentum depends equally on an object’s mass and velocity.",
+      "text_chunks": [
+        "Quantity of motion and mass: Momentum is a physical quantity that includes both mass and velocity, characterizing the \"quantity of motion\" of an object. Key detail: The momentum (p) of an object is the product of its mass (m) and its velocity (v), represented by the formula p = mv.",
+        "Key detail: The momentum of an object is equal to the mass of the object times the velocity of the object (p = m • v). Key detail: Unlike kinetic energy, momentum depends equally on an object’s mass and velocity."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Quantity of motion and mass. Teach these exact points: Quantity of motion and mass: Momentum is a physical quantity that includes both mass and velocity, characterizing the \"quantity of motion\" of an object. Key detail: The momentum (p) of an object is the product of its mass (m) and its velocity (v), represented by the formula p = mv. Key detail: The momentum of an object is equal to the mass of the object times the velocity of the object (p = m • v). Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 10,
+      "concept_id": "923d1818-7a9d-4962-9ed8-a6ef944d9447",
+      "concept": "Molecular momentum",
+      "format": "diagram",
+      "duration_seconds": 127,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Molecular momentum to audio plus two flip cards with one sentence each.",
+      "source_url": "https://openstax.org/books/university-physics-volume-1/pages/9-1-linear-momentum",
+      "reading_paragraph": "Molecular momentum: The momentum of an air molecule at room temperature is 3×10−22 kg·ms. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Molecular momentum: The momentum of an air molecule at room temperature is 3×10−22 kg·ms. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Molecular momentum: The momentum of an air molecule at room temperature is 3×10−22 kg·ms. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Molecular momentum. Teach these exact points: Molecular momentum: The momentum of an air molecule at room temperature is 3×10−22 kg·ms. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 11,
+      "concept_id": "489d41a0-da48-41d0-b280-c19a30289ca6",
+      "concept": "Momentum scale difference",
+      "format": "animation",
+      "duration_seconds": 180,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Momentum scale difference to audio plus two flip cards with one sentence each.",
+      "source_url": "https://openstax.org/books/university-physics-volume-1/pages/9-1-linear-momentum",
+      "reading_paragraph": "Momentum scale difference: The momentum of a molecule and a car are vastly different, differing by 27 orders of magnitude (a factor of a billion billion billion). Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Momentum scale difference: The momentum of a molecule and a car are vastly different, differing by 27 orders of magnitude (a factor of a billion billion billion). Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Momentum scale difference: The momentum of a molecule and a car are vastly different, differing by 27 orders of magnitude (a factor of a billion billion billion). Map connection: this idea links by analogy_for to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Momentum scale difference. Teach these exact points: Momentum scale difference: The momentum of a molecule and a car are vastly different, differing by 27 orders of magnitude (a factor of a billion billion billion). Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 12,
+      "concept_id": "9d46d7e9-e013-4608-8d58-d9ca36ae2e0b",
+      "concept": "Momentum guides problem thinking",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Momentum guides problem thinking to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Momentum guides problem thinking: The momentum equation serves as a 'guide to thinking' and not merely a 'plug-and-chug recipe for algebraic problem-solving.'. Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Momentum guides problem thinking: The momentum equation serves as a 'guide to thinking' and not merely a 'plug-and-chug recipe for algebraic problem-solving.'. Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Momentum guides problem thinking: The momentum equation serves as a 'guide to thinking' and not merely a 'plug-and-chug recipe for algebraic problem-solving. '.",
+        "Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Momentum guides problem thinking. Teach these exact points: Momentum guides problem thinking: The momentum equation serves as a 'guide to thinking' and not merely a 'plug-and-chug recipe for algebraic problem-solving.'. Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 13,
+      "concept_id": "53495fff-5cb0-4e22-9fc2-060bf9609a84",
+      "concept": "Changing motion quickly",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Changing motion quickly to audio plus two flip cards with one sentence each.",
+      "source_url": "https://openstax.org/books/university-physics-volume-1/pages/9-1-linear-momentum",
+      "reading_paragraph": "Changing motion quickly: Momentum is most useful when determining whether an object’s motion is difficult or easy to change over a short time interval. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Changing motion quickly: Momentum is most useful when determining whether an object’s motion is difficult or easy to change over a short time interval. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Changing motion quickly: Momentum is most useful when determining whether an object’s motion is difficult or easy to change over a short time interval. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Changing motion quickly. Teach these exact points: Changing motion quickly: Momentum is most useful when determining whether an object’s motion is difficult or easy to change over a short time interval. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 14,
+      "concept_id": "41625e3c-bbfc-492a-8948-14f08d17af88",
+      "concept": "Team momentum builds and continues",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Team momentum builds and continues to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a.cfm",
+      "reading_paragraph": "Team momentum builds and continues: A team that has a lot of momentum is really on the move and is going to be hard to stop. Key detail: In sports, a team that has momentum is on the move and is going to take some effort to stop. Key detail: In sports, a team that has momentum is on the move and is going to take some effort to stop. Map connection: this idea links by analogy_for to nearby concepts.",
+      "audio_script": "I will go slowly. Team momentum builds and continues: A team that has a lot of momentum is really on the move and is going to be hard to stop. Key detail: In sports, a team that has momentum is on the move and is going to take some effort to stop. Key detail: In sports, a team that has momentum is on the move and is going to take some effort to stop. Map connection: this idea links by analogy_for to nearby concepts.",
+      "text_chunks": [
+        "Team momentum builds and continues: A team that has a lot of momentum is really on the move and is going to be hard to stop. Key detail: In sports, a team that has momentum is on the move and is going to take some effort to stop.",
+        "Key detail: In sports, a team that has momentum is on the move and is going to take some effort to stop. Map connection: this idea links by analogy_for to nearby concepts."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Team momentum builds and continues. Teach these exact points: Team momentum builds and continues: A team that has a lot of momentum is really on the move and is going to be hard to stop. Key detail: In sports, a team that has momentum is on the move and is going to take some effort to stop. Key detail: In sports, a team that has momentum is on the move and is going to take some effort to stop. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 15,
+      "concept_id": "e36d0a10-a08e-4928-ac04-3378e945a9d2",
+      "concept": "Momentum of rest",
+      "format": "flip_card",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Momentum of rest to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Momentum of rest: The momentum of any object that is at rest is 0; objects at rest do not have momentum. Key detail: Objects at rest do not have momentum. Map connection: this idea links by common_mistake_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Momentum of rest: The momentum of any object that is at rest is 0; objects at rest do not have momentum. Key detail: Objects at rest do not have momentum. Map connection: this idea links by common_mistake_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Momentum of rest: The momentum of any object that is at rest is 0; objects at rest do not have momentum. Key detail: Objects at rest do not have momentum.",
+        "Map connection: this idea links by common_mistake_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "flip_card"
+      ],
+      "reason": "Selected flip_card to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 16,
+      "concept_id": "971b218c-8084-4707-b26b-4a453f6554cc",
+      "concept": "Momentum relationship with mass and velocity",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Momentum relationship with mass and velocity to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Momentum relationship with mass and velocity: A doubling of the mass results in a doubling of the momentum when velocity is constant. Key detail: A quadrupling in velocity results in a quadrupling of the momentum when mass is constant. Key detail: A doubling of the mass results in a doubling of the momentum (if velocity stays the same). Key detail: A quadrupling in velocity results in a quadrupling of the momentum (if mass stays the same).",
+      "audio_script": "I will go slowly. Momentum relationship with mass and velocity: A doubling of the mass results in a doubling of the momentum when velocity is constant. Key detail: A quadrupling in velocity results in a quadrupling of the momentum when mass is constant. Key detail: A doubling of the mass results in a doubling of the momentum (if velocity stays the same). Key detail: A quadrupling in velocity results in a quadrupling of the momentum (if mass stays the same).",
+      "text_chunks": [
+        "Momentum relationship with mass and velocity: A doubling of the mass results in a doubling of the momentum when velocity is constant. Key detail: A quadrupling in velocity results in a quadrupling of the momentum when mass is constant.",
+        "Key detail: A doubling of the mass results in a doubling of the momentum (if velocity stays the same). Key detail: A quadrupling in velocity results in a quadrupling of the momentum (if mass stays the same)."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Momentum relationship with mass and velocity. Teach these exact points: Momentum relationship with mass and velocity: A doubling of the mass results in a doubling of the momentum when velocity is constant. Key detail: A quadrupling in velocity results in a quadrupling of the momentum when mass is constant. Key detail: A doubling of the mass results in a doubling of the momentum (if velocity stays the same). Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 17,
+      "concept_id": "038bfee1-882b-4aae-85b9-56b87d213de7",
+      "concept": "Relative speed comparison",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Relative speed comparison to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Relative speed comparison: Velocity is related to distance and time; the tight end travels twice the distance of the lineman in the same time, making the tight end twice as fast. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Relative speed comparison: Velocity is related to distance and time; the tight end travels twice the distance of the lineman in the same time, making the tight end twice as fast. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Relative speed comparison: Velocity is related to distance and time; the tight end travels twice the distance of the lineman in the same time, making the tight end twice as fast. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Relative speed comparison. Teach these exact points: Relative speed comparison: Velocity is related to distance and time; the tight end travels twice the distance of the lineman in the same time, making the tight end twice as fast. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 18,
+      "concept_id": "03055435-1c5e-4c0b-94be-cf24130111cb",
+      "concept": "Tight end speed advantage",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Tight end speed advantage to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a.cfm",
+      "reading_paragraph": "Tight end speed advantage: The player with the greatest momentum is the tight end, as the tight end travels twice as fast as the lineman. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Tight end speed advantage: The player with the greatest momentum is the tight end, as the tight end travels twice as fast as the lineman. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Tight end speed advantage: The player with the greatest momentum is the tight end, as the tight end travels twice as fast as the lineman. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Tight end speed advantage. Teach these exact points: Tight end speed advantage: The player with the greatest momentum is the tight end, as the tight end travels twice as fast as the lineman. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 19,
+      "concept_id": "5595ec1a-e69d-41d1-b557-8a907aedc149",
+      "concept": "Player momentum comparison",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Player momentum comparison to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/momentum/u4l1a",
+      "reading_paragraph": "Player momentum comparison: The halfback and tight end have the same amount of momentum (540 kg*m/s), which is greater than the lineman's momentum (360 kg*m/s). Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Player momentum comparison: The halfback and tight end have the same amount of momentum (540 kg*m/s), which is greater than the lineman's momentum (360 kg*m/s). Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Player momentum comparison: The halfback and tight end have the same amount of momentum (540 kg*m/s), which is greater than the lineman's momentum (360 kg*m/s). Map connection: this idea links by example_of, requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Player momentum comparison. Teach these exact points: Player momentum comparison: The halfback and tight end have the same amount of momentum (540 kg*m/s), which is greater than the lineman's momentum (360 kg*m/s). Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    }
+  ],
+  "modality_counts": {
+    "micro_chunk": 6,
+    "animation": 6,
+    "diagram": 6,
+    "flip_card": 1
+  },
+  "graph_node_count": 19
+}

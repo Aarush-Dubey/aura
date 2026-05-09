@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Local runtime state
+.env
+*.log
+*.err
+*.pid
+*.db
+*.db-shm
+*.db-wal
+
+# Local models and generated heavyweight runtime assets
+backend/models/
+models/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Unrelated local study material
+exam_work/
+
+# Generated AAC runtime sessions/state
+aac/runtime/

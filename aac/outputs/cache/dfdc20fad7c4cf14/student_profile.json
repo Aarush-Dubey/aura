@@ -1,0 +1,19 @@
+{
+  "uuid": "codex-pipeline-smoke-20260505",
+  "disability": [
+    "adhd",
+    "dyslexia"
+  ],
+  "strengths": [
+    "visual reasoning"
+  ],
+  "weaknesses": [
+    "dense reading",
+    "symbol confusion"
+  ],
+  "prior_knowledge": [
+    "basic arithmetic"
+  ],
+  "pace": "slow",
+  "preferred_modality": "mixed"
+}

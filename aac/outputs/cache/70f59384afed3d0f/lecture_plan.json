@@ -1,0 +1,1389 @@
+{
+  "student_uuid": "aura-student-demo",
+  "curriculum": {
+    "subject": "Science",
+    "grade_level": "8",
+    "topics": [
+      "photosynthesis"
+    ],
+    "learning_goals": [
+      "Understand photosynthesis",
+      "Apply photosynthesis with examples"
+    ],
+    "constraints": [
+      "short chunks",
+      "middle school reading level"
+    ]
+  },
+  "modules": [
+    {
+      "order": 1,
+      "concept_id": "296dcf49-53b3-47c6-8091-f6959d28723c",
+      "concept": "Plant food making process",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Plant food making process to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Plant food making process is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Plant food making process. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Plant food making process is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 2,
+      "concept_id": "8508b31d-a907-461b-ad4f-bce2f54d8878",
+      "concept": "Photosynthesis requirements",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis requirements to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Photosynthesis requirements is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis requirements. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis requirements is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 3,
+      "concept_id": "571b5d50-af37-4236-9a31-bfa86cf2d44f",
+      "concept": "Photosynthesis oxygen release",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis oxygen release to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Photosynthesis oxygen release is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis oxygen release. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis oxygen release is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis oxygen release. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 4,
+      "concept_id": "df115aea-3a62-400e-927d-9bc71e9f18dd",
+      "concept": "Photosynthesis products",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Photosynthesis products to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Photosynthesis products is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis products. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis products is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 5,
+      "concept_id": "f5b9b977-38e4-4e20-b6d6-85049c44329a",
+      "concept": "Glucose as plant food",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Glucose as plant food to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Glucose as plant food is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Glucose as plant food. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Glucose as plant food is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Glucose as plant food. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 6,
+      "concept_id": "2b57bba5-3637-49bc-af3f-bf950d3e9a96",
+      "concept": "Photosynthesis location in plants",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis location in plants to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Photosynthesis location in plants is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis location in plants. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis location in plants is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis location in plants. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 7,
+      "concept_id": "a2032309-e961-451d-8344-9360f7cc4881",
+      "concept": "Plant energy creation from light",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Plant energy creation from light to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Plant energy creation from light is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Plant energy creation from light. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Plant energy creation from light is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 8,
+      "concept_id": "1a9ee079-1593-4901-b347-e7609f463015",
+      "concept": "Plant cell wall strength",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Plant cell wall strength to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Plant cell wall strength is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Plant cell wall strength. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Plant cell wall strength is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Plant cell wall strength. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 9,
+      "concept_id": "14002972-3f5b-41b6-8836-4e9a1d13eb21",
+      "concept": "Photosynthesis energy production",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis energy production to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Photosynthesis energy production is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis energy production. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis energy production is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis energy production. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 10,
+      "concept_id": "574ef668-363e-41a5-8b8f-6af7578c22c2",
+      "concept": "Mineral absorption by roots",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Mineral absorption by roots to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Mineral absorption by roots is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Mineral absorption by roots. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Mineral absorption by roots is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Mineral absorption by roots. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 11,
+      "concept_id": "f805a63d-76db-48c9-b2b8-27948b84a13d",
+      "concept": "C3 Photosynthesis process",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch C3 Photosynthesis process to audio plus two flip cards with one sentence each.",
+      "source_url": "https://education.nationalgeographic.org/resource/photosynthesis/",
+      "reading_paragraph": "C3 Photosynthesis process is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning C3 Photosynthesis process. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "C3 Photosynthesis process is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: C3 Photosynthesis process. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 12,
+      "concept_id": "992ffd72-9339-41ae-993b-a86ae0f4db5a",
+      "concept": "C4 photosynthesis process",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch C4 photosynthesis process to audio plus two flip cards with one sentence each.",
+      "source_url": "https://education.nationalgeographic.org/resource/photosynthesis/",
+      "reading_paragraph": "C4 photosynthesis process is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning C4 photosynthesis process. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "C4 photosynthesis process is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: C4 photosynthesis process. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 13,
+      "concept_id": "964dd901-bdca-4375-a57d-e23e29760f6a",
+      "concept": "Food chain energy flow",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Food chain energy flow to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Food chain energy flow is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Food chain energy flow. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Food chain energy flow is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Food chain energy flow. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 14,
+      "concept_id": "6878b0ac-43de-4e0c-b7f3-e628e8bb512e",
+      "concept": "Photosynthesis word equation",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis word equation to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Photosynthesis word equation is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis word equation. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis word equation is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis word equation. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 15,
+      "concept_id": "1b9dc396-33aa-40b9-aad1-7f244cffe657",
+      "concept": "Photosynthesis for life",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis for life to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Photosynthesis for life is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis for life. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis for life is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis for life. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 16,
+      "concept_id": "7a2c8fdf-7754-4ef8-8ce4-5f3c09b5373d",
+      "concept": "Stomata for gas exchange",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Stomata for gas exchange to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Stomata for gas exchange is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Stomata for gas exchange. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Stomata for gas exchange is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 17,
+      "concept_id": "ceefcfc3-f0e8-46c6-8104-5366e7c9e903",
+      "concept": "Photosynthesis to Protein",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis to Protein to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Photosynthesis to Protein is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis to Protein. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis to Protein is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 18,
+      "concept_id": "6f5bbdde-3c88-4dcc-aa7f-64fb5c0be59b",
+      "concept": "Photosynthesis products",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis products to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Photosynthesis products is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis products. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis products is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis products. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 19,
+      "concept_id": "2816bad5-0cbe-402e-af74-d57610af8237",
+      "concept": "Glucose energy in respiration",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Glucose energy in respiration to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Glucose energy in respiration is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Glucose energy in respiration. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Glucose energy in respiration is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 20,
+      "concept_id": "4652ca95-25d8-4087-b691-86050ef787ec",
+      "concept": "Photosynthesis organelle",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Photosynthesis organelle to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Photosynthesis organelle is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis organelle. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis organelle is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 21,
+      "concept_id": "1e0b14d7-3cd7-435c-877e-7f6f77b2c41e",
+      "concept": "Plant energy storage molecule",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Plant energy storage molecule to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Plant energy storage molecule is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Plant energy storage molecule. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Plant energy storage molecule is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Plant energy storage molecule. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 22,
+      "concept_id": "a0b963cd-bed2-4fcb-8e70-329fd6d0a3fe",
+      "concept": "Plant energy storage",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Plant energy storage to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Plant energy storage is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Plant energy storage. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Plant energy storage is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Plant energy storage. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 23,
+      "concept_id": "4d776b93-a146-4d48-b6a6-3f237c23893b",
+      "concept": "Chlorophyll light absorption",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Chlorophyll light absorption to audio plus two flip cards with one sentence each.",
+      "source_url": "https://education.nationalgeographic.org/resource/photosynthesis/",
+      "reading_paragraph": "Chlorophyll light absorption is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Chlorophyll light absorption. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Chlorophyll light absorption is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Chlorophyll light absorption. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 24,
+      "concept_id": "6940651e-f23c-4f8a-892d-76811af8ad7b",
+      "concept": "Light energy makes chemical energy",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Light energy makes chemical energy to audio plus two flip cards with one sentence each.",
+      "source_url": "https://education.nationalgeographic.org/resource/photosynthesis/",
+      "reading_paragraph": "Light energy makes chemical energy is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Light energy makes chemical energy. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Light energy makes chemical energy is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Light energy makes chemical energy. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 25,
+      "concept_id": "8e378d1d-0a0a-4fb4-80a1-d22513108231",
+      "concept": "Light energy stored in sugar",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Light energy stored in sugar to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Light energy stored in sugar is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Light energy stored in sugar. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Light energy stored in sugar is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 26,
+      "concept_id": "3d770255-8779-4a2a-bee2-f7db4ad7bdee",
+      "concept": "Light-using food makers",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Light-using food makers to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Light-using food makers is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Light-using food makers. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Light-using food makers is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 27,
+      "concept_id": "a3d34f2a-bec1-4fe9-8342-c12f5677e97c",
+      "concept": "Energy carriers move energy",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Energy carriers move energy to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Energy carriers move energy is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Energy carriers move energy. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Energy carriers move energy is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Energy carriers move energy. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 28,
+      "concept_id": "c9192b18-0b21-46ea-82b0-0d999fef9fc2",
+      "concept": "Photosynthesis energy source",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Photosynthesis energy source to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Photosynthesis energy source is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis energy source. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis energy source is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 29,
+      "concept_id": "91210c63-7c8f-4800-b1eb-fa6b0580d7a8",
+      "concept": "Calvin cycle process",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Calvin cycle process to audio plus two flip cards with one sentence each.",
+      "source_url": "https://education.nationalgeographic.org/resource/photosynthesis/",
+      "reading_paragraph": "Calvin cycle process is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Calvin cycle process. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Calvin cycle process is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 30,
+      "concept_id": "cc0e0c5e-ce2c-4a66-b05d-737021c14223",
+      "concept": "C4 photosynthesis advantage",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch C4 photosynthesis advantage to audio plus two flip cards with one sentence each.",
+      "source_url": "https://education.nationalgeographic.org/resource/photosynthesis/",
+      "reading_paragraph": "C4 photosynthesis advantage is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning C4 photosynthesis advantage. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "C4 photosynthesis advantage is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: C4 photosynthesis advantage. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 31,
+      "concept_id": "3f02f06c-5b82-4bc7-9265-66dfc254b4cd",
+      "concept": "Photosynthesis water oxygen",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis water oxygen to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Photosynthesis water oxygen is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis water oxygen. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis water oxygen is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis water oxygen. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 32,
+      "concept_id": "744cb3e9-8cc0-4526-a276-4f0cae0e638c",
+      "concept": "Photosynthesis inputs",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Photosynthesis inputs to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Photosynthesis inputs is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis inputs. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis inputs is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 33,
+      "concept_id": "a118960e-b7dd-4987-9936-e25b357edced",
+      "concept": "Photosynthesis powers Earth's life",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis powers Earth's life to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Photosynthesis powers Earth's life is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis powers Earth's life. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis powers Earth's life is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis powers Earth's life. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 34,
+      "concept_id": "edf0a793-e179-4902-a651-ce40da9dcfcf",
+      "concept": "Stomata regulation mechanism",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Stomata regulation mechanism to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Stomata regulation mechanism is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Stomata regulation mechanism. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Stomata regulation mechanism is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Stomata regulation mechanism. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 35,
+      "concept_id": "bef11884-e5c7-4c94-8580-50213d176a89",
+      "concept": "Glucose formation process",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Glucose formation process to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Glucose formation process is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Glucose formation process. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Glucose formation process is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 36,
+      "concept_id": "1526d85f-7898-4c07-bf71-c1f38ebb3eae",
+      "concept": "Chloroplast structure",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Chloroplast structure to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Chloroplast structure is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Chloroplast structure. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Chloroplast structure is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Chloroplast structure. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 37,
+      "concept_id": "8fd7a7cf-3219-458d-8cfd-b1273af3abc4",
+      "concept": "Heterotrophs need other food",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Heterotrophs need other food to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Heterotrophs need other food is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Heterotrophs need other food. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Heterotrophs need other food is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 38,
+      "concept_id": "b3c68d58-6ebc-43ce-92fb-3ad47a6b0782",
+      "concept": "Photosynthesis energy source",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis energy source to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Photosynthesis energy source is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis energy source. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis energy source is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 39,
+      "concept_id": "a53c6f0a-0f4f-48a3-b7af-b9180727ec00",
+      "concept": "Calvin Cycle function",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Calvin Cycle function to audio plus two flip cards with one sentence each.",
+      "source_url": "https://education.nationalgeographic.org/resource/photosynthesis/",
+      "reading_paragraph": "Calvin Cycle function is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Calvin Cycle function. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Calvin Cycle function is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Calvin Cycle function. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 40,
+      "concept_id": "caa79aa8-4063-428c-9954-db35d60c9a0b",
+      "concept": "Photosynthesis stages",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Photosynthesis stages to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Photosynthesis stages is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis stages. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis stages is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 41,
+      "concept_id": "88dde068-d8b0-47f2-b3d7-6e549cc6ad6c",
+      "concept": "Calvin cycle process",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Calvin cycle process to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Calvin cycle process is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Calvin cycle process. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Calvin cycle process is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 42,
+      "concept_id": "eef1390c-2a5e-4119-89fa-8ecaf2de7aff",
+      "concept": "ATP NADPH usage in Calvin Cycle",
+      "format": "diagram",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch ATP NADPH usage in Calvin Cycle to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "ATP NADPH usage in Calvin Cycle is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning ATP NADPH usage in Calvin Cycle. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "ATP NADPH usage in Calvin Cycle is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: ATP NADPH usage in Calvin Cycle. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 43,
+      "concept_id": "ddd8d032-a486-485d-9628-171c40d849af",
+      "concept": "Photosynthesis maintains ecosystem balance",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis maintains ecosystem balance to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Photosynthesis maintains ecosystem balance is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis maintains ecosystem balance. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis maintains ecosystem balance is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 44,
+      "concept_id": "1f7c10b3-a090-451e-ac99-4349ab2e942b",
+      "concept": "Carbohydrate structure analogy",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Carbohydrate structure analogy to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+      "reading_paragraph": "Carbohydrate structure analogy is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Carbohydrate structure analogy. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Carbohydrate structure analogy is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Carbohydrate structure analogy. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 45,
+      "concept_id": "02aa2e74-a128-4462-b91d-8a0c1d4502c1",
+      "concept": "Thylakoid stacking structure",
+      "format": "animation",
+      "duration_seconds": 126,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Thylakoid stacking structure to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Thylakoid stacking structure is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Thylakoid stacking structure. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Thylakoid stacking structure is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Thylakoid stacking structure. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 46,
+      "concept_id": "01421e5a-b1a4-4847-8fff-2c9bd94d2ce4",
+      "concept": "Chemoautotrophs",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Chemoautotrophs to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Chemoautotrophs is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Chemoautotrophs. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Chemoautotrophs is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 47,
+      "concept_id": "94c18f02-cec3-4a17-804f-25100a2d8937",
+      "concept": "Photosynthesis sugar making",
+      "format": "micro_chunk",
+      "duration_seconds": 86,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Photosynthesis sugar making to audio plus two flip cards with one sentence each.",
+      "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+      "reading_paragraph": "Photosynthesis sugar making is one small idea to learn now. Look for what it does, then connect it to the next idea.",
+      "audio_script": "I will go slowly. Now we are learning Photosynthesis sugar making. Listen for the main idea first. Then notice one connection to something you already know.",
+      "text_chunks": [
+        "Photosynthesis sugar making is one small idea to learn now. Look for what it does, then connect it to the next idea."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    }
+  ],
+  "modality_counts": {
+    "micro_chunk": 21,
+    "animation": 11,
+    "diagram": 15
+  },
+  "graph_node_count": 47
+}

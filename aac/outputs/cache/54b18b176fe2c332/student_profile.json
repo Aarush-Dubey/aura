@@ -1,0 +1,23 @@
+{
+  "uuid": "neuromap-demo-learner",
+  "disability": [
+    "adhd",
+    "dyslexia"
+  ],
+  "strengths": [
+    "visual reasoning",
+    "pattern spotting"
+  ],
+  "weaknesses": [
+    "dense reading",
+    "working memory",
+    "symbol confusion"
+  ],
+  "prior_knowledge": [
+    "basic arithmetic",
+    "multiplication",
+    "simple algebra"
+  ],
+  "pace": "slow",
+  "preferred_modality": "mixed"
+}

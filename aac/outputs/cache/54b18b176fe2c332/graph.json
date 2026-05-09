@@ -1,0 +1,390 @@
+{
+  "curriculum": {
+    "subject": "Mathematics",
+    "grade_level": "10",
+    "topics": [
+      "quadratic equations"
+    ],
+    "learning_goals": [
+      "Understand quadratic equations",
+      "Apply quadratic equations with examples"
+    ],
+    "constraints": [
+      "short chunks",
+      "middle school reading level"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "0ba66b3c-cd5e-42a6-876a-2202c2c57c5b",
+      "label": "Quadratic equation name origin",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "relations": []
+    },
+    {
+      "id": "ce413fe7-fd4f-463c-aa41-e21e47aa451b",
+      "label": "Quadratic equation definition",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "relations": [
+        {
+          "to": "0ba66b3c-cd5e-42a6-876a-2202c2c57c5b",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "6d56a4c3-5ee5-4272-9bb1-a88785e73f8d",
+      "label": "Quadratic equation coefficients",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "relations": [
+        {
+          "to": "ce413fe7-fd4f-463c-aa41-e21e47aa451b",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "09134cdb-a1b6-4d77-9152-3199b97cc1bf",
+      "label": "Quadratic equation solutions",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "relations": [
+        {
+          "to": "ce413fe7-fd4f-463c-aa41-e21e47aa451b",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "1b499fee-98b4-4e96-8ba8-51aa553923fd",
+      "label": "Quadratic equation definition",
+      "type": "misconception",
+      "difficulty": 0.0,
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "relations": [
+        {
+          "to": "ce413fe7-fd4f-463c-aa41-e21e47aa451b",
+          "type": "common_mistake_for"
+        }
+      ]
+    },
+    {
+      "id": "b74289e7-5680-432a-a32e-26b8c07af989",
+      "label": "Quadratic formula structure",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "relations": [
+        {
+          "to": "4ca4628a-3bd3-4b17-b0a6-05d56f277a9f",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "1b592b53-60f5-4c9c-8cb7-a1600d5ce6fd",
+      "label": "Quadratic discriminant value",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "relations": [
+        {
+          "to": "4797e1e3-4c97-4c9f-983e-263ae24271c9",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "6427b2d3-907b-4ae2-a9ff-9aec669de017",
+      "label": "Quadratic equation solutions",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "relations": [
+        {
+          "to": "09134cdb-a1b6-4d77-9152-3199b97cc1bf",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "e50d882b-45c6-4e08-ad22-6914377535c7",
+      "label": "Quadratic equation coefficients",
+      "type": "example",
+      "difficulty": 0.0,
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "relations": [
+        {
+          "to": "6d56a4c3-5ee5-4272-9bb1-a88785e73f8d",
+          "type": "example_of"
+        }
+      ]
+    },
+    {
+      "id": "0e37eebf-6a30-4dc8-890c-b5a44ccf6285",
+      "label": "Quadratic equation solving",
+      "type": "example",
+      "difficulty": 0.0,
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "relations": [
+        {
+          "to": "0ba66b3c-cd5e-42a6-876a-2202c2c57c5b",
+          "type": "example_of"
+        }
+      ]
+    },
+    {
+      "id": "771bd5a0-8623-49bb-8951-ba3422db21d1",
+      "label": "Equation degree definition",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "relations": []
+    },
+    {
+      "id": "3a5d2a30-375f-4fc6-b2b5-c22b7371b28f",
+      "label": "Polynomial degree concept",
+      "type": "example",
+      "difficulty": 0.0,
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "relations": [
+        {
+          "to": "771bd5a0-8623-49bb-8951-ba3422db21d1",
+          "type": "example_of"
+        },
+        {
+          "to": "ce413fe7-fd4f-463c-aa41-e21e47aa451b",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "dee8dbb6-fa54-420c-850a-0c088efa9808",
+      "label": "Zero finding solution values",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "relations": [
+        {
+          "to": "1b499fee-98b4-4e96-8ba8-51aa553923fd",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "9a27072d-a43b-4964-8a90-41a591edd2f2",
+      "label": "Graph solution x-intercepts",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "relations": [
+        {
+          "to": "09134cdb-a1b6-4d77-9152-3199b97cc1bf",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "38be175b-0df4-400a-bea4-c00739702893",
+      "label": "Quadratic x-intercepts and solutions",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "relations": [
+        {
+          "to": "9a27072d-a43b-4964-8a90-41a591edd2f2",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "995ef3f8-2afb-4721-ae0d-1ac34853eb8a",
+      "label": "Quadratic equation graph is parabola",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "relations": [
+        {
+          "to": "ce413fe7-fd4f-463c-aa41-e21e47aa451b",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "cae2c41d-cfeb-4494-8376-9ad18c4cbc0b",
+      "label": "graphical solution checking",
+      "type": "analogy",
+      "difficulty": 0.0,
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "relations": [
+        {
+          "to": "dee8dbb6-fa54-420c-850a-0c088efa9808",
+          "type": "analogy_for"
+        }
+      ]
+    },
+    {
+      "id": "3d2f7d0d-0d83-4fa2-b139-bbfbeef79604",
+      "label": "Pure quadratic equation",
+      "type": "example",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "0ba66b3c-cd5e-42a6-876a-2202c2c57c5b",
+          "type": "example_of"
+        }
+      ]
+    },
+    {
+      "id": "779d42c6-8fc5-498b-a273-0c05c30703ba",
+      "label": "Factoring middle term efficiently",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "a3b2fd85-9645-4ac5-83c2-ed6951d90d69",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "4797e1e3-4c97-4c9f-983e-263ae24271c9",
+      "label": "Solving quadratic equations",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "1b499fee-98b4-4e96-8ba8-51aa553923fd",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "6c9616f6-6005-4903-bc95-b76234a86c90",
+      "label": "Parabola vertex and axis",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "995ef3f8-2afb-4721-ae0d-1ac34853eb8a",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "4a2130b5-4618-4f12-8608-94573be7e1f8",
+      "label": "Parabola direction of graph",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "995ef3f8-2afb-4721-ae0d-1ac34853eb8a",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "a3b2fd85-9645-4ac5-83c2-ed6951d90d69",
+      "label": "Quadratic equation factorization",
+      "type": "example",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "0ba66b3c-cd5e-42a6-876a-2202c2c57c5b",
+          "type": "example_of"
+        }
+      ]
+    },
+    {
+      "id": "fa508c85-0828-4632-884b-cb4933ab5116",
+      "label": "Quadratic equations in real life",
+      "type": "example",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "4797e1e3-4c97-4c9f-983e-263ae24271c9",
+          "type": "example_of"
+        }
+      ]
+    },
+    {
+      "id": "4ca4628a-3bd3-4b17-b0a6-05d56f277a9f",
+      "label": "Quadratic formula finds equation roots",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "ce413fe7-fd4f-463c-aa41-e21e47aa451b",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "30a104d4-3b30-4f6c-bb75-f26900d43a16",
+      "label": "Quadratic equation solving method",
+      "type": "misconception",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "0ba66b3c-cd5e-42a6-876a-2202c2c57c5b",
+          "type": "common_mistake_for"
+        }
+      ]
+    },
+    {
+      "id": "72748e6a-b706-4c7a-be25-096a5df26ebb",
+      "label": "Equal roots condition",
+      "type": "example",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "4ca4628a-3bd3-4b17-b0a6-05d56f277a9f",
+          "type": "example_of"
+        }
+      ]
+    },
+    {
+      "id": "d908ad16-f8a4-426a-ba23-2e28b2c6d135",
+      "label": "Quadratic equations are important",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "fa508c85-0828-4632-884b-cb4933ab5116",
+          "type": "requires"
+        }
+      ]
+    },
+    {
+      "id": "168987f9-af3d-46d5-9008-7fff2f1948f2",
+      "label": "Quadratic equation application and thinking",
+      "type": "definition",
+      "difficulty": 0.0,
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "relations": [
+        {
+          "to": "fa508c85-0828-4632-884b-cb4933ab5116",
+          "type": "requires"
+        }
+      ]
+    }
+  ]
+}

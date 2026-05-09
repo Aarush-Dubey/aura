@@ -1,0 +1,865 @@
+{
+  "student_uuid": "class-9-10-demo-learner",
+  "curriculum": {
+    "subject": "Physics",
+    "grade_level": "9",
+    "topics": [
+      "Newton's laws of motion"
+    ],
+    "learning_goals": [
+      "Understand Newton's laws of motion",
+      "Apply Newton's laws of motion with examples"
+    ],
+    "constraints": [
+      "Class 9 or 10 level",
+      "short teaching chunks",
+      "worked examples",
+      "avoid walls of text",
+      "include misconception checks"
+    ]
+  },
+  "modules": [
+    {
+      "order": 1,
+      "concept_id": "01054fd8-861c-49de-9928-6af471bcc9b9",
+      "concept": "Push or pull action",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Push or pull action to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Push or pull action: A force is a push or a pull. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Push or pull action: A force is a push or a pull. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Push or pull action: A force is a push or a pull. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 2,
+      "concept_id": "ed63f5b2-d92a-4c38-a366-352bdbddadd2",
+      "concept": "Balanced forces have no effect",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Balanced forces have no effect to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Balanced forces have no effect: Balanced forces, acting on the same object, have no effect on the motion of that object. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Balanced forces have no effect: Balanced forces, acting on the same object, have no effect on the motion of that object. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Balanced forces have no effect: Balanced forces, acting on the same object, have no effect on the motion of that object. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 3,
+      "concept_id": "74f4188e-edf2-4abc-8ce7-c1cc669f337b",
+      "concept": "Force and acceleration symbols",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Force and acceleration symbols to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Force and acceleration symbols: F represents force and a represents acceleration. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Force and acceleration symbols: F represents force and a represents acceleration. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Force and acceleration symbols: F represents force and a represents acceleration. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Force and acceleration symbols. Teach these exact points: Force and acceleration symbols: F represents force and a represents acceleration. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 4,
+      "concept_id": "b1ba3c0c-b22f-489b-929a-112d115ea50f",
+      "concept": "Unbalanced forces cause acceleration",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Unbalanced forces cause acceleration to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Unbalanced forces cause acceleration: When forces acting on an object do not balance, the resultant force causes the object to accelerate in the direction of the resultant force. Key detail: Unbalanced forces will cause acceleration, deceleration, or a change in direction. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Unbalanced forces cause acceleration: When forces acting on an object do not balance, the resultant force causes the object to accelerate in the direction of the resultant force. Key detail: Unbalanced forces will cause acceleration, deceleration, or a change in direction. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Unbalanced forces cause acceleration: When forces acting on an object do not balance, the resultant force causes the object to accelerate in the direction of the resultant force. Key detail: Unbalanced forces will cause acceleration, deceleration, or a change in direction.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 5,
+      "concept_id": "15889e36-0158-4f17-b09d-e5f75dbeffe7",
+      "concept": "Object resists changes in motion",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Object resists changes in motion to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/newtons-laws-of-motion/",
+      "reading_paragraph": "Object resists changes in motion: The tendency of an object to resist changes in its state of motion is called inertia. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Object resists changes in motion: The tendency of an object to resist changes in its state of motion is called inertia. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Object resists changes in motion: The tendency of an object to resist changes in its state of motion is called inertia. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 6,
+      "concept_id": "0de9fa23-d23e-46cd-a0e3-e3ec240d8dde",
+      "concept": "Newton's laws of motion",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Newton's laws of motion to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/newtons-laws-of-motion/",
+      "reading_paragraph": "Newton's laws of motion: Newton's laws explain the relationship between a physical object and the forces acting upon it, providing the basis of modern physics. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Newton's laws of motion: Newton's laws explain the relationship between a physical object and the forces acting upon it, providing the basis of modern physics. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Newton's laws of motion: Newton's laws explain the relationship between a physical object and the forces acting upon it, providing the basis of modern physics. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Newton's laws of motion. Teach these exact points: Newton's laws of motion: Newton's laws explain the relationship between a physical object and the forces acting upon it, providing the basis of modern physics. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 7,
+      "concept_id": "49f8050d-7409-4258-839b-8ece0b436373",
+      "concept": "Action equals opposite reaction",
+      "format": "micro_chunk",
+      "duration_seconds": 116,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Action equals opposite reaction to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/newtlaws/Lesson-1",
+      "reading_paragraph": "Action equals opposite reaction: For every action, there is an equal and opposite reaction. Key detail: For every action, there is an equal and opposite reaction. Key detail: For every action, there is an equal and opposite reaction. Key detail: For every action, there is an equal and opposite reaction.",
+      "audio_script": "I will go slowly. Action equals opposite reaction: For every action, there is an equal and opposite reaction. Key detail: For every action, there is an equal and opposite reaction. Key detail: For every action, there is an equal and opposite reaction. Key detail: For every action, there is an equal and opposite reaction.",
+      "text_chunks": [
+        "Action equals opposite reaction: For every action, there is an equal and opposite reaction. Key detail: For every action, there is an equal and opposite reaction.",
+        "Key detail: For every action, there is an equal and opposite reaction. Key detail: For every action, there is an equal and opposite reaction."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 8,
+      "concept_id": "4e46d532-9622-4881-8c1a-aa870dca4ec6",
+      "concept": "Friction opposes motion",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Friction opposes motion to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Friction opposes motion: Friction is a force that always opposes motion. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Friction opposes motion: Friction is a force that always opposes motion. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Friction opposes motion: Friction is a force that always opposes motion. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 9,
+      "concept_id": "58f96c97-449a-4175-8715-203ef49a8380",
+      "concept": "Calculating acceleration formula",
+      "format": "animation",
+      "duration_seconds": 174,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Calculating acceleration formula to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Calculating acceleration formula: Acceleration can be calculated using the formula a = F / m. Key detail: To calculate acceleration using F = ma, F must be the resultant force acting on the object. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Calculating acceleration formula: Acceleration can be calculated using the formula a = F / m. Key detail: To calculate acceleration using F = ma, F must be the resultant force acting on the object. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Calculating acceleration formula: Acceleration can be calculated using the formula a = F / m. Key detail: To calculate acceleration using F = ma, F must be the resultant force acting on the object.",
+        "Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Calculating acceleration formula. Teach these exact points: Calculating acceleration formula: Acceleration can be calculated using the formula a = F / m. Key detail: To calculate acceleration using F = ma, F must be the resultant force acting on the object. Map connection: this idea links by requires to nearby concepts. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 10,
+      "concept_id": "22e69773-ea41-4b0c-8ff3-603a271d9604",
+      "concept": "Balanced forces keep motion",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Balanced forces keep motion to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Balanced forces keep motion: If forces are balanced and an object is at rest, it remains at rest. Key detail: If forces are balanced and an object is moving at a constant speed in a straight line, it continues to move at the same speed in the same straight line. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Balanced forces keep motion: If forces are balanced and an object is at rest, it remains at rest. Key detail: If forces are balanced and an object is moving at a constant speed in a straight line, it continues to move at the same speed in the same straight line. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Balanced forces keep motion: If forces are balanced and an object is at rest, it remains at rest. Key detail: If forces are balanced and an object is moving at a constant speed in a straight line, it continues to move at the same speed in the same straight line.",
+        "Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Balanced forces keep motion. Teach these exact points: Balanced forces keep motion: If forces are balanced and an object is at rest, it remains at rest. Key detail: If forces are balanced and an object is moving at a constant speed in a straight line, it continues to move at the same speed in the same straight line. Map connection: this idea links by example_of to nearby concepts. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 11,
+      "concept_id": "38a3d5c6-1143-4044-ab31-f2789854de4c",
+      "concept": "Force causes acceleration",
+      "format": "micro_chunk",
+      "duration_seconds": 121,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Force causes acceleration to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/newtlaws/Lesson-1",
+      "reading_paragraph": "Force causes acceleration: The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. Key detail: The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. Key detail: Resultant force (F) and acceleration (a) are directly proportional; if you double the resultant force acting on an object, you double its acceleration. Key detail: The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass.",
+      "audio_script": "I will go slowly. Force causes acceleration: The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. Key detail: The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. Key detail: Resultant force (F) and acceleration (a) are directly proportional; if you double the resultant force acting on an object, you double its acceleration. Key detail: The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass.",
+      "text_chunks": [
+        "Force causes acceleration: The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass. Key detail: The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass.",
+        "Key detail: Resultant force (F) and acceleration (a) are directly proportional; if you double the resultant force acting on an object, you double its acceleration. Key detail: The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 12,
+      "concept_id": "a5fd6c44-1dc0-48e9-9abd-c527f5a8dfa6",
+      "concept": "Contact forces between touching objects",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Contact forces between touching objects to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Contact forces between touching objects: Contact forces are forces that act between two objects which are physically touching each other. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Contact forces between touching objects: Contact forces are forces that act between two objects which are physically touching each other. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Contact forces between touching objects: Contact forces are forces that act between two objects which are physically touching each other. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Contact forces between touching objects. Teach these exact points: Contact forces between touching objects: Contact forces are forces that act between two objects which are physically touching each other. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 13,
+      "concept_id": "fa2d1d10-bb5a-4346-b448-7b4a44d4a049",
+      "concept": "Force measurement in newtons",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Force measurement in newtons to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Force measurement in newtons: Force is measured in newtons (N). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Force measurement in newtons: Force is measured in newtons (N). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Force measurement in newtons: Force is measured in newtons (N). Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 14,
+      "concept_id": "7dbec4a1-ef95-4805-a8e2-11ec6687422b",
+      "concept": "Newton's Second Law graph",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Newton's Second Law graph to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Newton's Second Law graph: A graph plotting resultant force (F) on the y-axis against acceleration (a) on the x-axis should be a straight line passing through the origin. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Newton's Second Law graph: A graph plotting resultant force (F) on the y-axis against acceleration (a) on the x-axis should be a straight line passing through the origin. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Newton's Second Law graph: A graph plotting resultant force (F) on the y-axis against acceleration (a) on the x-axis should be a straight line passing through the origin. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Newton's Second Law graph. Teach these exact points: Newton's Second Law graph: A graph plotting resultant force (F) on the y-axis against acceleration (a) on the x-axis should be a straight line passing through the origin. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 15,
+      "concept_id": "0237e069-02f3-4d01-a262-e341cd4574b1",
+      "concept": "Conservation of momentum",
+      "format": "flip_card",
+      "duration_seconds": 172,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Conservation of momentum to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/newtons-laws-of-motion/",
+      "reading_paragraph": "Conservation of momentum: When mass is not constant (like a bottle rocket), you can only look at changes in momentum, not separate changes in mass and velocity. Map connection: this idea links by common_mistake_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Conservation of momentum: When mass is not constant (like a bottle rocket), you can only look at changes in momentum, not separate changes in mass and velocity. Map connection: this idea links by common_mistake_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Conservation of momentum: When mass is not constant (like a bottle rocket), you can only look at changes in momentum, not separate changes in mass and velocity. Map connection: this idea links by common_mistake_for to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "flip_card"
+      ],
+      "reason": "Selected flip_card to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 16,
+      "concept_id": "7bfc4d6b-9623-442d-8aa4-757792bf604b",
+      "concept": "Walking friction for movement",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Walking friction for movement to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Walking friction for movement: The friction between our shoes and the ground helps us to walk. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Walking friction for movement: The friction between our shoes and the ground helps us to walk. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Walking friction for movement: The friction between our shoes and the ground helps us to walk. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Walking friction for movement. Teach these exact points: Walking friction for movement: The friction between our shoes and the ground helps us to walk. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 17,
+      "concept_id": "a750201b-b0fb-4bfc-a19f-94c4a09c0999",
+      "concept": "Air resistance opposes motion",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Air resistance opposes motion to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Air resistance opposes motion: Air resistance is a type of friction that bodies moving through the air experience and acts to oppose motion. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Air resistance opposes motion: Air resistance is a type of friction that bodies moving through the air experience and acts to oppose motion. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Air resistance opposes motion: Air resistance is a type of friction that bodies moving through the air experience and acts to oppose motion. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 18,
+      "concept_id": "f0c0c822-d6eb-4402-99f6-711f744a33e7",
+      "concept": "Inertia and constant motion",
+      "format": "animation",
+      "duration_seconds": 156,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Inertia and constant motion to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.physicsclassroom.com/class/newtlaws/Lesson-1",
+      "reading_paragraph": "Inertia and constant motion: An object stays at rest or in uniform motion in a straight line unless acted upon by an external net force. Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.",
+      "audio_script": "I will go slowly. Inertia and constant motion: An object stays at rest or in uniform motion in a straight line unless acted upon by an external net force. Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.",
+      "text_chunks": [
+        "Inertia and constant motion: An object stays at rest or in uniform motion in a straight line unless acted upon by an external net force. Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.",
+        "Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Inertia and constant motion. Teach these exact points: Inertia and constant motion: An object stays at rest or in uniform motion in a straight line unless acted upon by an external net force. Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. Key detail: An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 19,
+      "concept_id": "8d583924-f190-4209-8b0b-c0c24dce8e17",
+      "concept": "Resultant Force Calculation",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Resultant Force Calculation to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Resultant Force Calculation: When two forces act in the same direction, the resultant force is the sum of the individual forces. Key detail: When two forces act in opposite directions, the resultant force is the difference between the magnitudes of the two forces, and its direction is the same as the larger force. Key detail: When two forces act in the same direction, the resultant force is larger than either individual force, and it is calculated by adding their sizes together. Key detail: A resultant force is the single force acting on the object when all the individual forces have been combined.",
+      "audio_script": "I will go slowly. Resultant Force Calculation: When two forces act in the same direction, the resultant force is the sum of the individual forces. Key detail: When two forces act in opposite directions, the resultant force is the difference between the magnitudes of the two forces, and its direction is the same as the larger force. Key detail: When two forces act in the same direction, the resultant force is larger than either individual force, and it is calculated by adding their sizes together. Key detail: A resultant force is the single force acting on the object when all the individual forces have been combined.",
+      "text_chunks": [
+        "Resultant Force Calculation: When two forces act in the same direction, the resultant force is the sum of the individual forces. Key detail: When two forces act in opposite directions, the resultant force is the difference between the magnitudes of the two forces, and its direction is the same as the larger force.",
+        "Key detail: When two forces act in the same direction, the resultant force is larger than either individual force, and it is calculated by adding their sizes together. Key detail: A resultant force is the single force acting on the object when all the individual forces have been combined."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Resultant Force Calculation. Teach these exact points: Resultant Force Calculation: When two forces act in the same direction, the resultant force is the sum of the individual forces. Key detail: When two forces act in opposite directions, the resultant force is the difference between the magnitudes of the two forces, and its direction is the same as the larger force. Key detail: When two forces act in the same direction, the resultant force is larger than either individual force, and it is calculated by adding their sizes together. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 20,
+      "concept_id": "f2716f2d-570f-4566-967a-df92949db945",
+      "concept": "Surface contact force",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Surface contact force to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Surface contact force: Friction is a force that exists between two surfaces that are in contact. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Surface contact force: Friction is a force that exists between two surfaces that are in contact. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Surface contact force: Friction is a force that exists between two surfaces that are in contact. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 21,
+      "concept_id": "4f1bc011-8859-4b03-a77b-2a0ec00ea504",
+      "concept": "Force is a vector quantity",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Force is a vector quantity to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Force is a vector quantity: Force is a vector quantity, meaning both its size and direction are important. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Force is a vector quantity: Force is a vector quantity, meaning both its size and direction are important. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Force is a vector quantity: Force is a vector quantity, meaning both its size and direction are important. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Force is a vector quantity. Teach these exact points: Force is a vector quantity: Force is a vector quantity, meaning both its size and direction are important. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 22,
+      "concept_id": "cbb00e4a-ed2b-464c-b1da-7e08498655f1",
+      "concept": "Newton is a force unit",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Newton is a force unit to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Newton is a force unit: The unit of force is the newton (N). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Newton is a force unit: The unit of force is the newton (N). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Newton is a force unit: The unit of force is the newton (N). Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 23,
+      "concept_id": "108c3af4-6e0c-4802-a8e7-1c468a227ebe",
+      "concept": "Newton's Second Law",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Newton's Second Law to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Newton's Second Law: One newton (1 N) is the resultant force that gives a mass of 1 kg an acceleration of 1 m/s^2 in the direction of the force. Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Newton's Second Law: One newton (1 N) is the resultant force that gives a mass of 1 kg an acceleration of 1 m/s^2 in the direction of the force. Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Newton's Second Law: One newton (1 N) is the resultant force that gives a mass of 1 kg an acceleration of 1 m/s^2 in the direction of the force. Map connection: this idea links by example_of, requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Newton's Second Law. Teach these exact points: Newton's Second Law: One newton (1 N) is the resultant force that gives a mass of 1 kg an acceleration of 1 m/s^2 in the direction of the force. Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 24,
+      "concept_id": "42ffe331-824a-47f3-85b6-ba9d66b386e7",
+      "concept": "Force is change in momentum",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Force is change in momentum to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/newtons-laws-of-motion/",
+      "reading_paragraph": "Force is change in momentum: A force is defined as the change in momentum (mass times velocity) per change in time. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Force is change in momentum: A force is defined as the change in momentum (mass times velocity) per change in time. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Force is change in momentum: A force is defined as the change in momentum (mass times velocity) per change in time. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Force is change in momentum. Teach these exact points: Force is change in momentum: A force is defined as the change in momentum (mass times velocity) per change in time. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 25,
+      "concept_id": "465e3a44-1cce-4c13-ba04-b36775e62612",
+      "concept": "Vector quantities have magnitude and direction",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Vector quantities have magnitude and direction to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/newtons-laws-of-motion/",
+      "reading_paragraph": "Vector quantities have magnitude and direction: Velocity, force, acceleration, and momentum all have both a magnitude and a direction associated with them; these are called vector quantities. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Vector quantities have magnitude and direction: Velocity, force, acceleration, and momentum all have both a magnitude and a direction associated with them; these are called vector quantities. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Vector quantities have magnitude and direction: Velocity, force, acceleration, and momentum all have both a magnitude and a direction associated with them; these are called vector quantities. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 26,
+      "concept_id": "efd9463b-aec3-47c3-aac1-4c36f07a76d5",
+      "concept": "Mass and acceleration relationship",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Mass and acceleration relationship to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.bbc.co.uk/bitesize/topics/zrsnwty/articles/zxkgqyc",
+      "reading_paragraph": "Mass and acceleration relationship: If you double the mass, you halve the acceleration (if the resultant force remains constant). Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Mass and acceleration relationship: If you double the mass, you halve the acceleration (if the resultant force remains constant). Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Mass and acceleration relationship: If you double the mass, you halve the acceleration (if the resultant force remains constant). Map connection: this idea links by example_of, requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Mass and acceleration relationship. Teach these exact points: Mass and acceleration relationship: If you double the mass, you halve the acceleration (if the resultant force remains constant). Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 27,
+      "concept_id": "fcc79dff-7b08-46b6-b5f4-0796f15c61ab",
+      "concept": "Momentum definition mass times velocity",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Momentum definition mass times velocity to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/newtons-laws-of-motion/",
+      "reading_paragraph": "Momentum definition mass times velocity: Momentum is defined as the mass of an object times its velocity (m V). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Momentum definition mass times velocity: Momentum is defined as the mass of an object times its velocity (m V). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Momentum definition mass times velocity: Momentum is defined as the mass of an object times its velocity (m V). Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Momentum definition mass times velocity. Teach these exact points: Momentum definition mass times velocity: Momentum is defined as the mass of an object times its velocity (m V). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 28,
+      "concept_id": "3e618a6d-f339-4f1a-ba47-3b24d97e0406",
+      "concept": "Force and momentum relationship",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Force and momentum relationship to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/newtons-laws-of-motion/",
+      "reading_paragraph": "Force and momentum relationship: A force causes a change in velocity, and a change in velocity generates a force; these concepts are linked. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Force and momentum relationship: A force causes a change in velocity, and a change in velocity generates a force; these concepts are linked. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Force and momentum relationship: A force causes a change in velocity, and a change in velocity generates a force; these concepts are linked. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    }
+  ],
+  "modality_counts": {
+    "micro_chunk": 13,
+    "animation": 8,
+    "diagram": 6,
+    "flip_card": 1
+  },
+  "graph_node_count": 28
+}

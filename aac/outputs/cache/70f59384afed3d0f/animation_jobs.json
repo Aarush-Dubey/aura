@@ -1,0 +1,158 @@
+[
+  {
+    "module_order": 3,
+    "concept": "Photosynthesis oxygen release",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis oxygen release. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_003"
+  },
+  {
+    "module_order": 5,
+    "concept": "Glucose as plant food",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Glucose as plant food. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_005"
+  },
+  {
+    "module_order": 6,
+    "concept": "Photosynthesis location in plants",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis location in plants. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_006"
+  },
+  {
+    "module_order": 8,
+    "concept": "Plant cell wall strength",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Plant cell wall strength. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_008"
+  },
+  {
+    "module_order": 9,
+    "concept": "Photosynthesis energy production",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis energy production. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_009"
+  },
+  {
+    "module_order": 10,
+    "concept": "Mineral absorption by roots",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Mineral absorption by roots. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_010"
+  },
+  {
+    "module_order": 11,
+    "concept": "C3 Photosynthesis process",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: C3 Photosynthesis process. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_011"
+  },
+  {
+    "module_order": 12,
+    "concept": "C4 photosynthesis process",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: C4 photosynthesis process. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_012"
+  },
+  {
+    "module_order": 13,
+    "concept": "Food chain energy flow",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Food chain energy flow. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_013"
+  },
+  {
+    "module_order": 14,
+    "concept": "Photosynthesis word equation",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis word equation. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_014"
+  },
+  {
+    "module_order": 15,
+    "concept": "Photosynthesis for life",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis for life. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_015"
+  },
+  {
+    "module_order": 18,
+    "concept": "Photosynthesis products",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis products. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_018"
+  },
+  {
+    "module_order": 21,
+    "concept": "Plant energy storage molecule",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Plant energy storage molecule. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_021"
+  },
+  {
+    "module_order": 22,
+    "concept": "Plant energy storage",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Plant energy storage. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_022"
+  },
+  {
+    "module_order": 23,
+    "concept": "Chlorophyll light absorption",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Chlorophyll light absorption. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_023"
+  },
+  {
+    "module_order": 24,
+    "concept": "Light energy makes chemical energy",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Light energy makes chemical energy. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_024"
+  },
+  {
+    "module_order": 27,
+    "concept": "Energy carriers move energy",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Energy carriers move energy. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_027"
+  },
+  {
+    "module_order": 30,
+    "concept": "C4 photosynthesis advantage",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: C4 photosynthesis advantage. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_030"
+  },
+  {
+    "module_order": 31,
+    "concept": "Photosynthesis water oxygen",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis water oxygen. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_031"
+  },
+  {
+    "module_order": 33,
+    "concept": "Photosynthesis powers Earth's life",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Photosynthesis powers Earth's life. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_033"
+  },
+  {
+    "module_order": 34,
+    "concept": "Stomata regulation mechanism",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Stomata regulation mechanism. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_034"
+  },
+  {
+    "module_order": 36,
+    "concept": "Chloroplast structure",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Chloroplast structure. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_036"
+  },
+  {
+    "module_order": 39,
+    "concept": "Calvin Cycle function",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Calvin Cycle function. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_039"
+  },
+  {
+    "module_order": 42,
+    "concept": "ATP NADPH usage in Calvin Cycle",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: ATP NADPH usage in Calvin Cycle. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_042"
+  },
+  {
+    "module_order": 44,
+    "concept": "Carbohydrate structure analogy",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Carbohydrate structure analogy. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_044"
+  },
+  {
+    "module_order": 45,
+    "concept": "Thylakoid stacking structure",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Thylakoid stacking structure. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/70f59384afed3d0f/animations/module_045"
+  }
+]

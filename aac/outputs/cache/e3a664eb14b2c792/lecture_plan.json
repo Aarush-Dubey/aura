@@ -1,0 +1,959 @@
+{
+  "student_uuid": "class-9-10-demo-learner",
+  "curriculum": {
+    "subject": "Mathematics",
+    "grade_level": "10",
+    "topics": [
+      "applications of trigonometry"
+    ],
+    "learning_goals": [
+      "Understand applications of trigonometry",
+      "Apply applications of trigonometry with examples"
+    ],
+    "constraints": [
+      "Class 9 or 10 level",
+      "short teaching chunks",
+      "worked examples",
+      "avoid walls of text",
+      "include misconception checks"
+    ]
+  },
+  "modules": [
+    {
+      "order": 1,
+      "concept_id": "9f2c0c7a-f7ff-4cf3-a343-f014f0021d4a",
+      "concept": "Trigonometry for height and distance",
+      "format": "micro_chunk",
+      "duration_seconds": 101,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry for height and distance to audio plus two flip cards with one sentence each.",
+      "source_url": "https://byjus.com/maths/some-application-of-trigonometry-for-class-10/",
+      "reading_paragraph": "Trigonometry for height and distance: Trigonometry is used to determine the height and distance of different items without measuring them. Key detail: The angle of depression is the angle formed by the line of sight with the horizontal level for objects below the horizontal. Key detail: To solve problems involving heights and distances, follow these steps: Draw a line diagram, mark knowns/unknowns, and use trigonometric ratios to find unknowns. Key detail: Trigonometric ratios can be used to calculate heights and distances.",
+      "audio_script": "I will go slowly. Trigonometry for height and distance: Trigonometry is used to determine the height and distance of different items without measuring them. Key detail: The angle of depression is the angle formed by the line of sight with the horizontal level for objects below the horizontal. Key detail: To solve problems involving heights and distances, follow these steps: Draw a line diagram, mark knowns/unknowns, and use trigonometric ratios to find unknowns. Key detail: Trigonometric ratios can be used to calculate heights and distances.",
+      "text_chunks": [
+        "Trigonometry for height and distance: Trigonometry is used to determine the height and distance of different items without measuring them. Key detail: The angle of depression is the angle formed by the line of sight with the horizontal level for objects below the horizontal.",
+        "Key detail: To solve problems involving heights and distances, follow these steps: Draw a line diagram, mark knowns/unknowns, and use trigonometric ratios to find unknowns. Key detail: Trigonometric ratios can be used to calculate heights and distances."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 2,
+      "concept_id": "cf69cece-e2c4-4078-b112-7669c825066e",
+      "concept": "Line of Sight",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Line of Sight to audio plus two flip cards with one sentence each.",
+      "source_url": "https://byjus.com/maths/some-application-of-trigonometry-for-class-10/",
+      "reading_paragraph": "Line of Sight: The line of sight is the line drawn from the eye of the observer to the point on the object viewed by the observer. Key detail: The line of sight is the imaginary line from an observer's eye to the object being viewed. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Line of Sight: The line of sight is the line drawn from the eye of the observer to the point on the object viewed by the observer. Key detail: The line of sight is the imaginary line from an observer's eye to the object being viewed. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Line of Sight: The line of sight is the line drawn from the eye of the observer to the point on the object viewed by the observer. Key detail: The line of sight is the imaginary line from an observer's eye to the object being viewed.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 3,
+      "concept_id": "fd1f8792-1a95-49e4-a6be-6c83700a1545",
+      "concept": "Angle of Elevation",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Angle of Elevation to audio plus two flip cards with one sentence each.",
+      "source_url": "https://byjus.com/maths/some-application-of-trigonometry-for-class-10/",
+      "reading_paragraph": "Angle of Elevation: The angle of elevation is the angle formed by the line of sight with the horizontal level and is relevant for objects above the horizontal level. Key detail: The angle of elevation is used to find heights. Key detail: The angle of elevation is the angle formed by the line of sight and the horizontal when the object is above the horizontal level. Key detail: The angle of elevation is formed when an observer looks upward from a horizontal line to see an object, being the angle between the horizontal line and the line of sight to the object above.",
+      "audio_script": "I will go slowly. Angle of Elevation: The angle of elevation is the angle formed by the line of sight with the horizontal level and is relevant for objects above the horizontal level. Key detail: The angle of elevation is used to find heights. Key detail: The angle of elevation is the angle formed by the line of sight and the horizontal when the object is above the horizontal level. Key detail: The angle of elevation is formed when an observer looks upward from a horizontal line to see an object, being the angle between the horizontal line and the line of sight to the object above.",
+      "text_chunks": [
+        "Angle of Elevation: The angle of elevation is the angle formed by the line of sight with the horizontal level and is relevant for objects above the horizontal level. Key detail: The angle of elevation is used to find heights.",
+        "Key detail: The angle of elevation is the angle formed by the line of sight and the horizontal when the object is above the horizontal level. Key detail: The angle of elevation is formed when an observer looks upward from a horizontal line to see an object, being the angle between the horizontal line and the line of sight to the object above."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Angle of Elevation. Teach these exact points: Angle of Elevation: The angle of elevation is the angle formed by the line of sight with the horizontal level and is relevant for objects above the horizontal level. Key detail: The angle of elevation is used to find heights. Key detail: The angle of elevation is the angle formed by the line of sight and the horizontal when the object is above the horizontal level. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 4,
+      "concept_id": "27e7b0be-1bda-4d66-96c4-424568e0d74a",
+      "concept": "Sine in right triangle",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Sine in right triangle to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Sine in right triangle: In a right-angled triangle, the sine of an angle is the ratio of the length of the opposite side to the length of the hypotenuse (sin $ heta$ = opposite/hypotenuse). Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Sine in right triangle: In a right-angled triangle, the sine of an angle is the ratio of the length of the opposite side to the length of the hypotenuse (sin $ heta$ = opposite/hypotenuse). Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Sine in right triangle: In a right-angled triangle, the sine of an angle is the ratio of the length of the opposite side to the length of the hypotenuse (sin $ heta$ = opposite/hypotenuse). Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 5,
+      "concept_id": "e9253d45-85bf-466c-87e6-fc3046a653c9",
+      "concept": "Eye level measurement reference",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Eye level measurement reference to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.orchidsinternationalschool.com/maths/applications-of-trigonometry",
+      "reading_paragraph": "Eye level measurement reference: When the observer has a specific height (e.g., a person 1.5 m tall), measurements are from eye level, not from the ground. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Eye level measurement reference: When the observer has a specific height (e.g., a person 1.5 m tall), measurements are from eye level, not from the ground. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Eye level measurement reference: When the observer has a specific height (e. g.",
+        ", a person 1. 5 m tall), measurements are from eye level, not from the ground.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 6,
+      "concept_id": "0cb378f0-85d7-41ac-9d5f-f906df4a06bc",
+      "concept": "Trigonometry for celestial distances",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry for celestial distances to audio plus two flip cards with one sentence each.",
+      "source_url": "https://byjus.com/maths/some-application-of-trigonometry-for-class-10/",
+      "reading_paragraph": "Trigonometry for celestial distances: Trigonometry was once used by astronomers to compute the distance between the planets, the Earth and stars. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry for celestial distances: Trigonometry was once used by astronomers to compute the distance between the planets, the Earth and stars. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry for celestial distances: Trigonometry was once used by astronomers to compute the distance between the planets, the Earth and stars. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for celestial distances. Teach these exact points: Trigonometry for celestial distances: Trigonometry was once used by astronomers to compute the distance between the planets, the Earth and stars. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 7,
+      "concept_id": "024d962d-75c4-4e03-8742-fe78df0e83f6",
+      "concept": "Trigonometry for location finding",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry for location finding to audio plus two flip cards with one sentence each.",
+      "source_url": "https://byjus.com/maths/some-application-of-trigonometry-for-class-10/",
+      "reading_paragraph": "Trigonometry for location finding: In geography and navigation, trigonometry is most frequently used to identify the latitude and longitude of a specified position. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry for location finding: In geography and navigation, trigonometry is most frequently used to identify the latitude and longitude of a specified position. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry for location finding: In geography and navigation, trigonometry is most frequently used to identify the latitude and longitude of a specified position. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for location finding. Teach these exact points: Trigonometry for location finding: In geography and navigation, trigonometry is most frequently used to identify the latitude and longitude of a specified position. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 8,
+      "concept_id": "c33025e9-16d8-42c1-8369-cdd7b424c3f1",
+      "concept": "Trigonometry for wall height",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Trigonometry for wall height to audio plus two flip cards with one sentence each.",
+      "source_url": "https://byjus.com/maths/some-application-of-trigonometry-for-class-10/",
+      "reading_paragraph": "Trigonometry for wall height: Trigonometry can be applied to find the height of a vertical wall when the length of a ladder and the angle it makes with the wall are known. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry for wall height: Trigonometry can be applied to find the height of a vertical wall when the length of a ladder and the angle it makes with the wall are known. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry for wall height: Trigonometry can be applied to find the height of a vertical wall when the length of a ladder and the angle it makes with the wall are known. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for wall height. Teach these exact points: Trigonometry for wall height: Trigonometry can be applied to find the height of a vertical wall when the length of a ladder and the angle it makes with the wall are known. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 9,
+      "concept_id": "9188689e-2608-4708-9161-c19938b80b1d",
+      "concept": "Trigonometry for height calculation",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry for height calculation to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Trigonometry for height calculation: If a rope is tied to a pole and forms an angle with the ground, the height of an object on the pole can be calculated using trigonometry. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry for height calculation: If a rope is tied to a pole and forms an angle with the ground, the height of an object on the pole can be calculated using trigonometry. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry for height calculation: If a rope is tied to a pole and forms an angle with the ground, the height of an object on the pole can be calculated using trigonometry. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for height calculation. Teach these exact points: Trigonometry for height calculation: If a rope is tied to a pole and forms an angle with the ground, the height of an object on the pole can be calculated using trigonometry. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 10,
+      "concept_id": "b7fee955-0315-4717-920c-2a9f924524cd",
+      "concept": "Trigonometry for slide length",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry for slide length to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Trigonometry for slide length: Trigonometry can be used to find the length of a slide when the height and the angle of inclination are known. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry for slide length: Trigonometry can be used to find the length of a slide when the height and the angle of inclination are known. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry for slide length: Trigonometry can be used to find the length of a slide when the height and the angle of inclination are known. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for slide length. Teach these exact points: Trigonometry for slide length: Trigonometry can be used to find the length of a slide when the height and the angle of inclination are known. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 11,
+      "concept_id": "b93e8ebb-c42f-4fa3-9e01-7e64d8bd0466",
+      "concept": "Trigonometry in air balloon",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry in air balloon to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Trigonometry in air balloon: The inclination of a string tied to an air balloon above the ground can be used with trigonometry to relate the height and the string length. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry in air balloon: The inclination of a string tied to an air balloon above the ground can be used with trigonometry to relate the height and the string length. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry in air balloon: The inclination of a string tied to an air balloon above the ground can be used with trigonometry to relate the height and the string length. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry in air balloon. Teach these exact points: Trigonometry in air balloon: The inclination of a string tied to an air balloon above the ground can be used with trigonometry to relate the height and the string length. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 12,
+      "concept_id": "a24864d9-37fe-4544-990e-68f73e0db7a3",
+      "concept": "Trigonometry for navigation",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Trigonometry for navigation to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Trigonometry for navigation: Trigonometry is used in navigation (aviation and shipping) to determine locations and distances using angles. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry for navigation: Trigonometry is used in navigation (aviation and shipping) to determine locations and distances using angles. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry for navigation: Trigonometry is used in navigation (aviation and shipping) to determine locations and distances using angles. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for navigation. Teach these exact points: Trigonometry for navigation: Trigonometry is used in navigation (aviation and shipping) to determine locations and distances using angles. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 13,
+      "concept_id": "46dfeb05-534b-4e44-b26e-edb4b74a9443",
+      "concept": "Shadow and height calculation",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Shadow and height calculation to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Shadow and height calculation: Architects use trigonometry to determine the required height of a building based on its shadow. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Shadow and height calculation: Architects use trigonometry to determine the required height of a building based on its shadow. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Shadow and height calculation: Architects use trigonometry to determine the required height of a building based on its shadow. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Shadow and height calculation. Teach these exact points: Shadow and height calculation: Architects use trigonometry to determine the required height of a building based on its shadow. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 14,
+      "concept_id": "ca5c8a8f-5f47-44c6-92fc-3ec4eb3982b7",
+      "concept": "Trigonometry problem-solving strategy",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry problem-solving strategy to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Trigonometry problem-solving strategy: Using standard trigonometric values helps students solve problems manually by focusing on the problem setup rather than complex calculations. Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry problem-solving strategy: Using standard trigonometric values helps students solve problems manually by focusing on the problem setup rather than complex calculations. Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry problem-solving strategy: Using standard trigonometric values helps students solve problems manually by focusing on the problem setup rather than complex calculations. Map connection: this idea links by analogy_for to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry problem-solving strategy. Teach these exact points: Trigonometry problem-solving strategy: Using standard trigonometric values helps students solve problems manually by focusing on the problem setup rather than complex calculations. Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 15,
+      "concept_id": "ede41df1-80bc-4812-8970-7fc0681a270e",
+      "concept": "Curved Surface Geometry",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Curved Surface Geometry to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Curved Surface Geometry: The topic includes concepts like Curved Surface, which has definitions, formulas, and real-life examples. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Curved Surface Geometry: The topic includes concepts like Curved Surface, which has definitions, formulas, and real-life examples. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Curved Surface Geometry: The topic includes concepts like Curved Surface, which has definitions, formulas, and real-life examples. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Curved Surface Geometry. Teach these exact points: Curved Surface Geometry: The topic includes concepts like Curved Surface, which has definitions, formulas, and real-life examples. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 16,
+      "concept_id": "358ae329-1797-4302-bdbc-b5cc381c3c1c",
+      "concept": "Mathematical constant sqrt(3)",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Mathematical constant sqrt(3) to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.orchidsinternationalschool.com/maths/applications-of-trigonometry",
+      "reading_paragraph": "Mathematical constant sqrt(3): Use sqrt(3) = 1.732 for final numerical answers when asked. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Mathematical constant sqrt(3): Use sqrt(3) = 1.732 for final numerical answers when asked. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Mathematical constant sqrt(3): Use sqrt(3) = 1. 732 for final numerical answers when asked.",
+        "Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Mathematical constant sqrt(3). Teach these exact points: Mathematical constant sqrt(3): Use sqrt(3) = 1.732 for final numerical answers when asked. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 17,
+      "concept_id": "043eb30f-e30d-485f-a537-f5d63cf1bd11",
+      "concept": "Trigonometry for height calculation",
+      "format": "diagram",
+      "duration_seconds": 180,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry for height calculation to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.orchidsinternationalschool.com/maths/applications-of-trigonometry",
+      "reading_paragraph": "Trigonometry for height calculation: Trigonometry can be used to find the height of an object (flagstaff) given the angles of elevation to its top and bottom from a point on the ground. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry for height calculation: Trigonometry can be used to find the height of an object (flagstaff) given the angles of elevation to its top and bottom from a point on the ground. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry for height calculation: Trigonometry can be used to find the height of an object (flagstaff) given the angles of elevation to its top and bottom from a point on the ground. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for height calculation. Teach these exact points: Trigonometry for height calculation: Trigonometry can be used to find the height of an object (flagstaff) given the angles of elevation to its top and bottom from a point on the ground. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 18,
+      "concept_id": "3cd26ecf-7e4b-4e8f-9cb6-ee651525563f",
+      "concept": "River width calculation using trigonometry",
+      "format": "diagram",
+      "duration_seconds": 180,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch River width calculation using trigonometry to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.orchidsinternationalschool.com/maths/applications-of-trigonometry",
+      "reading_paragraph": "River width calculation using trigonometry: Trigonometry can be used to find the width of a river when two different angles of elevation to an object on the opposite bank are known from two different points on the near bank. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. River width calculation using trigonometry: Trigonometry can be used to find the width of a river when two different angles of elevation to an object on the opposite bank are known from two different points on the near bank. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "River width calculation using trigonometry: Trigonometry can be used to find the width of a river when two different angles of elevation to an object on the opposite bank are known from two different points on the near bank. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: River width calculation using trigonometry. Teach these exact points: River width calculation using trigonometry: Trigonometry can be used to find the width of a river when two different angles of elevation to an object on the opposite bank are known from two different points on the near bank. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 19,
+      "concept_id": "3e2c8f13-1ca1-489f-8059-c78d4f1f0390",
+      "concept": "Trigonometry shadow problems",
+      "format": "diagram",
+      "duration_seconds": 149,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry shadow problems to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.orchidsinternationalschool.com/maths/applications-of-trigonometry",
+      "reading_paragraph": "Trigonometry shadow problems: Trigonometry can solve problems involving the height of an object using the relationship between the angle of elevation of the sun and the length of its shadow. Key detail: In a shadow problem, the height of an object can be found by setting up equations based on two different angles of elevation. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry shadow problems: Trigonometry can solve problems involving the height of an object using the relationship between the angle of elevation of the sun and the length of its shadow. Key detail: In a shadow problem, the height of an object can be found by setting up equations based on two different angles of elevation. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry shadow problems: Trigonometry can solve problems involving the height of an object using the relationship between the angle of elevation of the sun and the length of its shadow. Key detail: In a shadow problem, the height of an object can be found by setting up equations based on two different angles of elevation.",
+        "Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry shadow problems. Teach these exact points: Trigonometry shadow problems: Trigonometry can solve problems involving the height of an object using the relationship between the angle of elevation of the sun and the length of its shadow. Key detail: In a shadow problem, the height of an object can be found by setting up equations based on two different angles of elevation. Map connection: this idea links by example_of to nearby concepts. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 20,
+      "concept_id": "9fb08c3c-657b-4d74-bfcc-1313b6df0ed9",
+      "concept": "Horizontal line through eye",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Horizontal line through eye to audio plus two flip cards with one sentence each.",
+      "source_url": "https://byjus.com/maths/some-application-of-trigonometry-for-class-10/",
+      "reading_paragraph": "Horizontal line through eye: The horizontal level is the horizontal line through the eye of the observer. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Horizontal line through eye: The horizontal level is the horizontal line through the eye of the observer. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Horizontal line through eye: The horizontal level is the horizontal line through the eye of the observer. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 21,
+      "concept_id": "d6567e0b-bb25-4f6c-8b93-b098cb235b1b",
+      "concept": "Tangent ratio in right triangles",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Tangent ratio in right triangles to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Tangent ratio in right triangles: In a right triangle, the tangent of an angle is the ratio of the length of the side opposite the angle to the length of the side adjacent to the angle. Key detail: The tangent ratio (tan theta) is calculated as Opposite/Adjacent, which is used most often because problems typically involve a height (opposite) and a horizontal distance (adjacent). Key detail: Use the tangent (tan θ) ratio when a problem involves the Opposite and Adjacent sides. Key detail: The tangent ratio is most often used because the typical setup involves a vertical height and a horizontal distance (opposite and adjacent sides).",
+      "audio_script": "I will go slowly. Tangent ratio in right triangles: In a right triangle, the tangent of an angle is the ratio of the length of the side opposite the angle to the length of the side adjacent to the angle. Key detail: The tangent ratio (tan theta) is calculated as Opposite/Adjacent, which is used most often because problems typically involve a height (opposite) and a horizontal distance (adjacent). Key detail: Use the tangent (tan θ) ratio when a problem involves the Opposite and Adjacent sides. Key detail: The tangent ratio is most often used because the typical setup involves a vertical height and a horizontal distance (opposite and adjacent sides).",
+      "text_chunks": [
+        "Tangent ratio in right triangles: In a right triangle, the tangent of an angle is the ratio of the length of the side opposite the angle to the length of the side adjacent to the angle. Key detail: The tangent ratio (tan theta) is calculated as Opposite/Adjacent, which is used most often because problems typically involve a height (opposite) and a horizontal distance (adjacent).",
+        "Key detail: Use the tangent (tan θ) ratio when a problem involves the Opposite and Adjacent sides. Key detail: The tangent ratio is most often used because the typical setup involves a vertical height and a horizontal distance (opposite and adjacent sides)."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Tangent ratio in right triangles. Teach these exact points: Tangent ratio in right triangles: In a right triangle, the tangent of an angle is the ratio of the length of the side opposite the angle to the length of the side adjacent to the angle. Key detail: The tangent ratio (tan theta) is calculated as Opposite/Adjacent, which is used most often because problems typically involve a height (opposite) and a horizontal distance (adjacent). Key detail: Use the tangent (tan θ) ratio when a problem involves the Opposite and Adjacent sides. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 22,
+      "concept_id": "5058047b-9a43-470b-bd4a-7455f83e3c5d",
+      "concept": "Right triangle setup",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Right triangle setup to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.orchidsinternationalschool.com/maths/applications-of-trigonometry",
+      "reading_paragraph": "Right triangle setup: To solve height and distance problems, identify the right triangle formed by the vertical height (opposite side), the horizontal distance (adjacent side), and the line of sight (hypotenuse). Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Right triangle setup: To solve height and distance problems, identify the right triangle formed by the vertical height (opposite side), the horizontal distance (adjacent side), and the line of sight (hypotenuse). Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Right triangle setup: To solve height and distance problems, identify the right triangle formed by the vertical height (opposite side), the horizontal distance (adjacent side), and the line of sight (hypotenuse). Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Right triangle setup. Teach these exact points: Right triangle setup: To solve height and distance problems, identify the right triangle formed by the vertical height (opposite side), the horizontal distance (adjacent side), and the line of sight (hypotenuse). Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 23,
+      "concept_id": "c506f693-a683-4d8a-99e4-1eea533f2e05",
+      "concept": "Angle of elevation adjustment",
+      "format": "micro_chunk",
+      "duration_seconds": 142,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Angle of elevation adjustment to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.orchidsinternationalschool.com/maths/applications-of-trigonometry",
+      "reading_paragraph": "Angle of elevation adjustment: When calculating angles of elevation from an observer's eyes, the effective height used in the calculation is the total height minus the observer's height. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Angle of elevation adjustment: When calculating angles of elevation from an observer's eyes, the effective height used in the calculation is the total height minus the observer's height. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Angle of elevation adjustment: When calculating angles of elevation from an observer's eyes, the effective height used in the calculation is the total height minus the observer's height. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 24,
+      "concept_id": "17892587-d656-4876-9153-8a141a53fa0a",
+      "concept": "Measuring celestial distances",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Measuring celestial distances to audio plus two flip cards with one sentence each.",
+      "source_url": "https://byjus.com/maths/some-application-of-trigonometry-for-class-10/",
+      "reading_paragraph": "Measuring celestial distances: The parallax method is used to measure large distances of celestial bodies. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Measuring celestial distances: The parallax method is used to measure large distances of celestial bodies. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Measuring celestial distances: The parallax method is used to measure large distances of celestial bodies. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Measuring celestial distances. Teach these exact points: Measuring celestial distances: The parallax method is used to measure large distances of celestial bodies. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 25,
+      "concept_id": "26df530c-6641-4bcd-83ad-7f2df03a9f62",
+      "concept": "Trigonometry application logic",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry application logic to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Trigonometry application logic: Applications of trigonometry rely more on logical application and visualization than memorization of complex formulas. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometry application logic: Applications of trigonometry rely more on logical application and visualization than memorization of complex formulas. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometry application logic: Applications of trigonometry rely more on logical application and visualization than memorization of complex formulas. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 26,
+      "concept_id": "c5f687d3-416a-44a1-a6c5-8dfd36b47932",
+      "concept": "Trigonometric Ratios",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometric Ratios to audio plus two flip cards with one sentence each.",
+      "source_url": "https://byjus.com/maths/some-application-of-trigonometry-for-class-10/",
+      "reading_paragraph": "Trigonometric Ratios: Trigonometric ratios (sin, cos, tan, cot, cosec, sec) are used to relate angles to side lengths. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometric Ratios: Trigonometric ratios (sin, cos, tan, cot, cosec, sec) are used to relate angles to side lengths. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometric Ratios: Trigonometric ratios (sin, cos, tan, cot, cosec, sec) are used to relate angles to side lengths. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 27,
+      "concept_id": "d7ad3176-8aec-42cc-8488-6796dee7b69c",
+      "concept": "Trigonometry for height and distance",
+      "format": "diagram",
+      "duration_seconds": 127,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometry for height and distance to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.orchidsinternationalschool.com/maths/applications-of-trigonometry",
+      "reading_paragraph": "Trigonometry for height and distance: To find the height (h) when given the horizontal distance (d) and the angle of elevation, use the formula tan(angle) = h/d. Key detail: To find the height (h) from the ground when given the angle of elevation and horizontal distance (d), use the formula tan theta = h/d. Key detail: To find the distance (d) when given the angle of elevation and height (h), use the formula d = h/tan theta. Key detail: If the angle of elevation is 60 degrees from a nearer point, the distance (d) can be found using the formula d = h/sqrt(3).",
+      "audio_script": "I will go slowly. Trigonometry for height and distance: To find the height (h) when given the horizontal distance (d) and the angle of elevation, use the formula tan(angle) = h/d. Key detail: To find the height (h) from the ground when given the angle of elevation and horizontal distance (d), use the formula tan theta = h/d. Key detail: To find the distance (d) when given the angle of elevation and height (h), use the formula d = h/tan theta. Key detail: If the angle of elevation is 60 degrees from a nearer point, the distance (d) can be found using the formula d = h/sqrt(3).",
+      "text_chunks": [
+        "Trigonometry for height and distance: To find the height (h) when given the horizontal distance (d) and the angle of elevation, use the formula tan(angle) = h/d. Key detail: To find the height (h) from the ground when given the angle of elevation and horizontal distance (d), use the formula tan theta = h/d.",
+        "Key detail: To find the distance (d) when given the angle of elevation and height (h), use the formula d = h/tan theta. Key detail: If the angle of elevation is 60 degrees from a nearer point, the distance (d) can be found using the formula d = h/sqrt(3)."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for height and distance. Teach these exact points: Trigonometry for height and distance: To find the height (h) when given the horizontal distance (d) and the angle of elevation, use the formula tan(angle) = h/d. Key detail: To find the height (h) from the ground when given the angle of elevation and horizontal distance (d), use the formula tan theta = h/d. Key detail: To find the distance (d) when given the angle of elevation and height (h), use the formula d = h/tan theta. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 28,
+      "concept_id": "414858c5-2836-4732-92a0-b4125d779d11",
+      "concept": "Parallax angle definition",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Parallax angle definition to audio plus two flip cards with one sentence each.",
+      "source_url": "https://byjus.com/maths/some-application-of-trigonometry-for-class-10/",
+      "reading_paragraph": "Parallax angle definition: The parallax angle is half the angle between two lines of sight when an object is viewed from two different positions. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Parallax angle definition: The parallax angle is half the angle between two lines of sight when an object is viewed from two different positions. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Parallax angle definition: The parallax angle is half the angle between two lines of sight when an object is viewed from two different positions. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 29,
+      "concept_id": "17b681ca-d7ea-47dd-8783-d3951fd953a5",
+      "concept": "Trigonometric Ratios Definitions",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometric Ratios Definitions to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Trigonometric Ratios Definitions: The basic trigonometric ratios for a right-angled triangle are: Sine (sin θ) = Opposite / Hypotenuse, Cosine (cos θ) = Adjacent / Hypotenuse, and Tangent (tan θ) = Opposite / Adjacent. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometric Ratios Definitions: The basic trigonometric ratios for a right-angled triangle are: Sine (sin θ) = Opposite / Hypotenuse, Cosine (cos θ) = Adjacent / Hypotenuse, and Tangent (tan θ) = Opposite / Adjacent. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometric Ratios Definitions: The basic trigonometric ratios for a right-angled triangle are: Sine (sin θ) = Opposite / Hypotenuse, Cosine (cos θ) = Adjacent / Hypotenuse, and Tangent (tan θ) = Opposite / Adjacent. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 30,
+      "concept_id": "122f5ed3-7fd0-448c-b8b4-2175b5e3dbaa",
+      "concept": "Trigonometric ratios rules",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Trigonometric ratios rules to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Trigonometric ratios rules: Use sin θ if your problem involves the Opposite side and the Hypotenuse. Key detail: Use cos θ if your problem involves the Adjacent side and the Hypotenuse. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Trigonometric ratios rules: Use sin θ if your problem involves the Opposite side and the Hypotenuse. Key detail: Use cos θ if your problem involves the Adjacent side and the Hypotenuse. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Trigonometric ratios rules: Use sin θ if your problem involves the Opposite side and the Hypotenuse. Key detail: Use cos θ if your problem involves the Adjacent side and the Hypotenuse.",
+        "Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometric ratios rules. Teach these exact points: Trigonometric ratios rules: Use sin θ if your problem involves the Opposite side and the Hypotenuse. Key detail: Use cos θ if your problem involves the Adjacent side and the Hypotenuse. Map connection: this idea links by requires to nearby concepts. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 31,
+      "concept_id": "8c3d7987-5970-4da0-9f3f-961136ad121c",
+      "concept": "Standard trigonometric angles",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Standard trigonometric angles to audio plus two flip cards with one sentence each.",
+      "source_url": "https://www.vedantu.com/maths/some-application-of-trigonometry-for-class-10",
+      "reading_paragraph": "Standard trigonometric angles: Standard angles like 30°, 45°, and 60° are important because they give exact, rationalised values for sin, cos, and tan. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Standard trigonometric angles: Standard angles like 30°, 45°, and 60° are important because they give exact, rationalised values for sin, cos, and tan. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Standard trigonometric angles: Standard angles like 30°, 45°, and 60° are important because they give exact, rationalised values for sin, cos, and tan. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    }
+  ],
+  "modality_counts": {
+    "micro_chunk": 11,
+    "animation": 5,
+    "diagram": 15
+  },
+  "graph_node_count": 31
+}

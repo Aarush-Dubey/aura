@@ -1,0 +1,18 @@
+{
+  "subject": "Mathematics",
+  "grade_level": "10",
+  "topics": [
+    "quadratic equations"
+  ],
+  "learning_goals": [
+    "Understand quadratic equations",
+    "Apply quadratic equations with examples"
+  ],
+  "constraints": [
+    "Class 9 or 10 level",
+    "short teaching chunks",
+    "worked examples",
+    "avoid walls of text",
+    "include misconception checks"
+  ]
+}

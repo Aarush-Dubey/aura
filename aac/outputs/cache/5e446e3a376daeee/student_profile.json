@@ -1,0 +1,18 @@
+{
+  "uuid": "semantic-cache-test-student",
+  "disability": [
+    "adhd",
+    "dyslexia"
+  ],
+  "strengths": [
+    "visual reasoning"
+  ],
+  "weaknesses": [
+    "symbol confusion"
+  ],
+  "prior_knowledge": [
+    "basic arithmetic"
+  ],
+  "pace": "slow",
+  "preferred_modality": "mixed"
+}

@@ -1,0 +1,917 @@
+[
+  {
+    "id": "c80312cf-d2eb-4922-bb91-f8a3dc841eba",
+    "label": "Quadratic equation form and definition",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "a0035d44-e8c3-47c6-a905-8c973ac0001d",
+        "chunk_id": "edf0d37b-7489-4b4c-a00b-28405e3e8ad2",
+        "topic": "quadratic equations",
+        "label": "Quadratic Equation Definition",
+        "claim": "A quadratic equation is a trinomial of the form ax2 + bx + c = 0.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "A quadratic equation is a trinomial of the form ax2 + bx + c = 0.",
+        "confidence": 1.0
+      },
+      {
+        "id": "e6dfc787-35eb-4901-b3dd-17c8a6fb90b6",
+        "chunk_id": "b80e06f3-21ec-4c9a-a4bb-12bdd5ab59e2",
+        "topic": "quadratic equations",
+        "label": "Quadratic Equation Form",
+        "claim": "The general form of a quadratic equation is ax^2 + bx + c = 0.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "To solve quadratic equations of the form ax2 + bx + c = 0, substitute the coefficients a,b and c into the quadratic formula.",
+        "confidence": 1.0
+      },
+      {
+        "id": "343492eb-c40b-4b4b-9c23-05fc40f52ad7",
+        "chunk_id": "58e02b0f-cc56-49c4-a210-73ca0e40d97d",
+        "topic": "quadratic equations",
+        "label": "Quadratic Equation Degree",
+        "claim": "A Quadratic Equation is also called an \"Equation of Degree 2\" because of the \"2\" on x2.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "It is also called an \"Equation of Degree 2\" (because of the \"2\" on x2)",
+        "confidence": 1.0
+      },
+      {
+        "id": "a60ec45c-e252-40a8-8764-5601a6c9e884",
+        "chunk_id": "58e02b0f-cc56-49c4-a210-73ca0e40d97d",
+        "topic": "quadratic equations",
+        "label": "Standard Form Requirements",
+        "claim": "The Standard Form of a Quadratic Equation is ax2 + bx + c = 0, where 'a' cannot be 0.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "- a can't be 0 or it isn't a quadratic!",
+        "confidence": 1.0
+      },
+      {
+        "id": "8aee0e94-642b-4656-ba2a-107bac14ebcf",
+        "chunk_id": "bcbea9dc-52da-4e64-9e83-ff7a73c89d08",
+        "topic": "quadratic equations",
+        "label": "Quadratic Equation Definition",
+        "claim": "A quadratic equation is a polynomial equation of degree 2 in the form ax² + bx + c = 0, where a ≠ 0.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "A quadratic equation is a polynomial equation of degree 2 in the form: ax² + bx + c = 0, where a ≠ 0",
+        "confidence": 1.0
+      },
+      {
+        "id": "899cb2e6-26a7-4834-9df4-5362a366627d",
+        "chunk_id": "2c6878ec-9f38-4c9a-a237-b664029c3d37",
+        "topic": "quadratic equations",
+        "label": "Quadratic Equation",
+        "claim": "A quadratic equation is a type of equation that has a second degree (highest power) term.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Exploring Quadratic Equations: Class 10 Concepts, Formulas, and Graphs",
+        "confidence": 0.9
+      },
+      {
+        "id": "e7b09235-3182-4de0-bae2-e065bfcc714a",
+        "chunk_id": "2c6878ec-9f38-4c9a-a237-b664029c3d37",
+        "topic": "quadratic equations",
+        "label": "Quadratic Equation Form",
+        "claim": "The standard form of a quadratic equation is ax^2 + bx + c = 0.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Exploring Quadratic Equations: Class 10 Concepts, Formulas, and Graphs",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "09e66a51-1434-4b24-83c5-6ea4622c0ef1",
+    "label": "Factoring quadratic equations",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "6f0988ef-5460-4850-9ff6-76e1094dddd5",
+        "chunk_id": "edf0d37b-7489-4b4c-a00b-28405e3e8ad2",
+        "topic": "quadratic equations",
+        "label": "Solving by Factoring",
+        "claim": "If a quadratic equation can be factored, it can be written as a product of two binomials, and setting one binomial to zero allows you to solve for x.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "If a quadratic equation can be factored, then it can be written as a product of two binomials. Since the trinomial is equal to 0, one of the two binomial factors must also be equal to zero. By factoring the quadratic equation, we can equate each binomial expression to zero and solve each for x.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "13c65db3-9c61-4e13-a053-1e5c73db9937",
+    "label": "Solving quadratic equations methods",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "2d2dfea2-2736-4b8a-9f94-08b447a358e2",
+        "chunk_id": "edf0d37b-7489-4b4c-a00b-28405e3e8ad2",
+        "topic": "quadratic equations",
+        "label": "Solving by Completing the Square",
+        "claim": "Quadratic equations can always be solved by the method of completing the squares.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "Quadratic equations cannot always be solved by factoring. They can always be solved by the method of completing the squares.",
+        "confidence": 1.0
+      },
+      {
+        "id": "1ab05bba-287b-4741-a603-99f7b6d77403",
+        "chunk_id": "81005fed-fcb4-4a66-bea0-c06033759999",
+        "topic": "quadratic equations",
+        "label": "Solving Strategy",
+        "claim": "When solving a quadratic equation, try factorisation first; if that is not possible, use the quadratic formula or completing the square.",
+        "type": "misconception",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Try factorisation first. If it’s not possible, use the quadratic formula or completing the square.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "b8258d5f-b27f-4533-ab95-6686794daf97",
+    "label": "Completing the Square",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "e09ec55d-4b7f-475a-b570-95a0f0a147e7",
+        "chunk_id": "edf0d37b-7489-4b4c-a00b-28405e3e8ad2",
+        "topic": "quadratic equations",
+        "label": "Completing the Square Goal",
+        "claim": "Completing the square means converting a quadratic equation to the standard form a(x - h)2 + k = 0.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "To complete the square means to convert a quadratic to its standard form. We want to convert ax2+bx+c = 0 to a statement of the form a(x - h)2 + k = 0.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "3f85e255-9a78-4ce7-84b4-71eb695f4edf",
+    "label": "Completing the Square Steps",
+    "type": "example",
+    "difficulty": 0.5,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "8ae536ce-13c2-45f2-831c-35e1e26eb56c",
+        "chunk_id": "edf0d37b-7489-4b4c-a00b-28405e3e8ad2",
+        "topic": "quadratic equations",
+        "label": "Completing the Square Steps",
+        "claim": "Steps for completing the square involve grouping ax2 and bx terms, factoring out 'a', adding and subtracting (b/2a)2 inside the parentheses, removing that term (and multiplying by a), factoring the trinomial to a perfect square, and then transposing and dividing.",
+        "type": "example",
+        "difficulty": 0.5,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "1) Group together the ax2 and bx terms in parentheses and factor out the coefficient a. 2) In the parentheses, add and subtract (b/2a)2, which is half of the x coefficient, squared. 3) Remove the term - (b/2a)2 from the parantheses. Don't forget to multiply the term by a, when removing from parentheses. 4) Factor the trinomial in parentheses to its perfect square form, (x + b/2a)2. Note: If you group the - (b/2a)2 + c terms together in parentheses, the equation will now be in standard form. The ",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "f2f78b8d-f6df-4b3e-8cd7-d61652107435",
+    "label": "Quadratic equation graph is parabola",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "f6b7ac6d-98a9-4c27-8a87-67deaea6fd3d",
+        "chunk_id": "b80e06f3-21ec-4c9a-a4bb-12bdd5ab59e2",
+        "topic": "quadratic equations",
+        "label": "Parabola Graph",
+        "claim": "The graphical representation of quadratic equations is a parabola, which has the equation form y = ax^2 + bx + c.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "The graphical representation of quadratic equations are based on the graph of a parabola. A parabola is an equation of the form y = a x2 + bx + c.",
+        "confidence": 1.0
+      },
+      {
+        "id": "55cfaa46-0075-4d3f-a947-b3b1f7bc0a48",
+        "chunk_id": "bcbea9dc-52da-4e64-9e83-ff7a73c89d08",
+        "topic": "quadratic equations",
+        "label": "Graphical Representation",
+        "claim": "A quadratic equation represents a parabola when plotted on a graph.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "This equation represents a parabola when plotted on a graph.",
+        "confidence": 1.0
+      },
+      {
+        "id": "bf06a9d4-4b70-4d60-ba22-96e9659729e1",
+        "chunk_id": "f8275ad5-723a-479c-a423-74d968b3c1b1",
+        "topic": "quadratic equations",
+        "label": "Graphical Method",
+        "claim": "When plotted, every quadratic equation produces a parabola, and the x-intercepts of the parabola are the roots of the equation.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "When plotted, every quadratic equation produces a parabola. - The x-intercepts of the parabola are the roots of the equation.",
+        "confidence": 1.0
+      },
+      {
+        "id": "d527c64e-343c-443b-a37c-48e510b8c1b4",
+        "chunk_id": "81005fed-fcb4-4a66-bea0-c06033759999",
+        "topic": "quadratic equations",
+        "label": "Parabola Graph",
+        "claim": "The graph of a quadratic equation forms a parabola because the equation includes a squared term (x²).",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Because the equation includes a squared term (x²), it curves and forms a parabola.",
+        "confidence": 1.0
+      },
+      {
+        "id": "3201ffab-fa69-4116-9d45-d5b8acbe67d0",
+        "chunk_id": "2c6878ec-9f38-4c9a-a237-b664029c3d37",
+        "topic": "quadratic equations",
+        "label": "Graph of a Quadratic Equation",
+        "claim": "The graph of a quadratic equation is a parabola.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Exploring Quadratic Equations: Class 10 Concepts, Formulas, and Graphs",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "4f67d9ab-3bab-46c1-9e0c-2130a1a9e817",
+    "label": "Quadratic coefficient effect",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "501dc732-1dcb-4302-828d-34f6e01be46e",
+        "chunk_id": "b80e06f3-21ec-4c9a-a4bb-12bdd5ab59e2",
+        "topic": "quadratic equations",
+        "label": "Coefficient 'a' Effect",
+        "claim": "The coefficient 'a' in the equation y = ax^2 + bx + c determines the direction and the size of the parabola.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "The coefficent, a, before the x2 term determines the direction and the size of the parabola.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "54cd6368-5bc2-4880-910e-902fb1ad84fb",
+    "label": "Parabola opening direction",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "6c58224d-5232-4934-8aec-a6da7606f73f",
+        "chunk_id": "b80e06f3-21ec-4c9a-a4bb-12bdd5ab59e2",
+        "topic": "quadratic equations",
+        "label": "Parabola Opening Direction",
+        "claim": "If a > 0, the parabola opens upward, and if a < 0, the parabola opens downwards.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "For values of a > 0, the parabola opens upward while for values of a < 0, the parabola opens downwards.",
+        "confidence": 1.0
+      },
+      {
+        "id": "18e6a910-f7fc-4eb1-9b60-167ae0cc393d",
+        "chunk_id": "f8275ad5-723a-479c-a423-74d968b3c1b1",
+        "topic": "quadratic equations",
+        "label": "Parabola Direction",
+        "claim": "A quadratic equation's graph opens upward if a > 0 and opens downward if a < 0.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "- Opens upward if a > 0 - Opens downward if a < 0",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "c5c38ed0-fb3a-46f8-b086-5920f992c7b8",
+    "label": "Parabola vertex location formula",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "fe80f117-1393-4cce-bb2e-b6d66dcdc029",
+        "chunk_id": "b80e06f3-21ec-4c9a-a4bb-12bdd5ab59e2",
+        "topic": "quadratic equations",
+        "label": "Vertex Location Formula",
+        "claim": "The x-coordinate of the vertex of a parabola y = ax^2 + bx + c can be found using the formula x = -b/2a.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "Given a parabola y=ax2+bx+c, we can find the x-coordinate of the vertex of the parabola using the formula x=-b/2a.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "eb7591e8-79be-48c2-98f4-43c0356a8d13",
+    "label": "Parabola vertex definition",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "a199bd04-54aa-4aef-a412-98aec7e11a70",
+        "chunk_id": "b80e06f3-21ec-4c9a-a4bb-12bdd5ab59e2",
+        "topic": "quadratic equations",
+        "label": "Vertex Type",
+        "claim": "The vertex is the maximum point for parabolas with a < 0 or the minimum point for parabolas with a > 0.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "The vertex is the maximum point for parabolas with a < 0 or minimum point for parabolas with a > 0.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "80c01ed9-ee9d-487b-b08e-374fc40b334e",
+    "label": "Completing the square method",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "dc06ce9b-a4aa-40c3-bd7b-f4d36bd92fdc",
+        "chunk_id": "04ae1cf1-7d9a-4943-8c47-b56aa070055f",
+        "topic": "quadratic equations",
+        "label": "Completing the Square",
+        "claim": "The method of completing the square should be used to convert a parabola of general form to its standard form.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "The method of completing the square should be used to convert a parabola of general form to its standard form.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "d8e12c73-2d60-4ea9-999d-1f84590d4459",
+    "label": "Quadratic equation recognition",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+    "claims": [
+      {
+        "id": "72a18cd9-8d02-464f-aa7a-1ed68277b2c5",
+        "chunk_id": "04ae1cf1-7d9a-4943-8c47-b56aa070055f",
+        "topic": "quadratic equations",
+        "label": "Quadratic Equation Recognition",
+        "claim": "You may recognize the quadratic equation from the completing the square section.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://calculus.nipissingu.ca/tutorials/quadratics.html",
+        "evidence": "You may recognize this equation from the completing the square section above.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "1f5686c5-4ea7-484e-a530-2b26b7a1e266",
+    "label": "Quadratic equation name origin",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+    "claims": [
+      {
+        "id": "7cfaf1c1-0184-455c-8dcd-1db60f8bb45a",
+        "chunk_id": "58e02b0f-cc56-49c4-a210-73ca0e40d97d",
+        "topic": "quadratic equations",
+        "label": "Quadratic Equation Name Origin",
+        "claim": "The name Quadratic comes from \"quad\" meaning square because the variable gets squared, like x2.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "Name The name Quadratic comes from \"quad\" meaning square, because the variable gets squared, like x2.",
+        "confidence": 1.0
+      },
+      {
+        "id": "c106c1e1-b215-4687-8645-44f300a3b5a9",
+        "chunk_id": "bcbea9dc-52da-4e64-9e83-ff7a73c89d08",
+        "topic": "quadratic equations",
+        "label": "Origin of Term",
+        "claim": "The term 'quadratic' comes from the Latin word quadratus, meaning 'square,' because the highest exponent of the variable is 2.",
+        "type": "analogy",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "The term “quadratic” comes from the Latin word quadratus, meaning “square,” because the highest exponent of the variable is 2.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "8fdb82d3-9a24-4f97-81ce-1ad9f8056ec0",
+    "label": "Quadratic equation coefficients",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+    "claims": [
+      {
+        "id": "e1a0d453-cf3a-4b68-8e66-2cebfcd00dd5",
+        "chunk_id": "58e02b0f-cc56-49c4-a210-73ca0e40d97d",
+        "topic": "quadratic equations",
+        "label": "Identifying Coefficients",
+        "claim": "In the Standard Form ax2 + bx + c = 0, 'a', 'b', and 'c' are known values, and 'x' is the variable.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "- a, b and c are known values - x is the variable or unknown (we don't know it yet)",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "7554830d-8660-4ff8-9efe-ef48d0cf0558",
+    "label": "Quadratic equation solutions",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+    "claims": [
+      {
+        "id": "a04c1735-9380-4a20-9926-67eca9bc4f03",
+        "chunk_id": "58e02b0f-cc56-49c4-a210-73ca0e40d97d",
+        "topic": "quadratic equations",
+        "label": "Roots Definition",
+        "claim": "The solutions to a Quadratic Equation are called \"roots\" or sometimes \"zeros\" and are found where the equation is equal to zero.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "The \"solutions\" to the Quadratic Equation are where it is equal to zero. They are also called \"roots\", or sometimes \"zeros\"",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "d8aef4d2-a4ad-4b0c-9355-71158ee72896",
+    "label": "Quadratic equation definition",
+    "type": "misconception",
+    "difficulty": 0.0,
+    "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+    "claims": [
+      {
+        "id": "7e6f2c3b-2c4f-4ba1-bdd2-442689dd516d",
+        "chunk_id": "58e02b0f-cc56-49c4-a210-73ca0e40d97d",
+        "topic": "quadratic equations",
+        "label": "Misconception: Not Quadratic",
+        "claim": "An equation is not quadratic if it is missing the x2 term (meaning a = 0).",
+        "type": "misconception",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "Example: 5x − 3 = 0 Oops! This one is not a quadratic equation: it is missing x2 In other words a = 0, which means it is not quadratic.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "f3099cfb-f7fb-4165-8fef-3450da140595",
+    "label": "Quadratic formula structure",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+    "claims": [
+      {
+        "id": "474fe649-0457-41fa-8c30-830d05095cb3",
+        "chunk_id": "a3962909-ca77-4578-a32f-c74db9474ea1",
+        "topic": "quadratic equations",
+        "label": "Quadratic Formula structure",
+        "claim": "The quadratic formula involves a plus/minus sign (±) because there are two possible answers.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "The ± means there are TWO answers: x = −b + √(b2 − 4ac) and x = −b − √(b2 − 4ac)",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "19ba04e3-1d11-42bb-b575-a609e874fdd2",
+    "label": "Quadratic discriminant value",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+    "claims": [
+      {
+        "id": "2a88dccc-260a-4ee9-954a-81aead73581a",
+        "chunk_id": "a3962909-ca77-4578-a32f-c74db9474ea1",
+        "topic": "quadratic equations",
+        "label": "Discriminant definition",
+        "claim": "The discriminant is the part of the formula, b² − 4ac, that helps determine the type of answer.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "It is called the discriminant, because it can \"discriminate\" between the possible types of answer: - when b2 − 4ac is positive, we get two Real solutions - when it is zero we get just ONE real solution (both answers are the same) - when it is negative we get a pair of Complex solutions",
+        "confidence": 1.0
+      },
+      {
+        "id": "c90a94cd-a4d9-4f86-9ca6-98b3418e5e3f",
+        "chunk_id": "d4f3d760-fcef-4622-ad64-33716322f6f5",
+        "topic": "quadratic equations",
+        "label": "Discriminant",
+        "claim": "The discriminant is calculated as b^2 - 4ac.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "Note that the discriminant is negative: b2 − 4ac = 22 − 4×5×1 = −16",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "335a9eea-4ce8-4aab-aeed-9be025f93c79",
+    "label": "Quadratic equation solutions",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+    "claims": [
+      {
+        "id": "b771a400-b00b-46da-a174-b990c78c1872",
+        "chunk_id": "a3962909-ca77-4578-a32f-c74db9474ea1",
+        "topic": "quadratic equations",
+        "label": "Discriminant and solutions",
+        "claim": "If the discriminant (b² − 4ac) is positive, there are two real solutions.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "- when b2 − 4ac is positive, we get two Real solutions",
+        "confidence": 1.0
+      },
+      {
+        "id": "f598f864-e7ac-4bd9-9549-91d5d2076f51",
+        "chunk_id": "a3962909-ca77-4578-a32f-c74db9474ea1",
+        "topic": "quadratic equations",
+        "label": "Discriminant and solutions",
+        "claim": "If the discriminant (b² − 4ac) is zero, there is exactly one real solution.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "- when it is zero we get just ONE real solution (both answers are the same)",
+        "confidence": 1.0
+      },
+      {
+        "id": "c12da6c4-07d9-4f00-a1d5-fdd45f09e210",
+        "chunk_id": "a3962909-ca77-4578-a32f-c74db9474ea1",
+        "topic": "quadratic equations",
+        "label": "Discriminant and solutions",
+        "claim": "If the discriminant (b² − 4ac) is negative, the solutions are complex numbers.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "- when it is negative we get a pair of Complex solutions",
+        "confidence": 1.0
+      },
+      {
+        "id": "a14d8c8b-2fc9-4da7-996c-4794267d922e",
+        "chunk_id": "d4f3d760-fcef-4622-ad64-33716322f6f5",
+        "topic": "quadratic equations",
+        "label": "Discriminant Interpretation (Negative)",
+        "claim": "When the discriminant (b^2 - 4ac) is negative, there are 2 complex solutions.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "When the discriminant (b2−4ac) is: - negative, there are 2 complex solutions",
+        "confidence": 1.0
+      },
+      {
+        "id": "493aa556-1505-4754-ac9f-4efc93a71333",
+        "chunk_id": "d4f3d760-fcef-4622-ad64-33716322f6f5",
+        "topic": "quadratic equations",
+        "label": "Discriminant Interpretation (Zero)",
+        "claim": "When the discriminant is zero, there is one real solution.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "zero, there's one real solution",
+        "confidence": 1.0
+      },
+      {
+        "id": "2e02cbe2-c167-46b0-8cb6-070a2fa862e7",
+        "chunk_id": "d4f3d760-fcef-4622-ad64-33716322f6f5",
+        "topic": "quadratic equations",
+        "label": "Discriminant Interpretation (Positive)",
+        "claim": "When the discriminant is positive, there are 2 real solutions.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "- positive, there are 2 real solutions",
+        "confidence": 1.0
+      },
+      {
+        "id": "d49adca0-049f-4ae0-9fd7-20ee1712ce63",
+        "chunk_id": "bcbea9dc-52da-4e64-9e83-ff7a73c89d08",
+        "topic": "quadratic equations",
+        "label": "Discriminant Interpretation",
+        "claim": "The discriminant (D = b² – 4ac) determines the nature of the roots: D > 0 means two distinct real roots, D = 0 means two equal real roots, and D < 0 means no real roots (complex roots).",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Discriminant (D) = b² – 4ac - If D > 0 → Two distinct real roots - If D = 0 → Two equal real roots - If D < 0 → No real roots (complex roots)",
+        "confidence": 1.0
+      },
+      {
+        "id": "8030c6bb-b1da-4b6e-bce7-ddece12d6689",
+        "chunk_id": "0e9005b3-8ff6-4524-b79d-9180a8916f90",
+        "topic": "quadratic equations",
+        "label": "Discriminant Negative",
+        "claim": "If the discriminant of a quadratic equation is negative, the equation will have no real roots, only complex ones.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "What happens if the discriminant is negative? The quadratic equation will have no real roots, only complex ones.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "78e9aa9f-10d2-4cc2-bb5f-3d1669317143",
+    "label": "Quadratic equation coefficients",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+    "claims": [
+      {
+        "id": "a06c00d1-f4da-445d-9a4e-b62c2d200efb",
+        "chunk_id": "a3962909-ca77-4578-a32f-c74db9474ea1",
+        "topic": "quadratic equations",
+        "label": "Example calculation",
+        "claim": "To solve an equation like 5x² + 6x + 1 = 0, the coefficients are a = 5, b = 6, and c = 1.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "Coefficients are: a = 5, b = 6, c = 1",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "fb7a3368-d7c1-43fa-b549-d85cb99f075a",
+    "label": "Quadratic equation solving",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+    "claims": [
+      {
+        "id": "9e5283a9-adf8-4c15-9746-33684d804e35",
+        "chunk_id": "d4f3d760-fcef-4622-ad64-33716322f6f5",
+        "topic": "quadratic equations",
+        "label": "Quadratic Equation Example",
+        "claim": "Solve 5x^2 + 2x + 1 = 0 by finding coefficients and using the quadratic formula.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://www.mathsisfun.com/algebra/quadratic-equation.html",
+        "evidence": "Solve 5x2 + 2x + 1 = 0 Coefficients are: a=5, b=2, c=1 Use the Quadratic Formula: x = −2 ± √(−16)",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "98e3654a-d473-4f30-9087-dcf9de2e59b2",
+    "label": "Pure quadratic equation",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+    "claims": [
+      {
+        "id": "5377be70-3885-45dc-9314-53ce2708eef8",
+        "chunk_id": "bcbea9dc-52da-4e64-9e83-ff7a73c89d08",
+        "topic": "quadratic equations",
+        "label": "Pure Quadratic Equation",
+        "claim": "A Pure Quadratic Equation has no linear term (b = 0), for example, 4x² – 36 = 0.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Pure Quadratic Equations: No linear term (b = 0), e.g., 4x² – 36 = 0",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "ff309bb4-002d-4aef-9d1a-6ef50069db0e",
+    "label": "Factoring middle term efficiently",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+    "claims": [
+      {
+        "id": "f2ae990b-0550-4ab1-babc-46407abf77ba",
+        "chunk_id": "f8275ad5-723a-479c-a423-74d968b3c1b1",
+        "topic": "quadratic equations",
+        "label": "Factorisation Method",
+        "claim": "The factorisation method is efficient when the middle term can be split into two values whose product equals ac and whose sum equals b.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "This method is most efficient when the middle term can be easily split into two values whose product equals ac and whose sum equals b.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "3c16676f-fcbf-4438-9710-998f7bbf274c",
+    "label": "Solving quadratic equations",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+    "claims": [
+      {
+        "id": "902bda97-b6ce-4460-b7fe-299c3c3fd181",
+        "chunk_id": "f8275ad5-723a-479c-a423-74d968b3c1b1",
+        "topic": "quadratic equations",
+        "label": "Quadratic Formula",
+        "claim": "The quadratic formula, x = (-b ± √(b² – 4ac)) / 2a, is the universal method for solving any quadratic equation.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Quadratic Formula The universal method for solving any quadratic equation: x = (-b ± √(b² – 4ac)) / 2a",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "4163a2a7-03eb-4c97-bc2b-ab58b5f457fa",
+    "label": "Parabola vertex and axis",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+    "claims": [
+      {
+        "id": "be791f81-9d12-4986-8be1-ff4242596f7b",
+        "chunk_id": "f8275ad5-723a-479c-a423-74d968b3c1b1",
+        "topic": "quadratic equations",
+        "label": "Vertex and Axis of Symmetry",
+        "claim": "The vertex of the parabola gives the maximum or minimum value, and the axis of symmetry is the vertical line through the vertex (x = –b/2a).",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "The vertex gives the maximum or minimum value. - The axis of symmetry is the vertical line through the vertex (x = –b/2a)",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "eb37e588-4213-4884-bca5-132975416141",
+    "label": "Quadratic equation factorization",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+    "claims": [
+      {
+        "id": "0773fe2c-8b97-4960-8357-4c1e99913ed4",
+        "chunk_id": "f8275ad5-723a-479c-a423-74d968b3c1b1",
+        "topic": "quadratic equations",
+        "label": "Example of Factorisation",
+        "claim": "For the equation x² – 7x + 12 = 0, the factorization is (x – 3)(x – 4) = 0, leading to solutions x = 3, 4.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Example: x² – 7x + 12 = 0 → (x – 3)(x – 4) = 0 → x = 3, 4",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "06c42cc4-2573-4286-ad6e-e732e2d2f14b",
+    "label": "Quadratic equations in real life",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+    "claims": [
+      {
+        "id": "6c26f9ac-a4b6-45d1-b4b5-37502e460753",
+        "chunk_id": "81005fed-fcb4-4a66-bea0-c06033759999",
+        "topic": "quadratic equations",
+        "label": "Real-World Applications",
+        "claim": "Quadratic equations are used in many real-life situations like calculating projectile motion in physics or designing parabolic structures in engineering.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Physics: Calculating projectile motion, velocity under gravity; Engineering: Designing parabolic structures like bridges and antennas",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "b49ae27e-770f-4cbb-99e0-07bac95110f5",
+    "label": "Quadratic formula finds equation roots",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+    "claims": [
+      {
+        "id": "60d4ed18-8ee1-49d7-85bd-a18493c8e92f",
+        "chunk_id": "81005fed-fcb4-4a66-bea0-c06033759999",
+        "topic": "quadratic equations",
+        "label": "Quadratic Formula Purpose",
+        "claim": "The quadratic formula is used to find the roots of any quadratic equation when the coefficients a, b, and c are known.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "It’s used to find the roots of any quadratic equation where a, b, and c are known.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "b563fcb2-3029-475b-bf18-6b4c81767d0e",
+    "label": "Equal roots condition",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+    "claims": [
+      {
+        "id": "ec649216-b8b1-4e95-88f7-2733e4b3d498",
+        "chunk_id": "81005fed-fcb4-4a66-bea0-c06033759999",
+        "topic": "quadratic equations",
+        "label": "Equal Roots Condition",
+        "claim": "For a quadratic equation to have equal roots, the discriminant (D) must be set to zero.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Set D = 0 → (2)² – 4 × 1 × k = 0",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "630175dd-3569-4397-9ed5-a689b7695c07",
+    "label": "Quadratic equations are important",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+    "claims": [
+      {
+        "id": "d4154112-b2ac-4178-a649-704f35245234",
+        "chunk_id": "0e9005b3-8ff6-4524-b79d-9180a8916f90",
+        "topic": "quadratic equations",
+        "label": "Quadratic Equations",
+        "claim": "Quadratic equations are one of the most important topics and carry high weightage.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "They are one of the most important topics and carry high weightage.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "f5de3d24-5453-4cc3-8380-707039256022",
+    "label": "Quadratic equation application and thinking",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+    "claims": [
+      {
+        "id": "b2467a54-bd5e-4434-9488-bce28cfd6842",
+        "chunk_id": "0e9005b3-8ff6-4524-b79d-9180a8916f90",
+        "topic": "quadratic equations",
+        "label": "Purpose of Mastering Quadratic Equations",
+        "claim": "Mastering solution techniques, understanding the geometric representation, and recognizing real-life roles helps students sharpen analytical thinking.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "By mastering the various solution techniques, understanding their geometric representation, and recognizing their role in real-life scenarios, students not only prepare for exams but also sharpen analytical thinking.",
+        "confidence": 0.9
+      },
+      {
+        "id": "43c1a94b-c530-47a0-8ce7-0649a6aed9af",
+        "chunk_id": "0e9005b3-8ff6-4524-b79d-9180a8916f90",
+        "topic": "quadratic equations",
+        "label": "Application of Quadratic Equations",
+        "claim": "Students should relate quadratic equations to real-life scenarios to truly excel.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+        "evidence": "Practice solving a variety of problems, visualize graphs, and relate equations to real-life scenarios to truly excel in this essential Class 10 math topic.",
+        "confidence": 0.9
+      }
+    ]
+  }
+]

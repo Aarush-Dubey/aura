@@ -1,0 +1,122 @@
+[
+  {
+    "module_order": 3,
+    "concept": "Angle of Elevation",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Angle of Elevation. Teach these exact points: Angle of Elevation: The angle of elevation is the angle formed by the line of sight with the horizontal level and is relevant for objects above the horizontal level. Key detail: The angle of elevation is used to find heights. Key detail: The angle of elevation is the angle formed by the line of sight and the horizontal when the object is above the horizontal level. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_003"
+  },
+  {
+    "module_order": 6,
+    "concept": "Trigonometry for celestial distances",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for celestial distances. Teach these exact points: Trigonometry for celestial distances: Trigonometry was once used by astronomers to compute the distance between the planets, the Earth and stars. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_006"
+  },
+  {
+    "module_order": 7,
+    "concept": "Trigonometry for location finding",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for location finding. Teach these exact points: Trigonometry for location finding: In geography and navigation, trigonometry is most frequently used to identify the latitude and longitude of a specified position. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_007"
+  },
+  {
+    "module_order": 8,
+    "concept": "Trigonometry for wall height",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for wall height. Teach these exact points: Trigonometry for wall height: Trigonometry can be applied to find the height of a vertical wall when the length of a ladder and the angle it makes with the wall are known. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_008"
+  },
+  {
+    "module_order": 9,
+    "concept": "Trigonometry for height calculation",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for height calculation. Teach these exact points: Trigonometry for height calculation: If a rope is tied to a pole and forms an angle with the ground, the height of an object on the pole can be calculated using trigonometry. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_009"
+  },
+  {
+    "module_order": 10,
+    "concept": "Trigonometry for slide length",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for slide length. Teach these exact points: Trigonometry for slide length: Trigonometry can be used to find the length of a slide when the height and the angle of inclination are known. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_010"
+  },
+  {
+    "module_order": 11,
+    "concept": "Trigonometry in air balloon",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry in air balloon. Teach these exact points: Trigonometry in air balloon: The inclination of a string tied to an air balloon above the ground can be used with trigonometry to relate the height and the string length. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_011"
+  },
+  {
+    "module_order": 12,
+    "concept": "Trigonometry for navigation",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for navigation. Teach these exact points: Trigonometry for navigation: Trigonometry is used in navigation (aviation and shipping) to determine locations and distances using angles. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_012"
+  },
+  {
+    "module_order": 13,
+    "concept": "Shadow and height calculation",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Shadow and height calculation. Teach these exact points: Shadow and height calculation: Architects use trigonometry to determine the required height of a building based on its shadow. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_013"
+  },
+  {
+    "module_order": 14,
+    "concept": "Trigonometry problem-solving strategy",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry problem-solving strategy. Teach these exact points: Trigonometry problem-solving strategy: Using standard trigonometric values helps students solve problems manually by focusing on the problem setup rather than complex calculations. Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_014"
+  },
+  {
+    "module_order": 15,
+    "concept": "Curved Surface Geometry",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Curved Surface Geometry. Teach these exact points: Curved Surface Geometry: The topic includes concepts like Curved Surface, which has definitions, formulas, and real-life examples. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_015"
+  },
+  {
+    "module_order": 16,
+    "concept": "Mathematical constant sqrt(3)",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Mathematical constant sqrt(3). Teach these exact points: Mathematical constant sqrt(3): Use sqrt(3) = 1.732 for final numerical answers when asked. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_016"
+  },
+  {
+    "module_order": 17,
+    "concept": "Trigonometry for height calculation",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for height calculation. Teach these exact points: Trigonometry for height calculation: Trigonometry can be used to find the height of an object (flagstaff) given the angles of elevation to its top and bottom from a point on the ground. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_017"
+  },
+  {
+    "module_order": 18,
+    "concept": "River width calculation using trigonometry",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: River width calculation using trigonometry. Teach these exact points: River width calculation using trigonometry: Trigonometry can be used to find the width of a river when two different angles of elevation to an object on the opposite bank are known from two different points on the near bank. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_018"
+  },
+  {
+    "module_order": 19,
+    "concept": "Trigonometry shadow problems",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry shadow problems. Teach these exact points: Trigonometry shadow problems: Trigonometry can solve problems involving the height of an object using the relationship between the angle of elevation of the sun and the length of its shadow. Key detail: In a shadow problem, the height of an object can be found by setting up equations based on two different angles of elevation. Map connection: this idea links by example_of to nearby concepts. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_019"
+  },
+  {
+    "module_order": 21,
+    "concept": "Tangent ratio in right triangles",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Tangent ratio in right triangles. Teach these exact points: Tangent ratio in right triangles: In a right triangle, the tangent of an angle is the ratio of the length of the side opposite the angle to the length of the side adjacent to the angle. Key detail: The tangent ratio (tan theta) is calculated as Opposite/Adjacent, which is used most often because problems typically involve a height (opposite) and a horizontal distance (adjacent). Key detail: Use the tangent (tan θ) ratio when a problem involves the Opposite and Adjacent sides. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_021"
+  },
+  {
+    "module_order": 22,
+    "concept": "Right triangle setup",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Right triangle setup. Teach these exact points: Right triangle setup: To solve height and distance problems, identify the right triangle formed by the vertical height (opposite side), the horizontal distance (adjacent side), and the line of sight (hypotenuse). Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_022"
+  },
+  {
+    "module_order": 24,
+    "concept": "Measuring celestial distances",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Measuring celestial distances. Teach these exact points: Measuring celestial distances: The parallax method is used to measure large distances of celestial bodies. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_024"
+  },
+  {
+    "module_order": 27,
+    "concept": "Trigonometry for height and distance",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometry for height and distance. Teach these exact points: Trigonometry for height and distance: To find the height (h) when given the horizontal distance (d) and the angle of elevation, use the formula tan(angle) = h/d. Key detail: To find the height (h) from the ground when given the angle of elevation and horizontal distance (d), use the formula tan theta = h/d. Key detail: To find the distance (d) when given the angle of elevation and height (h), use the formula d = h/tan theta. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_027"
+  },
+  {
+    "module_order": 30,
+    "concept": "Trigonometric ratios rules",
+    "prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Trigonometric ratios rules. Teach these exact points: Trigonometric ratios rules: Use sin θ if your problem involves the Opposite side and the Hypotenuse. Key detail: Use cos θ if your problem involves the Adjacent side and the Hypotenuse. Map connection: this idea links by requires to nearby concepts. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+    "output_dir": "outputs/cache/e3a664eb14b2c792/animations/module_030"
+  }
+]

@@ -1,0 +1,1124 @@
+[
+  {
+    "id": "2a49144c-990a-4d2f-9beb-7cf66c410dab",
+    "label": "Plant food making process",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "d9dc5cc5-7410-4583-8e15-40f256f5c195",
+        "chunk_id": "12e741b0-72dc-4e3f-a6ca-1a1d20a9325e",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis definition",
+        "claim": "Photosynthesis is a process that occurs in the leaves of a plant.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Photosynthesis is a process that occurs in the leaves of a plant",
+        "confidence": 1.0
+      },
+      {
+        "id": "a1d0669a-85f4-4987-bc2f-d9c6432cf92e",
+        "chunk_id": "8cb77001-5726-4016-b8d2-942500ec1044",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis definition",
+        "claim": "Photosynthesis is a multi-step process that requires sunlight, carbon dioxide (which is low in energy), and water as substrates.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Photosynthesis is a multi-step process that requires sunlight, carbon dioxide (which is low in energy), and water as substrates",
+        "confidence": 1.0
+      },
+      {
+        "id": "0ccef7e4-34b5-4fc0-b7e8-2c469f22ff63",
+        "chunk_id": "ad3c4ed5-1f2e-4dc9-a589-d7a8b62f616c",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis definition",
+        "claim": "Plants make their own food through a process called photosynthesis.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.co.uk/bitesize/guides/zq8s2nb/revision/1",
+        "evidence": "Plants, unlike animals, can make their own food. They do this using a process called photosynthesis.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "b35b2f7d-a339-421f-8226-1239e1eb8276",
+    "label": "Photosynthesis needs light energy",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "f01784d3-4e87-4deb-941b-00fb4d134889",
+        "chunk_id": "12e741b0-72dc-4e3f-a6ca-1a1d20a9325e",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis requirements",
+        "claim": "Photosynthesis needs chlorophyll and light energy to occur.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Photosynthesis is a process that occurs in the leaves of a plant and needs both chlorophyll and light energy.",
+        "confidence": 1.0
+      },
+      {
+        "id": "8c94767d-1578-4b6c-bda0-a4d08c4ccb30",
+        "chunk_id": "ad3c4ed5-1f2e-4dc9-a589-d7a8b62f616c",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis energy requirement",
+        "claim": "Photosynthesis requires light energy to drive the chemical reaction and is an endothermic reaction.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.co.uk/bitesize/guides/zq8s2nb/revision/1",
+        "evidence": "Photosynthesis requires energy in the form of light to drive the chemical reaction. Photosynthesis is an endothermic reaction.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "f7aac184-09ef-44f7-be65-9b9d2c3464c5",
+    "label": "Photosynthesis process and products",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "538563cf-6fb0-4c6e-9909-17f6d014b164",
+        "chunk_id": "12e741b0-72dc-4e3f-a6ca-1a1d20a9325e",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis inputs",
+        "claim": "Carbon dioxide, water, and light are all needed for photosynthesis to take place.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Carbon dioxide, water and light are all needed for photosynthesis to take place.",
+        "confidence": 1.0
+      },
+      {
+        "id": "b8a644b1-faf7-4c12-bfb1-34512f3adb30",
+        "chunk_id": "12e741b0-72dc-4e3f-a6ca-1a1d20a9325e",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis products",
+        "claim": "During photosynthesis, chlorophyll converts carbon dioxide and water into oxygen and glucose.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "During photosynthesis, the chlorophyll in leaves help convert carbon dioxide and water into the products oxygen and glucose.",
+        "confidence": 1.0
+      },
+      {
+        "id": "ae1adcee-02ac-484b-9248-04ea827a6cda",
+        "chunk_id": "b7071bb3-8707-414b-8363-430dabad0f4a",
+        "topic": "photosynthesis",
+        "label": "Inputs for Photosynthesis",
+        "claim": "Plants need carbon dioxide, water, and light (a source of energy) for photosynthesis.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "These are the things that plants need for photosynthesis: - Carbon dioxide - Water - Light (a source of energy)",
+        "confidence": 1.0
+      },
+      {
+        "id": "4204dbce-ce3e-4fc0-849e-3fe5eac32cce",
+        "chunk_id": "b7071bb3-8707-414b-8363-430dabad0f4a",
+        "topic": "photosynthesis",
+        "label": "Products of Photosynthesis",
+        "claim": "Photosynthesis produces glucose and oxygen.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "These are the things that plants make by photosynthesis: - Glucose - Oxygen",
+        "confidence": 1.0
+      },
+      {
+        "id": "2f379668-4304-41c2-8013-d45abcd297d5",
+        "chunk_id": "911c599b-ddfa-4f77-8d07-a5548429f7de",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis input requirement",
+        "claim": "Plants need carbon dioxide released by respiration and decomposition.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Plants need the carbon dioxide released by respiration and decomposition",
+        "confidence": 1.0
+      },
+      {
+        "id": "fdb96c30-e5d3-4172-b51a-4814b1b85052",
+        "chunk_id": "8cb77001-5726-4016-b8d2-942500ec1044",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis waste product",
+        "claim": "Oxygen is generated as a waste product of photosynthesis.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Oxygen is generated as a waste product of photosynthesis.",
+        "confidence": 1.0
+      },
+      {
+        "id": "c9e3bbbe-4e21-45e6-8fa8-057ee2f11609",
+        "chunk_id": "ad3c4ed5-1f2e-4dc9-a589-d7a8b62f616c",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis inputs",
+        "claim": "Photosynthesis uses carbon dioxide and water to produce glucose using light energy.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.co.uk/bitesize/guides/zq8s2nb/revision/1",
+        "evidence": "During photosynthesis, plants produce glucose from simple inorganic molecules - carbon dioxide and water - using light energy.",
+        "confidence": 1.0
+      },
+      {
+        "id": "809d7c13-7d45-45fe-b9b4-38caf6c7a593",
+        "chunk_id": "ad3c4ed5-1f2e-4dc9-a589-d7a8b62f616c",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis byproduct",
+        "claim": "Oxygen gas is formed as a waste product during photosynthesis.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.co.uk/bitesize/guides/zq8s2nb/revision/1",
+        "evidence": "Oxygen is formed as the waste product.",
+        "confidence": 1.0
+      },
+      {
+        "id": "17a8bc45-2061-4f83-a566-bf37b8bf9c29",
+        "chunk_id": "480bcb1c-3741-4b0b-8b25-e39b368531f9",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis",
+        "claim": "Photosynthesis is the process where glucose not used for respiration is used in the following ways.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.co.uk/bitesize/guides/zq8s2nb/revision/1",
+        "evidence": "The glucose not used for respiration is used in the following ways:",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "926b5200-ad2d-44e3-b7c5-4d48c321af31",
+    "label": "Glucose as plant food",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "770cc538-8cae-411c-bc36-4cb049bb5c47",
+        "chunk_id": "12e741b0-72dc-4e3f-a6ca-1a1d20a9325e",
+        "topic": "photosynthesis",
+        "label": "Role of glucose",
+        "claim": "The product glucose acts as a vital source of food for the plant.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "The product glucose acts as a vital source of food for the plant.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "9149d34a-fa3f-4ee0-b6b6-29bd7360ffb3",
+    "label": "Photosynthesis location in plants",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "41d677c1-a0ad-49e1-a911-dc97c881ec48",
+        "chunk_id": "12e741b0-72dc-4e3f-a6ca-1a1d20a9325e",
+        "topic": "photosynthesis",
+        "label": "Location of photosynthesis",
+        "claim": "Photosynthesis takes place inside plant cells in small objects called chloroplasts.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Photosynthesis takes place inside plant cells in small objects called chloroplasts.",
+        "confidence": 1.0
+      },
+      {
+        "id": "3c9a5562-f751-419c-b653-3c311c028ae1",
+        "chunk_id": "51274a45-5d6f-4bad-8ec1-ea4237aae7d4",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis location",
+        "claim": "In plants, photosynthesis generally takes place in leaves, specifically in a middle layer called the mesophyll.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "In plants, photosynthesis generally takes place in leaves, which consist of several layers of cells. The process of photosynthesis occurs in a middle layer called mesophyll.",
+        "confidence": 1.0
+      },
+      {
+        "id": "27060a52-c82d-4f4b-ae4a-6815e1325aee",
+        "chunk_id": "4d3c9899-4d6f-496b-ae0a-9e55252087be",
+        "topic": "photosynthesis",
+        "label": "Chloroplast Components",
+        "claim": "Photosynthesis takes place in chloroplasts, which have an outer membrane and an inner membrane.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Photosynthesis takes place in chloroplasts, which have an outer membrane and an inner membrane.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "5b7fcaf8-c44d-453f-8561-f4c620707d9a",
+    "label": "Photosynthesis word equation",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "d5adca91-0dff-46df-a374-97163bb429a5",
+        "chunk_id": "b7071bb3-8707-414b-8363-430dabad0f4a",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis Word Equation",
+        "claim": "The word equation for photosynthesis in the presence of light and chlorophyll is: Carbon dioxide + water → glucose + oxygen.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "The word equation for photosynthesis in the presence of light and chlorophyll is: Carbon dioxide + water → glucose + oxygen",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "aff8ab0d-e4bf-4bec-88e2-f89acc5c55c3",
+    "label": "Photosynthesis for life",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "6c500273-5383-407d-9002-3eb0e1f48864",
+        "chunk_id": "b7071bb3-8707-414b-8363-430dabad0f4a",
+        "topic": "photosynthesis",
+        "label": "Importance of Photosynthesis for Organisms",
+        "claim": "Photosynthesis provides organisms with oxygen, which is needed for respiration to release energy and stay alive.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Photosynthesis provides organisms with oxygen, a gas that many living things need. Oxygen is a product of photosynthesis and is needed for respiration.",
+        "confidence": 1.0
+      },
+      {
+        "id": "e220fb24-73c6-4941-a0ab-acd6c00450c4",
+        "chunk_id": "437fbb00-0b33-470f-8e83-08df898dd872",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis relevance",
+        "claim": "Photosynthesis is essential to all life on earth because it is the only biological process that can capture energy from sunlight and convert it into chemical compounds that every organism uses to power its metabolism.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Photosynthesis is essential to all life on earth; both plants and animals depend on it. It is the only biological process that can capture energy that originates in outer space (sunlight) and convert it into chemical compounds (carbohydrates) that every organism uses to power its metabolism.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "5c8eee38-8192-45a4-bbed-59ac12ca1054",
+    "label": "Photosynthesis maintains ecosystem balance",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "d7ba6300-3357-4063-8d47-b23eb38afded",
+        "chunk_id": "b7071bb3-8707-414b-8363-430dabad0f4a",
+        "topic": "photosynthesis",
+        "label": "Ecosystem Balance Role",
+        "claim": "Photosynthesis helps maintain the balance in the ecosystem by decreasing the concentration of carbon dioxide in the atmosphere.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Photosynthesis brings about a balance in the ecosystem as it decreases the concentration of carbon dioxide in the atmosphere.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "3737b7d7-b50f-443b-91db-fd97f36a6365",
+    "label": "Photosynthesis oxygen release",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "29e56c93-f47b-4cee-a71f-94757ca55578",
+        "chunk_id": "911c599b-ddfa-4f77-8d07-a5548429f7de",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis output requirement",
+        "claim": "Animals need oxygen released by plants from photosynthesis.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "animals need the oxygen released by plants from photosynthesis",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "6f0d846a-f43c-4e3e-a989-12b1da6562df",
+    "label": "Plant energy creation from light",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "4cfeb57f-d100-4ec9-ae66-a1e2712e74dc",
+        "chunk_id": "911c599b-ddfa-4f77-8d07-a5548429f7de",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis and light",
+        "claim": "Plants only photosynthesise and synthesise glucose during the day when there is sunlight.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Plants only photosynthesise and synthesise glucose during the day when there is sunlight",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "84aeaa0f-ab11-4b20-934f-7a4701f09113",
+    "label": "Glucose energy in respiration",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "0c82946b-61e1-42cd-a20d-9ed001074a22",
+        "chunk_id": "911c599b-ddfa-4f77-8d07-a5548429f7de",
+        "topic": "photosynthesis",
+        "label": "Glucose function in respiration",
+        "claim": "Glucose is used during respiration to release energy.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "when broken down during respiration, is to release energy",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "bdd638af-4494-46db-a4e5-09570550b34f",
+    "label": "Carbohydrate structure analogy",
+    "type": "analogy",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "c6f06872-456e-4aaf-a82d-8b8d6e4d82f3",
+        "chunk_id": "911c599b-ddfa-4f77-8d07-a5548429f7de",
+        "topic": "photosynthesis",
+        "label": "Glucose structure analogy",
+        "claim": "Glucose molecules can be thought of like individual beads on a necklace, and the whole necklace represents a carbohydrate molecule.",
+        "type": "analogy",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Think of it like each glucose molecule being an individual bead on a necklace and the entire necklace represents the carbohydrate molecule",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "171897c8-ff07-470d-8cc4-3262281010d3",
+    "label": "Plant cell wall strength",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "f52311e6-fa68-4dc4-9369-6b7a2c78caed",
+        "chunk_id": "911c599b-ddfa-4f77-8d07-a5548429f7de",
+        "topic": "photosynthesis",
+        "label": "Cellulose function",
+        "claim": "Cellulose is the main component of plant cell walls, giving the plant cell strength and support.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Cellulose is the main component found in plant cell walls and this gives the plant cell strength and support",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "a696125b-097a-4eb7-9eaa-aa2f82d6dd9d",
+    "label": "Plant energy storage molecule",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "654084c4-cc3c-4074-ab3b-ea943a7fc89a",
+        "chunk_id": "911c599b-ddfa-4f77-8d07-a5548429f7de",
+        "topic": "photosynthesis",
+        "label": "Starch function",
+        "claim": "Starch is an insoluble storage molecule that most plants (like rice, potatoes, and wheat) use to store energy.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Most plants including rice, potatoes and wheat store their energy as starch",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "eb37b333-6748-4b9a-b403-524d91b05825",
+    "label": "Photosynthesis energy production",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "e351b8fc-e873-418b-9514-9969c22f07f8",
+        "chunk_id": "b384c5b3-ef9c-4d01-9693-30bc02baab44",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis",
+        "claim": "Photosynthesis produces energy in food.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Dr Chris van Tulleken explains the process of Photosynthesis and how it produces energy in food.",
+        "confidence": 1.0
+      },
+      {
+        "id": "1a150fb1-ad06-4cb3-a508-8cc7284dd69c",
+        "chunk_id": "8cb77001-5726-4016-b8d2-942500ec1044",
+        "topic": "photosynthesis",
+        "label": "Energy source in photosynthesis",
+        "claim": "Photosynthesis uses solar energy as an energy source.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Photosynthesis uses solar energy, carbon dioxide, and water to produce energy-storing carbohydrates.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "4ca4d56f-78a6-4011-9adb-ae7d9c67366e",
+    "label": "Plant energy storage",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "39f1864f-79ab-4a25-97ae-da40bc16b8d5",
+        "chunk_id": "b384c5b3-ef9c-4d01-9693-30bc02baab44",
+        "topic": "photosynthesis",
+        "label": "Energy Storage in Plants",
+        "claim": "Fats and oils are used by the plant as a storage form of energy.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Fats and oils are also used by the plant as a storage form of energy.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "946a8476-f974-4505-befc-3819dc130115",
+    "label": "Photosynthesis to Protein",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "40603a0d-883e-4f32-aa96-6a003ee55492",
+        "chunk_id": "b384c5b3-ef9c-4d01-9693-30bc02baab44",
+        "topic": "photosynthesis",
+        "label": "Role of Glucose",
+        "claim": "Glucose produced in photosynthesis can be used to help make amino acids.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Glucose produced in photosynthesis can be used to help make amino acids.",
+        "confidence": 1.0
+      },
+      {
+        "id": "35f60a9e-88ca-4d9b-856a-f725eda6e946",
+        "chunk_id": "b384c5b3-ef9c-4d01-9693-30bc02baab44",
+        "topic": "photosynthesis",
+        "label": "Role of Amino Acids",
+        "claim": "Amino acids produced from glucose are used by the plant to synthesise proteins.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "These amino acids are used by the plant to synthesise proteins.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "be0954a9-b99f-46e8-9ccf-e44f6c1f72b0",
+    "label": "Mineral absorption by roots",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+    "claims": [
+      {
+        "id": "225bd009-989f-495b-a98e-5e615e083335",
+        "chunk_id": "b384c5b3-ef9c-4d01-9693-30bc02baab44",
+        "topic": "photosynthesis",
+        "label": "Mineral Absorption",
+        "claim": "Minerals such as nitrate ions are absorbed by the roots of the plants to help make amino acids.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.com/bitesize/articles/zn4sv9q",
+        "evidence": "Minerals such as nitrate ions are also absorbed by the roots of the plants to help make these amino acids.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "b5f24033-d001-4c59-b0af-0e547f82deb4",
+    "label": "Light energy stored in sugar",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "32ec0aad-d8c4-4991-a3fe-59181129a9c3",
+        "chunk_id": "437fbb00-0b33-470f-8e83-08df898dd872",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis energy conversion",
+        "claim": "The energy of sunlight is captured and used to energize electrons, which are then stored in the covalent bonds of sugar molecules.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "In brief, the energy of sunlight is captured and used to energize electrons, which are then stored in the covalent bonds of sugar molecules.",
+        "confidence": 1.0
+      },
+      {
+        "id": "384d5ca3-9518-4e05-8097-8d564cc3d3d8",
+        "chunk_id": "7140ce7e-ccfa-44bc-b158-66bed296fcf0",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis Energy Storage",
+        "claim": "Photosynthesis stores the energy from sunlight as high-energy electrons in the carbon-carbon bonds of carbohydrate molecules.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Photosynthesis is vital because it evolved as a way to store the energy in solar radiation (the “photo-” part) as high-energy electrons in the carbon-carbon bonds of carbohydrate molecules (the “-synthesis” part).",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "3bf8397a-fb03-4ade-b39d-974454251241",
+    "label": "Light-using food makers",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "d8e24f0f-142f-424e-b9aa-41f6c8df8c7f",
+        "chunk_id": "437fbb00-0b33-470f-8e83-08df898dd872",
+        "topic": "photosynthesis",
+        "label": "Photoautotrophs",
+        "claim": "Plants, algae, and cyanobacteria are called photoautotrophs because they use light to manufacture their own food.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Plants, algae, and a group of bacteria called cyanobacteria are the only organisms capable of performing photosynthesis ([Figure](https://cnx.org/contents/GFy_h8cu@10.95:W7ctJeSI@8/Overview-of-Photosynthesis#fig-ch08_01_01)). Because they use light to manufacture their own food, they are called photoautotrophs(literally, “self-feeders using light”).",
+        "confidence": 1.0
+      },
+      {
+        "id": "3d43e3a3-0976-4b98-8b6b-35632186b74c",
+        "chunk_id": "7140ce7e-ccfa-44bc-b158-66bed296fcf0",
+        "topic": "photosynthesis",
+        "label": "Photoautotrophs",
+        "claim": "Photoautotrophs include plants, algae, and cyanobacteria that synthesize organic compounds using sunlight as an energy source.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Photoautotrophs including (a) plants, (b) algae, and (c) cyanobacteria synthesize their organic compounds via photosynthesis using sunlight as an energy source.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "b0625741-2761-49ce-841c-1d0ce300e1aa",
+    "label": "Heterotrophs need other food",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "232e6842-31d7-4213-ba8c-b3ba76bebc96",
+        "chunk_id": "437fbb00-0b33-470f-8e83-08df898dd872",
+        "topic": "photosynthesis",
+        "label": "Heterotrophs",
+        "claim": "Organisms such as animals, fungi, and most other bacteria are termed heterotrophs because they must rely on the sugars produced by photosynthetic organisms for their energy needs.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Other organisms, such as animals, fungi, and most other bacteria, are termed heterotrophs(“other feeders”), because they must rely on the sugars produced by photosynthetic organisms for their energy needs.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "35344087-1aca-4dca-8726-ff8273443a76",
+    "label": "Chemoautotrophs",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "db7ab0fe-25d4-4afb-88c5-5d91896d6748",
+        "chunk_id": "437fbb00-0b33-470f-8e83-08df898dd872",
+        "topic": "photosynthesis",
+        "label": "Chemoautotrophs",
+        "claim": "A third group of bacteria synthesizes sugars by extracting energy from inorganic chemical compounds and are referred to as chemoautotrophs.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "A third very interesting group of bacteria synthesize sugars, not by using sunlight’s energy, but by extracting energy from inorganic chemical compounds; hence, they are referred to aschemoautotrophs.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "cdd704db-8e2f-4948-bef6-f0dbc6a5390a",
+    "label": "Photosynthesis energy source",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "457ea5d1-b618-40df-b739-96deca6dd736",
+        "chunk_id": "7140ce7e-ccfa-44bc-b158-66bed296fcf0",
+        "topic": "photosynthesis",
+        "label": "Role of Carbohydrates",
+        "claim": "The carbohydrates produced by photosynthesis are the energy source that heterotrophs use to power the synthesis of ATP via respiration.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Those carbohydrates are the energy source that heterotrophs use to power the synthesis of ATP via respiration.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "38b24e17-b79c-457c-ad5f-c456dc177285",
+    "label": "Photosynthesis powers Earth's life",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "9647abbf-83e3-41d2-9aba-a558048fdbcd",
+        "chunk_id": "7140ce7e-ccfa-44bc-b158-66bed296fcf0",
+        "topic": "photosynthesis",
+        "label": "Importance of Photosynthesis",
+        "claim": "Photosynthesis powers 99 percent of Earth’s ecosystems.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Therefore, photosynthesis powers 99 percent of Earth’s ecosystems.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "2e424cb9-97d3-4173-849a-99cafd7ec1a6",
+    "label": "Food chain energy flow",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "bd206ead-af85-48d8-96ee-1d0491e8139c",
+        "chunk_id": "7140ce7e-ccfa-44bc-b158-66bed296fcf0",
+        "topic": "photosynthesis",
+        "label": "Energy Pathway Example",
+        "claim": "An energy path from the sun to a wolf involves nuclear reactions, light, photosynthesis, vegetation, deer, and finally the wolf.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "When a top predator, such as a wolf, preys on a deer ([Figure](https://cnx.org/contents/GFy_h8cu@10.95:W7ctJeSI@8/Overview-of-Photosynthesis#fig-ch08_01_02)), the wolf is at the end of an energy path that went from nuclear reactions on the surface of the sun, to light, to photosynthesis, to vegetation, to deer, and finally to wolf.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "c88f28b7-adc1-4257-9fd2-ae2ff6950f78",
+    "label": "Photosynthesis products",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "943d2f05-0a6c-4cd1-b85e-a55cd18554d0",
+        "chunk_id": "8cb77001-5726-4016-b8d2-942500ec1044",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis products",
+        "claim": "Photosynthesis releases oxygen and produces glyceraldehyde-3-phosphate (GA3P), simple carbohydrate molecules (which are high in energy).",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "After the process is complete, it releases oxygen and produces glyceraldehyde-3-phosphate (GA3P), simple carbohydrate molecules (which are high in energy)",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "338b4be7-f5b8-457c-97b2-33e0caa8e4d6",
+    "label": "Photosynthesis energy source",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "35408e48-5d97-46fa-9e82-39f5922702e9",
+        "chunk_id": "8cb77001-5726-4016-b8d2-942500ec1044",
+        "topic": "photosynthesis",
+        "label": "Role of sugar molecules",
+        "claim": "The sugar molecules produced by photosynthesis contain energy and the energized carbon that all living things need to survive.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "These sugar molecules contain energy and the energized carbon that all living things need to survive.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "e420a8f0-9877-4f52-9791-1cbfd4b03b97",
+    "label": "Glucose formation process",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "fd742545-6fa5-47ad-a033-710d98cf4243",
+        "chunk_id": "51274a45-5d6f-4bad-8ec1-ea4237aae7d4",
+        "topic": "photosynthesis",
+        "label": "Glucose formation",
+        "claim": "Glucose, the primary energy source in cells, is made from two three-carbon GA3Ps.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Glucose, the primary energy source in cells, is made from two three-carbon GA3Ps.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "83d52b5b-dad6-4eef-aafd-323d33979326",
+    "label": "Stomata for gas exchange",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "1bf3fa02-1f3f-4a2d-b70d-13138625316c",
+        "chunk_id": "51274a45-5d6f-4bad-8ec1-ea4237aae7d4",
+        "topic": "photosynthesis",
+        "label": "Gas exchange structures",
+        "claim": "The gas exchange of carbon dioxide and oxygen occurs through small, regulated openings called stomata.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "The gas exchange of carbon dioxide and oxygen occurs through small, regulated openings called stomata(singular: stoma), which also play roles in the regulation of gas exchange and water balance.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "483c3cae-72a7-41e7-a3b7-29f536825a9f",
+    "label": "Stomata regulation mechanism",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "0016d9a0-3ab0-491f-a275-4040a631c991",
+        "chunk_id": "51274a45-5d6f-4bad-8ec1-ea4237aae7d4",
+        "topic": "photosynthesis",
+        "label": "Stomata regulation",
+        "claim": "Guard cells flank each stoma and regulate its opening and closing by swelling or shrinking in response to osmotic changes.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Each stoma is flanked by guard cells that regulate the opening and closing of the stomata by swelling or shrinking in response to osmotic changes.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "f7790e8b-4513-40df-8982-3cc05aae73fc",
+    "label": "Photosynthesis organelle",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "f7937184-e012-4430-a045-4557b0c33a94",
+        "chunk_id": "51274a45-5d6f-4bad-8ec1-ea4237aae7d4",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis organelle",
+        "claim": "In all autotrophic eukaryotes, photosynthesis takes place inside an organelle called an achloroplast.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "In all autotrophic eukaryotes, photosynthesis takes place inside an organelle called achloroplast.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "3fc9696b-525c-47b9-8b04-2b9093909625",
+    "label": "Chloroplast structure",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "3df3067a-ee17-4a53-8f48-d0e4f64ea0c5",
+        "chunk_id": "51274a45-5d6f-4bad-8ec1-ea4237aae7d4",
+        "topic": "photosynthesis",
+        "label": "Chloroplast structure",
+        "claim": "Chloroplasts have a double membrane envelope (composed of an outer membrane and an inner membrane).",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Chloroplasts have a double membrane envelope (composed of an outer membrane and an inner membrane).",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "7f584e8b-8ad2-4e1f-b43f-b181a2086dfe",
+    "label": "Thylakoid stacking structure",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "12589fb7-5851-46bf-a8e1-f8d12ccfb52d",
+        "chunk_id": "4d3c9899-4d6f-496b-ae0a-9e55252087be",
+        "topic": "photosynthesis",
+        "label": "Thylakoid Structure",
+        "claim": "Thylakoids form stacks called grana.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "The thylakoids form stacks called grana.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "500b0d41-4000-4b54-b59c-979f0cdd450f",
+    "label": "Photosynthesis stages",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "c58afb35-4847-4dc8-a05d-2d5ccc5388d0",
+        "chunk_id": "4d3c9899-4d6f-496b-ae0a-9e55252087be",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis Stages",
+        "claim": "Photosynthesis takes place in two sequential stages: the light-dependent reactions and the light independent-reactions.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Photosynthesis takes place in two sequential stages: the light-dependent reactions and the light independent-reactions.",
+        "confidence": 1.0
+      },
+      {
+        "id": "4fc0aebf-35ef-41f9-818c-0cd4ee3df785",
+        "chunk_id": "b53c7f8c-774e-4c81-bbd2-6b154ca8a426",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis Overview",
+        "claim": "Photosynthesis takes place in two stages: light dependent reactions and the Calvin cycle.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Photosynthesis takes place in two stages: light dependent reactions and the Calvin cycle.",
+        "confidence": 1.0
+      },
+      {
+        "id": "6df44c39-d5e0-4fea-8e65-a90684785561",
+        "chunk_id": "ad3c4ed5-1f2e-4dc9-a589-d7a8b62f616c",
+        "topic": "photosynthesis",
+        "label": "Photosynthesis stages",
+        "claim": "Photosynthesis has two main stages: 1) Carbon dioxide combines with hydrogen to make glucose, and 2) Light energy splits water, releasing oxygen gas and hydrogen ions.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.co.uk/bitesize/guides/zq8s2nb/revision/1",
+        "evidence": "Photosynthesis is a process with two main stages: 1. Carbon dioxide gas combines with the hydrogen to make glucose. 2. Light energy is used to split water, releasing oxygen gas and hydrogen ions.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "3d89a9b1-c6c9-435c-afe0-196f120ce252",
+    "label": "Light energy to chemical energy",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "fff5279c-d1c4-413e-b9cd-3a3ca30b97b5",
+        "chunk_id": "4d3c9899-4d6f-496b-ae0a-9e55252087be",
+        "topic": "photosynthesis",
+        "label": "Light-Dependent Reactions",
+        "claim": "In the light-dependent reactions, energy from sunlight is absorbed by chlorophyll and converted into stored chemical energy.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "In the light-dependent reactions, energy from sunlight is absorbed by chlorophyll and that energy is converted into stored chemical energy.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "b49e4266-0cf0-4cab-8efa-59c975fc693b",
+    "label": "Photosynthesis sugar making",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "f9af1586-633d-45fe-8a1d-9560b8d18391",
+        "chunk_id": "4d3c9899-4d6f-496b-ae0a-9e55252087be",
+        "topic": "photosynthesis",
+        "label": "Light-Independent Reactions",
+        "claim": "In the light-independent reactions, chemical energy drives the assembly of sugar molecules from carbon dioxide.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "In the light-independent reactions, the chemical energy harvested during the light-dependent reactions drive the assembly of sugar molecules from carbon dioxide.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "44a43141-9834-4dcd-aa07-cdabc2804e7f",
+    "label": "Energy carriers move energy",
+    "type": "analogy",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "3ec96dbf-7090-4e81-bb30-f453dabf733f",
+        "chunk_id": "4d3c9899-4d6f-496b-ae0a-9e55252087be",
+        "topic": "photosynthesis",
+        "label": "Energy Carriers Function",
+        "claim": "Energy carriers move energy from light-dependent reactions to light-independent reactions and can be thought of as “full” because they are rich in energy.",
+        "type": "analogy",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "The energy carriers that move energy from light-dependent reactions to light-independent reactions can be thought of as “full” because they are rich in energy.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "c8aa59bf-dcd2-470c-824d-20d20f206c56",
+    "label": "Light reactions make energy",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "c542567e-90e4-4754-a0dc-8cb1e2f4e95b",
+        "chunk_id": "b53c7f8c-774e-4c81-bbd2-6b154ca8a426",
+        "topic": "photosynthesis",
+        "label": "Light-Dependent Reactions",
+        "claim": "Light-dependent reactions occur in the thylakoid membrane and use light energy to make ATP and NADPH.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "Light-dependent reactions, which take place in the thylakoid membrane, use light energy to make ATP and NADPH.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "5e38bb0e-d862-411f-b119-929f4482a5eb",
+    "label": "Calvin cycle process",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "315f67fa-061d-4930-93a7-14eb5d19f9f3",
+        "chunk_id": "b53c7f8c-774e-4c81-bbd2-6b154ca8a426",
+        "topic": "photosynthesis",
+        "label": "Calvin Cycle",
+        "claim": "The Calvin cycle takes place in the stroma and uses energy from ATP and NADPH to make GA3P from carbon dioxide (CO2).",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "The Calvin cycle, which takes place in the stroma, uses energy derived from these compounds to make GA3P from CO2.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "c087caa8-91a2-4b54-92a3-a7d0d9f5bff2",
+    "label": "ATP NADPH usage in Calvin Cycle",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "7eae320a-0d2d-4986-a6d4-0cecd8130f9c",
+        "chunk_id": "b53c7f8c-774e-4c81-bbd2-6b154ca8a426",
+        "topic": "photosynthesis",
+        "label": "Energy Conversion in Calvin Cycle",
+        "claim": "During the Calvin cycle, ATP is broken down to ADP and Pi, and NADPH is oxidized to NADP+.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "ATP is broken down to ADP and Pi, and NADPH is oxidized to NADP+.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "99808faf-9506-45ea-98d7-106efc609655",
+    "label": "Photosynthesis water oxygen",
+    "type": "example",
+    "difficulty": 0.0,
+    "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+    "claims": [
+      {
+        "id": "99a7cb98-60c7-4279-b8b4-f8dd198eae14",
+        "chunk_id": "b53c7f8c-774e-4c81-bbd2-6b154ca8a426",
+        "topic": "photosynthesis",
+        "label": "Overall Output",
+        "claim": "In the process of photosynthesis, water is used and oxygen is produced.",
+        "type": "example",
+        "difficulty": 0.0,
+        "source_url": "https://press.rebus.community/openstaxbiology/chapter/8-1-overview-of-photosynthesis/",
+        "evidence": "In the process, water is used and oxygen is produced.",
+        "confidence": 1.0
+      }
+    ]
+  },
+  {
+    "id": "a91f92f8-8cf1-4486-ba9e-b81536d0912e",
+    "label": "Photosynthesis light absorption",
+    "type": "definition",
+    "difficulty": 0.0,
+    "source_url": "https://www.bbc.co.uk/bitesize/guides/zq8s2nb/revision/1",
+    "claims": [
+      {
+        "id": "a889fd64-d23b-41af-9cef-0fbea6a0b7b2",
+        "chunk_id": "ad3c4ed5-1f2e-4dc9-a589-d7a8b62f616c",
+        "topic": "photosynthesis",
+        "label": "Chlorophyll function",
+        "claim": "Chlorophyll, a green pigment in chloroplasts, absorbs the light energy required for photosynthesis.",
+        "type": "definition",
+        "difficulty": 0.0,
+        "source_url": "https://www.bbc.co.uk/bitesize/guides/zq8s2nb/revision/1",
+        "evidence": "The light energy required is absorbed by a green pigment called chlorophyll in the leaves.",
+        "confidence": 1.0
+      }
+    ]
+  }
+]

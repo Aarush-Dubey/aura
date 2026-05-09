@@ -1,0 +1,896 @@
+{
+  "student_uuid": "neuromap-demo-learner",
+  "curriculum": {
+    "subject": "Mathematics",
+    "grade_level": "10",
+    "topics": [
+      "quadratic equations"
+    ],
+    "learning_goals": [
+      "Understand quadratic equations",
+      "Apply quadratic equations with examples"
+    ],
+    "constraints": [
+      "short chunks",
+      "middle school reading level"
+    ]
+  },
+  "modules": [
+    {
+      "order": 1,
+      "concept_id": "0ba66b3c-cd5e-42a6-876a-2202c2c57c5b",
+      "concept": "Quadratic equation name origin",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic equation name origin to audio plus two flip cards with one sentence each.",
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "reading_paragraph": "Quadratic equation name origin: The name Quadratic comes from \"quad\" meaning square because the variable gets squared, like x2. Key detail: The term 'quadratic' comes from the Latin word quadratus, meaning 'square,' because the highest exponent of the variable is 2. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equation name origin: The name Quadratic comes from \"quad\" meaning square because the variable gets squared, like x2. Key detail: The term 'quadratic' comes from the Latin word quadratus, meaning 'square,' because the highest exponent of the variable is 2. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equation name origin: The name Quadratic comes from \"quad\" meaning square because the variable gets squared, like x2. Key detail: The term 'quadratic' comes from the Latin word quadratus, meaning 'square,' because the highest exponent of the variable is 2.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 2,
+      "concept_id": "771bd5a0-8623-49bb-8951-ba3422db21d1",
+      "concept": "Equation degree definition",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Equation degree definition to audio plus two flip cards with one sentence each.",
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "reading_paragraph": "Equation degree definition: The degree of an equation is the highest power present in the equation. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Equation degree definition: The degree of an equation is the highest power present in the equation. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Equation degree definition: The degree of an equation is the highest power present in the equation. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 3,
+      "concept_id": "ce413fe7-fd4f-463c-aa41-e21e47aa451b",
+      "concept": "Quadratic equation definition",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic equation definition to audio plus two flip cards with one sentence each.",
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "reading_paragraph": "Quadratic equation definition: A Quadratic Equation is also called an \"Equation of Degree 2\" because of the \"2\" on x2. Key detail: The Standard Form of a Quadratic Equation is ax2 + bx + c = 0, where 'a' cannot be 0. Key detail: A quadratic equation is a type of polynomial that has a degree of 2. Key detail: A quadratic equation is a polynomial equation of degree 2 in the form ax² + bx + c = 0, where a ≠ 0.",
+      "audio_script": "I will go slowly. Quadratic equation definition: A Quadratic Equation is also called an \"Equation of Degree 2\" because of the \"2\" on x2. Key detail: The Standard Form of a Quadratic Equation is ax2 + bx + c = 0, where 'a' cannot be 0. Key detail: A quadratic equation is a type of polynomial that has a degree of 2. Key detail: A quadratic equation is a polynomial equation of degree 2 in the form ax² + bx + c = 0, where a ≠ 0.",
+      "text_chunks": [
+        "Quadratic equation definition: A Quadratic Equation is also called an \"Equation of Degree 2\" because of the \"2\" on x2. Key detail: The Standard Form of a Quadratic Equation is ax2 + bx + c = 0, where 'a' cannot be 0.",
+        "Key detail: A quadratic equation is a type of polynomial that has a degree of 2. Key detail: A quadratic equation is a polynomial equation of degree 2 in the form ax² + bx + c = 0, where a ≠ 0."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Quadratic equation definition. Teach these exact points: Quadratic equation definition: A Quadratic Equation is also called an \"Equation of Degree 2\" because of the \"2\" on x2. Key detail: The Standard Form of a Quadratic Equation is ax2 + bx + c = 0, where 'a' cannot be 0. Key detail: A quadratic equation is a type of polynomial that has a degree of 2. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 4,
+      "concept_id": "0e37eebf-6a30-4dc8-890c-b5a44ccf6285",
+      "concept": "Quadratic equation solving",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Quadratic equation solving to audio plus two flip cards with one sentence each.",
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "reading_paragraph": "Quadratic equation solving: Solve 5x^2 + 2x + 1 = 0 by finding coefficients and using the quadratic formula. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equation solving: Solve 5x^2 + 2x + 1 = 0 by finding coefficients and using the quadratic formula. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equation solving: Solve 5x^2 + 2x + 1 = 0 by finding coefficients and using the quadratic formula. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Quadratic equation solving. Teach these exact points: Quadratic equation solving: Solve 5x^2 + 2x + 1 = 0 by finding coefficients and using the quadratic formula. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 5,
+      "concept_id": "3d2f7d0d-0d83-4fa2-b139-bbfbeef79604",
+      "concept": "Pure quadratic equation",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Pure quadratic equation to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Pure quadratic equation: A Pure Quadratic Equation has no linear term (b = 0), for example, 4x² – 36 = 0. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Pure quadratic equation: A Pure Quadratic Equation has no linear term (b = 0), for example, 4x² – 36 = 0. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Pure quadratic equation: A Pure Quadratic Equation has no linear term (b = 0), for example, 4x² – 36 = 0. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Pure quadratic equation. Teach these exact points: Pure quadratic equation: A Pure Quadratic Equation has no linear term (b = 0), for example, 4x² – 36 = 0. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 6,
+      "concept_id": "a3b2fd85-9645-4ac5-83c2-ed6951d90d69",
+      "concept": "Quadratic equation factorization",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic equation factorization to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Quadratic equation factorization: For the equation x² – 7x + 12 = 0, the factorization is (x – 3)(x – 4) = 0, leading to solutions x = 3, 4. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equation factorization: For the equation x² – 7x + 12 = 0, the factorization is (x – 3)(x – 4) = 0, leading to solutions x = 3, 4. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equation factorization: For the equation x² – 7x + 12 = 0, the factorization is (x – 3)(x – 4) = 0, leading to solutions x = 3, 4. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Quadratic equation factorization. Teach these exact points: Quadratic equation factorization: For the equation x² – 7x + 12 = 0, the factorization is (x – 3)(x – 4) = 0, leading to solutions x = 3, 4. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 7,
+      "concept_id": "30a104d4-3b30-4f6c-bb75-f26900d43a16",
+      "concept": "Quadratic equation solving method",
+      "format": "flip_card",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic equation solving method to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Quadratic equation solving method: When solving a quadratic equation, try factorisation first; if that is not possible, use the quadratic formula or completing the square. Map connection: this idea links by common_mistake_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equation solving method: When solving a quadratic equation, try factorisation first; if that is not possible, use the quadratic formula or completing the square. Map connection: this idea links by common_mistake_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equation solving method: When solving a quadratic equation, try factorisation first; if that is not possible, use the quadratic formula or completing the square. Map connection: this idea links by common_mistake_for to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "flip_card"
+      ],
+      "reason": "Selected flip_card to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 8,
+      "concept_id": "6d56a4c3-5ee5-4272-9bb1-a88785e73f8d",
+      "concept": "Quadratic equation coefficients",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Quadratic equation coefficients to audio plus two flip cards with one sentence each.",
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "reading_paragraph": "Quadratic equation coefficients: In the Standard Form ax2 + bx + c = 0, 'a', 'b', and 'c' are known values, and 'x' is the variable. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equation coefficients: In the Standard Form ax2 + bx + c = 0, 'a', 'b', and 'c' are known values, and 'x' is the variable. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equation coefficients: In the Standard Form ax2 + bx + c = 0, 'a', 'b', and 'c' are known values, and 'x' is the variable. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 9,
+      "concept_id": "09134cdb-a1b6-4d77-9152-3199b97cc1bf",
+      "concept": "Quadratic equation solutions",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic equation solutions to audio plus two flip cards with one sentence each.",
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "reading_paragraph": "Quadratic equation solutions: The solutions to a Quadratic Equation are called \"roots\" or sometimes \"zeros\" and are found where the equation is equal to zero. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equation solutions: The solutions to a Quadratic Equation are called \"roots\" or sometimes \"zeros\" and are found where the equation is equal to zero. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equation solutions: The solutions to a Quadratic Equation are called \"roots\" or sometimes \"zeros\" and are found where the equation is equal to zero. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Quadratic equation solutions. Teach these exact points: Quadratic equation solutions: The solutions to a Quadratic Equation are called \"roots\" or sometimes \"zeros\" and are found where the equation is equal to zero. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 10,
+      "concept_id": "1b499fee-98b4-4e96-8ba8-51aa553923fd",
+      "concept": "Quadratic equation definition",
+      "format": "flip_card",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic equation definition to audio plus two flip cards with one sentence each.",
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "reading_paragraph": "Quadratic equation definition: An equation is not quadratic if it is missing the x2 term (meaning a = 0). Map connection: this idea links by common_mistake_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equation definition: An equation is not quadratic if it is missing the x2 term (meaning a = 0). Map connection: this idea links by common_mistake_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equation definition: An equation is not quadratic if it is missing the x2 term (meaning a = 0). Map connection: this idea links by common_mistake_for to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "flip_card"
+      ],
+      "reason": "Selected flip_card to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 11,
+      "concept_id": "3a5d2a30-375f-4fc6-b2b5-c22b7371b28f",
+      "concept": "Polynomial degree concept",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Polynomial degree concept to audio plus two flip cards with one sentence each.",
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "reading_paragraph": "Polynomial degree concept: The equation y=3x-4 has a degree of 1. Key detail: The equation y=x^2+2x+1 has a degree of 2. Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Polynomial degree concept: The equation y=3x-4 has a degree of 1. Key detail: The equation y=x^2+2x+1 has a degree of 2. Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Polynomial degree concept: The equation y=3x-4 has a degree of 1. Key detail: The equation y=x^2+2x+1 has a degree of 2.",
+        "Map connection: this idea links by example_of, requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Polynomial degree concept. Teach these exact points: Polynomial degree concept: The equation y=3x-4 has a degree of 1. Key detail: The equation y=x^2+2x+1 has a degree of 2. Map connection: this idea links by example_of, requires to nearby concepts. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 12,
+      "concept_id": "995ef3f8-2afb-4721-ae0d-1ac34853eb8a",
+      "concept": "Quadratic equation graph is parabola",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Quadratic equation graph is parabola to audio plus two flip cards with one sentence each.",
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "reading_paragraph": "Quadratic equation graph is parabola: A quadratic relation of the form y = ax^2 + bx + c (where a is not zero) can be graphically represented as a parabola. Key detail: When plotted, every quadratic equation produces a parabola, and the x-intercepts of the parabola are the roots of the equation. Key detail: A quadratic equation represents a parabola when plotted on a graph. Key detail: The graph of a quadratic equation forms a parabola because the equation includes a squared term (x²).",
+      "audio_script": "I will go slowly. Quadratic equation graph is parabola: A quadratic relation of the form y = ax^2 + bx + c (where a is not zero) can be graphically represented as a parabola. Key detail: When plotted, every quadratic equation produces a parabola, and the x-intercepts of the parabola are the roots of the equation. Key detail: A quadratic equation represents a parabola when plotted on a graph. Key detail: The graph of a quadratic equation forms a parabola because the equation includes a squared term (x²).",
+      "text_chunks": [
+        "Quadratic equation graph is parabola: A quadratic relation of the form y = ax^2 + bx + c (where a is not zero) can be graphically represented as a parabola. Key detail: When plotted, every quadratic equation produces a parabola, and the x-intercepts of the parabola are the roots of the equation.",
+        "Key detail: A quadratic equation represents a parabola when plotted on a graph. Key detail: The graph of a quadratic equation forms a parabola because the equation includes a squared term (x²)."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Quadratic equation graph is parabola. Teach these exact points: Quadratic equation graph is parabola: A quadratic relation of the form y = ax^2 + bx + c (where a is not zero) can be graphically represented as a parabola. Key detail: When plotted, every quadratic equation produces a parabola, and the x-intercepts of the parabola are the roots of the equation. Key detail: A quadratic equation represents a parabola when plotted on a graph. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 13,
+      "concept_id": "4ca4628a-3bd3-4b17-b0a6-05d56f277a9f",
+      "concept": "Quadratic formula finds equation roots",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic formula finds equation roots to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Quadratic formula finds equation roots: The quadratic formula is used to find the roots of any quadratic equation when the coefficients a, b, and c are known. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic formula finds equation roots: The quadratic formula is used to find the roots of any quadratic equation when the coefficients a, b, and c are known. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic formula finds equation roots: The quadratic formula is used to find the roots of any quadratic equation when the coefficients a, b, and c are known. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 14,
+      "concept_id": "779d42c6-8fc5-498b-a273-0c05c30703ba",
+      "concept": "Factoring middle term efficiently",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Factoring middle term efficiently to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Factoring middle term efficiently: The factorisation method is efficient when the middle term can be split into two values whose product equals ac and whose sum equals b. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Factoring middle term efficiently: The factorisation method is efficient when the middle term can be split into two values whose product equals ac and whose sum equals b. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Factoring middle term efficiently: The factorisation method is efficient when the middle term can be split into two values whose product equals ac and whose sum equals b. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 15,
+      "concept_id": "e50d882b-45c6-4e08-ad22-6914377535c7",
+      "concept": "Quadratic equation coefficients",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic equation coefficients to audio plus two flip cards with one sentence each.",
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "reading_paragraph": "Quadratic equation coefficients: To solve an equation like 5x² + 6x + 1 = 0, the coefficients are a = 5, b = 6, and c = 1. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equation coefficients: To solve an equation like 5x² + 6x + 1 = 0, the coefficients are a = 5, b = 6, and c = 1. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equation coefficients: To solve an equation like 5x² + 6x + 1 = 0, the coefficients are a = 5, b = 6, and c = 1. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Quadratic equation coefficients. Teach these exact points: Quadratic equation coefficients: To solve an equation like 5x² + 6x + 1 = 0, the coefficients are a = 5, b = 6, and c = 1. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 16,
+      "concept_id": "6427b2d3-907b-4ae2-a9ff-9aec669de017",
+      "concept": "Quadratic equation solutions",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Quadratic equation solutions to audio plus two flip cards with one sentence each.",
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "reading_paragraph": "Quadratic equation solutions: If the discriminant (b² − 4ac) is positive, there are two real solutions. Key detail: If the discriminant (b² − 4ac) is zero, there is exactly one real solution. Key detail: If the discriminant (b² − 4ac) is negative, the solutions are complex numbers. Key detail: When the discriminant (b^2 - 4ac) is negative, there are 2 complex solutions.",
+      "audio_script": "I will go slowly. Quadratic equation solutions: If the discriminant (b² − 4ac) is positive, there are two real solutions. Key detail: If the discriminant (b² − 4ac) is zero, there is exactly one real solution. Key detail: If the discriminant (b² − 4ac) is negative, the solutions are complex numbers. Key detail: When the discriminant (b^2 - 4ac) is negative, there are 2 complex solutions.",
+      "text_chunks": [
+        "Quadratic equation solutions: If the discriminant (b² − 4ac) is positive, there are two real solutions. Key detail: If the discriminant (b² − 4ac) is zero, there is exactly one real solution.",
+        "Key detail: If the discriminant (b² − 4ac) is negative, the solutions are complex numbers. Key detail: When the discriminant (b^2 - 4ac) is negative, there are 2 complex solutions."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 17,
+      "concept_id": "9a27072d-a43b-4964-8a90-41a591edd2f2",
+      "concept": "Graph solution x-intercepts",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Graph solution x-intercepts to audio plus two flip cards with one sentence each.",
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "reading_paragraph": "Graph solution x-intercepts: The solution to an equation can be interpreted as the x-intercepts of the graph (a graphical explanation). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Graph solution x-intercepts: The solution to an equation can be interpreted as the x-intercepts of the graph (a graphical explanation). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Graph solution x-intercepts: The solution to an equation can be interpreted as the x-intercepts of the graph (a graphical explanation). Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 18,
+      "concept_id": "dee8dbb6-fa54-420c-850a-0c088efa9808",
+      "concept": "Zero finding solution values",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Zero finding solution values to audio plus two flip cards with one sentence each.",
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "reading_paragraph": "Zero finding solution values: The solution to an equation can be interpreted as the values of x that make y=0 (algebraic explanation). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Zero finding solution values: The solution to an equation can be interpreted as the values of x that make y=0 (algebraic explanation). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Zero finding solution values: The solution to an equation can be interpreted as the values of x that make y=0 (algebraic explanation). Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Zero finding solution values. Teach these exact points: Zero finding solution values: The solution to an equation can be interpreted as the values of x that make y=0 (algebraic explanation). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 19,
+      "concept_id": "4797e1e3-4c97-4c9f-983e-263ae24271c9",
+      "concept": "Solving quadratic equations",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Solving quadratic equations to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Solving quadratic equations: The quadratic formula, x = (-b ± √(b² – 4ac)) / 2a, is the universal method for solving any quadratic equation. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Solving quadratic equations: The quadratic formula, x = (-b ± √(b² – 4ac)) / 2a, is the universal method for solving any quadratic equation. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Solving quadratic equations: The quadratic formula, x = (-b ± √(b² – 4ac)) / 2a, is the universal method for solving any quadratic equation. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 20,
+      "concept_id": "6c9616f6-6005-4903-bc95-b76234a86c90",
+      "concept": "Parabola vertex and axis",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Parabola vertex and axis to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Parabola vertex and axis: The vertex of the parabola gives the maximum or minimum value, and the axis of symmetry is the vertical line through the vertex (x = –b/2a). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Parabola vertex and axis: The vertex of the parabola gives the maximum or minimum value, and the axis of symmetry is the vertical line through the vertex (x = –b/2a). Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Parabola vertex and axis: The vertex of the parabola gives the maximum or minimum value, and the axis of symmetry is the vertical line through the vertex (x = –b/2a). Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 21,
+      "concept_id": "4a2130b5-4618-4f12-8608-94573be7e1f8",
+      "concept": "Parabola direction of graph",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Parabola direction of graph to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Parabola direction of graph: A quadratic equation's graph opens upward if a > 0 and opens downward if a < 0. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Parabola direction of graph: A quadratic equation's graph opens upward if a > 0 and opens downward if a < 0. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Parabola direction of graph: A quadratic equation's graph opens upward if a > 0 and opens downward if a < 0. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Parabola direction of graph. Teach these exact points: Parabola direction of graph: A quadratic equation's graph opens upward if a > 0 and opens downward if a < 0. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 22,
+      "concept_id": "b74289e7-5680-432a-a32e-26b8c07af989",
+      "concept": "Quadratic formula structure",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic formula structure to audio plus two flip cards with one sentence each.",
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "reading_paragraph": "Quadratic formula structure: The quadratic formula involves a plus/minus sign (±) because there are two possible answers. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic formula structure: The quadratic formula involves a plus/minus sign (±) because there are two possible answers. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic formula structure: The quadratic formula involves a plus/minus sign (±) because there are two possible answers. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 23,
+      "concept_id": "72748e6a-b706-4c7a-be25-096a5df26ebb",
+      "concept": "Equal roots condition",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Equal roots condition to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Equal roots condition: For a quadratic equation to have equal roots, the discriminant (D) must be set to zero. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Equal roots condition: For a quadratic equation to have equal roots, the discriminant (D) must be set to zero. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Equal roots condition: For a quadratic equation to have equal roots, the discriminant (D) must be set to zero. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Equal roots condition. Teach these exact points: Equal roots condition: For a quadratic equation to have equal roots, the discriminant (D) must be set to zero. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 24,
+      "concept_id": "38be175b-0df4-400a-bea4-c00739702893",
+      "concept": "Quadratic x-intercepts and solutions",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Quadratic x-intercepts and solutions to audio plus two flip cards with one sentence each.",
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "reading_paragraph": "Quadratic x-intercepts and solutions: The number of x-intercepts a quadratic has can be no, 1, or 2. Key detail: The x-intercepts of a quadratic can be thought of as the solutions to the quadratic equation. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic x-intercepts and solutions: The number of x-intercepts a quadratic has can be no, 1, or 2. Key detail: The x-intercepts of a quadratic can be thought of as the solutions to the quadratic equation. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic x-intercepts and solutions: The number of x-intercepts a quadratic has can be no, 1, or 2. Key detail: The x-intercepts of a quadratic can be thought of as the solutions to the quadratic equation.",
+        "Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Quadratic x-intercepts and solutions. Teach these exact points: Quadratic x-intercepts and solutions: The number of x-intercepts a quadratic has can be no, 1, or 2. Key detail: The x-intercepts of a quadratic can be thought of as the solutions to the quadratic equation. Map connection: this idea links by requires to nearby concepts. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 25,
+      "concept_id": "cae2c41d-cfeb-4494-8376-9ad18c4cbc0b",
+      "concept": "graphical solution checking",
+      "format": "animation",
+      "duration_seconds": 138,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch graphical solution checking to audio plus two flip cards with one sentence each.",
+      "source_url": "https://mathspace.co/textbooks/syllabuses/Syllabus-446/topics/Topic-8208/subtopics/Subtopic-107666/",
+      "reading_paragraph": "graphical solution checking: If a graph is available, it is much easier to tell how many solutions an equation has than by solving it algebraically. Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. graphical solution checking: If a graph is available, it is much easier to tell how many solutions an equation has than by solving it algebraically. Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "graphical solution checking: If a graph is available, it is much easier to tell how many solutions an equation has than by solving it algebraically. Map connection: this idea links by analogy_for to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: graphical solution checking. Teach these exact points: graphical solution checking: If a graph is available, it is much easier to tell how many solutions an equation has than by solving it algebraically. Map connection: this idea links by analogy_for to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "animation"
+      ],
+      "reason": "Selected animation to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 26,
+      "concept_id": "1b592b53-60f5-4c9c-8cb7-a1600d5ce6fd",
+      "concept": "Quadratic discriminant value",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic discriminant value to audio plus two flip cards with one sentence each.",
+      "source_url": "http://www.mathsisfun.com/algebra/quadratic-equation.html",
+      "reading_paragraph": "Quadratic discriminant value: The discriminant is the part of the formula, b² − 4ac, that helps determine the type of answer. Key detail: The discriminant is calculated as b^2 - 4ac. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic discriminant value: The discriminant is the part of the formula, b² − 4ac, that helps determine the type of answer. Key detail: The discriminant is calculated as b^2 - 4ac. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic discriminant value: The discriminant is the part of the formula, b² − 4ac, that helps determine the type of answer. Key detail: The discriminant is calculated as b^2 - 4ac.",
+        "Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 27,
+      "concept_id": "fa508c85-0828-4632-884b-cb4933ab5116",
+      "concept": "Quadratic equations in real life",
+      "format": "diagram",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic equations in real life to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Quadratic equations in real life: Quadratic equations are used in many real-life situations like calculating projectile motion in physics or designing parabolic structures in engineering. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equations in real life: Quadratic equations are used in many real-life situations like calculating projectile motion in physics or designing parabolic structures in engineering. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equations in real life: Quadratic equations are used in many real-life situations like calculating projectile motion in physics or designing parabolic structures in engineering. Map connection: this idea links by example_of to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "Create a short Manim animation for a neurodivergent middle-school learner. Concept: Quadratic equations in real life. Teach these exact points: Quadratic equations in real life: Quadratic equations are used in many real-life situations like calculating projectile motion in physics or designing parabolic structures in engineering. Map connection: this idea links by example_of to nearby concepts. Pause point: say the main idea in one short phrase before moving on. Use simple labels, large readable text, limited motion, and clear visual cause-and-effect. Avoid dense paragraphs. Include one calm recap frame at the end. Adaptation needs: OpenDyslexic, chunk_size=2, low_text, max_180s, micro_chunks, break_cards, stealth_assessment.",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "diagram"
+      ],
+      "reason": "Selected diagram to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 28,
+      "concept_id": "d908ad16-f8a4-426a-ba23-2e28b2c6d135",
+      "concept": "Quadratic equations are important",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": true,
+      "fallback": "Switch Quadratic equations are important to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Quadratic equations are important: Quadratic equations are one of the most important topics and carry high weightage. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equations are important: Quadratic equations are one of the most important topics and carry high weightage. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equations are important: Quadratic equations are one of the most important topics and carry high weightage. Map connection: this idea links by requires to nearby concepts.",
+        "Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    },
+    {
+      "order": 29,
+      "concept_id": "168987f9-af3d-46d5-9008-7fff2f1948f2",
+      "concept": "Quadratic equation application and thinking",
+      "format": "micro_chunk",
+      "duration_seconds": 97,
+      "scaffold_level": "high",
+      "stealth_assessment_after": false,
+      "fallback": "Switch Quadratic equation application and thinking to audio plus two flip cards with one sentence each.",
+      "source_url": "https://deekshalearning.com/blog/exploring-quadratic-equations/",
+      "reading_paragraph": "Quadratic equation application and thinking: Mastering solution techniques, understanding the geometric representation, and recognizing real-life roles helps students sharpen analytical thinking. Key detail: Students should relate quadratic equations to real-life scenarios to truly excel. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "audio_script": "I will go slowly. Quadratic equation application and thinking: Mastering solution techniques, understanding the geometric representation, and recognizing real-life roles helps students sharpen analytical thinking. Key detail: Students should relate quadratic equations to real-life scenarios to truly excel. Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on.",
+      "text_chunks": [
+        "Quadratic equation application and thinking: Mastering solution techniques, understanding the geometric representation, and recognizing real-life roles helps students sharpen analytical thinking. Key detail: Students should relate quadratic equations to real-life scenarios to truly excel.",
+        "Map connection: this idea links by requires to nearby concepts. Pause point: say the main idea in one short phrase before moving on."
+      ],
+      "animation_prompt": "",
+      "manim_output_dir": "",
+      "adaptation_tags": [
+        "OpenDyslexic",
+        "chunk_size=2",
+        "low_text",
+        "max_180s",
+        "micro_chunks",
+        "break_cards",
+        "stealth_assessment",
+        "micro_chunk"
+      ],
+      "reason": "Selected micro_chunk to match adhd, dyslexia needs and preferred modality mixed."
+    }
+  ],
+  "modality_counts": {
+    "micro_chunk": 13,
+    "animation": 7,
+    "diagram": 7,
+    "flip_card": 2
+  },
+  "graph_node_count": 29
+}

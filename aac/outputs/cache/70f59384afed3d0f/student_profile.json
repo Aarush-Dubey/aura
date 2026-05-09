@@ -1,0 +1,20 @@
+{
+  "uuid": "aura-student-demo",
+  "disability": [
+    "adhd",
+    "dyslexia"
+  ],
+  "strengths": [
+    "visual reasoning",
+    "curiosity"
+  ],
+  "weaknesses": [
+    "long reading passages",
+    "working memory"
+  ],
+  "prior_knowledge": [
+    "basic school science"
+  ],
+  "pace": "slow",
+  "preferred_modality": "mixed"
+}

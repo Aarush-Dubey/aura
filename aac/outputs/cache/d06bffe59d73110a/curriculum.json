@@ -1,0 +1,18 @@
+{
+  "subject": "Physics",
+  "grade_level": "9",
+  "topics": [
+    "Newton's laws of motion"
+  ],
+  "learning_goals": [
+    "Understand Newton's laws of motion",
+    "Apply Newton's laws of motion with examples"
+  ],
+  "constraints": [
+    "Class 9 or 10 level",
+    "short teaching chunks",
+    "worked examples",
+    "avoid walls of text",
+    "include misconception checks"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "subject": "Science",
+  "grade_level": "8",
+  "topics": [
+    "photosynthesis"
+  ],
+  "learning_goals": [
+    "Understand photosynthesis",
+    "Apply photosynthesis with examples"
+  ],
+  "constraints": [
+    "short chunks",
+    "middle school reading level"
+  ]
+}
