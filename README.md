@@ -46,9 +46,9 @@ The main pipeline is:
 
 1. User enters topic, goal, depth, and learner mode.
 2. Backend loads the saved learner profile.
-3. Gemma plans an ordered list of lesson nodes from topic + goal + profile.
-4. Each planned item becomes one graph node.
-5. The app derives a linear lesson plan from that graph.
+3. Gemma plans a comprehensive topic graph from topic + goal + profile.
+4. Each planned item becomes one graph node with a role such as `core`, `bridge`, `repair`, `practice`, or `application`.
+5. The app derives a linear lesson plan from the graph dependencies.
 6. Gemma expands the active node into lecture cards.
 7. Selecting another node asks Gemma to expand that node.
 
@@ -60,13 +60,8 @@ Cache behavior:
 
 ## Graph Shape
 
-Right now, the generated graph is mostly linear by design. Gemma produces a prerequisite sequence, and the app connects each node to the next node.
+Gemma now produces a fuller graph-like plan instead of only a short chain. It can include core nodes, bridge/support nodes, repair nodes for likely misconceptions, and application/practice nodes.
 
-The graph data structure supports non-linear edges, repair nodes, and application nodes, but the current planner does not yet create branches by default. A good next upgrade is to let Gemma emit:
+The app still derives a linear teaching path for the current lesson flow, but that path is computed from graph dependencies rather than assuming each node simply points to the next one.
 
-- core path nodes
-- optional support nodes
-- repair nodes for likely misconceptions
-- application branches
-
-Then the map can become a real branching knowledge graph instead of a mostly linear plan.
+For example, a repair node can branch from a core probability rule, while a final application node can depend on multiple earlier nodes.
