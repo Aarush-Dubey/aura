@@ -1,4 +1,4 @@
-import type { KnowledgeNode, StudentProfile } from "../types.js";
+import type { KnowledgeNode, StudentIntent, StudentProfile } from "../types.js";
 
 const NEURODIVERGENT_RULES = [
   "You design lessons for neurodivergent learners (ADHD, dyslexia, anxiety around school).",
@@ -26,34 +26,48 @@ function profileBriefing(profile: StudentProfile) {
   };
 }
 
-export const graphPrompt = (topic: string, profile: StudentProfile) => ({
+export const graphPrompt = (topic: string, profile: StudentProfile, intent?: StudentIntent) => ({
   system: [
     NEURODIVERGENT_RULES,
     "",
     "You are building an adaptive knowledge graph: an ordered sequence of small teachable concepts that flow from prerequisite to payoff.",
+    "Use internal reasoning to decide the order, but do not output private chain-of-thought.",
+    "Instead, output short structured reasons: orderReason, prerequisiteReason, and learnerFitReason.",
     "Design rules for the graph:",
     "- Produce 5 to 7 concepts. Fewer is better than padding. Never invent filler.",
     "- Each concept must be atomic and teachable in 2 to 5 minutes. No chapter-level concepts.",
     "- Order strictly by prerequisite readiness: concept N must be understandable using only concepts 1..N-1.",
     "- Concept 1 is the gentlest entry point and assumes nothing beyond everyday language.",
     "- The final concept is the smallest meaningful payoff — what the learner can DO at the end.",
+    "- Every node must stay visibly anchored to the requested topic. Do not drift into generic prerequisites unless the node title clearly connects back to the topic.",
+    "- At least 4 node titles must include a topic-specific word or phrase from the requested topic.",
+    "- The final two nodes must directly practice or apply the requested topic, not only background skills.",
+    "- Adapt the node list to the learner goal, time horizon, depth preference, profile strengths, and profile struggles.",
+    "- If the goal is exam/practice, include at least one worked-example or practice node.",
+    "- If the goal is application, include a concrete use-case node.",
+    "- If depth is intuition_only, avoid advanced mechanics and keep the sequence shorter.",
     "- Each concept must include a real intuition (a mental picture or analogy), a concrete example, and a gentle practice idea.",
     "- commonConfusions must be authentic mistakes a beginner makes, not generic warnings.",
-    "- ids are snake_case, unique, and short (1-3 words)."
+    "- ids are snake_case, unique, and short (1-3 words).",
+    "- Do not include source names or citations."
   ].join("\n"),
   user: JSON.stringify({
-    task: "Design a 5-to-7 concept ordered learning map for the topic below, tuned to this learner's profile.",
+    task: "Design a 5-to-7 concept ordered learning map for the topic below, tuned to this learner's goal and profile.",
     topic,
+    intent,
     learner: profileBriefing(profile),
     fieldGuidance: {
       id: "snake_case unique slug, e.g. 'ratio_basics'",
       topicName: "short human label, max 6 words",
-      teachingGoal: "one sentence describing what the learner can DO after this concept",
+      teachingGoal: "one sentence describing what the learner can DO after this concept; mention the requested topic or a topic-specific term",
       keyTerms: "2 to 5 vocabulary anchors the learner needs to recognize",
       commonConfusions: "1 to 3 specific beginner mistakes (not generic platitudes)",
       intuition: "plain-language mental picture or analogy, 1 to 2 sentences, no jargon",
       example: "one concrete worked example with real numbers or real situation",
-      practiceStyle: "a small gentle activity (e.g. 'sort 3 ratios from smallest to largest')"
+      practiceStyle: "a small gentle activity (e.g. 'sort 3 ratios from smallest to largest')",
+      orderReason: "short reason this node belongs at this position; no private chain-of-thought",
+      prerequisiteReason: "short reason this node is learnable from earlier nodes",
+      learnerFitReason: "short reason this node fits the learner goal/profile"
     },
     schema: {
       concepts: [{
@@ -64,7 +78,10 @@ export const graphPrompt = (topic: string, profile: StudentProfile) => ({
         commonConfusions: ["string"],
         intuition: "string",
         example: "string",
-        practiceStyle: "string"
+        practiceStyle: "string",
+        orderReason: "string",
+        prerequisiteReason: "string",
+        learnerFitReason: "string"
       }]
     }
   })
