@@ -93,6 +93,16 @@ type FinalSupervisorOutput = {
   }[];
 };
 
+type GemmaKnowledgeOutput = {
+  chunks: {
+    title: string;
+    text: string;
+    type: ResearchClaim["type"];
+    teachingGoal: string;
+    keyTerms?: string[];
+  }[];
+};
+
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function cacheRoot() {
@@ -570,6 +580,77 @@ function normalizeClaimType(value: unknown, intent: ResearchIntent): ResearchCla
     : claimType(intent);
 }
 
+async function buildGemmaKnowledgePacket(topic: string) {
+  const status = await ensureLocalLLM();
+  if (!status.ready) {
+    devLog("warn", "orien", "Gemma knowledge-only cache requires local LLM", { detail: status.detail, setup: status.setup });
+    return { chunks: [], claims: [] };
+  }
+
+  const system = [
+    "You are Aura's local Gemma-only curriculum generator.",
+    "You must generate a clean teaching packet from your own model knowledge only.",
+    "Do not use web search, Exa, URLs, source names, citations, page titles, or external APIs.",
+    "Hard rules:",
+    "- Produce 5 to 7 distinct chunks.",
+    "- The chunks must form a useful learning arc: core idea, vocabulary/sample space, formula/rules, worked example, common mistakes, practice/checkpoint.",
+    "- Each chunk must be self-contained and teachable.",
+    "- Do not repeat the same definition in every chunk.",
+    "- Titles must match the actual example/content in the chunk. Do not title a die example as a coin-flip chunk.",
+    "- Use class/grade level from the topic if present.",
+    "- Use plain math notation like P(E) = favourable outcomes / total outcomes.",
+    "- No LaTeX commands such as \\frac or \\text in this research packet.",
+    "- No SEO language, source language, or textbook-page descriptions.",
+    "- Return valid JSON only."
+  ].join("\n");
+
+  const output = await callLLMJson<GemmaKnowledgeOutput>(system, JSON.stringify({
+    task: "Generate a Gemma-only local teaching chunk packet.",
+    topic,
+    chunkRequirements: {
+      title: "short distinct learning-node title",
+      text: "140 to 260 words of teaching content with one focused idea",
+      teachingGoal: "one sentence: what the learner can do after this chunk",
+      type: "concept|example|misconception|practice",
+      keyTerms: "2 to 6 terms"
+    },
+    schema: {
+      chunks: [{
+        title: "string",
+        text: "string",
+        type: "concept|example|misconception|practice",
+        teachingGoal: "string",
+        keyTerms: ["string"]
+      }]
+    }
+  }), 0.18, 180_000, 8192);
+
+  const chunks = (output.chunks ?? [])
+    .filter((chunk) => chunk.title && chunk.text && chunk.teachingGoal)
+    .slice(0, 7)
+    .map((chunk, index) => ({
+      id: `orien_chunk_${index + 1}`,
+      title: compactText(chunk.title, 100),
+      text: compactText(chunk.text, 2800),
+      score: Number((0.95 - index * 0.02).toFixed(3)),
+      type: normalizeClaimType(chunk.type, index === 3 ? "examples" : index === 4 ? "misconceptions" : index === 5 ? "practice" : "concepts"),
+      teachingGoal: compactText(chunk.teachingGoal, 420)
+    }));
+
+  const claims = chunks.map((chunk, index) => ({
+    id: `orien_claim_${index + 1}`,
+    chunk_id: chunk.id,
+    label: chunk.title,
+    claim: chunk.teachingGoal,
+    type: chunk.type,
+    evidence: chunk.text,
+    confidence: Number(Math.max(0.78, chunk.score).toFixed(2))
+  } satisfies ResearchClaim));
+
+  devLog("info", "orien", "Gemma generated knowledge-only Orien packet", { topic, chunks: chunks.length });
+  return { chunks: chunks.map(({ type, teachingGoal, ...chunk }) => chunk), claims };
+}
+
 function claimFromChunk(topic: string, chunk: ResearchChunk, intent: ResearchIntent, index: number): ResearchClaim {
   const core = topicCore(topic);
   const labelByIntent: Record<ResearchIntent, string> = {
@@ -699,10 +780,13 @@ async function buildResearchPacket(topic: string) {
 
 export async function createOrienCache(topic: string): Promise<OrienCache | null> {
   if (!CONFIG.useOrienSearch) return null;
-  const status = await ensureOrienSearch();
-  if (!status.ready) {
-    devLog("warn", "orien", "OrienSearch setup required", { detail: status.detail, setup: status.setup });
-    return null;
+  const knowledgeOnly = CONFIG.orienMode === "gemma_knowledge";
+  if (!knowledgeOnly) {
+    const status = await ensureOrienSearch();
+    if (!status.ready) {
+      devLog("warn", "orien", "OrienSearch setup required", { detail: status.detail, setup: status.setup });
+      return null;
+    }
   }
 
   const id = stableId(topic);
@@ -711,33 +795,42 @@ export async function createOrienCache(topic: string): Promise<OrienCache | null
   if (fs.existsSync(chunksFile)) {
     const chunks = JSON.parse(fs.readFileSync(chunksFile, "utf8")) as unknown[];
     const claims = fs.existsSync(path.join(dir, "claims.json")) ? JSON.parse(fs.readFileSync(path.join(dir, "claims.json"), "utf8")) as unknown[] : [];
-    if (chunks.length && claims.length) {
+    const curriculum = fs.existsSync(path.join(dir, "curriculum.json")) ? JSON.parse(fs.readFileSync(path.join(dir, "curriculum.json"), "utf8")) as { constraints?: string[] } : {};
+    const constraints = curriculum.constraints ?? [];
+    const modeMatches = knowledgeOnly ? constraints.includes("gemma knowledge only") : constraints.includes("multi-query research packet");
+    if (chunks.length && claims.length && modeMatches) {
       devLog("info", "orien", "Using existing OrienSearch cache", { id, chunks: chunks.length });
       return { id, dir, chunks: chunks.length };
     }
-    devLog("info", "orien", "Rebuilding older OrienSearch cache into research packet", { id });
+    devLog("info", "orien", "Rebuilding older OrienSearch cache for active mode", { id, mode: CONFIG.orienMode });
   }
 
-  devLog("info", "orien", "Building OrienSearch research packet", { topic, endpoint: CONFIG.orienSearxngUrl });
-  const { chunks, claims } = await buildResearchPacket(topic);
+  devLog("info", "orien", knowledgeOnly ? "Building Gemma-only knowledge packet" : "Building OrienSearch research packet", {
+    topic,
+    mode: CONFIG.orienMode,
+    endpoint: knowledgeOnly ? "local Gemma only" : CONFIG.orienSearxngUrl
+  });
+  const { chunks, claims } = knowledgeOnly ? await buildGemmaKnowledgePacket(topic) : await buildResearchPacket(topic);
 
   if (!chunks.length) {
-    devLog("warn", "orien", "Open search results had no usable text after extraction", { topic });
+    devLog("warn", "orien", knowledgeOnly ? "Gemma knowledge-only packet produced no chunks" : "Open search results had no usable text after extraction", { topic });
     return null;
   }
 
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "curriculum.json"), JSON.stringify({
-    subject: "open web",
+    subject: knowledgeOnly ? "local Gemma knowledge" : "open web",
     grade_level: "adaptive",
     topics: [topic],
     learning_goals: researchPlan(topic).map((item) => `Understand ${topicCore(topic)} ${item.label}.`),
-    constraints: ["open-source search", "multi-query research packet", "no paid search API", "no source URLs persisted"]
+    constraints: knowledgeOnly
+      ? ["gemma knowledge only", "no external API", "no web search", "no source URLs persisted"]
+      : ["open-source search", "multi-query research packet", "no paid search API", "no source URLs persisted"]
   }, null, 2));
   fs.writeFileSync(chunksFile, JSON.stringify(chunks, null, 2));
   fs.writeFileSync(path.join(dir, "claims.json"), JSON.stringify(claims, null, 2));
   fs.writeFileSync(path.join(dir, "concepts.json"), JSON.stringify([], null, 2));
 
-  devLog("info", "orien", "Wrote OrienSearch research packet", { id, chunks: chunks.length, claims: claims.length });
+  devLog("info", "orien", knowledgeOnly ? "Wrote Gemma-only knowledge packet" : "Wrote OrienSearch research packet", { id, chunks: chunks.length, claims: claims.length });
   return { id, dir, chunks: chunks.length };
 }

@@ -5,6 +5,7 @@ export const CONFIG = {
   useExaCache: (process.env.AURA_USE_EXA_CACHE ?? "true") === "true",
   exaCacheDir: process.env.AURA_EXA_CACHE_DIR ?? "../aac/outputs/cache",
   useOrienSearch: (process.env.AURA_USE_ORIEN_SEARCH ?? "false") === "true",
+  orienMode: process.env.AURA_ORIEN_MODE ?? "gemma_knowledge",
   orienAutostart: (process.env.AURA_ORIEN_AUTOSTART ?? "true") === "true",
   orienStartCommand: process.env.AURA_ORIEN_START_COMMAND ?? "node ./scripts/orien-local-search.mjs",
   orienSearxngUrl: process.env.AURA_ORIEN_SEARXNG_URL ?? "http://localhost:8888/search",
