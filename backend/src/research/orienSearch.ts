@@ -93,14 +93,23 @@ type FinalSupervisorOutput = {
   }[];
 };
 
-type GemmaKnowledgeOutput = {
-  chunks: {
+type GemmaKnowledgePlanOutput = {
+  steps: {
+    id: string;
     title: string;
-    text: string;
-    type: ResearchClaim["type"];
+    intent: ResearchIntent;
     teachingGoal: string;
-    keyTerms?: string[];
+    mustCover: string[];
+    avoidRepeating?: string[];
   }[];
+};
+
+type GemmaKnowledgeStepOutput = {
+  title: string;
+  text: string;
+  type: ResearchClaim["type"];
+  teachingGoal: string;
+  keyTerms?: string[];
 };
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -587,55 +596,116 @@ async function buildGemmaKnowledgePacket(topic: string) {
     return { chunks: [], claims: [] };
   }
 
-  const system = [
-    "You are Aura's local Gemma-only curriculum generator.",
-    "You must generate a clean teaching packet from your own model knowledge only.",
-    "Do not use web search, Exa, URLs, source names, citations, page titles, or external APIs.",
+  const plannerSystem = [
+    "You are Aura's local Gemma-only curriculum planner.",
+    "You only decide the learning steps. You do not write full chunks yet.",
+    "Use your own model knowledge only. Do not use web search, Exa, URLs, citations, or external APIs.",
     "Hard rules:",
-    "- Produce 5 to 7 distinct chunks.",
-    "- The chunks must form a useful learning arc: core idea, vocabulary/sample space, formula/rules, worked example, common mistakes, practice/checkpoint.",
-    "- Each chunk must be self-contained and teachable.",
-    "- Do not repeat the same definition in every chunk.",
-    "- Titles must match the actual example/content in the chunk. Do not title a die example as a coin-flip chunk.",
+    "- Produce 5 to 7 ordered steps.",
+    "- Each step must be atomic and distinct.",
+    "- The arc should usually be: core idea, vocabulary/sample space, formula/rules, worked example, common mistakes, practice/checkpoint.",
+    "- Do not create multiple steps that teach the same formula.",
     "- Use class/grade level from the topic if present.",
-    "- Use plain math notation like P(E) = favourable outcomes / total outcomes.",
-    "- No LaTeX commands such as \\frac or \\text in this research packet.",
-    "- No SEO language, source language, or textbook-page descriptions.",
     "- Return valid JSON only."
   ].join("\n");
 
-  const output = await callLLMJson<GemmaKnowledgeOutput>(system, JSON.stringify({
-    task: "Generate a Gemma-only local teaching chunk packet.",
+  const plan = await callLLMJson<GemmaKnowledgePlanOutput>(plannerSystem, JSON.stringify({
+    task: "Plan the ordered Gemma-only teaching chunks.",
     topic,
-    chunkRequirements: {
-      title: "short distinct learning-node title",
-      text: "140 to 260 words of teaching content with one focused idea",
-      teachingGoal: "one sentence: what the learner can do after this chunk",
-      type: "concept|example|misconception|practice",
-      keyTerms: "2 to 6 terms"
-    },
     schema: {
-      chunks: [{
+      steps: [{
+        id: "short snake_case id",
+        title: "short distinct learning title",
+        intent: "overview|concepts|formula|examples|misconceptions|practice",
+        teachingGoal: "one sentence",
+        mustCover: ["specific idea to include"],
+        avoidRepeating: ["specific idea already covered elsewhere"]
+      }]
+    }
+  }), 0.12, 120_000, 4096);
+
+  const steps = (plan.steps ?? [])
+    .filter((step) => step.title && step.intent && step.teachingGoal)
+    .slice(0, 7)
+    .map((step, index) => ({
+      ...step,
+      id: step.id || `step_${index + 1}`,
+      intent: ["overview", "concepts", "formula", "examples", "misconceptions", "practice"].includes(step.intent) ? step.intent : "concepts" as ResearchIntent
+    }));
+
+  if (steps.length < 3) {
+    devLog("warn", "orien", "Gemma knowledge planner returned too few steps", { topic, steps: steps.length });
+    return { chunks: [], claims: [] };
+  }
+
+  devLog("info", "orien", "Gemma planned knowledge-only steps", {
+    topic,
+    steps: steps.map((step) => ({ title: step.title, intent: step.intent }))
+  });
+
+  const expanderSystem = [
+    "You are Aura's local Gemma-only step expander.",
+    "Expand exactly one planned learning step into one clean teaching chunk.",
+    "Use your own model knowledge only. Do not use web search, Exa, URLs, source names, citations, or external APIs.",
+    "Hard rules:",
+    "- Stay only on the assigned step. Do not re-teach all earlier steps.",
+    "- Make the chunk self-contained, but keep the focus narrow.",
+    "- Use plain class/grade-appropriate language.",
+    "- Use plain math notation like P(E) = favourable outcomes / total outcomes.",
+    "- No LaTeX commands such as \\frac or \\text.",
+    "- No SEO language, source language, or textbook-page descriptions.",
+    "- Title must match the actual example/content.",
+    "- Return valid JSON only."
+  ].join("\n");
+
+  const expanded: {
+    id: string;
+    title: string;
+    text: string;
+    score: number;
+    type: ResearchClaim["type"];
+    teachingGoal: string;
+  }[] = [];
+
+  for (const [index, step] of steps.entries()) {
+    const prior = expanded.map((chunk) => ({ title: chunk.title, teachingGoal: chunk.teachingGoal }));
+    const output = await callLLMJson<GemmaKnowledgeStepOutput>(expanderSystem, JSON.stringify({
+      task: "Expand this one planned step into one teaching chunk.",
+      topic,
+      step,
+      previousChunks: prior,
+      requirements: {
+        text: "140 to 260 words of focused teaching content",
+        noRepetition: "do not repeat previous chunks except for tiny context",
+        type: "concept|example|misconception|practice"
+      },
+      schema: {
         title: "string",
         text: "string",
         type: "concept|example|misconception|practice",
         teachingGoal: "string",
         keyTerms: ["string"]
-      }]
-    }
-  }), 0.18, 180_000, 8192);
+      }
+    }), 0.16, 120_000, 3072);
 
-  const chunks = (output.chunks ?? [])
-    .filter((chunk) => chunk.title && chunk.text && chunk.teachingGoal)
-    .slice(0, 7)
-    .map((chunk, index) => ({
-      id: `orien_chunk_${index + 1}`,
-      title: compactText(chunk.title, 100),
-      text: compactText(chunk.text, 2800),
+    if (!output.title || !output.text || !output.teachingGoal) {
+      devLog("warn", "orien", "Gemma skipped weak knowledge step", { title: step.title });
+      continue;
+    }
+
+    expanded.push({
+      id: `orien_chunk_${expanded.length + 1}`,
+      title: compactText(output.title, 100),
+      text: compactText(output.text, 2800),
       score: Number((0.95 - index * 0.02).toFixed(3)),
-      type: normalizeClaimType(chunk.type, index === 3 ? "examples" : index === 4 ? "misconceptions" : index === 5 ? "practice" : "concepts"),
-      teachingGoal: compactText(chunk.teachingGoal, 420)
-    }));
+      type: normalizeClaimType(output.type, step.intent),
+      teachingGoal: compactText(output.teachingGoal, 420)
+    });
+    devLog("info", "orien", "Gemma expanded knowledge step", { index: index + 1, title: output.title });
+    await delay(500);
+  }
+
+  const chunks = expanded;
 
   const claims = chunks.map((chunk, index) => ({
     id: `orien_claim_${index + 1}`,
@@ -647,7 +717,7 @@ async function buildGemmaKnowledgePacket(topic: string) {
     confidence: Number(Math.max(0.78, chunk.score).toFixed(2))
   } satisfies ResearchClaim));
 
-  devLog("info", "orien", "Gemma generated knowledge-only Orien packet", { topic, chunks: chunks.length });
+  devLog("info", "orien", "Gemma iteratively generated knowledge-only Orien packet", { topic, chunks: chunks.length });
   return { chunks: chunks.map(({ type, teachingGoal, ...chunk }) => chunk), claims };
 }
 
