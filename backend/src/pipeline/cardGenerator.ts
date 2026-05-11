@@ -2,6 +2,7 @@ import { callLLMJson } from "../llm/json.js";
 import { CONFIG } from "../config.js";
 import type { KnowledgeNode, LessonCard } from "../types.js";
 import { devLog } from "../dev/logs.js";
+import { AURA_VOICE_SPEC, cardTypeVoiceInstruction, finalVoiceReminder, findTutorVoiceViolations } from "../llm/voice.js";
 
 type PlannedCard = {
   type: "text_explain" | "mcq" | "recap";
@@ -163,10 +164,14 @@ function nodeBrief(node: KnowledgeNode) {
 function singleCardPrompt(node: KnowledgeNode, index: number, step: PlannedCard) {
   return {
     system: [
+      AURA_VOICE_SPEC,
+      "",
       "You are Gemma 4 generating one local lesson card for a desktop learning app.",
       "Generate the actual teaching content yourself from the supplied node/source data.",
       "Do not use generic template wording. Do not mention UI, buttons, JSON, or app mechanics.",
       "Use plain conversational language. Examples before formulas. Short paragraphs.",
+      cardTypeVoiceInstruction(step.type, step.phase),
+      finalVoiceReminder(),
       "Return valid JSON only, with a single top-level key named card."
     ].join("\n"),
     user: JSON.stringify({
@@ -194,6 +199,8 @@ async function polishLecture(node: KnowledgeNode, draftCards: LessonCard[]): Pro
   devLog("info", "cards", "Gemma judging lecture redundancy", { nodeId: node.id, cards: draftCards.length });
   const out = await callLLMJson<{ cards: LessonCard[]; notes?: string[] }>(
     [
+      AURA_VOICE_SPEC,
+      "",
       "You are Gemma 4 acting as an editor and redundancy judge for a node lecture.",
       "Rewrite the full card sequence so it feels cohesive, non-repetitive, and useful.",
       "Preserve the card types and phases unless a phase is absent. The exit mcq must remain an exit mcq.",
@@ -202,6 +209,7 @@ async function polishLecture(node: KnowledgeNode, draftCards: LessonCard[]): Pro
       "If a metaphor is used in one card, later cards should move to procedure, example, misconception, or transfer instead of repeating the metaphor.",
       "Entry question is optional: if it repeats the exit question or intro, remove it.",
       "Do not hardcode or template. Rewrite with fresh teaching language from the node data.",
+      finalVoiceReminder(),
       "Return valid JSON only."
     ].join("\n"),
     JSON.stringify({
@@ -221,9 +229,42 @@ async function polishLecture(node: KnowledgeNode, draftCards: LessonCard[]): Pro
     0.35
   );
   if (!Array.isArray(out.cards) || out.cards.length < 4) throw new Error(`Gemma polish returned too few cards for ${node.id}`);
-  const polished = normalizeCards(out.cards, node);
+  let polished = normalizeCards(out.cards, node);
   const exitCount = polished.filter((card) => card.type === "mcq" && card.phase === "exit").length;
   if (exitCount !== 1) throw new Error(`Gemma polish must return exactly one exit question for ${node.id}`);
+  const voiceViolations = findTutorVoiceViolations(polished);
+  if (voiceViolations.length) {
+    devLog("warn", "cards", "Gemma lecture voice violations detected; rewriting", { nodeId: node.id, voiceViolations });
+    polished = await rewriteVoiceViolations(node, polished, voiceViolations);
+  }
   devLog("info", "cards", "Gemma polished lecture", { nodeId: node.id, cards: polished.length, notes: out.notes ?? [] });
   return polished;
+}
+
+async function rewriteVoiceViolations(node: KnowledgeNode, cards: LessonCard[], violations: string[]): Promise<LessonCard[]> {
+  const out = await callLLMJson<{ cards: LessonCard[]; notes?: string[] }>(
+    [
+      AURA_VOICE_SPEC,
+      "",
+      "You are Gemma 4 rewriting tutor cards only to fix voice, readability, and banned-phrase violations.",
+      "Preserve teaching meaning, card ids, card types, mcq phases, option count, correctOptionId, and recap structure.",
+      "Do not add new cards. Do not remove the exit question.",
+      "Keep questions direct and feedback process-focused.",
+      finalVoiceReminder(),
+      "Return valid JSON only."
+    ].join("\n"),
+    JSON.stringify({
+      task: "Rewrite the cards to satisfy Aura's tutor voice specification.",
+      node: nodeBrief(node),
+      violations,
+      cards,
+      schema: { cards: "same LessonCard[] shape and order", notes: ["short rewrite note"] }
+    }),
+    0.2
+  );
+  if (!Array.isArray(out.cards) || out.cards.length !== cards.length) return cards;
+  const rewritten = normalizeCards(out.cards, node);
+  const remaining = findTutorVoiceViolations(rewritten);
+  if (remaining.length) devLog("warn", "cards", "Gemma voice rewrite still has violations", { nodeId: node.id, remaining });
+  return rewritten;
 }

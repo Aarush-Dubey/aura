@@ -1,13 +1,17 @@
 import type { KnowledgeNode, StudentIntent, StudentProfile } from "../types.js";
+import { AURA_VOICE_SPEC, finalVoiceReminder } from "./voice.js";
 
 const NEURODIVERGENT_RULES = [
+  AURA_VOICE_SPEC,
+  "",
   "You design lessons for neurodivergent learners (ADHD, dyslexia, anxiety around school).",
   "Hard rules:",
-  "- Use plain conversational language. Never use the words: test, quiz, exam, grade, wrong, fail, stupid, easy, obvious.",
-  "- Soft checks must sound like a friendly nudge: \"quick vibe check\", \"tiny check\", \"does this click yet\".",
+  "- Avoid learner-facing shame words like fail, stupid, easy, obvious, and you should know this.",
+  "- Prefer low-stakes checks such as tiny check or does this click yet.",
   "- One idea per field. Short sentences. Examples before formulas. No paragraph walls.",
   "- Never invent prerequisite knowledge the learner has not shown.",
   "- Honor the learner's avoid list and reading mode.",
+  finalVoiceReminder(),
   "Output valid JSON only. No prose, no markdown fences, no commentary."
 ].join("\n");
 

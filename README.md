@@ -16,6 +16,12 @@ Then start everything with one command from the repo root:
 npm start
 ```
 
+Or run the shell wrapper directly from macOS, Linux, Git Bash, or WSL:
+
+```bash
+sh ./start-aura.sh
+```
+
 That one command starts:
 
 - Vite frontend on `http://localhost:5174`
@@ -39,6 +45,10 @@ $env:LLM_MODEL="gemma-4-E2B-it"
 ```
 
 If your LiteRT-LM command is different, set `LLM_START_COMMAND` to the command that serves Gemma locally on port `8080`.
+
+The launcher checks for missing `backend/node_modules` or `frontend/node_modules` and runs `npm run setup` when needed. It also asks the backend to start local Gemma if no LiteRT-LM server is already reachable.
+
+On Windows, `npm start` uses the cross-platform Node launcher directly, so it does not require WSL. The `start-aura.sh` wrapper is for shell environments that can run `sh`.
 
 ## Current Lesson Pipeline
 

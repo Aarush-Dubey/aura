@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "setup": "npm --prefix backend install && npm --prefix frontend install",
-    "start": "npm --prefix frontend run desktop",
+    "start": "node ./scripts/start-aura.mjs",
+    "start:desktop": "npm --prefix frontend run desktop",
     "build": "npm --prefix backend run build && npm --prefix frontend run build"
   }
 }
