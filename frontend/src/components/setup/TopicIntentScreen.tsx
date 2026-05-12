@@ -1,4 +1,5 @@
-import { Sparkles } from "lucide-react";
+import { ArrowRight, Brain, Check, Flame, HeartHandshake, Leaf, Sparkles, Sprout, WandSparkles } from "lucide-react";
+import type { ReactNode } from "react";
 import type { CacheOption, StudentIntent } from "../../api/types";
 
 export function TopicIntentScreen({ topic, setTopic, intent, setIntent, learnerMode, setLearnerMode, cacheOptions, selectedCacheId, setSelectedCacheId, onStart, busy }: {
@@ -14,24 +15,102 @@ export function TopicIntentScreen({ topic, setTopic, intent, setIntent, learnerM
   onStart: () => void;
   busy: boolean;
 }) {
+  const presets = [
+    { label: "Probability class 10", why: "Build sample space and exam practice", xp: 60 },
+    { label: "Photosynthesis", why: "Turn process steps into a map", xp: 50 },
+    { label: "Quadratic equations", why: "Factor, formula, and repair traps", xp: 70 },
+    { label: "Momentum", why: "Connect formula to real motion", xp: 55 }
+  ];
+  const quests = [
+    { label: "Start one focused path", sub: "A short map, no clutter", reward: "+15", done: false },
+    { label: "Repair a shaky idea", sub: "Mistakes become support nodes", reward: "+20", done: true },
+    { label: "Finish with application", sub: "One final usable task", reward: "+35", done: false }
+  ];
+
   return (
-    <main className="setup-screen">
-      <section className="setup-panel">
-        <div className="standalone-mark" aria-label="Aura">
+    <main className="home-shell scroll">
+      <section className="home-garden">
+        <div className="garden-bloom" />
+        <div className="local-pill"><span /> Gemma 4 · local</div>
+        <div className="home-brand">
           <span className="brand-orbit hero" />
-          <span>aura</span>
+          <strong>aura</strong>
+          <p>Local tutor for neurodivergent minds.</p>
         </div>
-        <label className="topic-label" htmlFor="topic">What should the map build?</label>
-        <input id="topic" value={topic} onChange={(e) => setTopic(e.target.value)} className="topic-input" placeholder="Trigonometry, photosynthesis, recursion..." autoFocus />
-        <div className="setup-grid">
+
+        <div className="level-card">
+          <div>
+            <span>Level 4</span>
+            <strong>312 XP</strong>
+            <div className="level-bar"><i style={{ width: "42%" }} /></div>
+            <small>88 XP to level 5</small>
+          </div>
+          <div className="streak-chip"><Flame size={18} /> 5d</div>
+        </div>
+
+        <div className="quest-block">
+          <div className="home-eyebrow">Today's quests</div>
+          {quests.map((quest) => (
+            <div key={quest.label} className={quest.done ? "quest-row done" : "quest-row"}>
+              <span>{quest.done ? <Check size={13} /> : <Sparkles size={13} />}</span>
+              <div>
+                <strong>{quest.label}</strong>
+                <small>{quest.sub}</small>
+              </div>
+              <b>{quest.reward}</b>
+            </div>
+          ))}
+        </div>
+
+        <div className="badge-row" aria-label="Learning badges">
+          <Badge icon={<Sprout size={15} />} label="First bloom" active />
+          <Badge icon={<Brain size={15} />} label="Pattern" active />
+          <Badge icon={<HeartHandshake size={15} />} label="Repair" active />
+          <Badge icon={<WandSparkles size={15} />} label="Mastery" />
+        </div>
+      </section>
+
+      <section className="home-composer">
+        <div className="composer-head">
+          <div>
+            <span className="home-eyebrow">Begin a session</span>
+            <h1>Plant something to grow.</h1>
+          </div>
+          <div className="step-dots"><i /><i /><i /><i /></div>
+        </div>
+
+        <label className="composer-field">
+          <span>Topic</span>
+          <div className="topic-entry">
+            <input value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="A chapter, a concept, a question..." autoFocus />
+            <button disabled={!topic.trim() || busy} onClick={onStart} title="Start lesson"><ArrowRight size={18} /></button>
+          </div>
+        </label>
+
+        <div className="preset-list">
+          <div className="home-eyebrow">Familiar seeds</div>
+          {presets.map((preset) => (
+            <button key={preset.label} className="preset-row" onClick={() => setTopic(preset.label)}>
+              <Leaf size={15} />
+              <div>
+                <strong>{preset.label}</strong>
+                <small>{preset.why}</small>
+              </div>
+              <b>+{preset.xp}</b>
+            </button>
+          ))}
+        </div>
+
+        <div className="composer-grid">
           <Segment title="Goal" value={intent.goalType} options={["exam", "curiosity", "application", "foundation"]} onChange={(goalType) => setIntent({ ...intent, goalType: goalType as StudentIntent["goalType"] })} />
           <Segment title="Depth" value={intent.depthPreference} options={["intuition_only", "working_knowledge", "deep_mechanical"]} onChange={(depthPreference) => setIntent({ ...intent, depthPreference: depthPreference as StudentIntent["depthPreference"] })} />
           <Segment title="Learner mode" value={learnerMode} options={["Both", "ADHD", "Dyslexia"]} onChange={setLearnerMode} />
         </div>
-        <div className="cache-picker">
-          <label htmlFor="cacheSelect">Exa cache for test pipeline</label>
+
+        <div className="cache-picker home-cache">
+          <label htmlFor="cacheSelect">Optional cache for testing</label>
           <select id="cacheSelect" value={selectedCacheId} onChange={(event) => setSelectedCacheId(event.target.value)}>
-            <option value="">Auto match by topic</option>
+            <option value="">Gemma-only main path</option>
             {cacheOptions.map((cache) => (
               <option key={cache.id} value={cache.id} disabled={!cache.usable}>
                 {cache.usable ? "" : "[incomplete] "}{cache.topic || cache.id} · {cache.subject} {cache.gradeLevel}
@@ -39,10 +118,13 @@ export function TopicIntentScreen({ topic, setTopic, intent, setIntent, learnerM
             ))}
           </select>
           <div className="cache-hint">
-            {selectedCacheId ? `Selected ${selectedCacheId}` : "Auto still uses topic overlap; selection is exact."}
+            {selectedCacheId ? `Selected ${selectedCacheId}` : "Cache only bypasses fetch when explicitly selected."}
           </div>
         </div>
-        <button className="start-button" disabled={!topic.trim() || busy} onClick={onStart}><Sparkles size={20} /> Start map</button>
+
+        <button className="start-button home-start" disabled={!topic.trim() || busy} onClick={onStart}>
+          <Sparkles size={18} /> Build my map
+        </button>
       </section>
     </main>
   );
@@ -57,4 +139,8 @@ function Segment({ title, value, options, onChange }: { title: string; value: st
       </div>
     </div>
   );
+}
+
+function Badge({ icon, label, active = false }: { icon: ReactNode; label: string; active?: boolean }) {
+  return <span className={active ? "badge-chip active" : "badge-chip"} title={label}>{icon}</span>;
 }
