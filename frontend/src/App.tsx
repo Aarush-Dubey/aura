@@ -1,7 +1,25 @@
 import { useEffect, useMemo, useState } from "react";
-import { Brain, ChevronLeft, ChevronRight, Eye, Gauge, HelpCircle, Layers3, Map, Moon, RotateCcw, Volume2, X } from "lucide-react";
+import {
+  BookOpen,
+  Brain,
+  ChevronLeft,
+  ChevronRight,
+  CircleDot,
+  Eye,
+  Gauge,
+  HelpCircle,
+  Layers3,
+  Map,
+  Moon,
+  RotateCcw,
+  Settings2,
+  Terminal,
+  Trophy,
+  Volume2,
+  X
+} from "lucide-react";
 import { api } from "./api/client";
-import type { CacheOption, DevLogEntry, LessonCard, LessonResponse, StudentIntent } from "./api/types";
+import type { CacheOption, DevLogEntry, LessonCard, LessonResponse, MapNode, StudentIntent } from "./api/types";
 import { LessonCardRenderer } from "./components/cards/LessonCardRenderer";
 import { AuraMap } from "./components/map/AuraMap";
 import { TopicIntentScreen } from "./components/setup/TopicIntentScreen";
@@ -20,17 +38,19 @@ export function App() {
   const [selectedCacheId, setSelectedCacheId] = useState("");
   const [logs, setLogs] = useState<DevLogEntry[]>([]);
   const [mapOpen, setMapOpen] = useState(false);
-  const [mapPanel, setMapPanel] = useState<"map" | "plan">("map");
   const [selectedNodeId, setSelectedNodeId] = useState("");
   const [loadingNodeId, setLoadingNodeId] = useState("");
   const [devOpen, setDevOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [cardCursorByNode, setCardCursorByNode] = useState<Record<string, number>>({});
+  const [focusMode, setFocusMode] = useState(true);
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-palette", "aurora");
-    document.documentElement.setAttribute("data-font", learnerMode === "Dyslexia" || learnerMode === "Both" ? "lexend" : "sans");
+    document.documentElement.setAttribute("data-theme", "light");
+    document.documentElement.setAttribute("data-reading", learnerMode === "Dyslexia" || learnerMode === "Both" ? "dyslexia" : "default");
+    document.documentElement.setAttribute("data-focus", focusMode ? "on" : "off");
     api.health().then((health) => setLlmState(health.llm.ready ? `local ${health.llm.expectedModel}` : health.llm.state)).catch(() => setLlmState("backend offline"));
-  }, [learnerMode]);
+  }, [learnerMode, focusMode]);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -46,19 +66,15 @@ export function App() {
     return () => window.clearInterval(interval);
   }, []);
 
-  const activeMission = useMemo(() => {
-    if (!lesson) return null;
-    const active = selectedNodeId || lesson.mapState.activeNodeId;
-    return lesson.missionMetadata[active];
-  }, [lesson, selectedNodeId]);
-
   const pathNodeIds = useMemo(() => lesson?.lessonPath.items.map((item) => item.nodeId) ?? [], [lesson]);
-  const selectedNodeIndex = Math.max(0, pathNodeIds.indexOf(selectedNodeId));
   const selectedNode = lesson?.graph.nodes.find((node) => node.id === selectedNodeId) ?? lesson?.graph.nodes.find((node) => node.id === lesson.mapState.activeNodeId);
+  const selectedMapNode = lesson?.mapState.nodes.find((node) => node.id === selectedNode?.id);
+  const selectedNodeIndex = Math.max(0, pathNodeIds.indexOf(selectedNode?.id ?? selectedNodeId));
   const visibleCards = selectedNode ? cards.filter((card) => card.nodeId === selectedNode.id) : cards;
   const currentCardIndex = selectedNode ? Math.min(cardCursorByNode[selectedNode.id] ?? 0, Math.max(visibleCards.length - 1, 0)) : 0;
   const currentCard = visibleCards[currentCardIndex];
-  const completedNodes = useMemo(() => new Set(lesson?.gameState.recentEvents.filter((event) => event.type === "MISSION_COMPLETED").map((event) => event.nodeId) ?? []), [lesson]);
+  const masteredCount = lesson?.graph.nodes.filter((node) => node.mastery >= 0.85).length ?? 0;
+  const progressPct = lesson ? Math.round(((selectedNodeIndex + 1) / Math.max(lesson.lessonPath.items.length, 1)) * 100) : 0;
 
   function streamCards(nextCards: LessonCard[], replaceNodeId?: string) {
     if (replaceNodeId) {
@@ -84,7 +100,7 @@ export function App() {
     if (!lesson || !selectedNodeId || cards.some((card) => card.nodeId === selectedNodeId) || loadingNodeId === selectedNodeId) return;
     let cancelled = false;
     setLoadingNodeId(selectedNodeId);
-    setToast(`Gemma is writing this node: ${selectedNode?.topicName ?? selectedNodeId}`);
+    setToast(`Gemma is writing ${selectedNode?.topicName ?? "this node"}.`);
     api.generateNodeCards(lesson.sessionId, selectedNodeId)
       .then((result) => {
         if (cancelled) return;
@@ -105,7 +121,7 @@ export function App() {
 
   async function start() {
     setBusy(true);
-    for (const step of ["Finding sources", "Finding concepts", "Tracing prerequisites", "Choosing your first path"]) {
+    for (const step of ["Planning map", "Choosing nodes", "Tracing prerequisites", "Writing first card"]) {
       setLoadingStep(step);
       await new Promise((resolve) => setTimeout(resolve, 260));
     }
@@ -145,161 +161,263 @@ export function App() {
 
   if (!lesson) {
     return (
-      <div className="aura app-shell" data-bg="cream" data-font={learnerMode === "Dyslexia" ? "opendyslexic" : "lexend"}>
+      <div className="aura" data-font={learnerMode === "Dyslexia" ? "opendyslexic" : "lexend"}>
         <TopicIntentScreen topic={topic} setTopic={setTopic} intent={intent} setIntent={setIntent} learnerMode={learnerMode} setLearnerMode={setLearnerMode} cacheOptions={cacheOptions} selectedCacheId={selectedCacheId} setSelectedCacheId={setSelectedCacheId} onStart={start} busy={busy} />
         {busy && <BuildProgress step={loadingStep || "Building lesson"} logs={logs} />}
-        <DevButton open={devOpen} setOpen={setDevOpen} logs={logs} />
+        <DebugControl open={devOpen} setOpen={setDevOpen} logs={logs} />
       </div>
     );
   }
 
   return (
-    <div className="aura cockpit" data-bg="cream" data-font={learnerMode === "Dyslexia" ? "opendyslexic" : "lexend"}>
-      <header className="topbar">
-        <div className="brand"><span className="brand-orbit small" /> aura</div>
-        <div className="topbar-meta"><span>Learning</span><strong>{topic}</strong></div>
-        <div className="topbar-meta"><span>Goal</span><strong>{intent.depthPreference.replaceAll("_", " ")}</strong></div>
-        <button className="ghost-button" onClick={() => setLesson(null)}><RotateCcw size={16} /> New map</button>
-      </header>
-      <main className="stage">
-        <div className="stage-ambient" />
-        <section className="mission-strip">
-          <div>
-            <div className="card-kicker">Current node</div>
-            <h1>{selectedNode?.topicName ?? activeMission?.missionTitle ?? "First block"}</h1>
+    <div className="window-stage aura-standalone-shell">
+      <div className="aura-window">
+        <header className="titlebar">
+          <div className="traffic"><i className="r" /><i className="y" /><i className="g" /></div>
+          <div className="title">
+            <AuraMark />
+            <span>aura</span>
+            <b>{lesson.graph.topic}</b>
           </div>
-          <p>{selectedNode?.teachingGoal ?? activeMission?.objective ?? "Start with the warmest block on the map."}</p>
-        </section>
-        <div className="learning-shell">
-          <section className="content-column">
-            <div className="node-progress">
-              <button disabled={selectedNodeIndex <= 0} title="Previous node" onClick={() => setSelectedNodeId(pathNodeIds[selectedNodeIndex - 1])}><ChevronLeft size={18} /></button>
-              <div>
-                <span>Node {selectedNodeIndex + 1} of {pathNodeIds.length}</span>
-                <strong>{selectedNode?.status ?? "active"}</strong>
-              </div>
-              <button disabled={selectedNodeIndex >= pathNodeIds.length - 1} title="Next node" onClick={() => setSelectedNodeId(pathNodeIds[selectedNodeIndex + 1])}><ChevronRight size={18} /></button>
+          <div className="right">
+            <span>{llmState}</span>
+            <button className="icon-btn" title="Settings" onClick={() => setSettingsOpen(true)}><Settings2 size={15} /></button>
+            <button className="icon-btn" title="Debug" onClick={() => setDevOpen(!devOpen)}><Terminal size={14} /></button>
+          </div>
+        </header>
+
+        <main className="aura-workspace">
+          <aside className="aura-rail left-rail">
+            <RailHeader label="Knowledge map" value={`${lesson.graph.nodes.length} nodes`} />
+            <DynamicConstellation
+              mapNodes={lesson.mapState.nodes}
+              activeNodeId={selectedNode?.id ?? ""}
+              onSelect={setSelectedNodeId}
+            />
+            <div className="rail-node-list scroll">
+              {lesson.graph.nodes.map((node, index) => {
+                const mapNode = lesson.mapState.nodes.find((candidate) => candidate.id === node.id);
+                const active = node.id === selectedNode?.id;
+                return (
+                  <button key={node.id} className={active ? "rail-node active" : "rail-node"} onClick={() => setSelectedNodeId(node.id)}>
+                    <span>{index + 1}</span>
+                    <div>
+                      <strong>{node.topicName}</strong>
+                      <small>{nodeStatusLabel(mapNode)} · {node.keyTerms.slice(0, 2).join(", ")}</small>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
-            {currentCard ? (
-              <div className="node-card-stack single-card-stack">
+          </aside>
+
+          <section className="lesson-main">
+            <div className="lesson-hero">
+              <div>
+                <span className="eyebrow">Current node</span>
+                <h1>{selectedNode?.topicName ?? "Lesson node"}</h1>
+                <p>{selectedNode?.teachingGoal ?? "Aura is preparing the next useful step."}</p>
+              </div>
+              <div className="mastery-card">
+                <span>{progressPct}%</span>
+                <small>path progress</small>
+              </div>
+            </div>
+
+            <div className="path-strip" aria-label="Linear lesson path">
+              <button disabled={selectedNodeIndex <= 0} title="Previous node" onClick={() => setSelectedNodeId(pathNodeIds[selectedNodeIndex - 1])}><ChevronLeft size={17} /></button>
+              <div className="path-dots">
+                {lesson.lessonPath.items.map((item, index) => {
+                  const node = lesson.graph.nodes.find((candidate) => candidate.id === item.nodeId);
+                  return (
+                    <button
+                      key={`${item.nodeId}-${index}`}
+                      className={item.nodeId === selectedNode?.id ? "path-dot active" : index < selectedNodeIndex ? "path-dot done" : "path-dot"}
+                      onClick={() => setSelectedNodeId(item.nodeId)}
+                      title={node?.topicName ?? item.nodeId}
+                    >
+                      <span>{index + 1}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <button disabled={selectedNodeIndex >= pathNodeIds.length - 1} title="Next node" onClick={() => setSelectedNodeId(pathNodeIds[selectedNodeIndex + 1])}><ChevronRight size={17} /></button>
+            </div>
+
+            <div className="card-stage">
+              {currentCard ? (
                 <LessonCardRenderer key={currentCard.id} card={currentCard} onAnswer={answer} busy={busy} cardIndex={currentCardIndex} cardCount={visibleCards.length} onContinue={advanceCard} />
-              </div>
-            ) : loadingNodeId === selectedNode?.id ? (
-              <div className="lesson-card node-loading-card">
-                <div className="card-kicker">Gemma is writing</div>
-                <h2>{selectedNode?.topicName ?? "Node lecture"}</h2>
-                <p>The map is ready. This node's lecture cards are being generated locally now.</p>
-                <div className="mini-log-list">
-                  {logs.slice(0, 4).map((log, index) => <span key={`${log.at}-${index}`}>{log.scope}: {log.message}</span>)}
+              ) : loadingNodeId === selectedNode?.id ? (
+                <div className="lesson-card node-loading-card">
+                  <div className="card-topline"><div className="card-kicker">Gemma is writing</div><span>local</span></div>
+                  <h2>{selectedNode?.topicName ?? "Node lecture"}</h2>
+                  <p>The map is ready. This node's lecture cards are being generated locally now.</p>
+                  <div className="mini-log-list">
+                    {logs.slice(0, 4).map((log, index) => <span key={`${log.at}-${index}`}>{log.scope}: {log.message}</span>)}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className="lesson-card"><h2>{selectedNode?.topicName ?? "Node ready"}</h2><p>This node is in the graph. Its source-backed card is still being prepared.</p></div>
-            )}
-            <div className="event-stack">
-              {lesson.gameState.recentEvents?.slice(0, 3).map((event, index) => <div key={index} className="event-pill">{event.type.replaceAll("_", " ").toLowerCase()}</div>)}
+              ) : (
+                <div className="lesson-card">
+                  <div className="card-topline"><div className="card-kicker">Node ready</div><span>{selectedMapNode?.state ?? "active"}</span></div>
+                  <h2>{selectedNode?.topicName ?? "Waiting for node"}</h2>
+                  <p>Aura has this node in the graph. Select it again if the lecture does not start.</p>
+                </div>
+              )}
             </div>
           </section>
-        </div>
-      </main>
-      <aside className="powerbar">
-        <button title="Map" onClick={() => setMapOpen(true)}><Map /></button>
-        <button title="Hint"><HelpCircle /></button>
-        <button title="Example"><Brain /></button>
-        <button title="Visualize"><Eye /></button>
-        <button title="Slow down"><Gauge /></button>
-        <button title="Read aloud"><Volume2 /></button>
-        <button title="Zoned out"><Moon /></button>
-      </aside>
-      {mapOpen && (
-        <aside className="map-drawer" aria-label="Hidden learning map">
-          <div className="map-drawer-head">
-            <div>
-              <span>Knowledge and plan</span>
-              <strong>{lesson.graph.nodes.length} graph nodes · {lesson.lessonPath.items.length} plan steps</strong>
+
+          <aside className="aura-rail right-rail">
+            <RailHeader label="Companion" value={selectedMapNode?.state ?? "ready"} />
+            <div className="companion-card">
+              <span className="eyebrow">Node role</span>
+              <strong>{selectedMapNode?.type ?? "core"}</strong>
+              <p>{lesson.lessonPath.items[selectedNodeIndex]?.reason || selectedNode?.teachingGoal}</p>
             </div>
-            <div className="map-tabs" role="tablist" aria-label="Map views">
-              <button className={mapPanel === "map" ? "selected" : ""} onClick={() => setMapPanel("map")}>Knowledge Map</button>
-              <button className={mapPanel === "plan" ? "selected" : ""} onClick={() => setMapPanel("plan")}>Lesson Plan</button>
+            <div className="quick-grid">
+              <button title="Hint"><HelpCircle size={18} /><span>Hint</span></button>
+              <button title="Example"><Brain size={18} /><span>Example</span></button>
+              <button title="Visualize"><Eye size={18} /><span>Visual</span></button>
+              <button title="Slow down"><Gauge size={18} /><span>Slow</span></button>
+              <button title="Read aloud"><Volume2 size={18} /><span>Read</span></button>
+              <button title="Focus" onClick={() => setFocusMode(!focusMode)}><Moon size={18} /><span>Focus</span></button>
             </div>
-            <button title="Close map" onClick={() => setMapOpen(false)}><X size={18} /></button>
-          </div>
-          {mapPanel === "map" ? (
-            <div className="map-menu-grid">
-              <section className="map-panel-block">
-                <div className="panel-label">Graph structure</div>
-                <AuraMap nodes={lesson.mapState.nodes} edges={lesson.mapState.edges} />
-              </section>
-              <GraphNodeList lesson={lesson} selectedNodeId={selectedNodeId} completedNodes={completedNodes} onSelect={(nodeId) => { setSelectedNodeId(nodeId); setMapOpen(false); }} />
+            <div className="companion-card">
+              <span className="eyebrow">Mastery</span>
+              <strong>{masteredCount}/{lesson.graph.nodes.length} nodes</strong>
+              <div className="mastery-bar"><i style={{ width: `${Math.round((masteredCount / Math.max(lesson.graph.nodes.length, 1)) * 100)}%` }} /></div>
             </div>
-          ) : (
-            <LessonPlanPanel lesson={lesson} selectedNodeId={selectedNodeId} completedNodes={completedNodes} onSelect={(nodeId) => { setSelectedNodeId(nodeId); setMapOpen(false); }} />
-          )}
-        </aside>
-      )}
-      <DevButton open={devOpen} setOpen={setDevOpen} logs={logs} />
-      {toast && <button className="toast" onClick={() => setToast(null)}>{toast}</button>}
+            <button className="btn primary full" onClick={() => setMapOpen(true)}><Map size={16} /> Open full map</button>
+            <button className="btn ghost full" onClick={() => setLesson(null)}><RotateCcw size={16} /> New topic</button>
+          </aside>
+        </main>
+
+        {settingsOpen && <SettingsOverlay learnerMode={learnerMode} setLearnerMode={setLearnerMode} focusMode={focusMode} setFocusMode={setFocusMode} onClose={() => setSettingsOpen(false)} />}
+        {mapOpen && <MapOverlay lesson={lesson} selectedNodeId={selectedNode?.id ?? ""} onSelect={(nodeId) => { setSelectedNodeId(nodeId); setMapOpen(false); }} onClose={() => setMapOpen(false)} />}
+        {devOpen && <DevLogBox logs={logs} />}
+        {toast && <button className="toast" onClick={() => setToast(null)}>{toast}</button>}
+      </div>
     </div>
   );
 }
 
-function DevButton({ open, setOpen, logs }: { open: boolean; setOpen: (open: boolean) => void; logs: DevLogEntry[] }) {
+function AuraMark() {
   return (
-    <>
-      <button className="dev-dot" title="Developer logs" onClick={() => setOpen(!open)}>D</button>
-      {open ? <DevLogBox logs={logs} floating /> : null}
-    </>
+    <span className="mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2 C6.8 6.8 6.8 14.2 12 22 C17.2 14.2 17.2 6.8 12 2Z" fill="url(#auraMarkGradient)" />
+        <circle cx="12" cy="12.3" r="2.2" fill="#fbf7f1" opacity=".92" />
+        <defs>
+          <radialGradient id="auraMarkGradient" cx="50%" cy="42%" r="60%">
+            <stop offset="0%" stopColor="#c9a97a" />
+            <stop offset="55%" stopColor="#8fa37a" />
+            <stop offset="100%" stopColor="#3d4a3a" />
+          </radialGradient>
+        </defs>
+      </svg>
+    </span>
   );
 }
 
-function GraphNodeList({ lesson, selectedNodeId, completedNodes, onSelect }: { lesson: LessonResponse; selectedNodeId: string; completedNodes: Set<string | undefined>; onSelect: (nodeId: string) => void }) {
+function RailHeader({ label, value }: { label: string; value: string }) {
   return (
-    <section className="graph-list-panel">
-      <div className="panel-label">All graph nodes</div>
-      <div className="graph-node-list">
-        {lesson.graph.nodes.map((node, index) => {
-          const mapNode = lesson.mapState.nodes.find((candidate) => candidate.id === node.id);
-          const active = node.id === selectedNodeId;
-          const inPlanIndex = lesson.lessonPath.items.findIndex((item) => item.nodeId === node.id);
-          return (
-            <button key={node.id} className={active ? "graph-node-item active" : "graph-node-item"} onClick={() => onSelect(node.id)}>
+    <div className="rail-header">
+      <span>{label}</span>
+      <strong>{value}</strong>
+    </div>
+  );
+}
+
+function DynamicConstellation({ mapNodes, activeNodeId, onSelect }: { mapNodes: MapNode[]; activeNodeId: string; onSelect: (nodeId: string) => void }) {
+  const nodes = mapNodes.length ? mapNodes : [];
+  return (
+    <div className="constellation-card">
+      <svg viewBox="0 0 360 260" role="img" aria-label="Dynamic knowledge graph">
+        {nodes.slice(1).map((node, index) => {
+          const previous = nodes[index];
+          return <line key={`${previous.id}-${node.id}`} x1={previous.x * 0.34} y1={previous.y * 0.44} x2={node.x * 0.34} y2={node.y * 0.44} />;
+        })}
+        {nodes.map((node) => (
+          <g key={node.id} className={node.id === activeNodeId ? "constellation-node active" : `constellation-node ${node.state}`} onClick={() => onSelect(node.id)} transform={`translate(${node.x * 0.34},${node.y * 0.44})`}>
+            <circle r={node.id === activeNodeId ? 12 : 9} />
+            <text y="27">{node.label}</text>
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+function MapOverlay({ lesson, selectedNodeId, onSelect, onClose }: { lesson: LessonResponse; selectedNodeId: string; onSelect: (nodeId: string) => void; onClose: () => void }) {
+  return (
+    <aside className="map-overlay">
+      <div className="overlay-head">
+        <div>
+          <span className="eyebrow">Knowledge map</span>
+          <strong>{lesson.graph.nodes.length} nodes · {lesson.lessonPath.items.length} path steps</strong>
+        </div>
+        <button className="icon-btn" onClick={onClose}><X size={18} /></button>
+      </div>
+      <div className="map-overlay-grid">
+        <AuraMap nodes={lesson.mapState.nodes} edges={lesson.mapState.edges} />
+        <div className="overlay-node-list scroll">
+          {lesson.graph.nodes.map((node, index) => (
+            <button key={node.id} className={node.id === selectedNodeId ? "overlay-node active" : "overlay-node"} onClick={() => onSelect(node.id)}>
               <span>{index + 1}</span>
               <div>
                 <strong>{node.topicName}</strong>
-                <small>{mapNode?.state ?? node.status}{inPlanIndex >= 0 ? ` · plan ${inPlanIndex + 1}` : " · not in plan"}</small>
+                <small>{node.teachingGoal}</small>
               </div>
-              {completedNodes.has(node.id) ? <b>done</b> : null}
             </button>
-          );
-        })}
+          ))}
+        </div>
       </div>
-    </section>
+    </aside>
   );
 }
 
-function LessonPlanPanel({ lesson, selectedNodeId, completedNodes, onSelect }: { lesson: LessonResponse; selectedNodeId: string; completedNodes: Set<string | undefined>; onSelect: (nodeId: string) => void }) {
+function SettingsOverlay({ learnerMode, setLearnerMode, focusMode, setFocusMode, onClose }: {
+  learnerMode: string;
+  setLearnerMode: (mode: string) => void;
+  focusMode: boolean;
+  setFocusMode: (value: boolean) => void;
+  onClose: () => void;
+}) {
   return (
-    <section className="plan-panel">
-      <div className="panel-label">Linearized teaching order</div>
-      <div className="plan-rail">
-        {lesson.lessonPath.items.map((item, index) => {
-          const node = lesson.graph.nodes.find((candidate) => candidate.id === item.nodeId);
-          const active = item.nodeId === selectedNodeId;
-          const current = index === lesson.lessonPath.currentIndex;
-          return (
-            <button key={`${item.nodeId}-${index}`} className={active ? "plan-step active" : "plan-step"} onClick={() => onSelect(item.nodeId)}>
-              <span className={current ? "current" : ""}>{index + 1}</span>
-              <div>
-                <strong>{node?.topicName ?? item.nodeId}</strong>
-                <p>{item.reason || lesson.lessonPath.reasonByNodeId[item.nodeId] || node?.teachingGoal}</p>
-                <small>{item.deliveryMode.replaceAll("_", " ")}{item.required ? " · required" : " · optional"}</small>
-              </div>
-              {completedNodes.has(item.nodeId) ? <b>done</b> : current ? <b>current</b> : null}
-            </button>
-          );
-        })}
+    <aside className="settings-overlay">
+      <div className="overlay-head">
+        <div>
+          <span className="eyebrow">Reading and focus</span>
+          <strong>Comfort controls</strong>
+        </div>
+        <button className="icon-btn" onClick={onClose}><X size={18} /></button>
       </div>
-    </section>
+      <label className="setting-row">
+        <span>Learner mode</span>
+        <select value={learnerMode} onChange={(event) => setLearnerMode(event.target.value)}>
+          <option>Both</option>
+          <option>ADHD</option>
+          <option>Dyslexia</option>
+        </select>
+      </label>
+      <label className="setting-row">
+        <span>Focus mode</span>
+        <input type="checkbox" checked={focusMode} onChange={(event) => setFocusMode(event.target.checked)} />
+      </label>
+    </aside>
+  );
+}
+
+function nodeStatusLabel(node?: MapNode) {
+  if (!node) return "planned";
+  return node.state.replaceAll("_", " ");
+}
+
+function DebugControl({ open, setOpen, logs }: { open: boolean; setOpen: (open: boolean) => void; logs: DevLogEntry[] }) {
+  return (
+    <>
+      <button className="dev-dot" title="Developer logs" onClick={() => setOpen(!open)}>D</button>
+      {open ? <DevLogBox logs={logs} /> : null}
+    </>
   );
 }
 
@@ -321,23 +439,17 @@ function BuildProgress({ step, logs }: { step: string; logs: DevLogEntry[] }) {
   );
 }
 
-function DevLogBox({ logs, floating = false }: { logs: DevLogEntry[]; floating?: boolean }) {
+function DevLogBox({ logs }: { logs: DevLogEntry[] }) {
   return (
-    <section className={floating ? "dev-box dev-box-floating" : "dev-box"}>
-      <div className="dev-head">
-        <span>Backend dev logs</span>
-        <strong>{logs.length}</strong>
-      </div>
-      <div className="dev-log-list">
-        {logs.length ? logs.slice(0, 12).map((log, index) => (
-          <div key={`${log.at}-${index}`} className={`dev-log dev-${log.level}`}>
-            <span>{new Date(log.at).toLocaleTimeString()}</span>
-            <b>{log.scope}</b>
-            <p>{log.message}</p>
-            {log.data ? <code>{JSON.stringify(log.data)}</code> : null}
-          </div>
-        )) : <div className="dev-empty">No backend logs yet.</div>}
-      </div>
+    <section className="debug-tray fade-in">
+      <div className="debug-title"><span>aura.debug</span><strong>{logs.length}</strong></div>
+      {logs.length ? logs.slice(0, 12).map((log, index) => (
+        <div key={`${log.at}-${index}`} className={`debug-line dev-${log.level}`}>
+          <span>{new Date(log.at).toLocaleTimeString()}</span>
+          <b>{log.scope}</b>
+          <p>{log.message}</p>
+        </div>
+      )) : <div className="dev-empty">No backend logs yet.</div>}
     </section>
   );
 }
