@@ -4,7 +4,6 @@ import {
   Brain,
   ChevronLeft,
   ChevronRight,
-  CircleDot,
   Eye,
   Gauge,
   HelpCircle,
@@ -14,7 +13,6 @@ import {
   RotateCcw,
   Settings2,
   Terminal,
-  Trophy,
   Volume2,
   X
 } from "lucide-react";
@@ -172,22 +170,12 @@ export function App() {
   return (
     <div className="window-stage aura-standalone-shell">
       <div className="aura-window">
-        <header className="titlebar">
-          <div className="traffic"><i className="r" /><i className="y" /><i className="g" /></div>
-          <div className="title">
-            <AuraMark />
-            <span>aura</span>
-            <b>{lesson.graph.topic}</b>
-          </div>
-          <div className="right">
-            <span>{llmState}</span>
-            <button className="icon-btn" title="Settings" onClick={() => setSettingsOpen(true)}><Settings2 size={15} /></button>
-            <button className="icon-btn" title="Debug" onClick={() => setDevOpen(!devOpen)}><Terminal size={14} /></button>
-          </div>
-        </header>
-
         <main className="aura-workspace">
           <aside className="aura-rail left-rail">
+            <div className="app-mark-row">
+              <AuraMark />
+              <span>aura</span>
+            </div>
             <RailHeader label="Knowledge map" value={`${lesson.graph.nodes.length} nodes`} />
             <DynamicConstellation
               mapNodes={lesson.mapState.nodes}
@@ -212,6 +200,11 @@ export function App() {
           </aside>
 
           <section className="lesson-main">
+            <div className="lesson-tools">
+              <span>{llmState}</span>
+              <button className="icon-btn" title="Settings" onClick={() => setSettingsOpen(true)}><Settings2 size={15} /></button>
+              <button className="icon-btn" title="Debug" onClick={() => setDevOpen(!devOpen)}><Terminal size={14} /></button>
+            </div>
             <div className="lesson-hero">
               <div>
                 <span className="eyebrow">Current node</span>

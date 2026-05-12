@@ -1264,64 +1264,6 @@ body {
   border: 1px solid rgba(90, 72, 48, .08);
 }
 
-.titlebar {
-  height: 44px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(255,255,255,0));
-  border-bottom: 1px solid rgba(80, 65, 45, .09);
-  position: relative;
-}
-
-.traffic { display: flex; gap: 8px; align-items: center; }
-.traffic i {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  display: block;
-  border: .5px solid rgba(0,0,0,.12);
-  box-shadow: inset 0 .5px 0 rgba(255,255,255,.5);
-}
-.traffic .r { background: #ff5f57; }
-.traffic .y { background: #febc2e; }
-.traffic .g { background: #28c840; }
-
-.titlebar .title {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #3b342b;
-  font-size: 13px;
-  font-weight: 700;
-}
-.titlebar .title > span:not(.mark) {
-  font-family: "Fraunces", Georgia, serif;
-  font-style: italic;
-  font-size: 18px;
-  font-weight: 500;
-}
-.titlebar .title b {
-  max-width: 280px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: #8a7d6c;
-  font-weight: 500;
-}
-.titlebar .right {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #8a7d6c;
-  font-size: 12px;
-}
 .mark {
   width: 18px;
   height: 18px;
@@ -1352,6 +1294,19 @@ body {
   gap: 0;
   overflow: hidden;
   background: #fbf7f1;
+}
+
+.app-mark-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 34px;
+  color: #2a2620;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 500;
+  text-transform: lowercase;
 }
 
 .aura-rail {
@@ -1494,13 +1449,22 @@ body {
   min-width: 0;
   min-height: 0;
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-rows: auto auto auto minmax(0, 1fr);
   gap: 16px;
   padding: 26px;
   overflow: hidden;
   background:
     radial-gradient(circle at 50% 4%, rgba(201,169,122,.18), transparent 22%),
     #fbf7f1;
+}
+.lesson-tools {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  color: #8a7d6c;
+  font-size: 12px;
 }
 .lesson-hero {
   display: grid;
@@ -1689,7 +1653,7 @@ body {
 .settings-overlay {
   position: absolute;
   z-index: 40;
-  top: 62px;
+  top: 22px;
   right: 22px;
   bottom: 22px;
   width: min(980px, calc(100% - 44px));
