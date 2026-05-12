@@ -1,8 +1,8 @@
-import { ArrowRight, Brain, Check, Flame, HeartHandshake, Leaf, Sparkles, Sprout, WandSparkles } from "lucide-react";
+import { ArrowRight, Brain, Check, Flame, HeartHandshake, Leaf, Sparkles, Sprout, Upload, WandSparkles } from "lucide-react";
 import type { ReactNode } from "react";
 import type { CacheOption, StudentIntent } from "../../api/types";
 
-export function TopicIntentScreen({ topic, setTopic, intent, setIntent, learnerMode, setLearnerMode, cacheOptions, selectedCacheId, setSelectedCacheId, onStart, busy }: {
+type TopicIntentScreenProps = {
   topic: string;
   setTopic: (topic: string) => void;
   intent: StudentIntent;
@@ -13,8 +13,11 @@ export function TopicIntentScreen({ topic, setTopic, intent, setIntent, learnerM
   selectedCacheId: string;
   setSelectedCacheId: (cacheId: string) => void;
   onStart: () => void;
+  onImageStart: (file: File) => void;
   busy: boolean;
-}) {
+};
+
+export function TopicIntentScreen({ topic, setTopic, cacheOptions, selectedCacheId, setSelectedCacheId, onStart, onImageStart, busy }: TopicIntentScreenProps) {
   const presets = [
     { label: "Probability class 10", why: "Build sample space and exam practice", xp: 60 },
     { label: "Photosynthesis", why: "Turn process steps into a map", xp: 50 },
@@ -101,12 +104,6 @@ export function TopicIntentScreen({ topic, setTopic, intent, setIntent, learnerM
           ))}
         </div>
 
-        <div className="composer-grid">
-          <Segment title="Goal" value={intent.goalType} options={["exam", "curiosity", "application", "foundation"]} onChange={(goalType) => setIntent({ ...intent, goalType: goalType as StudentIntent["goalType"] })} />
-          <Segment title="Depth" value={intent.depthPreference} options={["intuition_only", "working_knowledge", "deep_mechanical"]} onChange={(depthPreference) => setIntent({ ...intent, depthPreference: depthPreference as StudentIntent["depthPreference"] })} />
-          <Segment title="Learner mode" value={learnerMode} options={["Both", "ADHD", "Dyslexia"]} onChange={setLearnerMode} />
-        </div>
-
         <div className="cache-picker home-cache">
           <label htmlFor="cacheSelect">Optional cache for testing</label>
           <select id="cacheSelect" value={selectedCacheId} onChange={(event) => setSelectedCacheId(event.target.value)}>
@@ -122,22 +119,27 @@ export function TopicIntentScreen({ topic, setTopic, intent, setIntent, learnerM
           </div>
         </div>
 
-        <button className="start-button home-start" disabled={!topic.trim() || busy} onClick={onStart}>
-          <Sparkles size={18} /> Build my map
-        </button>
+        <div className="home-actions">
+          <button className="start-button home-start" disabled={!topic.trim() || busy} onClick={onStart}>
+            <Sparkles size={18} /> Build my map
+          </button>
+          <label className="image-start">
+            <Upload size={16} />
+            <span>Build from textbook photo</span>
+            <input
+              type="file"
+              accept="image/png,image/jpeg"
+              disabled={busy}
+              onChange={(event) => {
+                const file = event.currentTarget.files?.[0];
+                if (file) onImageStart(file);
+                event.currentTarget.value = "";
+              }}
+            />
+          </label>
+        </div>
       </section>
     </main>
-  );
-}
-
-function Segment({ title, value, options, onChange }: { title: string; value: string; options: string[]; onChange: (value: string) => void }) {
-  return (
-    <div className="segment-block">
-      <div className="segment-title">{title}</div>
-      <div className="segmented">
-        {options.map((option) => <button key={option} className={value === option ? "selected" : ""} onClick={() => onChange(option)}>{option.replaceAll("_", " ")}</button>)}
-      </div>
-    </div>
   );
 }
 

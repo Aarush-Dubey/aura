@@ -5,13 +5,19 @@ PORT="${LLM_PORT:-8080}"
 MODEL_PATH="${LLM_MODEL_PATH:-./models/gemma-4-E2B-it-litert-lm}"
 MODEL_REPO="${LLM_MODEL_REPO:-litert-community/gemma-4-E2B-it-litert-lm}"
 LIT_MODEL_NAME="${LLM_LIT_MODEL_NAME:-gemma-4-E2B-it}"
+BACKEND="${LITERT_LM_BACKEND:-${LLM_BACKEND:-gpu}}"
+MTP="${LITERT_LM_MTP:-${AURA_LLM_MTP:-true}}"
 
 if [ -n "${LITERT_LM_START_COMMAND:-}" ]; then
   exec bash -lc "$LITERT_LM_START_COMMAND"
 fi
 
 if command -v litert-lm >/dev/null 2>&1; then
-  exec litert-lm serve --api gemini --port "$PORT"
+  ARGS=(serve --api gemini --port "$PORT" --backend "$BACKEND")
+  if [ "$MTP" = "true" ]; then
+    ARGS+=(--enable-speculative-decoding=true)
+  fi
+  exec litert-lm "${ARGS[@]}"
 fi
 
 cat >&2 <<EOF
@@ -27,7 +33,7 @@ Expected local path:
   $MODEL_PATH
 
 Set one of these in backend/.env:
-  LLM_START_COMMAND='litert-lm serve --api gemini --port $PORT'
+  LLM_START_COMMAND='litert-lm serve --api gemini --port $PORT --backend gpu --enable-speculative-decoding=true'
   LITERT_LM_START_COMMAND='actual command that serves local Gemma through LiteRT-LM on :$PORT'
   or
   LLM_START_COMMAND='actual command that serves local Gemma through LiteRT-LM on :$PORT'

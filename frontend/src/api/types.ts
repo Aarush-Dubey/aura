@@ -14,7 +14,23 @@ export type MapNode = {
 };
 export type MapEdge = { from: string; to: string; state: "inactive" | "available" | "active" | "completed" | "repair" | "hidden" };
 export type MapState = { nodes: MapNode[]; edges: MapEdge[]; activeNodeId: string };
-export type GameState = { sessionId: string; theme: "block_world" | "constellation" | "minimal"; activeMissionId?: string; recentEvents: { type: string; nodeId?: string; reason?: string; rewardText?: string; title?: string }[] };
+export type GameEvent =
+  | { type: "MISSION_STARTED"; nodeId: string; title: string }
+  | { type: "MISSION_COMPLETED"; nodeId: string; rewardText: string }
+  | { type: "NODE_UNLOCKED"; nodeId: string; reason: string }
+  | { type: "SUPPORT_NODE_DISCOVERED"; nodeId: string; parentNodeId: string; reason: string }
+  | { type: "NODE_BECAME_SHAKY"; nodeId: string; reason: string };
+export type GameState = {
+  sessionId: string;
+  theme: "block_world" | "constellation" | "minimal";
+  activeMissionId?: string;
+  nodeVisualStates?: Record<string, MapNode["state"]>;
+  unlockedNodeIds?: string[];
+  completedMissionIds?: string[];
+  discoveredSupportNodeIds?: string[];
+  finalMissionUnlocked?: boolean;
+  recentEvents: GameEvent[];
+};
 export type KnowledgeNode = {
   id: string;
   topicName: string;
@@ -55,8 +71,42 @@ export type LessonResponse = {
   mapState: MapState;
   cards: LessonCard[];
   gameState: GameState;
-  missionMetadata: Record<string, { missionTitle: string; objective: string; rewardText: string }>;
+  missionMetadata: Record<string, { missionTitle: string; objective: string; rewardText: string; missionType?: string; difficultyTone?: string }>;
   sourceConfidence: "high" | "medium" | "low";
+  imageExtraction?: unknown;
+};
+
+export type Telemetry = {
+  model: string;
+  backend: string;
+  mtpEnabled: boolean;
+  engineState: string;
+  activeJob: null | { id: string; type: string; label: string; priority: number };
+  queue: { id: string; type: string; label: string; priority: number }[];
+  waitingJobs: number;
+  pausedJobs: number;
+  recentEvents: { at: string; type: string; message: string }[];
+  lastJob: null | {
+    type: string;
+    label: string;
+    queueMs: number;
+    totalMs: number;
+    approximateTtftMs: number;
+    approximateTokensPerSecond: number;
+    mtp: boolean;
+  };
+  network: { externalBytes: number; cloudCalls: number };
+  memory: { backendRssBytes: number };
+  prefetch: { status: string; label: string; updatedAt: string };
+};
+
+export type TutorResponse = Partial<LessonResponse> & {
+  assistantMessage: string;
+  mapState: MapState;
+  cards: LessonCard[];
+  gameEvents: GameEvent[];
+  gameStatePatch?: GameState;
+  nodeState?: { nodeId: string; status: string; mastery: number };
 };
 
 export type CacheOption = {

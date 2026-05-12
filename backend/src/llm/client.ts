@@ -1,37 +1,22 @@
 import { CONFIG } from "../config.js";
+import { geminiUrl, runGeminiJob, type LLMJobOptions } from "./broker.js";
 
-type LLMOpts = { json?: boolean; temperature?: number; maxTokens?: number; timeoutMs?: number };
+type LLMOpts = LLMJobOptions;
 
-function geminiUrl(model = CONFIG.llmModel) {
-  const base = CONFIG.llmBaseUrl.replace(/\/$/, "");
-  return `${base}/v1beta/models/${encodeURIComponent(model)}:generateContent`;
-}
-
-function extractGeminiText(data: unknown): string {
-  const response = data as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
-  return response.candidates?.[0]?.content?.parts?.map((part) => part.text ?? "").join("") ?? "";
+function inferJobType(system: string, user: string): LLMJobOptions["type"] {
+  const text = `${system}\n${user}`.toLowerCase();
+  if (text.includes("planning a concise node lecture")) return "current_card";
+  if (text.includes("generating one local lesson card")) return "current_card";
+  if (text.includes("comprehensive topic graph") || text.includes("concepts")) return "graph_plan";
+  if (text.includes("redundancy judge")) return "polish";
+  if (text.includes("rewriting tutor cards")) return "voice_rewrite";
+  if (text.includes("evaluate") || text.includes("student answer")) return "answer_tool_call";
+  return "current_card";
 }
 
 export async function callLLM(system: string, user: string, opts: LLMOpts = {}): Promise<string> {
   const prompt = `${system}\n\n${user}${opts.json ? "\n\nReturn valid JSON only." : ""}`;
-  const body = {
-    contents: [{ role: "user", parts: [{ text: prompt }] }],
-    generationConfig: {
-      temperature: opts.temperature ?? 0.3,
-      maxOutputTokens: opts.maxTokens ?? 1024,
-      ...(opts.json ? { responseMimeType: "application/json" } : {})
-    }
-  };
-
-  const res = await fetch(geminiUrl(), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000)
-  });
-
-  if (!res.ok) throw new Error(`LLM error ${res.status}: ${await res.text()}`);
-  return extractGeminiText(await res.json());
+  return runGeminiJob(prompt, { ...opts, type: opts.type ?? inferJobType(system, user) });
 }
 
 export async function isLLMReady(): Promise<boolean> {

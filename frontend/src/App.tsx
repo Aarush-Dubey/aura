@@ -1,9 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import {
+  AlertTriangle,
+  Award,
   BookOpen,
   Brain,
   ChevronLeft,
   ChevronRight,
+  CheckCircle2,
+  Compass,
   Eye,
   Gauge,
   HelpCircle,
@@ -12,12 +16,14 @@ import {
   Moon,
   RotateCcw,
   Settings2,
+  Sparkles,
   Terminal,
   Volume2,
+  Wrench,
   X
 } from "lucide-react";
 import { api } from "./api/client";
-import type { CacheOption, DevLogEntry, LessonCard, LessonResponse, MapNode, StudentIntent } from "./api/types";
+import type { CacheOption, DevLogEntry, GameEvent, KnowledgeNode, LessonCard, LessonResponse, MapNode, StudentIntent, Telemetry } from "./api/types";
 import { LessonCardRenderer } from "./components/cards/LessonCardRenderer";
 import { AuraMap } from "./components/map/AuraMap";
 import { TopicIntentScreen } from "./components/setup/TopicIntentScreen";
@@ -42,13 +48,24 @@ export function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [cardCursorByNode, setCardCursorByNode] = useState<Record<string, number>>({});
   const [focusMode, setFocusMode] = useState(true);
+  const [telemetry, setTelemetry] = useState<Telemetry | null>(null);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", "light");
     document.documentElement.setAttribute("data-reading", learnerMode === "Dyslexia" || learnerMode === "Both" ? "dyslexia" : "default");
     document.documentElement.setAttribute("data-focus", focusMode ? "on" : "off");
-    api.health().then((health) => setLlmState(health.llm.ready ? `local ${health.llm.expectedModel}` : health.llm.state)).catch(() => setLlmState("backend offline"));
+    api.health().then((health) => {
+      setLlmState(health.llm.ready ? `local ${health.llm.expectedModel}` : health.llm.state);
+      setTelemetry(health.telemetry);
+    }).catch(() => setLlmState("backend offline"));
   }, [learnerMode, focusMode]);
+
+  useEffect(() => {
+    const load = () => api.telemetry().then(setTelemetry).catch(() => undefined);
+    load();
+    const interval = window.setInterval(load, 900);
+    return () => window.clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -67,11 +84,12 @@ export function App() {
   const pathNodeIds = useMemo(() => lesson?.lessonPath.items.map((item) => item.nodeId) ?? [], [lesson]);
   const selectedNode = lesson?.graph.nodes.find((node) => node.id === selectedNodeId) ?? lesson?.graph.nodes.find((node) => node.id === lesson.mapState.activeNodeId);
   const selectedMapNode = lesson?.mapState.nodes.find((node) => node.id === selectedNode?.id);
+  const selectedMission = selectedNode ? lesson?.missionMetadata[selectedNode.id] : undefined;
   const selectedNodeIndex = Math.max(0, pathNodeIds.indexOf(selectedNode?.id ?? selectedNodeId));
   const visibleCards = selectedNode ? cards.filter((card) => card.nodeId === selectedNode.id) : cards;
   const currentCardIndex = selectedNode ? Math.min(cardCursorByNode[selectedNode.id] ?? 0, Math.max(visibleCards.length - 1, 0)) : 0;
   const currentCard = visibleCards[currentCardIndex];
-  const masteredCount = lesson?.graph.nodes.filter((node) => node.mastery >= 0.85).length ?? 0;
+  const masteredCount = lesson?.mapState.nodes.filter((node) => node.state === "mastered").length ?? 0;
   const progressPct = lesson ? Math.round(((selectedNodeIndex + 1) / Math.max(lesson.lessonPath.items.length, 1)) * 100) : 0;
 
   function streamCards(nextCards: LessonCard[], replaceNodeId?: string) {
@@ -103,7 +121,7 @@ export function App() {
       .then((result) => {
         if (cancelled) return;
         streamCards(result.cards, selectedNodeId);
-        setToast(`Node ready: ${selectedNode?.topicName ?? selectedNodeId}`);
+        setToast(result.cacheHit ? `Cache hit - 0ms: ${selectedNode?.topicName ?? selectedNodeId}` : `Node ready: ${selectedNode?.topicName ?? selectedNodeId}`);
       })
       .catch((error) => {
         if (cancelled) return;
@@ -142,16 +160,51 @@ export function App() {
     }
   }
 
+  async function startFromImage(file: File) {
+    setBusy(true);
+    setLoadingStep("Reading textbook image");
+    try {
+      const imageData = await fileToBase64Payload(file);
+      const next = await api.generateLessonFromImage(imageData, file.type || "image/jpeg", intent);
+      setLesson({ ...next, cards: [] });
+      setCards([]);
+      const firstNodeId = next.mapState.activeNodeId || next.lessonPath.items[0]?.nodeId || next.graph.nodes[0]?.id || "";
+      setCardCursorByNode(firstNodeId ? { [firstNodeId]: 0 } : {});
+      setSelectedNodeId(firstNodeId);
+      streamCards(next.cards);
+      setToast(next.openingMessage);
+    } catch (error) {
+      setToast(error instanceof Error ? error.message : "Image lesson generation stopped unexpectedly.");
+    } finally {
+      setBusy(false);
+      setLoadingStep("");
+    }
+  }
+
   async function answer(value: string) {
     if (!lesson) return;
     setBusy(true);
     try {
       const next = await api.respond(lesson.sessionId, value);
-      setLesson({ ...lesson, mapState: next.mapState, cards: next.cards ?? lesson.cards, gameState: { ...lesson.gameState, recentEvents: next.gameEvents ?? [] } });
+      const nextEvents = next.gameEvents ?? next.gameStatePatch?.recentEvents ?? [];
+      setLesson((current) => {
+        if (!current) return current;
+        const patchedGraph = next.nodeState ? {
+          ...current.graph,
+          nodes: current.graph.nodes.map((node) => node.id === next.nodeState?.nodeId ? { ...node, status: next.nodeState.status, mastery: next.nodeState.mastery } : node)
+        } : current.graph;
+        return {
+          ...current,
+          graph: patchedGraph,
+          mapState: next.mapState,
+          cards: next.cards ?? current.cards,
+          gameState: next.gameStatePatch ?? { ...current.gameState, recentEvents: nextEvents }
+        };
+      });
       setSelectedNodeId(next.mapState.activeNodeId);
       setCardCursorByNode((current) => ({ ...current, [next.mapState.activeNodeId]: 0 }));
       if (next.cards?.length) streamCards(next.cards, next.mapState.activeNodeId);
-      setToast(next.assistantMessage);
+      setToast(nextEvents[0] ? describeGameEvent(nextEvents[0], lesson.graph.nodes) : next.assistantMessage);
     } finally {
       setBusy(false);
     }
@@ -160,8 +213,9 @@ export function App() {
   if (!lesson) {
     return (
       <div className="aura" data-font={learnerMode === "Dyslexia" ? "opendyslexic" : "lexend"}>
-        <TopicIntentScreen topic={topic} setTopic={setTopic} intent={intent} setIntent={setIntent} learnerMode={learnerMode} setLearnerMode={setLearnerMode} cacheOptions={cacheOptions} selectedCacheId={selectedCacheId} setSelectedCacheId={setSelectedCacheId} onStart={start} busy={busy} />
+        <TopicIntentScreen topic={topic} setTopic={setTopic} intent={intent} setIntent={setIntent} learnerMode={learnerMode} setLearnerMode={setLearnerMode} cacheOptions={cacheOptions} selectedCacheId={selectedCacheId} setSelectedCacheId={setSelectedCacheId} onStart={start} onImageStart={startFromImage} busy={busy} />
         {busy && <BuildProgress step={loadingStep || "Building lesson"} logs={logs} />}
+        <TelemetryHud telemetry={telemetry} compact />
         <DebugControl open={devOpen} setOpen={setDevOpen} logs={logs} />
       </div>
     );
@@ -261,11 +315,12 @@ export function App() {
 
           <aside className="aura-rail right-rail">
             <RailHeader label="Companion" value={selectedMapNode?.state ?? "ready"} />
-            <div className="companion-card">
-              <span className="eyebrow">Node role</span>
-              <strong>{selectedMapNode?.type ?? "core"}</strong>
-              <p>{lesson.lessonPath.items[selectedNodeIndex]?.reason || selectedNode?.teachingGoal}</p>
-            </div>
+            <MissionPanel
+              node={selectedNode}
+              mapNode={selectedMapNode}
+              metadata={selectedMission}
+              pathReason={lesson.lessonPath.items[selectedNodeIndex]?.reason}
+            />
             <div className="quick-grid">
               <button title="Hint"><HelpCircle size={18} /><span>Hint</span></button>
               <button title="Example"><Brain size={18} /><span>Example</span></button>
@@ -279,6 +334,7 @@ export function App() {
               <strong>{masteredCount}/{lesson.graph.nodes.length} nodes</strong>
               <div className="mastery-bar"><i style={{ width: `${Math.round((masteredCount / Math.max(lesson.graph.nodes.length, 1)) * 100)}%` }} /></div>
             </div>
+            <RecentEvents events={lesson.gameState.recentEvents} nodes={lesson.graph.nodes} />
             <button className="btn primary full" onClick={() => setMapOpen(true)}><Map size={16} /> Open full map</button>
             <button className="btn ghost full" onClick={() => setLesson(null)}><RotateCcw size={16} /> New topic</button>
           </aside>
@@ -286,10 +342,70 @@ export function App() {
 
         {settingsOpen && <SettingsOverlay learnerMode={learnerMode} setLearnerMode={setLearnerMode} focusMode={focusMode} setFocusMode={setFocusMode} onClose={() => setSettingsOpen(false)} />}
         {mapOpen && <MapOverlay lesson={lesson} selectedNodeId={selectedNode?.id ?? ""} onSelect={(nodeId) => { setSelectedNodeId(nodeId); setMapOpen(false); }} onClose={() => setMapOpen(false)} />}
+        <TelemetryHud telemetry={telemetry} />
         {devOpen && <DevLogBox logs={logs} />}
         {toast && <button className="toast" onClick={() => setToast(null)}>{toast}</button>}
       </div>
     </div>
+  );
+}
+
+function fileToBase64Payload(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(reader.error);
+    reader.onload = () => {
+      const value = String(reader.result ?? "");
+      resolve(value.includes(",") ? value.split(",").pop() ?? "" : value);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function TelemetryHud({ telemetry, compact = false }: { telemetry: Telemetry | null; compact?: boolean }) {
+  const [settingMtp, setSettingMtp] = useState(false);
+  if (!telemetry) return null;
+  const last = telemetry.lastJob;
+  const memoryGb = telemetry.memory.backendRssBytes / 1024 / 1024 / 1024;
+  async function toggleMtp() {
+    setSettingMtp(true);
+    try {
+      await api.setMtp(!telemetry?.mtpEnabled);
+    } finally {
+      setSettingMtp(false);
+    }
+  }
+  return (
+    <aside className={compact ? "telemetry-hud compact" : "telemetry-hud"}>
+      <div className="hud-head">
+        <strong>LiteRT-LM</strong>
+        <button onClick={toggleMtp} disabled={settingMtp} title="Restart local LiteRT-LM with or without MTP when Aura owns the process">
+          MTP {telemetry.mtpEnabled ? "on" : "off"}
+        </button>
+      </div>
+      <div className="hud-grid">
+        <span>Model</span><b>{telemetry.model}</b>
+        <span>Backend</span><b>{telemetry.backend}</b>
+        <span>Engine</span><b>{telemetry.engineState}</b>
+        <span>Memory</span><b>{memoryGb.toFixed(2)} GB</b>
+        <span>Active</span><b>{telemetry.activeJob ? telemetry.activeJob.type : "idle"}</b>
+        <span>Queue</span><b>{telemetry.waitingJobs} waiting</b>
+        <span>Prefetch</span><b>{telemetry.prefetch.status}{telemetry.prefetch.label ? `: ${telemetry.prefetch.label}` : ""}</b>
+        <span>Network</span><b>{telemetry.network.externalBytes} external bytes</b>
+      </div>
+      {last && (
+        <div className="hud-last">
+          <span>{last.type}</span>
+          <b>TTFT {Math.round(last.approximateTtftMs)}ms</b>
+          <b>{last.approximateTokensPerSecond} tok/s</b>
+        </div>
+      )}
+      {!compact && (
+        <div className="hud-events">
+          {telemetry.recentEvents.slice(0, 3).map((event) => <span key={`${event.at}-${event.message}`}>{event.message}</span>)}
+        </div>
+      )}
+    </aside>
   );
 }
 
@@ -317,6 +433,57 @@ function RailHeader({ label, value }: { label: string; value: string }) {
       <span>{label}</span>
       <strong>{value}</strong>
     </div>
+  );
+}
+
+function MissionPanel({ node, mapNode, metadata, pathReason }: {
+  node?: KnowledgeNode;
+  mapNode?: MapNode;
+  metadata?: LessonResponse["missionMetadata"][string];
+  pathReason?: string;
+}) {
+  const missionType = metadata?.missionType ?? mapNode?.type ?? "core";
+  const state = mapNode?.state ?? "ready";
+  const Icon = missionIcon(missionType, state);
+  return (
+    <section className={`mission-panel mission-${state}`}>
+      <div className="mission-panel-head">
+        <span className="mission-symbol"><Icon size={18} /></span>
+        <div>
+          <span className="eyebrow">{missionTypeLabel(missionType)}</span>
+          <strong>{metadata?.missionTitle ?? node?.topicName ?? "Current mission"}</strong>
+        </div>
+      </div>
+      <p>{metadata?.objective ?? node?.teachingGoal ?? "Work through this node to unlock the next useful step."}</p>
+      <div className="mission-reward">
+        <span>Reward</span>
+        <b>{metadata?.rewardText ?? "The next part of the map becomes clearer."}</b>
+      </div>
+      {pathReason && <small className="mission-reason">{pathReason}</small>}
+    </section>
+  );
+}
+
+function RecentEvents({ events, nodes }: { events: GameEvent[]; nodes: KnowledgeNode[] }) {
+  const visible = events.slice(0, 5);
+  return (
+    <section className="event-feed">
+      <div className="event-feed-head">
+        <span className="eyebrow">Map events</span>
+        <strong>{visible.length}</strong>
+      </div>
+      {visible.length ? visible.map((event, index) => {
+        const Icon = eventIcon(event.type);
+        return (
+          <div key={`${event.type}-${event.nodeId ?? "event"}-${index}`} className={`event-row event-${event.type.toLowerCase().replaceAll("_", "-")}`}>
+            <span><Icon size={14} /></span>
+            <p>{describeGameEvent(event, nodes)}</p>
+          </div>
+        );
+      }) : (
+        <div className="event-empty">The map will log unlocks and repairs here.</div>
+      )}
+    </section>
   );
 }
 
@@ -403,6 +570,50 @@ function SettingsOverlay({ learnerMode, setLearnerMode, focusMode, setFocusMode,
 function nodeStatusLabel(node?: MapNode) {
   if (!node) return "planned";
   return node.state.replaceAll("_", " ");
+}
+
+function missionTypeLabel(type: string) {
+  if (type === "boss" || type === "application") return "Application challenge";
+  if (type === "repair") return "Repair mission";
+  if (type === "review") return "Review mission";
+  if (type === "curiosity") return "Curiosity path";
+  return "Core mission";
+}
+
+function missionIcon(type: string, state: string) {
+  if (state === "mastered") return Award;
+  if (state === "shaky" || state === "blocked") return AlertTriangle;
+  if (type === "repair") return Wrench;
+  if (type === "boss" || type === "application") return Compass;
+  return BookOpen;
+}
+
+function eventIcon(type: GameEvent["type"]) {
+  if (type === "MISSION_COMPLETED") return CheckCircle2;
+  if (type === "NODE_UNLOCKED") return Sparkles;
+  if (type === "NODE_BECAME_SHAKY") return AlertTriangle;
+  if (type === "SUPPORT_NODE_DISCOVERED") return Wrench;
+  return BookOpen;
+}
+
+function describeGameEvent(event: GameEvent, nodes: KnowledgeNode[]) {
+  const nodeName = nodes.find((node) => node.id === event.nodeId)?.topicName ?? "this node";
+  switch (event.type) {
+    case "MISSION_STARTED":
+      return `Mission started: ${event.title || nodeName}.`;
+    case "MISSION_COMPLETED":
+      return `Mission complete: ${nodeName}. ${event.rewardText}`;
+    case "NODE_UNLOCKED":
+      return `Unlocked: ${nodeName}. ${event.reason}`;
+    case "SUPPORT_NODE_DISCOVERED": {
+      const parentName = nodes.find((node) => node.id === event.parentNodeId)?.topicName;
+      return `Repair discovered: ${nodeName}${parentName ? ` for ${parentName}` : ""}. ${event.reason}`;
+    }
+    case "NODE_BECAME_SHAKY":
+      return `Marked shaky: ${nodeName}. ${event.reason}`;
+    default:
+      return "The map changed.";
+  }
 }
 
 function DebugControl({ open, setOpen, logs }: { open: boolean; setOpen: (open: boolean) => void; logs: DevLogEntry[] }) {

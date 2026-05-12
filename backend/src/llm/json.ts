@@ -1,4 +1,5 @@
 import { callLLM } from "./client.js";
+import type { LLMJobOptions } from "./broker.js";
 import { jsonrepair } from "jsonrepair";
 
 function extractJson(raw: string) {
@@ -8,11 +9,11 @@ function extractJson(raw: string) {
   return match?.[1] ?? trimmed;
 }
 
-export async function callLLMJson<T>(system: string, user: string, temperature = 0.2, timeoutMs = 30_000, maxTokens = 8192): Promise<T> {
+export async function callLLMJson<T>(system: string, user: string, temperature = 0.2, timeoutMs = 30_000, maxTokens = 8192, job: LLMJobOptions = {}): Promise<T> {
   let lastErr: unknown;
   for (let i = 0; i < 2; i += 1) {
     try {
-      const raw = await callLLM(system, `${user}\n\nReturn valid JSON only.`, { json: true, temperature, maxTokens, timeoutMs });
+      const raw = await callLLM(system, `${user}\n\nReturn valid JSON only.`, { json: true, temperature, maxTokens, timeoutMs, ...job });
       const jsonText = extractJson(raw);
       try {
         return JSON.parse(jsonText) as T;

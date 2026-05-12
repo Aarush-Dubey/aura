@@ -4,6 +4,7 @@ import { isLLMReady, listModels } from "./client.js";
 
 let child: ChildProcess | null = null;
 let lastStartupError = "";
+let runtimeMtpEnabled = CONFIG.llmMtpEnabled;
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -18,7 +19,12 @@ export async function ensureLocalLLM() {
     child = spawn(CONFIG.llmStartCommand, {
       shell: true,
       cwd: process.cwd(),
-      env: { ...process.env, LLM_PORT: "8080" },
+      env: {
+        ...process.env,
+        LLM_PORT: "8080",
+        LITERT_LM_BACKEND: CONFIG.llmBackend,
+        LITERT_LM_MTP: runtimeMtpEnabled ? "true" : "false"
+      },
       stdio: ["ignore", "pipe", "pipe"]
     });
 
@@ -42,6 +48,30 @@ export async function ensureLocalLLM() {
   return llmStatus("setup_required", lastStartupError || "Timed out waiting for local LiteRT-LM Gemma.");
 }
 
+async function stopOwnedLLM() {
+  if (!child) return false;
+  const current = child;
+  const exited = new Promise<void>((resolve) => {
+    current.once("exit", () => resolve());
+  });
+  current.kill();
+  await Promise.race([exited, delay(5000)]);
+  if (child === current) child = null;
+  return true;
+}
+
+export async function restartLocalLLMWithMtp(enabled: boolean) {
+  runtimeMtpEnabled = enabled;
+  const stoppedOwnedProcess = await stopOwnedLLM();
+  if (!stoppedOwnedProcess && await isLLMReady()) {
+    return llmStatus(
+      "running",
+      "MTP setting recorded, but Aura did not start this LiteRT-LM process so it cannot restart it."
+    );
+  }
+  return ensureLocalLLM();
+}
+
 export async function llmStatus(state?: "running" | "setup_required", detail?: string) {
   const ready = await isLLMReady();
   const models = ready ? await listModels() : [];
@@ -50,6 +80,8 @@ export async function llmStatus(state?: "running" | "setup_required", detail?: s
     state: state ?? (ready ? "running" : "setup_required"),
     baseUrl: CONFIG.llmBaseUrl,
     expectedModel: CONFIG.llmModel,
+    backend: CONFIG.llmBackend,
+    mtpEnabled: runtimeMtpEnabled,
     availableModels: models,
     startupCommandConfigured: Boolean(CONFIG.llmStartCommand),
     detail: detail || lastStartupError || null,

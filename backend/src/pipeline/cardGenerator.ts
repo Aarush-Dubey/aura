@@ -3,6 +3,7 @@ import { CONFIG } from "../config.js";
 import type { KnowledgeNode, LessonCard } from "../types.js";
 import { devLog } from "../dev/logs.js";
 import { AURA_VOICE_SPEC, cardTypeVoiceInstruction, finalVoiceReminder, findTutorVoiceViolations } from "../llm/voice.js";
+import type { LLMJobType } from "../llm/broker.js";
 
 type PlannedCard = {
   type: "text_explain" | "mcq" | "recap";
@@ -61,20 +62,26 @@ function normalizeCards(rawCards: unknown[], node: KnowledgeNode): LessonCard[] 
   });
 }
 
-export async function generateCardsForNode(node: KnowledgeNode): Promise<LessonCard[]> {
+export async function generateCardsForNode(node: KnowledgeNode, jobType: LLMJobType = "current_card"): Promise<LessonCard[]> {
   if (!CONFIG.llmUseForCards) throw new Error("LLM_USE_FOR_CARDS must be true. Lecture cards are Gemma-generated only.");
   devLog("info", "cards", "Generating node lecture with Gemma", { nodeId: node.id, topicName: node.topicName });
   const cards: LessonCard[] = [];
-  const plan = await planLecture(node);
+  const plan = await planLecture(node, jobType);
   devLog("info", "cards", "Gemma planned node lecture", { nodeId: node.id, steps: plan.map((step) => `${step.type}:${step.phase ?? "body"}`) });
   for (const [index, step] of plan.entries()) {
     devLog("info", "cards", "Generating Gemma lecture card", { nodeId: node.id, card: index + 1, purpose: step.purpose });
     const p = singleCardPrompt(node, index, step);
-    const out = await callLLMJson<{ card?: LessonCard; cards?: LessonCard[] }>(p.system, p.user, 0.55);
+    const out = await callLLMJson<{ card?: LessonCard; cards?: LessonCard[] }>(p.system, p.user, 0.55, 30_000, 8192, { type: jobType, label: `${node.topicName} card ${index + 1}` });
     const card = out.card ?? out.cards?.[0];
     if (!card) throw new Error(`Gemma did not return a card for ${node.id} step ${index + 1}`);
     cards.push(...normalizeCards([card], node));
   }
+  const localIssues = localLectureIssues(cards);
+  if (!localIssues.length) {
+    devLog("info", "cards", "Polish skipped: local validators passed", { nodeId: node.id });
+    return cards;
+  }
+  devLog("info", "cards", "Local validators requested Gemma polish", { nodeId: node.id, localIssues });
   return polishLecture(node, cards);
 }
 
@@ -88,13 +95,14 @@ export async function generateKnowledgeChunkCards(nodes: KnowledgeNode[]): Promi
       to: index + batch.length,
       total: nodes.length
     });
-    const generated = await Promise.all(batch.map((node) => generateCardsForNode(node)));
-    cards.push(...generated.flat());
+    for (const node of batch) {
+      cards.push(...await generateCardsForNode(node));
+    }
   }
   return cards;
 }
 
-async function planLecture(node: KnowledgeNode): Promise<PlannedCard[]> {
+async function planLecture(node: KnowledgeNode, jobType: LLMJobType): Promise<PlannedCard[]> {
   const out = await callLLMJson<{ includeEntryQuestion?: boolean; plan: PlannedCard[] }>(
     [
       "You are Gemma 4 planning a concise node lecture.",
@@ -123,7 +131,10 @@ async function planLecture(node: KnowledgeNode): Promise<PlannedCard[]> {
         plan: [{ type: "text_explain|mcq|recap", phase: "entry|reflect|exit optional", purpose: "specific non-overlapping job" }]
       }
     }),
-    0.35
+    0.35,
+    30_000,
+    8192,
+    { type: jobType, label: `${node.topicName} card plan` }
   );
   const rawPlan = Array.isArray(out.plan) ? out.plan : [];
   const sanitized = rawPlan
@@ -145,6 +156,24 @@ async function planLecture(node: KnowledgeNode): Promise<PlannedCard[]> {
     sanitized.splice(1, 0, { type: "text_explain", purpose: "give one concrete worked example that adds new information" });
   }
   return sanitized.slice(0, 6);
+}
+
+function localLectureIssues(cards: LessonCard[]) {
+  const issues: string[] = [];
+  if (cards.length < 4 || cards.length > 6) issues.push("card_count");
+  if (!cards.some((card) => card.type === "recap")) issues.push("missing_recap");
+  if (cards.filter((card) => card.type === "mcq" && card.phase === "exit").length !== 1) issues.push("exit_question_count");
+  const textBodies = cards.map((card) => {
+    if (card.type === "text_explain") return card.body;
+    if (card.type === "recap") return card.bullets.join(" ");
+    if (card.type === "mcq") return `${card.prompt} ${card.options.map((option) => option.text).join(" ")}`;
+    return JSON.stringify(card);
+  });
+  const normalized = textBodies.map((body) => body.toLowerCase().replace(/\s+/g, " ").trim());
+  if (new Set(normalized).size !== normalized.length) issues.push("duplicate_body");
+  if (findTutorVoiceViolations(cards).length) issues.push("voice_violation");
+  if (textBodies.some((body) => /[^\n.!?]{180,}[.!?]/.test(body))) issues.push("long_sentence");
+  return issues;
 }
 
 function nodeBrief(node: KnowledgeNode) {
@@ -226,7 +255,10 @@ async function polishLecture(node: KnowledgeNode, draftCards: LessonCard[]): Pro
       ],
       schema: { cards: "LessonCard[]", notes: ["short editor note"] }
     }),
-    0.35
+    0.35,
+    30_000,
+    8192,
+    { type: "polish", label: `${node.topicName} polish` }
   );
   if (!Array.isArray(out.cards) || out.cards.length < 4) throw new Error(`Gemma polish returned too few cards for ${node.id}`);
   let polished = normalizeCards(out.cards, node);
@@ -260,7 +292,10 @@ async function rewriteVoiceViolations(node: KnowledgeNode, cards: LessonCard[], 
       cards,
       schema: { cards: "same LessonCard[] shape and order", notes: ["short rewrite note"] }
     }),
-    0.2
+    0.2,
+    30_000,
+    8192,
+    { type: "voice_rewrite", label: `${node.topicName} voice rewrite` }
   );
   if (!Array.isArray(out.cards) || out.cards.length !== cards.length) return cards;
   const rewritten = normalizeCards(out.cards, node);

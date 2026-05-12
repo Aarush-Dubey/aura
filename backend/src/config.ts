@@ -20,6 +20,10 @@ export const CONFIG = {
   llmAutostart: (process.env.LLM_AUTOSTART ?? "true") === "true",
   llmReadyTimeoutMs: Number(process.env.LLM_READY_TIMEOUT_MS ?? 45_000),
   llmStartCommand: process.env.LLM_START_COMMAND ?? "bash ./scripts/start-litert-lm.sh",
+  llmBackend: process.env.LITERT_LM_BACKEND ?? process.env.LLM_BACKEND ?? "gpu",
+  llmMtpEnabled: (process.env.LITERT_LM_MTP ?? process.env.AURA_LLM_MTP ?? "true") === "true",
+  llmMaxActiveJobs: Number(process.env.AURA_LLM_MAX_ACTIVE_JOBS ?? 1),
+  llmPrefetch: (process.env.AURA_LLM_PREFETCH ?? "true") === "true",
   backendPort: Number(process.env.BACKEND_PORT ?? 3001),
   dbPath: process.env.DB_PATH ?? "./aura.db",
   defaultProfileId: process.env.DEFAULT_PROFILE_ID ?? "profile_001"
