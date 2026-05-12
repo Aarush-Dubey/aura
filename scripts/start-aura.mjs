@@ -42,7 +42,7 @@ function run(command, args, options = {}) {
       cwd: options.cwd || rootDir,
       env: options.env || env,
       stdio: options.stdio || "inherit",
-      shell: false,
+      shell: isWindows,
       windowsHide: true
     });
     child.on("error", reject);
