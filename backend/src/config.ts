@@ -8,11 +8,12 @@ export const CONFIG = {
   orienMode: process.env.AURA_ORIEN_MODE ?? "gemma_knowledge",
   orienAutostart: (process.env.AURA_ORIEN_AUTOSTART ?? "true") === "true",
   orienStartCommand: process.env.AURA_ORIEN_START_COMMAND ?? "node ./scripts/orien-local-search.mjs",
-  orienSearxngUrl: process.env.AURA_ORIEN_SEARXNG_URL ?? "http://localhost:8888/search",
+  orienSearxngUrl: process.env.AURA_ORIEN_SEARXNG_URL ?? "http://127.0.0.1:8888/search",
   orienMaxResults: Number(process.env.AURA_ORIEN_MAX_RESULTS ?? 5),
   orienFetchTimeoutMs: Number(process.env.AURA_ORIEN_FETCH_TIMEOUT_MS ?? 8_000),
   orienReadyTimeoutMs: Number(process.env.AURA_ORIEN_READY_TIMEOUT_MS ?? 20_000),
-  llmBaseUrl: process.env.LLM_BASE_URL ?? "http://localhost:8080/v1",
+  llmBaseUrl: process.env.LLM_BASE_URL ?? "http://127.0.0.1:8080/v1",
+  llmBaseUrl2: process.env.LLM_BASE_URL_2 ?? "",
   llmModel: process.env.LLM_MODEL ?? "gemma-4-E2B-it",
   llmUseForCards: (process.env.LLM_USE_FOR_CARDS ?? "false") === "true",
   llmUseForEvaluation: (process.env.LLM_USE_FOR_EVALUATION ?? "false") === "true",
@@ -24,7 +25,7 @@ export const CONFIG = {
   llmMtpEnabled: (process.env.LITERT_LM_MTP ?? process.env.AURA_LLM_MTP ?? "true") === "true",
   llmMaxActiveJobs: Number(process.env.AURA_LLM_MAX_ACTIVE_JOBS ?? 1),
   llmPrefetch: (process.env.AURA_LLM_PREFETCH ?? "true") === "true",
-  backendPort: Number(process.env.BACKEND_PORT ?? 3001),
+  backendPort: Number(process.env.BACKEND_PORT ?? 3101),
   dbPath: process.env.DB_PATH ?? "./aura.db",
   defaultProfileId: process.env.DEFAULT_PROFILE_ID ?? "profile_001"
 };
