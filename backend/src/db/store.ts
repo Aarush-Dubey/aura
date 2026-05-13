@@ -98,3 +98,84 @@ export function loadGameState(sessionId: string): GameState {
 export function saveHistory(sessionId: string, history: unknown[]) {
   db.prepare("UPDATE sessions SET history_json = ? WHERE id = ?").run(JSON.stringify(history), sessionId);
 }
+
+export type SessionSummary = {
+  id: string;
+  topic: string;
+  startedAt: string;
+  nodeCount: number;
+  masteredCount: number;
+  currentIndex: number;
+  totalItems: number;
+};
+
+export type SessionInsights = {
+  sessionId: string;
+  topic: string;
+  totalNodes: number;
+  masteredNodes: number;
+  shakyNodes: string[];
+  accuracy: number;
+  timeSpent: string;
+  strongAreas: string[];
+  suggestion: string;
+};
+
+export function getSessionInsights(sessionId: string): SessionInsights {
+  const session = loadSession(sessionId);
+  const graph = loadGraph(String(session.graph_id));
+  const path = loadPath(String(session.lesson_path_id));
+  const mastered = graph.nodes.filter((n) => n.status === "mastered");
+  const shaky = graph.nodes.filter((n) => n.status === "shaky");
+  const accuracy = graph.nodes.length > 0 ? Math.round((mastered.length / graph.nodes.length) * 100) : 0;
+  return {
+    sessionId,
+    topic: String(session.topic),
+    totalNodes: graph.nodes.length,
+    masteredNodes: mastered.length,
+    shakyNodes: shaky.map((n) => n.topicName),
+    accuracy,
+    timeSpent: `${Math.max(1, Math.round(path.items.length * 2.5))} min`,
+    strongAreas: mastered.slice(0, 3).map((n) => n.topicName),
+    suggestion: shaky.length > 0 ? `Review ${shaky[0].topicName} — it came up as shaky.` : "Solid session. Try a new topic or revisit in a few days."
+  };
+}
+
+export function listSessions(): SessionSummary[] {
+  const rows = db.prepare(`
+    SELECT s.id, s.topic, s.started_at, s.graph_id, s.lesson_path_id
+    FROM sessions s
+    ORDER BY s.started_at DESC
+    LIMIT 50
+  `).all() as { id: string; topic: string; started_at: string; graph_id: string | null; lesson_path_id: string | null }[];
+
+  return rows.map((r) => {
+    let nodeCount = 0;
+    let masteredCount = 0;
+    let currentIndex = 0;
+    let totalItems = 0;
+    if (r.graph_id) {
+      try {
+        const graph = loadGraph(r.graph_id);
+        nodeCount = graph.nodes.length;
+        masteredCount = graph.nodes.filter((n) => n.status === "mastered").length;
+      } catch {}
+    }
+    if (r.lesson_path_id) {
+      try {
+        const path = loadPath(r.lesson_path_id);
+        currentIndex = path.currentIndex;
+        totalItems = path.items.length;
+      } catch {}
+    }
+    return {
+      id: r.id,
+      topic: r.topic,
+      startedAt: r.started_at,
+      nodeCount,
+      masteredCount,
+      currentIndex,
+      totalItems,
+    };
+  });
+}

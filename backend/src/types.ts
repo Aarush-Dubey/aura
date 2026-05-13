@@ -103,7 +103,14 @@ export type LessonCard =
   | { id: string; type: "fill_blank"; nodeId: string; prompt: string; beforeBlank: string; afterBlank: string; acceptedAnswers: string[]; hint?: string }
   | { id: string; type: "true_false"; nodeId: string; statement: string; correctAnswer: boolean; misconceptionId?: string }
   | { id: string; type: "recap"; nodeId: string; title: string; bullets: string[]; nextUnlocked?: string[] }
-  | { id: string; type: "repair_card"; nodeId: string; misconceptionId: string; title: string; gentleMessage: string; correction: string; retryCardId?: string };
+  | { id: string; type: "repair_card"; nodeId: string; misconceptionId: string; title: string; gentleMessage: string; correction: string; retryCardId?: string }
+  | { id: string; type: "analogy"; nodeId: string; title: string; familiar: { name: string; desc: string }; target: { name: string; desc: string }; mapping: string }
+  | { id: string; type: "story"; nodeId: string; title: string; beats: string[] }
+  | { id: string; type: "vocab"; nodeId: string; word: string; phonetic: string; syllables: string[]; meaning: string; example: string }
+  | { id: string; type: "visual"; nodeId: string; title: string; diagram: string; parts: { id: string; name: string; desc: string }[] }
+  | { id: string; type: "connection"; nodeId: string; previous: string; current: string; bridge: string }
+  | { id: string; type: "flash"; nodeId: string; cards: { front: string; back: string }[] }
+  | { id: string; type: "dragsort"; nodeId: string; prompt: string; steps: Record<string, string>; shuffled: string[]; correct: string[]; explanation: string };
 
 export type MapNode = {
   id: string;
