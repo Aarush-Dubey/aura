@@ -1,0 +1,271 @@
+/* Aura Design System — global tokens & shared styles */
+
+/* ── Fonts ─────────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Lexend:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Palette — warm cream + sage + peach */
+  --aura-bg: #f4efe6;
+  --aura-paper: #faf6ee;
+  --aura-paper-2: #fbf8f1;
+  --aura-ink: #2a2620;
+  --aura-ink-soft: #5b4f43;
+  --aura-ink-mute: #8a7d6c;
+  --aura-line: #e7dfd0;
+  --aura-line-soft: #f0e8d8;
+
+  --aura-sage: #6b9e7e;
+  --aura-sage-deep: #4d7a5e;
+  --aura-sage-soft: #d4e3d6;
+  --aura-sage-wash: #ecf2ea;
+
+  --aura-peach: #e8a87c;
+  --aura-peach-soft: #f7d8c0;
+  --aura-peach-wash: #fbeadb;
+
+  --aura-amber: #d4a157;
+  --aura-amber-wash: #f6e9cc;
+
+  --aura-clay: #c47b6c;
+  --aura-clay-soft: #f0d6cf;
+
+  --aura-sky: #8aa9c0;
+  --aura-sky-wash: #e4ecf2;
+
+  --aura-radius-sm: 10px;
+  --aura-radius: 16px;
+  --aura-radius-lg: 24px;
+  --aura-radius-xl: 32px;
+
+  --aura-shadow-sm: 0 1px 2px rgba(60,45,25,.06), 0 1px 0 rgba(255,255,255,.6) inset;
+  --aura-shadow: 0 2px 6px rgba(60,45,25,.06), 0 12px 28px -12px rgba(60,45,25,.12), 0 1px 0 rgba(255,255,255,.7) inset;
+  --aura-shadow-lg: 0 8px 32px -12px rgba(60,45,25,.18), 0 1px 0 rgba(255,255,255,.7) inset;
+
+  --aura-font-body: 'Lexend', system-ui, sans-serif;
+  --aura-font-heading: 'Fraunces', Georgia, serif;
+  --aura-font-mono: 'JetBrains Mono', monospace;
+
+  --aura-ls: 0.04em;
+  --aura-lh: 1.65;
+}
+
+/* ── Background Modes ──────────────────────────────────────────────────── */
+.aura[data-bg="cream"] { background: var(--aura-bg); }
+.aura[data-bg="white"] { background: #fbfaf6; }
+.aura[data-bg="mint"] {
+  background: #e6efe6;
+  --aura-bg: #e6efe6;
+  --aura-paper: #ffffff;
+  --aura-paper-2: #f6faf5;
+  --aura-ink: #1c2a23;
+  --aura-ink-soft: #34503e;
+  --aura-ink-mute: #6a8473;
+  --aura-line: #cfdfd0;
+  --aura-line-soft: #e0ecdf;
+  --aura-sage: #56a06d;
+  --aura-sage-deep: #3f7a52;
+  --aura-sage-soft: #b6d8be;
+  --aura-sage-wash: #d8ebd8;
+  --aura-peach: #d99770;
+  --aura-peach-soft: #ecc8ad;
+  --aura-peach-wash: #f4e1cf;
+  --aura-amber: #c79544;
+  --aura-amber-wash: #ede1c7;
+  --aura-clay: #b66a59;
+  --aura-clay-soft: #e6c4ba;
+  --aura-sky: #7ba1b9;
+  --aura-sky-wash: #dde9ef;
+  --aura-radius-sm: 12px;
+  --aura-radius: 18px;
+  --aura-radius-lg: 26px;
+  --aura-radius-xl: 34px;
+  --aura-shadow-sm: 0 1px 2px rgba(34,70,46,.06), 0 1px 0 rgba(255,255,255,.65) inset;
+  --aura-shadow: 0 1px 3px rgba(34,70,46,.04), 0 14px 32px -14px rgba(34,70,46,.14), 0 1px 0 rgba(255,255,255,.75) inset;
+  --aura-shadow-lg: 0 10px 36px -14px rgba(34,70,46,.20), 0 1px 0 rgba(255,255,255,.75) inset;
+}
+.aura[data-bg="dark"]  {
+  background: #1f1c18;
+  --aura-bg: #1f1c18;
+  --aura-paper: #2a2620;
+  --aura-paper-2: #322d27;
+  --aura-ink: #f0ebe0;
+  --aura-ink-soft: #c8bdab;
+  --aura-ink-mute: #8a7d6c;
+  --aura-line: #3a342c;
+  --aura-line-soft: #332e26;
+  --aura-sage-wash: #2c3a31;
+  --aura-peach-wash: #3a2e26;
+  --aura-amber-wash: #3a3023;
+  --aura-sky-wash: #28323b;
+  --aura-sage-soft: #3a4e40;
+  --aura-peach-soft: #54382a;
+}
+
+/* ── Font Modes ────────────────────────────────────────────────────────── */
+.aura[data-font="lexend"]       { font-family: var(--aura-font-body); }
+.aura[data-font="opendyslexic"] { font-family: 'OpenDyslexic', var(--aura-font-body); }
+.aura[data-font="system"]       { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+
+/* ── Base ──────────────────────────────────────────────────────────────── */
+html, body { margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; }
+
+.aura {
+  color: var(--aura-ink);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "liga" 1, "calt" 1;
+  letter-spacing: var(--aura-ls);
+  font-family: var(--aura-font-body);
+}
+
+/* ── Typography ────────────────────────────────────────────────────────── */
+.title {
+  font-family: var(--aura-font-heading);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.reading {
+  line-height: var(--aura-lh);
+  letter-spacing: var(--aura-ls);
+  max-width: 56ch;
+}
+.reading p { margin: 0 0 0.9em; }
+
+.mono {
+  font-family: var(--aura-font-mono);
+}
+
+/* ── Bionic Reading ────────────────────────────────────────────────────── */
+.bionic b { font-weight: 700; color: var(--aura-ink); }
+.bionic { font-weight: 400; }
+
+/* ── Card ──────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--aura-paper);
+  border-radius: var(--aura-radius-lg);
+  box-shadow: var(--aura-shadow);
+  border: 1px solid var(--aura-line-soft);
+  position: relative;
+  overflow: hidden;
+}
+.aura[data-bg="mint"] .card { border-color: rgba(180,210,185,.55); }
+.card-pad { padding: 28px 32px; }
+.card-pad-lg { padding: 36px 40px; }
+
+/* ── Chip ──────────────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--aura-ink-soft);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--aura-paper-2);
+  border: 1px solid var(--aura-line);
+}
+.chip .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--aura-sage);
+}
+.chip[data-tone="sage"]  { background: var(--aura-sage-wash); border-color: var(--aura-sage-soft); color: var(--aura-sage-deep); }
+.chip[data-tone="peach"] { background: var(--aura-peach-wash); border-color: var(--aura-peach-soft); color: var(--aura-clay); }
+.chip[data-tone="amber"] { background: var(--aura-amber-wash); border-color: var(--aura-amber); color: var(--aura-amber); }
+.chip[data-tone="clay"]  { background: var(--aura-clay-soft); border-color: var(--aura-clay); color: var(--aura-clay); }
+.chip[data-tone="sky"]   { background: var(--aura-sky-wash); border-color: var(--aura-sky); color: var(--aura-sky); }
+.chip[data-tone="peach"] .dot { background: var(--aura-peach); }
+.chip[data-tone="amber"] .dot { background: var(--aura-amber); }
+.chip[data-tone="clay"]  .dot { background: var(--aura-clay); }
+.chip[data-tone="sky"]   .dot { background: var(--aura-sky); }
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
+.btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--aura-ink);
+  color: var(--aura-paper);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform .15s cubic-bezier(.2,.7,.3,1.4), box-shadow .15s ease, background .15s;
+  box-shadow: 0 1px 2px rgba(0,0,0,.1), 0 6px 14px -6px rgba(0,0,0,.22);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.btn--sage {
+  background: var(--aura-sage);
+  box-shadow: 0 1px 2px rgba(34,70,46,.18), 0 6px 14px -6px rgba(56,140,90,.45), 0 -2px 0 rgba(0,0,0,.08) inset;
+}
+.btn--sage:hover { background: var(--aura-sage-deep); }
+.btn--peach { background: var(--aura-peach); }
+
+.btn--ghost {
+  background: var(--aura-paper);
+  color: var(--aura-ink);
+  box-shadow: inset 0 0 0 1.5px var(--aura-line), 0 1px 2px rgba(34,70,46,.05);
+}
+.btn--ghost:hover { background: var(--aura-paper-2); }
+
+/* ── Progress Dots ─────────────────────────────────────────────────────── */
+.dots { display: flex; gap: 6px; align-items: center; }
+.dots .d {
+  width: 8px; height: 8px; border-radius: 999px;
+  background: var(--aura-line);
+  transition: all .3s;
+}
+.dots .d.on { background: var(--aura-sage); width: 22px; }
+.dots .d.done { background: var(--aura-sage-soft); }
+
+/* ── Animations ────────────────────────────────────────────────────────── */
+@keyframes aura-breath {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+@keyframes aura-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes aura-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes aura-rise-far {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes aura-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(107,158,126,0.4); }
+  50% { box-shadow: 0 0 0 14px rgba(107,158,126,0); }
+}
+
+.rise { animation: aura-rise .45s cubic-bezier(.2,.7,.3,1) both; }
+.rise-d { animation: aura-rise-far .55s cubic-bezier(.2,.7,.3,1) both; }
+
+.aura[data-anim="calm"] .rise { animation-duration: .6s; }
+.aura[data-anim="lively"] .rise { animation-duration: .35s; }
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────── */
+.aura ::-webkit-scrollbar { width: 8px; }
+.aura ::-webkit-scrollbar-track { background: transparent; }
+.aura ::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.12);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.aura ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,.2);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
