@@ -6,6 +6,8 @@ import { brokerTelemetry, setMtpOverride } from "./llm/broker.js";
 import { ensureOrienSearch, orienStatus } from "./research/runtime.js";
 import sessionRouter from "./api/session.js";
 import profileRouter from "./api/profile.js";
+import ttsRouter, { warmKokoro } from "./api/tts.js";
+import sttRouter from "./api/stt.js";
 import { devLog } from "./dev/logs.js";
 
 migrate();
@@ -22,6 +24,8 @@ app.options("*", (_, res) => res.sendStatus(204));
 
 app.use("/", sessionRouter);
 app.use("/", profileRouter);
+app.use("/", ttsRouter);
+app.use("/", sttRouter);
 
 app.get("/health", async (_req, res) => {
   const llm = await llmStatus();
@@ -61,5 +65,8 @@ app.listen(CONFIG.backendPort, async () => {
   });
   ensureOrienSearch().then((status) => {
     if (status.state === "setup_required") console.warn("Aura Orien setup needed:", status.detail ?? status.setup?.message);
+  });
+  warmKokoro().then((status) => {
+    console.log(`Kokoro TTS: ${status.engine} (ready: ${status.ready})`);
   });
 });
