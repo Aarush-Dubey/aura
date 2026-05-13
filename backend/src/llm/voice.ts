@@ -72,36 +72,87 @@ export const AURA_BANNED_PHRASES = [
   "nice try"
 ];
 
-export function cardTypeVoiceInstruction(cardType: "text_explain" | "mcq" | "recap", phase?: "entry" | "reflect" | "exit") {
-  if (cardType === "recap") {
-    return [
-      "This is a RECAP card.",
-      "Tone: flat, factual, list-like, no praise, no fanfare.",
-      "Use 3 short bullets: main idea, example anchor, next move.",
-      "Keep each bullet under 18 words."
-    ].join("\n");
+export function cardTypeVoiceInstruction(cardType: string, phase?: "entry" | "reflect" | "exit") {
+  switch (cardType) {
+    case "recap":
+      return [
+        "This is a RECAP card.",
+        "Tone: flat, factual, list-like, no praise, no fanfare.",
+        "Use 3 short bullets: main idea, example anchor, next move.",
+        "Keep each bullet under 18 words."
+      ].join("\n");
+    case "mcq": {
+      const role = phase === "entry" ? "diagnostic entry question" : phase === "exit" ? "exit question" : "reflect question";
+      return [
+        `This is a ${role}.`,
+        "Tone: neutral, low-stakes, no preamble.",
+        "Ask the question directly.",
+        "Options must be plausible, not silly.",
+        "Distractors should come from real misconceptions.",
+        "Correct feedback: name the strategy or idea that worked.",
+        "Incorrect feedback: normalize the sticking point, diagnose the issue, give one next step.",
+        "Do not say nice try, perfect, amazing, or don't worry."
+      ].join("\n");
+    }
+    case "analogy":
+      return [
+        "This is an ANALOGY card.",
+        "Pick a familiar concept the learner likely knows and map it to the new concept.",
+        "Three parts: familiar (name + short description), target (name + short description), mapping (one sentence linking them).",
+        "The analogy should clarify, not confuse. Keep it tight."
+      ].join("\n");
+    case "story":
+      return [
+        "This is a STORY card.",
+        "Tell a short narrative (3-5 beats) that illustrates the idea.",
+        "Each beat is one sentence. Use concrete characters or scenarios.",
+        "The story should make the concept memorable, not just entertain."
+      ].join("\n");
+    case "vocab":
+      return [
+        "This is a VOCAB card.",
+        "Teach one key term from the node.",
+        "Include: the word, a phonetic guide, syllable breakdown, a clear meaning, and one example sentence.",
+        "Keep meaning under 25 words. Example should use the word naturally."
+      ].join("\n");
+    case "visual":
+      return [
+        "This is a VISUAL card.",
+        "Describe a diagram with 3-5 labeled parts.",
+        "Each part has an id, name, and short description.",
+        "Focus on what each part does or represents. Keep descriptions under 20 words."
+      ].join("\n");
+    case "connection":
+      return [
+        "This is a CONNECTION card.",
+        "Bridge from a previously learned idea to the current node.",
+        "Name the previous concept and the current one, then write 1-2 sentences showing the link.",
+        "Help the learner see continuity, not just a list of topics."
+      ].join("\n");
+    case "flash":
+      return [
+        "This is a FLASH card set.",
+        "Create 2-4 term/definition flashcard pairs.",
+        "Front: the term or a short question. Back: the answer or definition.",
+        "Keep both sides concise. Focus on the node's key facts."
+      ].join("\n");
+    case "dragsort":
+      return [
+        "This is a DRAG-SORT card.",
+        "Create a sequence of 3-5 steps the learner must put in the correct order.",
+        "Provide: a prompt, a steps object mapping step IDs to descriptions, the correct order, a shuffled order, and a brief explanation.",
+        "Step IDs should be snake_case like step_a, step_b, step_c."
+      ].join("\n");
+    default:
+      return [
+        "This is an EXPLANATION or WORKED EXAMPLE card.",
+        "Tone: competent peer thinking aloud.",
+        "Use one idea per paragraph.",
+        "Use concrete examples before formulas.",
+        "If math notation appears, include a plain read-aloud line the first time.",
+        "Avoid textbook distance and chatbot cheer."
+      ].join("\n");
   }
-  if (cardType === "mcq") {
-    const role = phase === "entry" ? "diagnostic entry question" : phase === "exit" ? "exit question" : "reflect question";
-    return [
-      `This is a ${role}.`,
-      "Tone: neutral, low-stakes, no preamble.",
-      "Ask the question directly.",
-      "Options must be plausible, not silly.",
-      "Distractors should come from real misconceptions.",
-      "Correct feedback: name the strategy or idea that worked.",
-      "Incorrect feedback: normalize the sticking point, diagnose the issue, give one next step.",
-      "Do not say nice try, perfect, amazing, or don't worry."
-    ].join("\n");
-  }
-  return [
-    "This is an EXPLANATION or WORKED EXAMPLE card.",
-    "Tone: competent peer thinking aloud.",
-    "Use one idea per paragraph.",
-    "Use concrete examples before formulas.",
-    "If math notation appears, include a plain read-aloud line the first time.",
-    "Avoid textbook distance and chatbot cheer."
-  ].join("\n");
 }
 
 export function finalVoiceReminder() {
@@ -115,18 +166,20 @@ export function finalVoiceReminder() {
 }
 
 function collectText(card: LessonCard): string[] {
-  if (card.type === "text_explain") return [card.title, card.body, ...(card.emphasis ?? [])];
-  if (card.type === "mcq") {
-    return [
-      card.prompt,
-      ...card.options.map((option) => option.text),
-      card.feedback.correct,
-      card.feedback.incorrectGeneric
-    ];
+  switch (card.type) {
+    case "text_explain": return [card.title, card.body, ...(card.emphasis ?? [])];
+    case "mcq": return [card.prompt, ...card.options.map((o) => o.text), card.feedback.correct, card.feedback.incorrectGeneric];
+    case "recap": return [card.title, ...card.bullets];
+    case "repair_card": return [card.title, card.gentleMessage, card.correction];
+    case "analogy": return [card.title, card.familiar.name, card.familiar.desc, card.target.name, card.target.desc, card.mapping];
+    case "story": return [card.title, ...card.beats];
+    case "vocab": return [card.word, card.meaning, card.example];
+    case "visual": return [card.title, ...card.parts.map((p) => `${p.name}: ${p.desc}`)];
+    case "connection": return [card.previous, card.current, card.bridge];
+    case "flash": return card.cards.flatMap((c) => [c.front, c.back]);
+    case "dragsort": return [card.prompt, ...Object.values(card.steps), card.explanation];
+    default: return [];
   }
-  if (card.type === "recap") return [card.title, ...card.bullets];
-  if (card.type === "repair_card") return [card.title, card.gentleMessage, card.correction];
-  return [];
 }
 
 function sentenceWordViolations(text: string): string[] {

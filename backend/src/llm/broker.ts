@@ -34,7 +34,7 @@ type QueueEntry = {
   priority: number;
   label: string;
   queuedAt: number;
-  run: () => Promise<string>;
+  run: (slot: number) => Promise<string>;
   resolve: (value: string) => void;
   reject: (error: unknown) => void;
 };
@@ -60,13 +60,33 @@ type BrokerEvent = {
 };
 
 let nextJobId = 1;
-let active: QueueEntry | null = null;
+const activeSlots: (QueueEntry | null)[] = [null, null];
 const queue: QueueEntry[] = [];
 const events: BrokerEvent[] = [];
 const completed: CompletedJob[] = [];
 let externalNetworkBytes = 0;
 let cloudCalls = 0;
 let mtpOverride: boolean | null = null;
+
+function maxSlots(): number {
+  return CONFIG.llmBaseUrl2 ? 2 : 1;
+}
+
+function activeCount(): number {
+  return activeSlots.filter(Boolean).length;
+}
+
+function freeSlotIndex(): number {
+  for (let i = 0; i < maxSlots(); i++) {
+    if (!activeSlots[i]) return i;
+  }
+  return -1;
+}
+
+function baseUrlForSlot(slot: number): string {
+  if (slot === 1 && CONFIG.llmBaseUrl2) return CONFIG.llmBaseUrl2.replace(/\/$/, "");
+  return CONFIG.llmBaseUrl.replace(/\/$/, "");
+}
 
 function nowIso() {
   return new Date().toISOString();
@@ -95,8 +115,8 @@ function isExternalUrl(url: string) {
   }
 }
 
-export function geminiUrl(model = CONFIG.llmModel) {
-  const base = CONFIG.llmBaseUrl.replace(/\/$/, "");
+export function geminiUrl(model = CONFIG.llmModel, slot = 0) {
+  const base = baseUrlForSlot(slot);
   return `${base}/v1beta/models/${encodeURIComponent(model)}:generateContent`;
 }
 
@@ -105,8 +125,8 @@ function extractGeminiText(data: unknown): string {
   return response.candidates?.[0]?.content?.parts?.map((part) => part.text ?? "").join("") ?? "";
 }
 
-async function performGeminiRequest(body: unknown, opts: LLMJobOptions) {
-  const url = geminiUrl();
+async function performGeminiRequest(body: unknown, opts: LLMJobOptions, slot = 0) {
+  const url = geminiUrl(CONFIG.llmModel, slot);
   const requestStarted = performance.now();
   const res = await fetch(url, {
     method: "POST",
@@ -131,35 +151,32 @@ async function performGeminiRequest(body: unknown, opts: LLMJobOptions) {
 }
 
 function pumpQueue() {
-  if (active || !queue.length) return;
-  sortQueue();
-  active = queue.shift() ?? null;
-  if (!active) return;
+  while (queue.length > 0) {
+    const slot = freeSlotIndex();
+    if (slot === -1) return;
+    sortQueue();
+    const job = queue.shift();
+    if (!job) return;
 
-  const job = active;
-  pushEvent({ at: nowIso(), type: "started", message: `Started ${job.type}: ${job.label}` });
-  void (async () => {
-    const started = performance.now();
-    try {
-      const output = await job.run();
-      const finished = performance.now();
-      job.resolve(output);
-      pushEvent({ at: nowIso(), type: "completed", message: `Completed ${job.type}: ${job.label}` });
-      active = null;
+    activeSlots[slot] = job;
+    pushEvent({ at: nowIso(), type: "started", message: `Started ${job.type} [slot ${slot}]: ${job.label}` });
+    void (async () => {
+      try {
+        const output = await job.run(slot);
+        job.resolve(output);
+        pushEvent({ at: nowIso(), type: "completed", message: `Completed ${job.type} [slot ${slot}]: ${job.label}` });
+      } catch (error) {
+        job.reject(error);
+        pushEvent({
+          at: nowIso(),
+          type: "failed",
+          message: `Failed ${job.type} [slot ${slot}]: ${error instanceof Error ? error.message : String(error)}`
+        });
+      }
+      activeSlots[slot] = null;
       pumpQueue();
-      return { started, finished };
-    } catch (error) {
-      job.reject(error);
-      pushEvent({
-        at: nowIso(),
-        type: "failed",
-        message: `Failed ${job.type}: ${error instanceof Error ? error.message : String(error)}`
-      });
-      active = null;
-      pumpQueue();
-      return null;
-    }
-  })();
+    })();
+  }
 }
 
 export async function runGeminiJob(prompt: string, opts: LLMJobOptions = {}) {
@@ -193,7 +210,8 @@ function enqueueGeminiBody(body: unknown, opts: LLMJobOptions) {
   const label = opts.label ?? type;
   const id = `llm_job_${nextJobId++}`;
 
-  if (active && priority < active.priority) {
+  const lowestActivePriority = activeSlots.reduce((min, s) => s ? Math.min(min, s.priority) : min, Infinity);
+  if (priority < lowestActivePriority && activeCount() > 0) {
     pushEvent({
       at: nowIso(),
       type: "preempted",
@@ -210,9 +228,9 @@ function enqueueGeminiBody(body: unknown, opts: LLMJobOptions) {
       queuedAt: performance.now(),
       resolve,
       reject,
-      run: async () => {
+      run: async (slot: number) => {
         const started = performance.now();
-        const result = await performGeminiRequest(body, opts);
+        const result = await performGeminiRequest(body, opts, slot);
         const finished = performance.now();
         const tokens = approximateTokens(result.text);
         const decodeSeconds = Math.max(0.001, (finished - started) / 1000);
@@ -277,11 +295,14 @@ export function brokerTelemetry() {
     model: CONFIG.llmModel,
     backend: CONFIG.llmBackend,
     mtpEnabled: effectiveMtp(),
-    engineState: active || queue.length ? "busy" : "warm",
-    activeJob: active ? { id: active.id, type: active.type, label: active.label, priority: active.priority } : null,
+    engineState: activeCount() > 0 || queue.length ? "busy" : "warm",
+    slots: maxSlots(),
+    activeJobs: activeSlots.filter(Boolean).map(job => job ? { id: job.id, type: job.type, label: job.label, priority: job.priority } : null),
+    activeJob: activeSlots.find(Boolean) ? { id: activeSlots.find(Boolean)!.id, type: activeSlots.find(Boolean)!.type, label: activeSlots.find(Boolean)!.label, priority: activeSlots.find(Boolean)!.priority } : null,
     queue: queue.map((job) => ({ id: job.id, type: job.type, label: job.label, priority: job.priority })),
     waitingJobs: queue.length,
-    pausedJobs: active && queue.length ? queue.length : 0,
+    pausedJobs: activeCount() > 0 && queue.length ? queue.length : 0,
+    dualInstance: !!CONFIG.llmBaseUrl2,
     recentEvents: events,
     lastJob: completed[0] ?? null,
     completedJobs: completed.slice(0, 5),
