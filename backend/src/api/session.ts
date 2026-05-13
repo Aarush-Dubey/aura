@@ -2,9 +2,10 @@ import express from "express";
 import { jsonrepair } from "jsonrepair";
 import { listCachedExaInputs } from "../exa/cacheInput.js";
 import { CONFIG } from "../config.js";
-import { createSession, loadGameState, loadGraph, loadPath, loadProfile, loadSession, saveGameState, saveGraph, saveHistory, savePath } from "../db/store.js";
+import { createSession, getSessionInsights, listSessions, loadGameState, loadGraph, loadPath, loadProfile, loadSession, saveGameState, saveGraph, saveHistory, savePath } from "../db/store.js";
 import { devLog, getDevLogs } from "../dev/logs.js";
-import { notePrefetchHit, runGeminiBodyJob, setPrefetchTelemetry } from "../llm/broker.js";
+import { notePrefetchHit, runGeminiBodyJob, runGeminiJob, setPrefetchTelemetry } from "../llm/broker.js";
+import { AURA_VOICE_SPEC } from "../llm/voice.js";
 import { buildGraph } from "../pipeline/buildGraph.js";
 import { generateCardsForNode } from "../pipeline/cardGenerator.js";
 import { evaluateCheck } from "../pipeline/evaluate.js";
@@ -262,6 +263,60 @@ router.post("/tutor/respond", async (req, res, next) => {
   }
 });
 
+router.post("/chat/ask", async (req, res, next) => {
+  try {
+    const sessionId = String(req.body?.sessionId ?? "");
+    const question = String(req.body?.question ?? "").trim();
+    const cardContext = req.body?.cardContext as
+      | { type?: string; title?: string; body?: string }
+      | undefined;
+    if (!question) return res.status(400).json({ error: "question is required" });
+    devLog("info", "api", "POST /chat/ask", { sessionId, chars: question.length });
+
+    let lessonContext = "No active lesson.";
+    if (sessionId) {
+      try {
+        const session = loadSession(sessionId);
+        const graph = loadGraph(String(session.graph_id));
+        const path = loadPath(String(session.lesson_path_id));
+        const node = activeNode(graph, path);
+        const cardLine = cardContext
+          ? `Current card (${cardContext.type ?? "?"}): ${cardContext.title ?? ""}${cardContext.body ? ` — ${cardContext.body.slice(0, 280)}` : ""}`
+          : "";
+        lessonContext = [
+          `Topic: ${graph.topic}`,
+          `Current lesson: ${node.topicName} — ${node.teachingGoal}`,
+          cardLine
+        ].filter(Boolean).join("\n");
+      } catch {}
+    }
+
+    const prompt = [
+      AURA_VOICE_SPEC,
+      "",
+      "You are answering a quick learner question via chat. This is conversational text only. Do NOT generate a card. Do NOT produce JSON. Do NOT advance the lesson. Reply in 2 to 4 short sentences. Answer the specific question. If the learner says they are stuck, name the sticking point and give one concrete next step.",
+      "",
+      "CONTEXT",
+      lessonContext,
+      "",
+      `Learner asks: ${question}`,
+      "",
+      "Reply now in plain text only."
+    ].join("\n");
+
+    const reply = await runGeminiJob(prompt, {
+      type: "chat_reply",
+      label: "chat ask",
+      maxTokens: 400,
+      temperature: 0.45,
+      timeoutMs: 30000
+    });
+    res.json({ reply: reply.trim() });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/dev/cache", (req, res) => {
   const topic = typeof req.query.topic === "string" ? req.query.topic : "";
   res.json({
@@ -313,6 +368,119 @@ router.get("/session/:id/state", (req, res, next) => {
       mapState: deriveMapState(graph, lessonPath, gameState),
       gameState
     });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/sessions", (_req, res, next) => {
+  try {
+    res.json({ sessions: listSessions() });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/session/:id/resume", async (req, res, next) => {
+  try {
+    const session = loadSession(req.params.id);
+    const graph = loadGraph(String(session.graph_id));
+    const lessonPath = loadPath(String(session.lesson_path_id));
+    const gameState = loadGameState(req.params.id);
+    const mapState = deriveMapState(graph, lessonPath, gameState);
+    const node = activeNode(graph, lessonPath);
+    const cards = await generateCardsForNode(node, "current_card");
+    prefetchNextNodeCards(req.params.id, graph, lessonPath);
+    res.json({
+      sessionId: req.params.id,
+      graph,
+      lessonPath,
+      mapState,
+      gameState,
+      cards,
+      missionMetadata: collectMissionMetadata(graph),
+      openingMessage: `Resuming: ${session.topic}`,
+      sourceConfidence: session.source_confidence ?? "medium",
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/session/:id/insights", (req, res, next) => {
+  try {
+    res.json(getSessionInsights(req.params.id));
+  } catch (err) {
+    next(err);
+  }
+});
+
+const QUIZ_TYPES = new Set(["mcq", "fill_blank", "true_false", "quiz", "recall", "dragsort"]);
+function quizOnly(cards: LessonCard[]): LessonCard[] {
+  return cards.filter((c) => QUIZ_TYPES.has(c.type));
+}
+
+router.post("/workspace/:sessionId/revise", async (req, res, next) => {
+  try {
+    const sessionId = String(req.params.sessionId);
+    devLog("info", "api", "POST /workspace/:id/revise", { sessionId });
+    const session = loadSession(sessionId);
+    const graph = loadGraph(String(session.graph_id));
+    const reviseNodes = graph.nodes
+      .filter((n) => n.status === "shaky" || (n.mastery > 0 && n.mastery < 0.6))
+      .slice(0, 3);
+    if (reviseNodes.length === 0) {
+      return res.status(400).json({ error: "Nothing to revise yet." });
+    }
+    const cards: LessonCard[] = [];
+    for (const node of reviseNodes) {
+      cards.push(...await generateCardsForNode(node, "current_card"));
+    }
+    res.json({ cards, nodeCount: reviseNodes.length, mode: "revise" });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/workspace/:sessionId/test/:nodeId", async (req, res, next) => {
+  try {
+    const sessionId = String(req.params.sessionId);
+    const nodeId = String(req.params.nodeId);
+    devLog("info", "api", "POST /workspace/:id/test/:nodeId", { sessionId, nodeId });
+    const session = loadSession(sessionId);
+    const graph = loadGraph(String(session.graph_id));
+    const node = graph.nodes.find((n) => n.id === nodeId);
+    if (!node) return res.status(404).json({ error: "Node not found." });
+    if (node.status !== "mastered") {
+      return res.status(400).json({ error: "Lesson not mastered yet." });
+    }
+    const raw = await generateCardsForNode(node, "current_card");
+    const quiz = quizOnly(raw);
+    const cards = quiz.length > 0 ? quiz : raw;
+    res.json({ cards, nodeCount: 1, mode: "test", scope: "lesson", topic: node.topicName });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/workspace/:sessionId/test", async (req, res, next) => {
+  try {
+    const sessionId = String(req.params.sessionId);
+    devLog("info", "api", "POST /workspace/:id/test", { sessionId });
+    const session = loadSession(sessionId);
+    const graph = loadGraph(String(session.graph_id));
+    const mastered = graph.nodes.filter((n) => n.status === "mastered");
+    if (mastered.length < graph.nodes.length || graph.nodes.length === 0) {
+      return res.status(400).json({ error: "Finish all lessons to take the final test." });
+    }
+    const picks = mastered.slice(0, 8);
+    const cards: LessonCard[] = [];
+    for (const node of picks) {
+      const raw = await generateCardsForNode(node, "current_card");
+      const quiz = quizOnly(raw);
+      cards.push(...(quiz.length > 0 ? quiz : raw.slice(0, 2)));
+    }
+    res.json({ cards, nodeCount: picks.length, mode: "test", scope: "final" });
   } catch (err) {
     next(err);
   }
