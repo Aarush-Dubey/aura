@@ -1,0 +1,206 @@
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { useAuraStore } from "../../store/useAuraStore";
+
+function TweakSection({ label }: { label: string }) {
+  return (
+    <div
+      style={{
+        fontSize: 10,
+        letterSpacing: ".1em",
+        textTransform: "uppercase",
+        color: "var(--aura-ink-mute)",
+        fontWeight: 600,
+        marginTop: 14,
+        marginBottom: 4,
+      }}
+    >
+      {label}
+    </div>
+  );
+}
+
+function TweakToggle({ label, value, onChange }: { label: string; value: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <label
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "8px 0",
+        fontSize: 13,
+        cursor: "pointer",
+      }}
+    >
+      {label}
+      <div
+        onClick={() => onChange(!value)}
+        style={{
+          width: 36,
+          height: 20,
+          borderRadius: 999,
+          background: value ? "var(--aura-sage)" : "var(--aura-line)",
+          position: "relative",
+          transition: "background .2s",
+          cursor: "pointer",
+        }}
+      >
+        <div
+          style={{
+            width: 16,
+            height: 16,
+            borderRadius: "50%",
+            background: "#fff",
+            position: "absolute",
+            top: 2,
+            left: value ? 18 : 2,
+            transition: "left .2s",
+            boxShadow: "0 1px 2px rgba(0,0,0,.15)",
+          }}
+        />
+      </div>
+    </label>
+  );
+}
+
+function TweakSlider({ label, value, min, max, step, unit, onChange }: {
+  label: string; value: number; min: number; max: number; step: number; unit?: string; onChange: (v: number) => void;
+}) {
+  return (
+    <div style={{ padding: "6px 0" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, marginBottom: 4 }}>
+        <span>{label}</span>
+        <span style={{ color: "var(--aura-ink-mute)", fontFamily: "JetBrains Mono", fontSize: 12 }}>
+          {value}{unit ?? ""}
+        </span>
+      </div>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        style={{ width: "100%", accentColor: "var(--aura-sage)" }}
+      />
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }: {
+  label: string; value: string; options: string[]; onChange: (v: string) => void;
+}) {
+  return (
+    <div style={{ padding: "6px 0" }}>
+      <div style={{ fontSize: 13, marginBottom: 6 }}>{label}</div>
+      <div style={{ display: "flex", gap: 6 }}>
+        {options.map((o) => (
+          <button
+            key={o}
+            onClick={() => onChange(o)}
+            style={{
+              padding: "5px 12px",
+              borderRadius: 8,
+              fontSize: 12,
+              border: "1px solid " + (value === o ? "var(--aura-sage)" : "var(--aura-line)"),
+              background: value === o ? "var(--aura-sage-wash)" : "var(--aura-paper-2)",
+              color: value === o ? "var(--aura-sage-deep)" : "var(--aura-ink-soft)",
+              cursor: "pointer",
+              font: "inherit",
+              fontWeight: value === o ? 600 : 400,
+              transition: "all .15s",
+            }}
+          >
+            {o}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function TweaksPanel() {
+  const [open, setOpen] = useState(false);
+  const settings = useAuraStore((s) => s.settings);
+  const setSetting = useAuraStore((s) => s.setSetting);
+
+  return (
+    <>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          position: "fixed",
+          bottom: 20,
+          right: 20,
+          width: 40,
+          height: 40,
+          borderRadius: "50%",
+          background: "var(--aura-paper)",
+          border: "1px solid var(--aura-line)",
+          boxShadow: "var(--aura-shadow)",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 40,
+          fontSize: 16,
+          color: "var(--aura-ink-soft)",
+        }}
+        title="Accessibility settings"
+      >
+        ⚙
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.aside
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 300, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 400, damping: 35 }}
+            style={{
+              position: "fixed",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: 300,
+              background: "var(--aura-paper)",
+              borderLeft: "1px solid var(--aura-line)",
+              boxShadow: "-4px 0 24px rgba(60,45,25,.1)",
+              padding: "24px 20px",
+              overflow: "auto",
+              zIndex: 45,
+              display: "flex",
+              flexDirection: "column",
+              gap: 4,
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+              <span style={{ fontWeight: 600, fontSize: 15 }}>Settings</span>
+              <button onClick={() => setOpen(false)} style={{ background: "transparent", border: 0, cursor: "pointer", fontSize: 16, color: "var(--aura-ink-mute)", padding: 4 }}>
+                ✕
+              </button>
+            </div>
+
+            <TweakSection label="Reading" />
+            <TweakRadio label="Font" value={settings.font} options={["lexend", "opendyslexic", "system"]} onChange={(v) => setSetting("font", v as any)} />
+            <TweakSlider label="Letter spacing" value={settings.letterSpacing} min={0} max={0.12} step={0.01} unit="em" onChange={(v) => setSetting("letterSpacing", v)} />
+            <TweakSlider label="Line height" value={settings.lineHeight} min={1.3} max={2.2} step={0.05} onChange={(v) => setSetting("lineHeight", v)} />
+            <TweakToggle label="Bionic reading" value={settings.bionicReading} onChange={(v) => setSetting("bionicReading", v)} />
+
+            <TweakSection label="Audio" />
+            <TweakToggle label="Read aloud" value={settings.readAloud} onChange={(v) => setSetting("readAloud", v)} />
+            <TweakSlider label="Speed" value={settings.readSpeed} min={0.7} max={1.5} step={0.05} unit="×" onChange={(v) => setSetting("readSpeed", v)} />
+
+            <TweakSection label="Environment" />
+            <TweakRadio label="Background" value={settings.bgTone} options={["cream", "white", "mint", "dark"]} onChange={(v) => setSetting("bgTone", v as any)} />
+            <TweakRadio label="Animation" value={settings.animation} options={["calm", "lively"]} onChange={(v) => setSetting("animation", v as any)} />
+
+            <TweakSection label="Focus" />
+            <TweakToggle label="Focus mode" value={settings.focusMode} onChange={(v) => setSetting("focusMode", v)} />
+          </motion.aside>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
