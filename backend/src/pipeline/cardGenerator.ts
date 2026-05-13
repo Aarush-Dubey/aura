@@ -4,78 +4,88 @@ import type { KnowledgeNode, LessonCard } from "../types.js";
 import { devLog } from "../dev/logs.js";
 import { AURA_VOICE_SPEC, cardTypeVoiceInstruction, finalVoiceReminder, findTutorVoiceViolations } from "../llm/voice.js";
 import type { LLMJobType } from "../llm/broker.js";
+import { parseCard, formatRepairPrompt } from "./cardSchemas.js";
+import { fallbackCardForType } from "./fallbacks.js";
+
+type CardType = "text_explain" | "mcq" | "fill_blank" | "true_false" | "recap" | "analogy" | "story" | "vocab" | "visual" | "connection" | "flash" | "dragsort";
 
 type PlannedCard = {
-  type: "text_explain" | "mcq" | "recap";
+  type: CardType;
   phase?: "entry" | "reflect" | "exit";
   purpose: string;
 };
 
+const ALL_CARD_TYPES: readonly string[] = ["text_explain", "mcq", "fill_blank", "true_false", "recap", "analogy", "story", "vocab", "visual", "connection", "flash", "dragsort"];
+
 function normalizeCards(rawCards: unknown[], node: KnowledgeNode): LessonCard[] {
-  return rawCards.slice(0, 6).map((raw, index) => {
+  return rawCards.slice(0, 8).map((raw, index) => {
     const card = raw as Record<string, unknown>;
-    const id = String(card.id ?? `${node.id}_gemma_${index + 1}`);
     const inferredType = index === rawCards.length - 1 ? "recap" : "text_explain";
-    const type = String(card.type ?? inferredType);
-    if (type === "mcq" && Array.isArray(card.options)) {
-      const options = (card.options as Array<{ id?: string; text?: string } | string>).map((option, optionIndex) => ({
-        id: typeof option === "string" ? String.fromCharCode(97 + optionIndex) : String(option.id ?? String.fromCharCode(97 + optionIndex)),
-        text: typeof option === "string" ? option : String(option.text ?? "")
-      })).filter((option) => option.text.trim());
-      const prompt = String(card.prompt ?? card.question ?? "");
-      if (!prompt || options.length !== 3) throw new Error(`Gemma returned malformed mcq card for ${node.id}`);
-      const feedback = (card.feedback ?? {}) as Record<string, unknown>;
-      return {
-        id,
-        type: "mcq",
-        nodeId: node.id,
-        prompt,
-        options,
-        correctOptionId: String(card.correctOptionId ?? card.answer ?? options[0].id),
-        feedback: {
-          correct: String(feedback.correct ?? ""),
-          incorrectGeneric: String(feedback.incorrectGeneric ?? "")
-        },
-        phase: card.phase === "entry" || card.phase === "reflect" || card.phase === "exit" ? card.phase : index === 0 ? "entry" : "exit"
-      } satisfies LessonCard;
-    }
-    if (type === "recap") {
-      if (!Array.isArray(card.bullets)) throw new Error(`Gemma returned malformed recap card for ${node.id}`);
-      return {
-        id,
-        type: "recap",
-        nodeId: node.id,
-        title: String(card.title ?? card.heading ?? ""),
-        bullets: card.bullets.map(String).slice(0, 4)
-      } satisfies LessonCard;
-    }
-    const body = String(card.body ?? card.content ?? card.text ?? "");
-    if (!body) throw new Error(`Gemma returned malformed text card for ${node.id}`);
-    return {
-      id,
-      type: "text_explain",
-      nodeId: node.id,
-      title: String(card.title ?? card.heading ?? ""),
-      body,
-      emphasis: Array.isArray(card.emphasis) ? card.emphasis.map(String).slice(0, 5) : node.keyTerms.slice(0, 5)
-    } satisfies LessonCard;
+    if (!card.type) card.type = inferredType;
+    const result = parseCard(card, node, index);
+    if (result.ok) return result.card;
+    devLog("warn", "cards", "Coercion applied to card", { nodeId: node.id, index, errors: result.errors });
+    return fallbackCardForType(node, String(card.type ?? inferredType), index);
   });
+}
+
+const MAX_REPAIR_ATTEMPTS = 2;
+
+async function generateSingleCard(node: KnowledgeNode, index: number, step: PlannedCard, jobType: LLMJobType): Promise<LessonCard> {
+  const p = singleCardPrompt(node, index, step);
+  let raw: Record<string, unknown> | undefined;
+  try {
+    const out = await callLLMJson<{ card?: LessonCard; cards?: LessonCard[] }>(p.system, p.user, 0.55, 30_000, 8192, { type: jobType, label: `${node.topicName} card ${index + 1}` });
+    raw = (out.card ?? out.cards?.[0]) as Record<string, unknown> | undefined;
+  } catch (err) {
+    devLog("warn", "cards", "LLM call failed for card", { nodeId: node.id, index, error: String(err) });
+  }
+
+  if (!raw) {
+    devLog("warn", "cards", "No card returned, using fallback", { nodeId: node.id, index, type: step.type });
+    return fallbackCardForType(node, step.type, index);
+  }
+
+  if (!raw.type) raw.type = step.type;
+  const firstParse = parseCard(raw, node, index);
+  if (firstParse.ok) return firstParse.card;
+
+  for (let attempt = 1; attempt <= MAX_REPAIR_ATTEMPTS; attempt++) {
+    devLog("info", "cards", `Self-repair attempt ${attempt}/${MAX_REPAIR_ATTEMPTS}`, { nodeId: node.id, index, errors: firstParse.errors });
+    const repair = formatRepairPrompt(firstParse.raw, firstParse.errors, step.type);
+    try {
+      const repaired = await callLLMJson<{ card?: Record<string, unknown> }>(repair.system, repair.user, 0.15, 15_000, 4096, { type: "repair_card", label: `${node.topicName} card ${index + 1} repair ${attempt}` });
+      const repairedCard = repaired.card;
+      if (repairedCard) {
+        if (!repairedCard.type) repairedCard.type = step.type;
+        const reParse = parseCard(repairedCard, node, index);
+        if (reParse.ok) {
+          devLog("info", "cards", `Self-repair succeeded on attempt ${attempt}`, { nodeId: node.id, index });
+          return reParse.card;
+        }
+      }
+    } catch (err) {
+      devLog("warn", "cards", "Repair LLM call failed", { nodeId: node.id, index, attempt, error: String(err) });
+    }
+  }
+
+  devLog("warn", "cards", "All repair attempts failed, using fallback", { nodeId: node.id, index, type: step.type });
+  return fallbackCardForType(node, step.type, index);
 }
 
 export async function generateCardsForNode(node: KnowledgeNode, jobType: LLMJobType = "current_card"): Promise<LessonCard[]> {
   if (!CONFIG.llmUseForCards) throw new Error("LLM_USE_FOR_CARDS must be true. Lecture cards are Gemma-generated only.");
   devLog("info", "cards", "Generating node lecture with Gemma", { nodeId: node.id, topicName: node.topicName });
-  const cards: LessonCard[] = [];
   const plan = await planLecture(node, jobType);
   devLog("info", "cards", "Gemma planned node lecture", { nodeId: node.id, steps: plan.map((step) => `${step.type}:${step.phase ?? "body"}`) });
+
+  const cards: LessonCard[] = [];
   for (const [index, step] of plan.entries()) {
     devLog("info", "cards", "Generating Gemma lecture card", { nodeId: node.id, card: index + 1, purpose: step.purpose });
-    const p = singleCardPrompt(node, index, step);
-    const out = await callLLMJson<{ card?: LessonCard; cards?: LessonCard[] }>(p.system, p.user, 0.55, 30_000, 8192, { type: jobType, label: `${node.topicName} card ${index + 1}` });
-    const card = out.card ?? out.cards?.[0];
-    if (!card) throw new Error(`Gemma did not return a card for ${node.id} step ${index + 1}`);
-    cards.push(...normalizeCards([card], node));
+    const card = await generateSingleCard(node, index, step, jobType);
+    cards.push(card);
   }
+
   const localIssues = localLectureIssues(cards);
   if (!localIssues.length) {
     devLog("info", "cards", "Polish skipped: local validators passed", { nodeId: node.id });
@@ -105,30 +115,50 @@ export async function generateKnowledgeChunkCards(nodes: KnowledgeNode[]): Promi
 async function planLecture(node: KnowledgeNode, jobType: LLMJobType): Promise<PlannedCard[]> {
   const out = await callLLMJson<{ includeEntryQuestion?: boolean; plan: PlannedCard[] }>(
     [
-      "You are Gemma 4 planning a concise node lecture.",
+      "You are Gemma 4 planning a concise node lecture for an adaptive learning app.",
+      "Use a variety of card types to keep the learner engaged.",
       "Decide whether an entry question is useful. Do not include one if it would repeat the exit question or lecture intro.",
       "The plan must avoid redundancy. Each card needs a different job.",
       "Return JSON only."
     ].join("\n"),
     JSON.stringify({
-      task: "Plan a 4 to 6 card lecture sequence for this node.",
+      task: "Plan a 5 to 8 card lecture sequence for this node using varied card types.",
       node: nodeBrief(node),
       constraints: [
         "Entry question is optional.",
-        "Exit question is required.",
-        "At least two text_explain cards are required.",
-        "One worked example card is required.",
-        "One recap card is required.",
-        "Do not plan two cards that explain the same idea in the same way."
+        "Exit question (mcq) is required.",
+        "At least one text_explain card is required.",
+        "One recap card at the end is required.",
+        "IMPORTANT: You MUST include at least one card of type analogy, story, vocab, visual, connection, flash, or dragsort. Do NOT only use text_explain/mcq/recap.",
+        "Use at least 3 different card types total in the plan.",
+        "Do not plan two cards that explain the same idea in the same way.",
+        "Choose card types that fit the content: analogy for abstract ideas, vocab for key terms, story for context, visual for diagrams, flash for memorization, dragsort for sequences, connection when bridging from prior node, fill_blank when a key phrase deserves precise recall, true_false when learners commonly hold a misconception worth checking.",
+        "Vary the checks: prefer fill_blank or true_false over a second mcq when you need an extra check, so the lesson does not feel like a string of multiple choice."
+      ],
+      examplePlan: [
+        { type: "text_explain", purpose: "introduce the core idea" },
+        { type: "analogy", purpose: "map the idea to something familiar" },
+        { type: "vocab", purpose: "teach the key term" },
+        { type: "mcq", phase: "exit", purpose: "check understanding" },
+        { type: "recap", purpose: "summarize takeaways" }
       ],
       cardTypes: {
         text_explain: "lecture, deeper explanation, misconception guard, or worked example",
-        mcq: "entry, reflect, or exit question",
-        recap: "final summary"
+        mcq: "entry, reflect, or exit question (3 options, one correct)",
+        fill_blank: "single-sentence cloze with one blank; tests precise recall of a key term or short phrase",
+        true_false: "single declarative statement (under 18 words) that is unambiguously true or false; good for misconception checks",
+        recap: "final summary with 3 bullets",
+        analogy: "maps a familiar concept to the new concept being taught",
+        story: "short narrative with 3-5 numbered beats that illustrate the idea",
+        vocab: "teaches one key term: word, phonetic, syllables, meaning, example sentence",
+        visual: "describes a diagram with labeled parts the learner can explore",
+        connection: "bridges from a previously learned idea to the current one",
+        flash: "2-4 term/definition flashcards for quick memorization",
+        dragsort: "3-5 steps the learner must arrange in the correct order"
       },
       schema: {
         includeEntryQuestion: "boolean",
-        plan: [{ type: "text_explain|mcq|recap", phase: "entry|reflect|exit optional", purpose: "specific non-overlapping job" }]
+        plan: [{ type: "text_explain|mcq|fill_blank|true_false|recap|analogy|story|vocab|visual|connection|flash|dragsort", phase: "entry|reflect|exit (mcq only)", purpose: "specific non-overlapping job" }]
       }
     }),
     0.35,
@@ -138,10 +168,10 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType): Promise<Pl
   );
   const rawPlan = Array.isArray(out.plan) ? out.plan : [];
   const sanitized = rawPlan
-    .filter((step) => ["text_explain", "mcq", "recap"].includes(step.type))
-    .slice(0, 6)
+    .filter((step) => ALL_CARD_TYPES.includes(step.type))
+    .slice(0, 8)
     .map((step) => ({
-      type: step.type,
+      type: step.type as CardType,
       phase: step.type === "mcq" && ["entry", "reflect", "exit"].includes(String(step.phase)) ? step.phase : undefined,
       purpose: String(step.purpose ?? "")
     })) as PlannedCard[];
@@ -151,24 +181,44 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType): Promise<Pl
   if (!sanitized.some((step) => step.type === "recap")) {
     sanitized.push({ type: "recap", purpose: "summarize only the non-repeated takeaways and next move" });
   }
-  if (sanitized.filter((step) => step.type === "text_explain").length < 2) {
-    sanitized.unshift({ type: "text_explain", purpose: "introduce the idea with a fresh explanation and no repeated metaphor" });
-    sanitized.splice(1, 0, { type: "text_explain", purpose: "give one concrete worked example that adds new information" });
+  if (!sanitized.some((step) => step.type === "text_explain")) {
+    sanitized.unshift({ type: "text_explain", purpose: "introduce the idea with a fresh explanation" });
   }
-  return sanitized.slice(0, 6);
+  const newTypes: CardType[] = ["analogy", "story", "vocab", "visual", "connection", "flash", "dragsort"];
+  if (!sanitized.some((step) => newTypes.includes(step.type))) {
+    const pick = node.keyTerms.length > 0 ? "vocab" as CardType : "analogy" as CardType;
+    sanitized.splice(Math.min(2, sanitized.length), 0, {
+      type: pick,
+      purpose: pick === "vocab" ? `teach the key term "${node.keyTerms[0]}"` : "map the idea to something the learner already knows"
+    });
+  }
+  return sanitized.slice(0, 8);
+}
+
+function extractCardText(card: LessonCard): string {
+  switch (card.type) {
+    case "text_explain": return card.body;
+    case "recap": return card.bullets.join(" ");
+    case "mcq": return `${card.prompt} ${card.options.map((o) => o.text).join(" ")}`;
+    case "fill_blank": return `${card.prompt} ${card.acceptedAnswers.join(" ")}`;
+    case "true_false": return card.statement;
+    case "analogy": return `${card.title} ${card.familiar.desc} ${card.target.desc} ${card.mapping}`;
+    case "story": return `${card.title} ${card.beats.join(" ")}`;
+    case "vocab": return `${card.word} ${card.meaning} ${card.example}`;
+    case "visual": return `${card.title} ${card.parts.map((p) => p.desc).join(" ")}`;
+    case "connection": return `${card.previous} ${card.current} ${card.bridge}`;
+    case "flash": return card.cards.map((c) => `${c.front} ${c.back}`).join(" ");
+    case "dragsort": return `${card.prompt} ${Object.values(card.steps).join(" ")} ${card.explanation}`;
+    default: return JSON.stringify(card);
+  }
 }
 
 function localLectureIssues(cards: LessonCard[]) {
   const issues: string[] = [];
-  if (cards.length < 4 || cards.length > 6) issues.push("card_count");
+  if (cards.length < 4 || cards.length > 8) issues.push("card_count");
   if (!cards.some((card) => card.type === "recap")) issues.push("missing_recap");
   if (cards.filter((card) => card.type === "mcq" && card.phase === "exit").length !== 1) issues.push("exit_question_count");
-  const textBodies = cards.map((card) => {
-    if (card.type === "text_explain") return card.body;
-    if (card.type === "recap") return card.bullets.join(" ");
-    if (card.type === "mcq") return `${card.prompt} ${card.options.map((option) => option.text).join(" ")}`;
-    return JSON.stringify(card);
-  });
+  const textBodies = cards.map(extractCardText);
   const normalized = textBodies.map((body) => body.toLowerCase().replace(/\s+/g, " ").trim());
   if (new Set(normalized).size !== normalized.length) issues.push("duplicate_body");
   if (findTutorVoiceViolations(cards).length) issues.push("voice_violation");
@@ -188,6 +238,36 @@ function nodeBrief(node: KnowledgeNode) {
     evidence: node.evidence,
     comfortCheck: { prompt: node.comfortCheck.prompt, expectedIdea: node.comfortCheck.expectedIdea }
   };
+}
+
+function cardSchema(node: KnowledgeNode, step: PlannedCard): Record<string, unknown> {
+  const base = { id: "snake_case", nodeId: node.id };
+  switch (step.type) {
+    case "mcq":
+      return { card: { ...base, type: "mcq", phase: step.phase, prompt: "string", options: [{ id: "a", text: "string" }, { id: "b", text: "string" }, { id: "c", text: "string" }], correctOptionId: "a|b|c", feedback: { correct: "string", incorrectGeneric: "string" } } };
+    case "fill_blank":
+      return { card: { ...base, type: "fill_blank", prompt: "Full sentence with one blank shown as _____", beforeBlank: "text before the blank", afterBlank: "text after the blank", acceptedAnswers: ["primary answer", "synonym or variant"], hint: "optional one-sentence hint" } };
+    case "true_false":
+      return { card: { ...base, type: "true_false", statement: "A single declarative statement under 18 words that is unambiguously true or false.", correctAnswer: true } };
+    case "recap":
+      return { card: { ...base, type: "recap", title: "string", bullets: ["string", "string", "string"] } };
+    case "analogy":
+      return { card: { ...base, type: "analogy", title: "short title for the analogy", familiar: { name: "familiar concept name", desc: "1-2 sentence description" }, target: { name: "new concept name", desc: "1-2 sentence description" }, mapping: "one sentence explaining how they connect" } };
+    case "story":
+      return { card: { ...base, type: "story", title: "short narrative title", beats: ["beat 1 text", "beat 2 text", "beat 3 text"] } };
+    case "vocab":
+      return { card: { ...base, type: "vocab", word: "the key term", phonetic: "pronunciation guide", syllables: ["syl", "la", "bles"], meaning: "clear definition", example: "example sentence using the word" } };
+    case "visual":
+      return { card: { ...base, type: "visual", title: "diagram title", diagram: "generic", parts: [{ id: "part_1", name: "Part name", desc: "what this part does" }] } };
+    case "connection":
+      return { card: { ...base, type: "connection", previous: "concept already learned", current: "new concept being taught", bridge: "1-2 sentences showing how they relate" } };
+    case "flash":
+      return { card: { ...base, type: "flash", cards: [{ front: "term or question", back: "answer or definition" }] } };
+    case "dragsort":
+      return { card: { ...base, type: "dragsort", prompt: "Put these steps in order", steps: { step_a: "First step description", step_b: "Second step description", step_c: "Third step description" }, correct: ["step_a", "step_b", "step_c"], shuffled: ["step_c", "step_a", "step_b"], explanation: "why this order matters" } };
+    default:
+      return { card: { ...base, type: "text_explain", title: "string", body: "2 to 4 short paragraphs separated by blank lines", emphasis: ["string"] } };
+  }
 }
 
 function singleCardPrompt(node: KnowledgeNode, index: number, step: PlannedCard) {
@@ -215,11 +295,7 @@ function singleCardPrompt(node: KnowledgeNode, index: number, step: PlannedCard)
         "Do not restate the teachingGoal as the whole card.",
         "Add new information, a new angle, or a useful check."
       ],
-      requiredShape: step.type === "mcq"
-        ? { card: { id: "snake_case", type: "mcq", nodeId: node.id, phase: step.phase, prompt: "string", options: [{ id: "a", text: "string" }, { id: "b", text: "string" }, { id: "c", text: "string" }], correctOptionId: "a|b|c", feedback: { correct: "string", incorrectGeneric: "string" } } }
-        : step.type === "recap"
-          ? { card: { id: "snake_case", type: "recap", nodeId: node.id, title: "string", bullets: ["string", "string", "string"] } }
-          : { card: { id: "snake_case", type: "text_explain", nodeId: node.id, title: "string", body: "2 to 4 short paragraphs separated by blank lines", emphasis: ["string"] } }
+      requiredShape: cardSchema(node, step)
     })
   };
 }
@@ -260,10 +336,16 @@ async function polishLecture(node: KnowledgeNode, draftCards: LessonCard[]): Pro
     8192,
     { type: "polish", label: `${node.topicName} polish` }
   );
-  if (!Array.isArray(out.cards) || out.cards.length < 4) throw new Error(`Gemma polish returned too few cards for ${node.id}`);
+  if (!Array.isArray(out.cards) || out.cards.length < 4) {
+    devLog("warn", "cards", "Polish returned too few cards, keeping originals", { nodeId: node.id, count: Array.isArray(out.cards) ? out.cards.length : 0 });
+    return draftCards;
+  }
   let polished = normalizeCards(out.cards, node);
   const exitCount = polished.filter((card) => card.type === "mcq" && card.phase === "exit").length;
-  if (exitCount !== 1) throw new Error(`Gemma polish must return exactly one exit question for ${node.id}`);
+  if (exitCount !== 1) {
+    devLog("warn", "cards", "Polish returned wrong exit count, keeping originals", { nodeId: node.id, exitCount });
+    return draftCards;
+  }
   const voiceViolations = findTutorVoiceViolations(polished);
   if (voiceViolations.length) {
     devLog("warn", "cards", "Gemma lecture voice violations detected; rewriting", { nodeId: node.id, voiceViolations });
