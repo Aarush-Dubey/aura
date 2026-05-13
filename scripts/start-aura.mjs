@@ -9,8 +9,8 @@ const logDir = path.join(rootDir, "logs");
 fs.mkdirSync(logDir, { recursive: true });
 
 const isWindows = process.platform === "win32";
-const npmBin = isWindows ? "npm.cmd" : "npm";
-const backendPort = process.env.BACKEND_PORT || "3001";
+const npmBin = isWindows ? "pnpm.cmd" : "pnpm";
+const backendPort = process.env.BACKEND_PORT || "3101";
 const frontendPort = process.env.FRONTEND_PORT || "5174";
 const llmPort = process.env.LLM_PORT || "8080";
 
@@ -75,7 +75,7 @@ async function waitForUrl(url, label, maxSeconds = 60) {
 function startBackend() {
   const out = fs.openSync(path.join(logDir, "backend.log"), "a");
   const err = fs.openSync(path.join(logDir, "backend.err.log"), "a");
-  return spawn(npmBin, ["start"], {
+  return spawn(npmBin, ["run", "start"], {
     cwd: path.join(rootDir, "backend"),
     env,
     stdio: ["ignore", out, err],
@@ -102,7 +102,7 @@ console.log("");
 
 if (!fs.existsSync(path.join(rootDir, "backend", "node_modules")) || !fs.existsSync(path.join(rootDir, "frontend", "node_modules"))) {
   console.log("Installing missing Node dependencies...");
-  await run(npmBin, ["run", "setup"]);
+  await run(npmBin, ["run", "setup"], { cwd: rootDir });
 }
 
 let backendChild = null;
