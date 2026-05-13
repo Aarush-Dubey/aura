@@ -121,14 +121,27 @@ export function LessonCardRenderer({ card, onAnswer, busy, cardIndex, cardCount,
     );
   }
 
+  if (card.type === "recap") {
+    return (
+      <section className="lesson-card">
+        <div className="card-topline">
+          <div className="card-kicker"><Lightbulb size={14} /> Recap</div>
+          <span>{progressLabel}</span>
+        </div>
+        <h2><LatexText text={card.title} /></h2>
+        <ul>{card.bullets.map((bullet: string) => <li key={bullet}><LatexText text={bullet} /></li>)}</ul>
+        {canContinue ? <button className="primary-action continue-action" onClick={onContinue}>Done</button> : null}
+      </section>
+    );
+  }
+
   return (
     <section className="lesson-card">
       <div className="card-topline">
-        <div className="card-kicker"><Lightbulb size={14} /> Recap</div>
+        <div className="card-kicker">Card</div>
         <span>{progressLabel}</span>
       </div>
-      <h2><LatexText text={card.title} /></h2>
-      <ul>{card.bullets.map((bullet) => <li key={bullet}><LatexText text={bullet} /></li>)}</ul>
+      <p>{"title" in card ? String((card as Record<string, unknown>).title) : card.type}</p>
       {canContinue ? <button className="primary-action continue-action" onClick={onContinue}>Done</button> : null}
     </section>
   );
