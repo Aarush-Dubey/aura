@@ -1,7 +1,15 @@
-import type { CacheOption, DevLogEntry, LessonResponse, StudentIntent, Telemetry, TutorResponse } from "./types";
+import type { CacheOption, DevLogEntry, LessonCard, LessonResponse, StudentIntent, Telemetry, TutorResponse } from "./types";
 
 const desktopUrl = typeof window !== "undefined" ? (window as unknown as { auraDesktop?: { backendUrl?: string } }).auraDesktop?.backendUrl : undefined;
-export const API_BASE = import.meta.env.VITE_API_BASE_URL || desktopUrl || "http://localhost:3001";
+
+const resolveBase = (): string => {
+  if (import.meta.env.VITE_API_BASE_URL) return import.meta.env.VITE_API_BASE_URL;
+  if (desktopUrl) return desktopUrl;
+  if (import.meta.env.DEV) return `http://${window.location.hostname}:3101`;
+  return "";
+};
+
+export const API_BASE = resolveBase();
 
 async function json<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
@@ -31,6 +39,17 @@ export const api = {
   generateLessonFromImage: (imageData: string, mimeType: string, intent: StudentIntent) => json<LessonResponse>("/generateLessonFromImage", { method: "POST", body: JSON.stringify({ imageData, mimeType, intent }) }),
   generateNodeCards: (sessionId: string, nodeId: string) => json<{ cards: LessonResponse["cards"]; cacheHit?: boolean }>("/node/cards", { method: "POST", body: JSON.stringify({ sessionId, nodeId }) }),
   respond: (sessionId: string, studentMessage: string) => json<TutorResponse>("/tutor/respond", { method: "POST", body: JSON.stringify({ sessionId, studentMessage }) }),
+  chatAsk: (sessionId: string | null, question: string, cardContext?: { type: string; title?: string; body?: string }) =>
+    json<{ reply: string }>("/chat/ask", { method: "POST", body: JSON.stringify({ sessionId, question, cardContext }) }),
   caches: (topic: string) => json<{ topic: string; caches: CacheOption[] }>(`/dev/cache?topic=${encodeURIComponent(topic)}`),
-  logs: () => json<{ logs: DevLogEntry[] }>("/dev/logs?limit=120")
+  logs: () => json<{ logs: DevLogEntry[] }>("/dev/logs?limit=120"),
+  listSessions: () => json<{ sessions: { id: string; topic: string; startedAt: string; nodeCount: number; masteredCount: number; currentIndex: number; totalItems: number }[] }>("/sessions"),
+  resumeSession: (id: string) => json<LessonResponse>(`/session/${id}/resume`),
+  sessionInsights: (id: string) => json<{ sessionId: string; topic: string; totalNodes: number; masteredNodes: number; shakyNodes: string[]; accuracy: number; timeSpent: string; strongAreas: string[]; suggestion: string }>(`/session/${id}/insights`),
+  workspaceRevise: (sessionId: string) =>
+    json<{ cards: LessonCard[]; nodeCount: number; mode: "revise" }>(`/workspace/${sessionId}/revise`, { method: "POST" }),
+  workspaceTestLesson: (sessionId: string, nodeId: string) =>
+    json<{ cards: LessonCard[]; nodeCount: number; mode: "test"; scope: "lesson"; topic: string }>(`/workspace/${sessionId}/test/${nodeId}`, { method: "POST" }),
+  workspaceTestFinal: (sessionId: string) =>
+    json<{ cards: LessonCard[]; nodeCount: number; mode: "test"; scope: "final" }>(`/workspace/${sessionId}/test`, { method: "POST" }),
 };

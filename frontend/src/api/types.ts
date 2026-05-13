@@ -61,7 +61,14 @@ export type LessonCard =
   | { id: string; type: "fill_blank"; nodeId: string; prompt: string; beforeBlank: string; afterBlank: string; acceptedAnswers: string[]; hint?: string }
   | { id: string; type: "true_false"; nodeId: string; statement: string; correctAnswer: boolean }
   | { id: string; type: "recap"; nodeId: string; title: string; bullets: string[]; nextUnlocked?: string[] }
-  | { id: string; type: "repair_card"; nodeId: string; title: string; gentleMessage: string; correction: string; retryCardId?: string; misconceptionId: string };
+  | { id: string; type: "repair_card"; nodeId: string; title: string; gentleMessage: string; correction: string; retryCardId?: string; misconceptionId: string }
+  | { id: string; type: "analogy"; nodeId: string; title: string; familiar: { name: string; desc: string }; target: { name: string; desc: string }; mapping: string }
+  | { id: string; type: "story"; nodeId: string; title: string; beats: string[] }
+  | { id: string; type: "vocab"; nodeId: string; word: string; phonetic: string; syllables: string[]; meaning: string; example: string }
+  | { id: string; type: "visual"; nodeId: string; title: string; diagram: string; parts: { id: string; name: string; desc: string }[] }
+  | { id: string; type: "connection"; nodeId: string; previous: string; current: string; bridge: string }
+  | { id: string; type: "flash"; nodeId: string; cards: { front: string; back: string }[] }
+  | { id: string; type: "dragsort"; nodeId: string; prompt: string; steps: Record<string, string>; shuffled: string[]; correct: string[]; explanation: string };
 
 export type LessonResponse = {
   sessionId: string;
@@ -107,6 +114,8 @@ export type TutorResponse = Partial<LessonResponse> & {
   gameEvents: GameEvent[];
   gameStatePatch?: GameState;
   nodeState?: { nodeId: string; status: string; mastery: number };
+  transitionAction?: { type: string; nextNodeId?: string; strategy?: string };
+  lessonPathPatch?: { type: string };
 };
 
 export type CacheOption = {
