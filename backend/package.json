@@ -13,7 +13,9 @@
     "better-sqlite3": "^11.10.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "jsonrepair": "^3.14.0"
+    "jsonrepair": "^3.14.0",
+    "kokoro-js": "^1.2.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
@@ -21,5 +23,14 @@
     "@types/node": "^22.13.10",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "esbuild",
+      "onnxruntime-node",
+      "sharp",
+      "protobufjs"
+    ]
   }
 }
