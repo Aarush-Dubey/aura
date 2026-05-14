@@ -1,0 +1,8 @@
+{
+  "lessonProgress": "课程 {{current}} / {{total}}",
+  "cardProgress": "卡片 {{current}} / {{total}}",
+  "noLessonLoaded": "未加载课程",
+  "startFromDashboard": "请从仪表板生成课程。",
+  "loadingNextLesson": "加载下一课中...",
+  "askAura": "问 Aura"
+}

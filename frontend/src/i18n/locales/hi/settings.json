@@ -1,0 +1,19 @@
+{
+  "settings": "सेटिंग्स",
+  "language": "भाषा",
+  "reading": "पठन",
+  "font": "फ़ॉन्ट",
+  "letterSpacing": "अक्षर अंतराल",
+  "lineHeight": "पंक्ति ऊँचाई",
+  "bionicReading": "बायोनिक रीडिंग",
+  "audio": "ऑडियो",
+  "readAloud": "ज़ोर से पढ़ें",
+  "speed": "गति",
+  "environment": "वातावरण",
+  "background": "पृष्ठभूमि",
+  "animation": "एनिमेशन",
+  "focus": "फोकस",
+  "focusMode": "फोकस मोड",
+  "accessibilitySettings": "सुलभता सेटिंग्स",
+  "languageNote": "नए पाठों पर लागू होता है"
+}

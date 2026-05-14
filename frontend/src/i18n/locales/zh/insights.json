@@ -1,0 +1,12 @@
+{
+  "sessionComplete": "会话完成",
+  "sessionInsights": "会话分析",
+  "accuracy": "{{pct}}% 准确率",
+  "nodesMastered": "{{mastered}}/{{total}} 个节点已掌握 · {{time}}",
+  "whatStuck": "记住了什么",
+  "shakyNodes": "不稳定节点",
+  "suggestion": "建议",
+  "noneRecorded": "无记录",
+  "loadingInsights": "加载分析中...",
+  "noSessionData": "没有可用的会话数据。"
+}

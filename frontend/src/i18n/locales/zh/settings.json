@@ -1,0 +1,19 @@
+{
+  "settings": "设置",
+  "language": "语言",
+  "reading": "阅读",
+  "font": "字体",
+  "letterSpacing": "字间距",
+  "lineHeight": "行高",
+  "bionicReading": "仿生阅读",
+  "audio": "音频",
+  "readAloud": "朗读",
+  "speed": "速度",
+  "environment": "环境",
+  "background": "背景",
+  "animation": "动画",
+  "focus": "专注",
+  "focusMode": "专注模式",
+  "accessibilitySettings": "无障碍设置",
+  "languageNote": "适用于新课程"
+}

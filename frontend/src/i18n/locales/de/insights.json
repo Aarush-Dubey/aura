@@ -1,0 +1,12 @@
+{
+  "sessionComplete": "Sitzung abgeschlossen",
+  "sessionInsights": "Sitzungseinblicke",
+  "accuracy": "{{pct}}% Genauigkeit",
+  "nodesMastered": "{{mastered}}/{{total}} Knoten gemeistert · {{time}}",
+  "whatStuck": "Was hängen blieb",
+  "shakyNodes": "Unsichere Knoten",
+  "suggestion": "Vorschlag",
+  "noneRecorded": "Nichts aufgezeichnet",
+  "loadingInsights": "Einblicke werden geladen...",
+  "noSessionData": "Keine Sitzungsdaten verfügbar."
+}

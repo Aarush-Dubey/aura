@@ -1,0 +1,19 @@
+{
+  "settings": "설정",
+  "language": "언어",
+  "reading": "읽기",
+  "font": "폰트",
+  "letterSpacing": "자간",
+  "lineHeight": "줄 높이",
+  "bionicReading": "바이오닉 리딩",
+  "audio": "오디오",
+  "readAloud": "소리 내어 읽기",
+  "speed": "속도",
+  "environment": "환경",
+  "background": "배경",
+  "animation": "애니메이션",
+  "focus": "집중",
+  "focusMode": "집중 모드",
+  "accessibilitySettings": "접근성 설정",
+  "languageNote": "새 레슨에 적용됩니다"
+}

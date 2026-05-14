@@ -1,0 +1,12 @@
+{
+  "sessionComplete": "sessione completata",
+  "sessionInsights": "Analisi della sessione",
+  "accuracy": "{{pct}}% di accuratezza",
+  "nodesMastered": "{{mastered}}/{{total}} nodi padroneggiati · {{time}}",
+  "whatStuck": "Cosa è rimasto",
+  "shakyNodes": "Nodi incerti",
+  "suggestion": "Suggerimento",
+  "noneRecorded": "Nessun dato registrato",
+  "loadingInsights": "Caricamento analisi...",
+  "noSessionData": "Nessun dato di sessione disponibile."
+}

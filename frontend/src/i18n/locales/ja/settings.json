@@ -1,0 +1,19 @@
+{
+  "settings": "設定",
+  "language": "言語",
+  "reading": "読み取り",
+  "font": "フォント",
+  "letterSpacing": "字間",
+  "lineHeight": "行の高さ",
+  "bionicReading": "バイオニックリーディング",
+  "audio": "音声",
+  "readAloud": "読み上げ",
+  "speed": "速度",
+  "environment": "環境",
+  "background": "背景",
+  "animation": "アニメーション",
+  "focus": "集中",
+  "focusMode": "集中モード",
+  "accessibilitySettings": "アクセシビリティ設定",
+  "languageNote": "新しいレッスンに適用されます"
+}

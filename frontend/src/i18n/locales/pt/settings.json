@@ -1,0 +1,19 @@
+{
+  "settings": "Configurações",
+  "language": "Idioma",
+  "reading": "Leitura",
+  "font": "Fonte",
+  "letterSpacing": "Espaçamento de letras",
+  "lineHeight": "Altura da linha",
+  "bionicReading": "Leitura biônica",
+  "audio": "Áudio",
+  "readAloud": "Ler em voz alta",
+  "speed": "Velocidade",
+  "environment": "Ambiente",
+  "background": "Fundo",
+  "animation": "Animação",
+  "focus": "Foco",
+  "focusMode": "Modo foco",
+  "accessibilitySettings": "Configurações de acessibilidade",
+  "languageNote": "Aplica-se às novas lições"
+}

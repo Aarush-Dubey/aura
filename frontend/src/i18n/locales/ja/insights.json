@@ -1,0 +1,12 @@
+{
+  "sessionComplete": "セッション完了",
+  "sessionInsights": "セッション分析",
+  "accuracy": "{{pct}}% 正答率",
+  "nodesMastered": "{{mastered}}/{{total}} ノード習得 · {{time}}",
+  "whatStuck": "定着したこと",
+  "shakyNodes": "不安定なノード",
+  "suggestion": "提案",
+  "noneRecorded": "記録なし",
+  "loadingInsights": "分析を読み込み中...",
+  "noSessionData": "セッションデータがありません。"
+}

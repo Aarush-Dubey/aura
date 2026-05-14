@@ -1,0 +1,8 @@
+{
+  "lessonProgress": "lección {{current}} / {{total}}",
+  "cardProgress": "tarjeta {{current}} / {{total}}",
+  "noLessonLoaded": "No hay lección cargada",
+  "startFromDashboard": "Empieza desde el panel para generar una lección.",
+  "loadingNextLesson": "Cargando siguiente lección...",
+  "askAura": "Pregunta a Aura"
+}

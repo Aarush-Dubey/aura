@@ -1,0 +1,8 @@
+{
+  "lessonProgress": "レッスン {{current}} / {{total}}",
+  "cardProgress": "カード {{current}} / {{total}}",
+  "noLessonLoaded": "レッスンが読み込まれていません",
+  "startFromDashboard": "ダッシュボードからレッスンを生成してください。",
+  "loadingNextLesson": "次のレッスンを読み込み中...",
+  "askAura": "Auraに聞く"
+}

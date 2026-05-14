@@ -1,0 +1,12 @@
+{
+  "sessionComplete": "세션 완료",
+  "sessionInsights": "세션 분석",
+  "accuracy": "{{pct}}% 정확도",
+  "nodesMastered": "{{mastered}}/{{total}} 노드 습득 · {{time}}",
+  "whatStuck": "기억에 남은 것",
+  "shakyNodes": "불안정한 노드",
+  "suggestion": "제안",
+  "noneRecorded": "기록 없음",
+  "loadingInsights": "분석 로딩 중...",
+  "noSessionData": "세션 데이터가 없습니다."
+}

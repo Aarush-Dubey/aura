@@ -1,0 +1,8 @@
+{
+  "lessonProgress": "पाठ {{current}} / {{total}}",
+  "cardProgress": "कार्ड {{current}} / {{total}}",
+  "noLessonLoaded": "कोई पाठ लोड नहीं है",
+  "startFromDashboard": "पाठ बनाने के लिए डैशबोर्ड से शुरू करें।",
+  "loadingNextLesson": "अगला पाठ लोड हो रहा है...",
+  "askAura": "Aura से पूछें"
+}

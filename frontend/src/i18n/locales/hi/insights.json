@@ -1,0 +1,12 @@
+{
+  "sessionComplete": "सत्र पूरा हुआ",
+  "sessionInsights": "सत्र विश्लेषण",
+  "accuracy": "{{pct}}% सटीकता",
+  "nodesMastered": "{{total}} में से {{mastered}} नोड्स पूरे · {{time}}",
+  "whatStuck": "क्या याद रहा",
+  "shakyNodes": "कमज़ोर नोड्स",
+  "suggestion": "सुझाव",
+  "noneRecorded": "कुछ दर्ज नहीं हुआ",
+  "loadingInsights": "विश्लेषण लोड हो रहा है...",
+  "noSessionData": "कोई सत्र डेटा उपलब्ध नहीं है।"
+}

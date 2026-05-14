@@ -1,0 +1,19 @@
+{
+  "settings": "Einstellungen",
+  "language": "Sprache",
+  "reading": "Lesen",
+  "font": "Schriftart",
+  "letterSpacing": "Buchstabenabstand",
+  "lineHeight": "Zeilenhöhe",
+  "bionicReading": "Bionisches Lesen",
+  "audio": "Audio",
+  "readAloud": "Vorlesen",
+  "speed": "Geschwindigkeit",
+  "environment": "Umgebung",
+  "background": "Hintergrund",
+  "animation": "Animation",
+  "focus": "Fokus",
+  "focusMode": "Fokusmodus",
+  "accessibilitySettings": "Barrierefreiheitseinstellungen",
+  "languageNote": "Gilt für neue Lektionen"
+}

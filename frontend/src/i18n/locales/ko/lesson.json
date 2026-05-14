@@ -1,0 +1,8 @@
+{
+  "lessonProgress": "레슨 {{current}} / {{total}}",
+  "cardProgress": "카드 {{current}} / {{total}}",
+  "noLessonLoaded": "레슨이 로드되지 않음",
+  "startFromDashboard": "대시보드에서 레슨을 생성하세요.",
+  "loadingNextLesson": "다음 레슨 로딩 중...",
+  "askAura": "Aura에게 물어보기"
+}

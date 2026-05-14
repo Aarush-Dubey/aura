@@ -269,3 +269,12 @@ html, body { margin: 0; padding: 0; }
   border: 2px solid transparent;
   background-clip: content-box;
 }
+
+/* ── CJK language adjustments ─────────────────────────────────────────── */
+:root[lang="ja"], :root[lang="ko"], :root[lang="zh"] {
+  --aura-lh: 1.8;
+}
+:root[lang="ja"] .aura, :root[lang="ko"] .aura, :root[lang="zh"] .aura {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}

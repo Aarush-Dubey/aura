@@ -1,0 +1,19 @@
+{
+  "settings": "Paramètres",
+  "language": "Langue",
+  "reading": "Lecture",
+  "font": "Police",
+  "letterSpacing": "Espacement des lettres",
+  "lineHeight": "Hauteur de ligne",
+  "bionicReading": "Lecture bionique",
+  "audio": "Audio",
+  "readAloud": "Lire à voix haute",
+  "speed": "Vitesse",
+  "environment": "Environnement",
+  "background": "Arrière-plan",
+  "animation": "Animation",
+  "focus": "Concentration",
+  "focusMode": "Mode concentration",
+  "accessibilitySettings": "Paramètres d'accessibilité",
+  "languageNote": "S'applique aux nouvelles leçons"
+}
