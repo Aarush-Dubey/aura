@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import type { CardCtx } from "../CardRegistry";
 
@@ -42,9 +43,10 @@ function CPUDiagram({ hovered, setHovered }: { hovered: string | null; setHovere
 }
 
 export function VisualCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
+  const { t } = useTranslation("cards");
   const [hovered, setHovered] = useState<string | null>(null);
   return (
-    <CardChrome tone="sky" label="Visual" sub="mostly looking, very little reading">
+    <CardChrome tone="sky" label={t('visual')} sub={t('visualSub')}>
       <h2 className="title" style={{ fontSize: 28, margin: 0 }}>{data.title}</h2>
       {data.diagram === "cpu" && <CPUDiagram hovered={hovered} setHovered={setHovered} />}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 8, fontSize: 14 }}>
@@ -66,7 +68,7 @@ export function VisualCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
         ))}
       </div>
       <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
-        <button className="btn btn--sage" onClick={ctx.onNext}>Continue</button>
+        <button className="btn btn--sage" onClick={ctx.onNext}>{t('common:continue')}</button>
       </div>
     </CardChrome>
   );

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import { Reading, SpeakIndicator } from "../../text/BionicText";
 import type { CardCtx } from "../CardRegistry";
@@ -10,8 +11,9 @@ type Data = {
 };
 
 export function ConceptCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
+  const { t } = useTranslation("cards");
   return (
-    <CardChrome tone="sage" label="Concept" sub={data.timeRead}>
+    <CardChrome tone="sage" label={t('concept')} sub={data.timeRead}>
       <h2 className="title" style={{ fontSize: 32, margin: 0, lineHeight: 1.15 }}>
         {data.title}
       </h2>
@@ -40,7 +42,7 @@ export function ConceptCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
               textTransform: "uppercase",
             }}
           >
-            key term
+            {t('keyTerm')}
           </div>
           <div style={{ fontWeight: 600 }}>{data.keyTerm.word}</div>
           <div style={{ color: "var(--aura-ink-mute)", fontSize: 13 }}>
@@ -54,10 +56,10 @@ export function ConceptCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
       <SpeakIndicator on={ctx.readAloud} />
       <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 8 }}>
         <button className="btn btn--ghost" onClick={ctx.onSlower}>
-          Slower, please
+          {t('slowerPlease')}
         </button>
         <button className="btn btn--sage" onClick={ctx.onNext}>
-          Got it →
+          {t('gotIt')}
         </button>
       </div>
     </CardChrome>

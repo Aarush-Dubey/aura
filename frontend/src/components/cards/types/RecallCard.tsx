@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import type { CardCtx } from "../CardRegistry";
 
@@ -9,6 +10,7 @@ type Data = {
 };
 
 export function RecallCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
+  const { t } = useTranslation("cards");
   const [val, setVal] = useState("");
   const [scored, setScored] = useState<"right" | "partial" | "skipped" | null>(null);
 
@@ -19,13 +21,13 @@ export function RecallCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
   };
 
   return (
-    <CardChrome tone="amber" label="Recall" sub="from memory — close enough is fine">
+    <CardChrome tone="amber" label={t('recall')} sub={t('fromMemory')}>
       <h2 className="title" style={{ fontSize: 24, margin: 0, lineHeight: 1.3 }}>{data.prompt}</h2>
       <textarea
         value={val}
         onChange={(e) => setVal(e.target.value)}
         rows={3}
-        placeholder="In your own words..."
+        placeholder={t('inYourOwnWords')}
         style={{
           width: "100%",
           padding: "14px 18px",
@@ -53,7 +55,7 @@ export function RecallCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
           }}
         >
           <strong style={{ color: "var(--aura-ink)" }}>
-            {scored === "right" ? "Yes — that's the shape of it." : "Close. Here's a cleaner version:"}
+            {scored === "right" ? t('recallCorrect') : t('recallPartial')}
           </strong>
           {data.model && <div style={{ marginTop: 6 }}>{data.model}</div>}
         </div>
@@ -61,17 +63,17 @@ export function RecallCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
       <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
         {!scored && (
           <button className="btn btn--ghost" onClick={() => { setScored("skipped"); ctx.onAnswer?.(false); }}>
-            I don't remember
+            {t('iDontRemember')}
           </button>
         )}
         {!scored && (
           <button className="btn btn--sage" onClick={check} disabled={!val.trim()}>
-            Check
+            {t('common:check')}
           </button>
         )}
         {scored && (
           <button className="btn btn--sage" onClick={ctx.onNext}>
-            Next
+            {t('common:next')}
           </button>
         )}
       </div>

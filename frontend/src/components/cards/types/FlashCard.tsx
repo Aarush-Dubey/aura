@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import type { CardCtx } from "../CardRegistry";
 
@@ -7,6 +8,7 @@ type Data = {
 };
 
 export function FlashCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
+  const { t } = useTranslation("cards");
   const [i, setI] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const card = data.cards[i];
@@ -22,7 +24,7 @@ export function FlashCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
   };
 
   return (
-    <CardChrome tone="sky" label="Flashcards" sub={`${i + 1} / ${data.cards.length}`}>
+    <CardChrome tone="sky" label={t('flashcards')} sub={`${i + 1} / ${data.cards.length}`}>
       <div
         onClick={() => setFlipped((f) => !f)}
         style={{
@@ -42,19 +44,19 @@ export function FlashCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
         }}
       >
         <div style={{ fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--aura-ink-mute)" }}>
-          {flipped ? "definition" : "term"}
+          {flipped ? t('definition') : t('term')}
         </div>
         <div style={{ fontSize: flipped ? 18 : 30, fontWeight: flipped ? 400 : 500, lineHeight: 1.4, maxWidth: "42ch" }}>
           {flipped ? card.back : card.front}
         </div>
-        {!flipped && <div style={{ fontSize: 12, color: "var(--aura-ink-mute)" }}>tap to reveal</div>}
+        {!flipped && <div style={{ fontSize: 12, color: "var(--aura-ink-mute)" }}>{t('tapToReveal')}</div>}
       </div>
       {flipped && (
         <div className="rise" style={{ display: "flex", gap: 8, justifyContent: "center" }}>
-          <button className="btn btn--ghost" onClick={() => next("again")}>Again</button>
-          <button className="btn btn--ghost" onClick={() => next("hard")}>Hard</button>
-          <button className="btn btn--sage" onClick={() => next("good")}>Good</button>
-          <button className="btn btn--sage" onClick={() => next("easy")}>Easy</button>
+          <button className="btn btn--ghost" onClick={() => next("again")}>{t('again')}</button>
+          <button className="btn btn--ghost" onClick={() => next("hard")}>{t('hard')}</button>
+          <button className="btn btn--sage" onClick={() => next("good")}>{t('good')}</button>
+          <button className="btn btn--sage" onClick={() => next("easy")}>{t('easy')}</button>
         </div>
       )}
     </CardChrome>

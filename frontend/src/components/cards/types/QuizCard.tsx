@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import type { CardCtx } from "../CardRegistry";
 
@@ -10,11 +11,12 @@ type Data = {
 };
 
 export function QuizCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
+  const { t } = useTranslation("cards");
   const [picked, setPicked] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
 
   return (
-    <CardChrome tone="sage" label="Quick check" sub="no penalty for wrong">
+    <CardChrome tone="sage" label={t('quickCheck')} sub={t('noPenalty')}>
       <h2 className="title" style={{ fontSize: 24, margin: 0, lineHeight: 1.3 }}>{data.question}</h2>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {data.options.map((o, i) => {
@@ -69,8 +71,8 @@ export function QuizCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
                 {["A", "B", "C", "D"][i]}
               </span>
               <span style={{ flex: 1 }}>{o}</span>
-              {isRight && <span style={{ color: "var(--aura-sage-deep)", fontSize: 12, fontWeight: 600 }}>✓ correct</span>}
-              {isWrong && <span style={{ color: "var(--aura-clay)", fontSize: 12, fontWeight: 600 }}>not this one</span>}
+              {isRight && <span style={{ color: "var(--aura-sage-deep)", fontSize: 12, fontWeight: 600 }}>{t('correct')}</span>}
+              {isWrong && <span style={{ color: "var(--aura-clay)", fontSize: 12, fontWeight: 600 }}>{t('notThisOne')}</span>}
             </button>
           );
         })}
@@ -87,12 +89,12 @@ export function QuizCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
             lineHeight: 1.6,
           }}
         >
-          <strong style={{ color: "var(--aura-ink)" }}>Why →</strong> {data.explanation}
+          <strong style={{ color: "var(--aura-ink)" }}>{t('why')}</strong> {data.explanation}
         </div>
       )}
       {revealed && (
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <button className="btn btn--sage" onClick={ctx.onNext}>Next</button>
+          <button className="btn btn--sage" onClick={ctx.onNext}>{t('common:next')}</button>
         </div>
       )}
     </CardChrome>

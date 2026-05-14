@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import { Reading } from "../../text/BionicText";
 import type { CardCtx } from "../CardRegistry";
@@ -11,8 +12,9 @@ type Data = {
 };
 
 export function VocabCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
+  const { t } = useTranslation("cards");
   return (
-    <CardChrome tone="amber" label="New word">
+    <CardChrome tone="amber" label={t('newWord')}>
       <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
         <div className="title" style={{ fontSize: 36 }}>{data.word}</div>
         <div style={{ fontFamily: "JetBrains Mono", fontSize: 15, color: "var(--aura-ink-mute)" }}>
@@ -23,7 +25,7 @@ export function VocabCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
               <path d="M5 9v6h4l5 5V4L9 9H5z" stroke="currentColor" strokeWidth="1.6" />
             </svg>
-            hear it
+            {t('hearIt')}
           </span>
         </button>
       </div>
@@ -39,7 +41,7 @@ export function VocabCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
         <p style={{ fontStyle: "italic", color: "var(--aura-ink-soft)", fontSize: 14 }}>"{data.example}"</p>
       </Reading>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <button className="btn btn--sage" onClick={ctx.onNext}>Add to my words</button>
+        <button className="btn btn--sage" onClick={ctx.onNext}>{t('vocabAddToMyWords')}</button>
       </div>
     </CardChrome>
   );

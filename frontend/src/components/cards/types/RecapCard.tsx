@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import type { CardCtx } from "../CardRegistry";
 
@@ -8,10 +9,11 @@ type Data = {
 };
 
 export function RecapCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
+  const { t } = useTranslation("cards");
   return (
-    <CardChrome tone="sage" label="Recap">
+    <CardChrome tone="sage" label={t('recap')}>
       <h2 className="title" style={{ fontSize: 26, margin: 0, lineHeight: 1.15 }}>
-        {data.title || "Quick recap"}
+        {data.title || t('recap')}
       </h2>
       <ul
         style={{
@@ -37,22 +39,22 @@ export function RecapCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
       </ul>
       {data.tags && data.tags.length > 0 && (
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {data.tags.map((t) => (
-            <span key={t} className="chip" data-tone="sage" style={{ fontSize: 10 }}>
-              <span className="dot" /> {t}
+          {data.tags.map((tag) => (
+            <span key={tag} className="chip" data-tone="sage" style={{ fontSize: 10 }}>
+              <span className="dot" /> {tag}
             </span>
           ))}
         </div>
       )}
       <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 8 }}>
         <button className="btn btn--ghost" onClick={ctx.onEnd}>
-          End session
+          {t('common:endSession')}
         </button>
         <button
           className="btn btn--sage"
           onClick={() => (ctx.onLoadNextNode ? ctx.onLoadNextNode() : ctx.onNext())}
         >
-          Keep going
+          {t('common:keepGoing')}
         </button>
       </div>
     </CardChrome>

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import type { CardCtx } from "../CardRegistry";
 
@@ -28,11 +29,12 @@ function Side({ label, tone, children }: { label: string; tone: "peach" | "sage"
 }
 
 export function AnalogyCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
+  const { t } = useTranslation("cards");
   return (
-    <CardChrome tone="peach" label="Analogy" sub="bridging from what you know">
+    <CardChrome tone="peach" label={t('analogy')} sub={t('analogySub')}>
       <h2 className="title" style={{ fontSize: 28, margin: 0 }}>{data.title}</h2>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 50px 1fr", gap: 18, alignItems: "stretch" }}>
-        <Side label="Familiar" tone="peach">
+        <Side label={t('analogyFamiliar')} tone="peach">
           <div style={{ fontSize: 18, fontWeight: 500, marginBottom: 6 }}>{data.familiar.name}</div>
           <div style={{ fontSize: 13, color: "var(--aura-ink-soft)", lineHeight: 1.5 }}>{data.familiar.desc}</div>
         </Side>
@@ -41,7 +43,7 @@ export function AnalogyCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
             <path d="M2 11 L42 11 M34 4 L42 11 L34 18" stroke="var(--aura-ink-mute)" strokeWidth="1.5" fill="none" />
           </svg>
         </div>
-        <Side label="New" tone="sage">
+        <Side label={t('analogyNew')} tone="sage">
           <div style={{ fontSize: 18, fontWeight: 500, marginBottom: 6 }}>{data.target.name}</div>
           <div style={{ fontSize: 13, color: "var(--aura-ink-soft)", lineHeight: 1.5 }}>{data.target.desc}</div>
         </Side>
@@ -57,10 +59,10 @@ export function AnalogyCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
           borderLeft: "3px solid var(--aura-peach)",
         }}
       >
-        <strong style={{ color: "var(--aura-ink)" }}>Mapping →</strong> {data.mapping}
+        <strong style={{ color: "var(--aura-ink)" }}>{t('analogyMapping')}</strong> {data.mapping}
       </div>
       <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
-        <button className="btn btn--sage" onClick={ctx.onNext}>This clicks</button>
+        <button className="btn btn--sage" onClick={ctx.onNext}>{t('analogyClicks')}</button>
       </div>
     </CardChrome>
   );

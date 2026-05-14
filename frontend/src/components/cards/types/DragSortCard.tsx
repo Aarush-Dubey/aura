@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import type { CardCtx } from "../CardRegistry";
 
@@ -11,6 +12,7 @@ type Data = {
 };
 
 export function DragSortCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
+  const { t } = useTranslation("cards");
   const [order, setOrder] = useState(() => [...data.shuffled]);
   const [done, setDone] = useState(false);
   const dragIdx = useRef<number | null>(null);
@@ -38,7 +40,7 @@ export function DragSortCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
   };
 
   return (
-    <CardChrome tone="peach" label="Sort it" sub="drag into the right order">
+    <CardChrome tone="peach" label={t('sortIt')} sub={t('dragIntoOrder')}>
       <h2 className="title" style={{ fontSize: 22, margin: 0, lineHeight: 1.3 }}>{data.prompt}</h2>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {order.map((step, i) => (
@@ -72,12 +74,12 @@ export function DragSortCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
       </div>
       {done && (
         <div className="rise" style={{ background: "var(--aura-sage-wash)", padding: "14px 18px", borderRadius: 12, fontSize: 14, color: "var(--aura-ink-soft)" }}>
-          <strong style={{ color: "var(--aura-ink)" }}>Perfect order.</strong> {data.explanation}
+          <strong style={{ color: "var(--aura-ink)" }}>{t('perfectOrder')}</strong> {data.explanation}
         </div>
       )}
       <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
-        {!done && <button className="btn btn--sage" onClick={check}>Check order</button>}
-        {done && <button className="btn btn--sage" onClick={ctx.onNext}>Continue</button>}
+        {!done && <button className="btn btn--sage" onClick={check}>{t('checkOrder')}</button>}
+        {done && <button className="btn btn--sage" onClick={ctx.onNext}>{t('common:continue')}</button>}
       </div>
     </CardChrome>
   );

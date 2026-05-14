@@ -1,4 +1,5 @@
 import { createContext, useContext, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 type HearItCtx = {
   onHearIt?: () => void;
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export function CardChrome({ tone, label, sub, accent, children }: Props) {
+  const { t } = useTranslation("cards");
   const { onHearIt, hearing } = useContext(HearItContext);
 
   return (
@@ -66,10 +68,10 @@ export function CardChrome({ tone, label, sub, accent, children }: Props) {
                         <span key={i} style={{ width: 2, height: h, background: "var(--aura-sage)", borderRadius: 1, animation: `aura-breath ${0.8 + i * 0.15}s ease-in-out ${i * 0.1}s infinite` }} />
                       ))}
                     </span>
-                    Stop
+                    {t('stop')}
                   </>
                 ) : (
-                  "Hear it"
+                  t('hearIt')
                 )}
               </button>
             )}

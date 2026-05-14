@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import { Reading } from "../../text/BionicText";
 import type { CardCtx } from "../CardRegistry";
@@ -9,8 +10,9 @@ type Data = {
 };
 
 export function ConnectionCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
+  const { t } = useTranslation("cards");
   return (
-    <CardChrome tone="amber" label="Callback" sub="something you've already learned">
+    <CardChrome tone="amber" label={t('connection')} sub={t('connectionSub')}>
       <div style={{ display: "flex", gap: 18, alignItems: "stretch" }}>
         <div
           style={{
@@ -22,13 +24,13 @@ export function ConnectionCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
         <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
           <div>
             <div style={{ fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--aura-ink-mute)", marginBottom: 4 }}>
-              last lesson
+              {t('connectionLastLesson')}
             </div>
             <div style={{ fontSize: 18, fontWeight: 500 }}>{data.previous}</div>
           </div>
           <div>
             <div style={{ fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--aura-sage-deep)", marginBottom: 4 }}>
-              now
+              {t('connectionNow')}
             </div>
             <div style={{ fontSize: 18, fontWeight: 500 }}>{data.current}</div>
           </div>
@@ -38,7 +40,7 @@ export function ConnectionCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <button className="btn btn--sage" onClick={ctx.onNext}>Got it</button>
+        <button className="btn btn--sage" onClick={ctx.onNext}>{t('gotItReflect')}</button>
       </div>
     </CardChrome>
   );
