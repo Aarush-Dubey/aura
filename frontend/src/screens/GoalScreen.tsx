@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuraStore } from "../store/useAuraStore";
 import { ScreenShell } from "../components/shell/ScreenShell";
 
@@ -23,6 +24,7 @@ function Clarifier({ q, pick }: { q: string; pick: string }) {
 }
 
 export function GoalScreen() {
+  const { t } = useTranslation("workspace");
   const navigate = useAuraStore((s) => s.navigate);
   const setSession = useAuraStore((s) => s.setSession);
   const topic = useAuraStore((s) => s.session.topic);
@@ -44,10 +46,10 @@ export function GoalScreen() {
               textTransform: "uppercase",
             }}
           >
-            step 2 of 3
+            {t('stepXofY', { step: 2, total: 3 })}
           </div>
           <h1 className="title" style={{ fontSize: 44, margin: 0, lineHeight: 1.1 }}>
-            What do you want to learn?
+            {t('whatToLearn')}
           </h1>
           <p
             style={{
@@ -58,7 +60,7 @@ export function GoalScreen() {
               lineHeight: 1.6,
             }}
           >
-            Plain language. Don't worry about getting it right — Aura will ask follow-ups.
+            {t('plainLanguage')}
           </p>
         </div>
 
@@ -100,21 +102,21 @@ export function GoalScreen() {
               fontWeight: 600,
             }}
           >
-            aura might ask
+            {t('auraMightAsk')}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <Clarifier q="How much do you already know?" pick="Comfortable user, no CS background" />
-            <Clarifier q="How long per session?" pick="15 minutes feels right" />
-            <Clarifier q="Why do you want to learn this?" pick="Curious; came up in a podcast" />
+            <Clarifier q={t('howMuchKnow')} pick={t('comfortableUser')} />
+            <Clarifier q={t('howLongPerSession')} pick={t('fifteenMinutes')} />
+            <Clarifier q={t('whyLearnThis')} pick={t('curiousPodcast')} />
           </div>
         </div>
 
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
           <button className="btn btn--ghost" onClick={() => navigate("workspace_create")}>
-            Back
+            {t('common:back')}
           </button>
           <button className="btn btn--sage" onClick={() => { setSession({ goal }); navigate("plan"); }}>
-            Build my plan →
+            {t('buildMyPlan')}
           </button>
         </div>
       </div>

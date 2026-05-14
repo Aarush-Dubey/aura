@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { useAuraStore } from "../store/useAuraStore";
 import { AuraCard, resolveCard, type CardCtx } from "../components/cards/CardRegistry";
 import { useTTS } from "../hooks/useTTS";
@@ -20,6 +21,7 @@ function extractCardText(resolved: { type: string; data: any }): string {
 }
 
 export function LessonScreen() {
+  const { t } = useTranslation("lesson");
   const cards = useAuraStore((s) => s.session.cards);
   const cursor = useAuraStore((s) => s.session.cardCursor);
   const sessionId = useAuraStore((s) => s.session.sessionId);
@@ -101,10 +103,10 @@ export function LessonScreen() {
           gap: 16,
         }}
       >
-        <h2 className="title" style={{ fontSize: 28 }}>No lesson loaded</h2>
-        <p style={{ color: "var(--aura-ink-soft)" }}>Start from the dashboard to generate a lesson.</p>
+        <h2 className="title" style={{ fontSize: 28 }}>{t('noLessonLoaded')}</h2>
+        <p style={{ color: "var(--aura-ink-soft)" }}>{t('startFromDashboard')}</p>
         <button className="btn btn--sage" onClick={() => navigate("dashboard")}>
-          Go to dashboard
+          {t('common:goToDashboard')}
         </button>
       </div>
     );
@@ -170,7 +172,7 @@ export function LessonScreen() {
                 letterSpacing: ".06em",
               }}
             >
-              lesson {currentIndex + 1} / {totalNodes}
+              {t('lessonProgress', { current: currentIndex + 1, total: totalNodes })}
               {currentNodeName && (
                 <span style={{ marginLeft: 8, color: "var(--aura-ink-soft)", fontFamily: "inherit" }}>
                   {currentNodeName}
@@ -185,7 +187,7 @@ export function LessonScreen() {
                 whiteSpace: "nowrap",
               }}
             >
-              card {cursor + 1} / {cards.length}
+              {t('cardProgress', { current: cursor + 1, total: cards.length })}
             </span>
           </div>
           <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 3 }}>
@@ -240,7 +242,7 @@ export function LessonScreen() {
                 animation: "aura-breath 1.6s ease-in-out infinite",
               }}
             />
-            <span style={{ fontSize: 14, color: "var(--aura-ink-soft)" }}>Loading next lesson...</span>
+            <span style={{ fontSize: 14, color: "var(--aura-ink-soft)" }}>{t('loadingNextLesson')}</span>
           </div>
         </div>
       )}
@@ -270,9 +272,9 @@ export function LessonScreen() {
               <AuraCard card={resolveCard(card)} ctx={ctx} />
             ) : (
               <div className="card card-pad-lg" style={{ textAlign: "center", padding: 40 }}>
-                <p style={{ color: "var(--aura-ink-soft)" }}>End of cards</p>
+                <p style={{ color: "var(--aura-ink-soft)" }}>{t('common:endOfCards')}</p>
                 <button className="btn btn--sage" onClick={() => navigate("insights")} style={{ marginTop: 12 }}>
-                  View insights
+                  {t('common:viewInsights')}
                 </button>
               </div>
             )}
@@ -307,7 +309,7 @@ export function LessonScreen() {
         }}
       >
         <span style={{ fontSize: 16, lineHeight: 1 }}>&#x2728;</span>
-        Ask Aura
+        {t('askAura')}
       </motion.button>
 
       {/* Bottom nav */}
@@ -327,7 +329,7 @@ export function LessonScreen() {
           whileTap={{ scale: 0.95 }}
           style={{ padding: "8px 16px", fontSize: 13 }}
         >
-          &#8592; Back
+          &#8592; {t('common:back')}
         </motion.button>
         <motion.button
           className="btn btn--ghost"
@@ -335,7 +337,7 @@ export function LessonScreen() {
           onClick={() => navigate("insights")}
           style={{ padding: "8px 14px", fontSize: 12 }}
         >
-          End lesson
+          {t('common:endLesson')}
         </motion.button>
       </div>
     </div>

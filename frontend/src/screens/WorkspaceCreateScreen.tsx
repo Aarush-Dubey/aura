@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuraStore, type LearnerMode } from "../store/useAuraStore";
 import { ScreenShell } from "../components/shell/ScreenShell";
 
@@ -78,6 +79,7 @@ function ProfileTile({
 }
 
 export function WorkspaceCreateScreen() {
+  const { t } = useTranslation("workspace");
   const navigate = useAuraStore((s) => s.navigate);
   const setSession = useAuraStore((s) => s.setSession);
   const setSetting = useAuraStore((s) => s.setSetting);
@@ -106,10 +108,10 @@ export function WorkspaceCreateScreen() {
               textTransform: "uppercase",
             }}
           >
-            step 1 of 3
+            {t('stepXofY', { step: 1, total: 3 })}
           </div>
           <h1 className="title" style={{ fontSize: 44, margin: 0, lineHeight: 1.1 }}>
-            Create a workspace.
+            {t('createWorkspace')}
           </h1>
           <p
             style={{
@@ -120,14 +122,13 @@ export function WorkspaceCreateScreen() {
               lineHeight: 1.6,
             }}
           >
-            One workspace per subject. Aura tunes its teaching style to how <em>you</em> learn —
-            pick what applies.
+            {t('oneWorkspacePerSubject')}
           </p>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <label style={{ fontSize: 13, fontWeight: 600, letterSpacing: ".02em" }}>
-            Name this workspace
+            {t('nameWorkspace')}
           </label>
           <input
             value={name}
@@ -150,25 +151,25 @@ export function WorkspaceCreateScreen() {
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div>
             <label style={{ fontSize: 13, fontWeight: 600, letterSpacing: ".02em" }}>
-              How do you learn best?
+              {t('howDoYouLearn')}
             </label>
             <div style={{ fontSize: 12, color: "var(--aura-ink-soft)", marginTop: 2 }}>
-              Pick any that apply. Aura adapts the lesson style accordingly.
+              {t('pickAnyThatApply')}
             </div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
             <ProfileTile
               active={dys}
               onClick={() => setDys((d) => !d)}
-              title="Dyslexia-friendly"
-              body="Lexend font, generous spacing, audio-first cards, phonetic vocab."
+              title={t('dyslexiaFriendly')}
+              body={t('dyslexiaDesc')}
               tone="sage"
             />
             <ProfileTile
               active={adhd}
               onClick={() => setAdhd((a) => !a)}
-              title="ADHD-friendly"
-              body="Short cards, kinesthetic input, attention-aware breaks, focus mode."
+              title={t('adhdFriendly')}
+              body={t('adhdDesc')}
               tone="peach"
             />
           </div>
@@ -176,7 +177,7 @@ export function WorkspaceCreateScreen() {
 
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <button className="btn btn--sage" onClick={handleContinue}>
-            Continue →
+            {t('continueArrow')}
           </button>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { useAuraStore } from "../store/useAuraStore";
 import { ScreenShell } from "../components/shell/ScreenShell";
 import { api } from "../api/client";
@@ -15,6 +16,7 @@ type SessionItem = {
 };
 
 export function DashboardScreen() {
+  const { t } = useTranslation("dashboard");
   const navigate = useAuraStore((s) => s.navigate);
   const loadLesson = useAuraStore((s) => s.loadLesson);
   const [sessions, setSessions] = useState<SessionItem[]>([]);
@@ -50,13 +52,13 @@ export function DashboardScreen() {
               textTransform: "uppercase",
             }}
           >
-            dashboard
+            {t('label')}
           </div>
           <h1 className="title" style={{ fontSize: 44, margin: 0, lineHeight: 1.1 }}>
-            Welcome back.
+            {t('welcomeBack')}
           </h1>
           <p style={{ fontSize: 16, color: "var(--aura-ink-soft)", marginTop: 10, maxWidth: "52ch", lineHeight: 1.6 }}>
-            Pick up where you left off, or start something new.
+            {t('pickUpOrStart')}
           </p>
         </div>
 
@@ -76,13 +78,13 @@ export function DashboardScreen() {
             }}
           >
             <span style={{ fontSize: 24 }}>+</span>
-            <span style={{ fontWeight: 600 }}>New workspace</span>
-            <span style={{ fontSize: 13, color: "var(--aura-ink-soft)" }}>Start learning a new topic</span>
+            <span style={{ fontWeight: 600 }}>{t('newWorkspace')}</span>
+            <span style={{ fontSize: 13, color: "var(--aura-ink-soft)" }}>{t('startNewTopic')}</span>
           </motion.button>
 
           {loading && (
             <div className="card card-pad" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ color: "var(--aura-ink-mute)", fontSize: 13 }}>Loading sessions...</span>
+              <span style={{ color: "var(--aura-ink-mute)", fontSize: 13 }}>{t('loadingSessions')}</span>
             </div>
           )}
 
@@ -122,12 +124,12 @@ export function DashboardScreen() {
                   />
                 </div>
                 <div style={{ fontSize: 12, color: "var(--aura-ink-mute)", display: "flex", gap: 12 }}>
-                  <span>{s.nodeCount} nodes</span>
-                  <span>{s.masteredCount} mastered</span>
+                  <span>{s.nodeCount} {t('nodes')}</span>
+                  <span>{t('masteredCount', { count: s.masteredCount })}</span>
                   <span>{new Date(s.startedAt).toLocaleDateString()}</span>
                 </div>
                 {resuming === s.id && (
-                  <span style={{ fontSize: 12, color: "var(--aura-sage-deep)" }}>Resuming...</span>
+                  <span style={{ fontSize: 12, color: "var(--aura-sage-deep)" }}>{t('resuming')}</span>
                 )}
               </motion.button>
             );

@@ -1,5 +1,6 @@
 import { ArrowRight, Brain, Check, Flame, HeartHandshake, Leaf, Sparkles, Sprout, Upload, WandSparkles } from "lucide-react";
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import type { CacheOption, StudentIntent } from "../../api/types";
 
 type TopicIntentScreenProps = {
@@ -18,47 +19,49 @@ type TopicIntentScreenProps = {
 };
 
 export function TopicIntentScreen({ topic, setTopic, cacheOptions, selectedCacheId, setSelectedCacheId, onStart, onImageStart, busy }: TopicIntentScreenProps) {
+  const { t } = useTranslation("dashboard");
+
   const presets = [
-    { label: "Probability class 10", why: "Build sample space and exam practice", xp: 60 },
-    { label: "Photosynthesis", why: "Turn process steps into a map", xp: 50 },
-    { label: "Quadratic equations", why: "Factor, formula, and repair traps", xp: 70 },
-    { label: "Momentum", why: "Connect formula to real motion", xp: 55 }
+    { labelKey: "presetProbability", whyKey: "presetProbabilitySub", xp: 60 },
+    { labelKey: "presetPhotosynthesis", whyKey: "presetPhotosynthesisSub", xp: 50 },
+    { labelKey: "presetQuadratic", whyKey: "presetQuadraticSub", xp: 70 },
+    { labelKey: "presetMomentum", whyKey: "presetMomentumSub", xp: 55 }
   ];
   const quests = [
-    { label: "Start one focused path", sub: "A short map, no clutter", reward: "+15", done: false },
-    { label: "Repair a shaky idea", sub: "Mistakes become support nodes", reward: "+20", done: true },
-    { label: "Finish with application", sub: "One final usable task", reward: "+35", done: false }
+    { labelKey: "questFocusedPath", subKey: "questFocusedPathSub", reward: "+15", done: false },
+    { labelKey: "questRepairShaky", subKey: "questRepairShakySub", reward: "+20", done: true },
+    { labelKey: "questFinishApp", subKey: "questFinishAppSub", reward: "+35", done: false }
   ];
 
   return (
     <main className="home-shell scroll">
       <section className="home-garden">
         <div className="garden-bloom" />
-        <div className="local-pill"><span /> Gemma 4 · local</div>
+        <div className="local-pill"><span /> {t('gemmaLocal')}</div>
         <div className="home-brand">
           <span className="brand-orbit hero" />
-          <strong>aura</strong>
-          <p>Local tutor for neurodivergent minds.</p>
+          <strong>{t('aura')}</strong>
+          <p>{t('tagline')}</p>
         </div>
 
         <div className="level-card">
           <div>
-            <span>Level 4</span>
-            <strong>312 XP</strong>
+            <span>{t('level', { n: 4 })}</span>
+            <strong>{t('xp', { n: 312 })}</strong>
             <div className="level-bar"><i style={{ width: "42%" }} /></div>
-            <small>88 XP to level 5</small>
+            <small>{t('xpToLevel', { n: 88, level: 5 })}</small>
           </div>
           <div className="streak-chip"><Flame size={18} /> 5d</div>
         </div>
 
         <div className="quest-block">
-          <div className="home-eyebrow">Today's quests</div>
+          <div className="home-eyebrow">{t('todaysQuests')}</div>
           {quests.map((quest) => (
-            <div key={quest.label} className={quest.done ? "quest-row done" : "quest-row"}>
+            <div key={quest.labelKey} className={quest.done ? "quest-row done" : "quest-row"}>
               <span>{quest.done ? <Check size={13} /> : <Sparkles size={13} />}</span>
               <div>
-                <strong>{quest.label}</strong>
-                <small>{quest.sub}</small>
+                <strong>{t(quest.labelKey)}</strong>
+                <small>{t(quest.subKey)}</small>
               </div>
               <b>{quest.reward}</b>
             </div>
@@ -66,38 +69,38 @@ export function TopicIntentScreen({ topic, setTopic, cacheOptions, selectedCache
         </div>
 
         <div className="badge-row" aria-label="Learning badges">
-          <Badge icon={<Sprout size={15} />} label="First bloom" active />
-          <Badge icon={<Brain size={15} />} label="Pattern" active />
-          <Badge icon={<HeartHandshake size={15} />} label="Repair" active />
-          <Badge icon={<WandSparkles size={15} />} label="Mastery" />
+          <Badge icon={<Sprout size={15} />} label={t('badgeFirstBloom')} active />
+          <Badge icon={<Brain size={15} />} label={t('badgePattern')} active />
+          <Badge icon={<HeartHandshake size={15} />} label={t('badgeRepair')} active />
+          <Badge icon={<WandSparkles size={15} />} label={t('badgeMastery')} />
         </div>
       </section>
 
       <section className="home-composer">
         <div className="composer-head">
           <div>
-            <span className="home-eyebrow">Begin a session</span>
-            <h1>Plant something to grow.</h1>
+            <span className="home-eyebrow">{t('beginSession')}</span>
+            <h1>{t('plantToGrow')}</h1>
           </div>
           <div className="step-dots"><i /><i /><i /><i /></div>
         </div>
 
         <label className="composer-field">
-          <span>Topic</span>
+          <span>{t('topic')}</span>
           <div className="topic-entry">
-            <input value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="A chapter, a concept, a question..." autoFocus />
+            <input value={topic} onChange={(e) => setTopic(e.target.value)} placeholder={t('topicPlaceholder')} autoFocus />
             <button disabled={!topic.trim() || busy} onClick={onStart} title="Start lesson"><ArrowRight size={18} /></button>
           </div>
         </label>
 
         <div className="preset-list">
-          <div className="home-eyebrow">Familiar seeds</div>
+          <div className="home-eyebrow">{t('familiarSeeds')}</div>
           {presets.map((preset) => (
-            <button key={preset.label} className="preset-row" onClick={() => setTopic(preset.label)}>
+            <button key={preset.labelKey} className="preset-row" onClick={() => setTopic(t(preset.labelKey))}>
               <Leaf size={15} />
               <div>
-                <strong>{preset.label}</strong>
-                <small>{preset.why}</small>
+                <strong>{t(preset.labelKey)}</strong>
+                <small>{t(preset.whyKey)}</small>
               </div>
               <b>+{preset.xp}</b>
             </button>
@@ -105,9 +108,9 @@ export function TopicIntentScreen({ topic, setTopic, cacheOptions, selectedCache
         </div>
 
         <div className="cache-picker home-cache">
-          <label htmlFor="cacheSelect">Optional cache for testing</label>
+          <label htmlFor="cacheSelect">{t('optionalCache')}</label>
           <select id="cacheSelect" value={selectedCacheId} onChange={(event) => setSelectedCacheId(event.target.value)}>
-            <option value="">Gemma-only main path</option>
+            <option value="">{t('gemmaOnlyPath')}</option>
             {cacheOptions.map((cache) => (
               <option key={cache.id} value={cache.id} disabled={!cache.usable}>
                 {cache.usable ? "" : "[incomplete] "}{cache.topic || cache.id} · {cache.subject} {cache.gradeLevel}
@@ -115,17 +118,17 @@ export function TopicIntentScreen({ topic, setTopic, cacheOptions, selectedCache
             ))}
           </select>
           <div className="cache-hint">
-            {selectedCacheId ? `Selected ${selectedCacheId}` : "Cache only bypasses fetch when explicitly selected."}
+            {selectedCacheId ? t('selectedCache', { id: selectedCacheId }) : t('cacheHint')}
           </div>
         </div>
 
         <div className="home-actions">
           <button className="start-button home-start" disabled={!topic.trim() || busy} onClick={onStart}>
-            <Sparkles size={18} /> Build my map
+            <Sparkles size={18} /> {t('buildMyMap')}
           </button>
           <label className="image-start">
             <Upload size={16} />
-            <span>Build from textbook photo</span>
+            <span>{t('buildFromPhoto')}</span>
             <input
               type="file"
               accept="image/png,image/jpeg"

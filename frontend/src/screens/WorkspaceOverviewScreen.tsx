@@ -1,10 +1,12 @@
 import { useState, useCallback } from "react";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { useAuraStore } from "../store/useAuraStore";
 import { ScreenShell } from "../components/shell/ScreenShell";
 import { api } from "../api/client";
 
 export function WorkspaceOverviewScreen() {
+  const { t } = useTranslation("workspace");
   const navigate = useAuraStore((s) => s.navigate);
   const session = useAuraStore((s) => s.session);
   const setSession = useAuraStore((s) => s.setSession);
@@ -92,12 +94,12 @@ export function WorkspaceOverviewScreen() {
     return (
       <ScreenShell>
         <div className="rise" style={{ maxWidth: 600, textAlign: "center" }}>
-          <h2 className="title" style={{ fontSize: 28 }}>No workspace loaded</h2>
+          <h2 className="title" style={{ fontSize: 28 }}>{t('noWorkspaceLoaded')}</h2>
           <p style={{ color: "var(--aura-ink-soft)", marginTop: 8 }}>
-            Start from the dashboard.
+            {t('startFromDashboard')}
           </p>
           <button className="btn btn--sage" onClick={() => navigate("dashboard")} style={{ marginTop: 16 }}>
-            Go to dashboard
+            {t('common:goToDashboard')}
           </button>
         </div>
       </ScreenShell>
@@ -119,14 +121,14 @@ export function WorkspaceOverviewScreen() {
               textTransform: "uppercase",
             }}
           >
-            workspace
+            {t('workspaceLabel')}
           </div>
           <h1 className="title" style={{ fontSize: 40, margin: 0, lineHeight: 1.1 }}>
             {topic}
           </h1>
           <p style={{ fontSize: 15, color: "var(--aura-ink-soft)", marginTop: 10, lineHeight: 1.6 }}>
-            {mastered} of {totalNodes} lessons mastered · {overallPct}% complete
-            {shaky > 0 && <span style={{ color: "var(--aura-clay)" }}> · {shaky} shaky</span>}
+            {t('masteryPct', { mastered, total: totalNodes, pct: overallPct })}
+            {shaky > 0 && <span style={{ color: "var(--aura-clay)" }}> · {shaky} {t('common:shaky')}</span>}
           </p>
         </div>
 
@@ -155,10 +157,10 @@ export function WorkspaceOverviewScreen() {
 
             let statusColor = "var(--aura-line)";
             let statusLabel = "";
-            if (isMastered) { statusColor = "var(--aura-sage)"; statusLabel = "mastered"; }
-            else if (isShaky) { statusColor = "var(--aura-clay)"; statusLabel = "shaky"; }
-            else if (isActive) { statusColor = "var(--aura-peach)"; statusLabel = "current"; }
-            else if (isLocked) { statusLabel = "locked"; }
+            if (isMastered) { statusColor = "var(--aura-sage)"; statusLabel = t('common:mastered'); }
+            else if (isShaky) { statusColor = "var(--aura-clay)"; statusLabel = t('common:shaky'); }
+            else if (isActive) { statusColor = "var(--aura-peach)"; statusLabel = t('common:current'); }
+            else if (isLocked) { statusLabel = t('common:locked'); }
 
             return (
               <motion.div
@@ -235,7 +237,7 @@ export function WorkspaceOverviewScreen() {
                       opacity: loading ? 0.6 : 1,
                     }}
                   >
-                    Test
+                    {t('common:test')}
                   </button>
                 )}
               </motion.div>
@@ -246,30 +248,28 @@ export function WorkspaceOverviewScreen() {
         {/* Actions */}
         <div style={{ display: "flex", justifyContent: "space-between", gap: 10, marginTop: 8, flexWrap: "wrap" }}>
           <button className="btn btn--ghost" onClick={() => navigate("dashboard")}>
-            ← Dashboard
+            {t('backToDashboard')}
           </button>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <button className="btn btn--ghost" onClick={() => navigate("insights")}>
-              Insights
+              {t('common:insights')}
             </button>
             <button
               className="btn btn--ghost"
               onClick={revise}
               disabled={loading || !canRevise}
-              title={canRevise ? "Revise shaky concepts" : "Nothing to revise yet"}
             >
-              Revise
+              {t('common:revise')}
             </button>
             <button
               className={canFinalTest ? "btn btn--sage" : "btn btn--ghost"}
               onClick={finalTest}
               disabled={loading || !canFinalTest}
-              title={canFinalTest ? "Final test across this workspace" : "Master all lessons to unlock"}
             >
-              Final test
+              {t('common:finalTest')}
             </button>
             <button className="btn btn--sage" onClick={continueLesson} disabled={loading}>
-              {loading ? "Loading..." : `Continue lesson ${currentIndex + 1} →`}
+              {loading ? "Loading..." : t('continueLesson', { n: currentIndex + 1 })}
             </button>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuraStore } from "../store/useAuraStore";
 import { ScreenShell } from "../components/shell/ScreenShell";
 import { api } from "../api/client";
@@ -15,7 +16,7 @@ type InsightsData = {
   suggestion: string;
 };
 
-function Insight({ tone, title, items }: { tone: string; title: string; items: string[] }) {
+function Insight({ tone, title, items, emptyLabel }: { tone: string; title: string; items: string[]; emptyLabel: string }) {
   const colors: Record<string, string> = {
     sage: "var(--aura-sage)",
     clay: "var(--aura-clay)",
@@ -40,13 +41,14 @@ function Insight({ tone, title, items }: { tone: string; title: string; items: s
           ))}
         </ul>
       ) : (
-        <div style={{ fontSize: 13, color: "var(--aura-ink-mute)" }}>None recorded</div>
+        <div style={{ fontSize: 13, color: "var(--aura-ink-mute)" }}>{emptyLabel}</div>
       )}
     </div>
   );
 }
 
 export function InsightsScreen() {
+  const { t } = useTranslation("insights");
   const navigate = useAuraStore((s) => s.navigate);
   const sessionId = useAuraStore((s) => s.session.sessionId);
   const [data, setData] = useState<InsightsData | null>(null);
@@ -65,37 +67,37 @@ export function InsightsScreen() {
       <div className="rise" style={{ maxWidth: 780, display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
         <div>
           <div style={{ fontFamily: "JetBrains Mono", fontSize: 11, color: "var(--aura-ink-mute)", marginBottom: 10, letterSpacing: ".08em", textTransform: "uppercase" }}>
-            session complete
+            {t('sessionComplete')}
           </div>
           <h1 className="title" style={{ fontSize: 44, margin: 0, lineHeight: 1.1 }}>
-            {data ? `${data.topic} — ${data.accuracy}% accuracy` : "Session insights"}
+            {data ? `${data.topic} — ${t('accuracy', { value: data.accuracy })}` : t('sessionInsights')}
           </h1>
           {data && (
             <p style={{ fontSize: 15, color: "var(--aura-ink-soft)", marginTop: 10 }}>
-              {data.masteredNodes}/{data.totalNodes} nodes mastered · {data.timeSpent}
+              {t('nodesMastered', { mastered: data.masteredNodes, total: data.totalNodes })} · {data.timeSpent}
             </p>
           )}
         </div>
 
-        {loading && <div style={{ color: "var(--aura-ink-mute)", fontSize: 13 }}>Loading insights...</div>}
+        {loading && <div style={{ color: "var(--aura-ink-mute)", fontSize: 13 }}>{t('loadingInsights')}</div>}
 
         {data && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-            <Insight tone="sage" title="What stuck" items={data.strongAreas} />
-            <Insight tone="peach" title="Shaky nodes" items={data.shakyNodes} />
-            <Insight tone="sky" title="Suggestion" items={[data.suggestion]} />
+            <Insight tone="sage" title={t('whatStuck')} items={data.strongAreas} emptyLabel={t('noneRecorded')} />
+            <Insight tone="peach" title={t('shakyNodes')} items={data.shakyNodes} emptyLabel={t('noneRecorded')} />
+            <Insight tone="sky" title={t('suggestion')} items={[data.suggestion]} emptyLabel={t('noneRecorded')} />
           </div>
         )}
 
         {!loading && !data && (
-          <div style={{ color: "var(--aura-ink-mute)", fontSize: 14 }}>No session data available.</div>
+          <div style={{ color: "var(--aura-ink-mute)", fontSize: 14 }}>{t('noSessionData')}</div>
         )}
 
         <div style={{ display: "flex", justifyContent: "space-between", gap: 10, marginTop: 8 }}>
-          <button className="btn btn--ghost" onClick={() => navigate("dashboard")}>Dashboard</button>
+          <button className="btn btn--ghost" onClick={() => navigate("dashboard")}>{t('common:dashboard')}</button>
           <div style={{ display: "flex", gap: 10 }}>
-            <button className="btn btn--ghost" onClick={() => navigate("lesson")}>Replay lesson</button>
-            <button className="btn btn--sage" onClick={() => navigate("dashboard")}>Done →</button>
+            <button className="btn btn--ghost" onClick={() => navigate("lesson")}>{t('common:replayLesson')}</button>
+            <button className="btn btn--sage" onClick={() => navigate("dashboard")}>{t('common:done')} &rarr;</button>
           </div>
         </div>
       </div>

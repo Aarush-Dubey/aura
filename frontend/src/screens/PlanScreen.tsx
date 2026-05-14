@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuraStore } from "../store/useAuraStore";
 import { api } from "../api/client";
 import { ScreenShell } from "../components/shell/ScreenShell";
@@ -11,6 +12,7 @@ type NodePreview = {
 };
 
 export function PlanScreen() {
+  const { t } = useTranslation("workspace");
   const navigate = useAuraStore((s) => s.navigate);
   const loadLesson = useAuraStore((s) => s.loadLesson);
   const topic = useAuraStore((s) => s.session.topic);
@@ -22,7 +24,7 @@ export function PlanScreen() {
 
   async function startLesson() {
     setBusy(true);
-    for (const s of ["Planning map", "Choosing nodes", "Tracing prerequisites", "Writing first card"]) {
+    for (const s of [t('planningMap'), t('choosingNodes'), t('tracingPrerequisites'), t('writingFirstCard')]) {
       setStep(s);
       await new Promise((r) => setTimeout(r, 260));
     }
@@ -74,10 +76,10 @@ export function PlanScreen() {
               textTransform: "uppercase",
             }}
           >
-            step 3 of 3
+            {t('stepXofY', { step: 3, total: 3 })}
           </div>
           <h1 className="title" style={{ fontSize: 44, margin: 0, lineHeight: 1.1 }}>
-            {hasNodes ? "Your plan is ready." : "Build your plan."}
+            {hasNodes ? t('yourPlanReady') : t('buildYourPlan')}
           </h1>
           <p
             style={{
@@ -89,8 +91,8 @@ export function PlanScreen() {
             }}
           >
             {hasNodes
-              ? `${nodes.length} lessons for ${topic}. The order adapts as Aura learns what works.`
-              : `Click below to generate a lesson plan for ${topic}.`}
+              ? t('lessonsForTopic', { count: nodes.length, topic })
+              : t('clickToGenerate', { topic })}
           </p>
           {goal && (
             <div
@@ -155,7 +157,7 @@ export function PlanScreen() {
                 {m.status === "active" && (
                   <span className="chip" data-tone="sage" style={{ padding: "4px 10px" }}>
                     <span className="dot" />
-                    first up
+                    {t('firstUp')}
                   </span>
                 )}
               </div>
@@ -199,15 +201,15 @@ export function PlanScreen() {
           }}
         >
           <button className="btn btn--ghost" onClick={() => navigate("goal")}>
-            Edit plan
+            {t('common:editPlan')}
           </button>
           {hasNodes ? (
             <button className="btn btn--sage" onClick={beginLesson}>
-              Start lesson 1 →
+              {t('startLesson')}
             </button>
           ) : (
             <button className="btn btn--sage" onClick={startLesson} disabled={busy}>
-              {busy ? "Building..." : "Generate plan →"}
+              {busy ? t('building') : t('generatePlan')}
             </button>
           )}
         </div>
