@@ -1,0 +1,12 @@
+{
+  "sessionComplete": "session complete",
+  "sessionInsights": "Session insights",
+  "accuracy": "{{pct}}% accuracy",
+  "nodesMastered": "{{mastered}}/{{total}} nodes mastered · {{time}}",
+  "whatStuck": "What stuck",
+  "shakyNodes": "Shaky nodes",
+  "suggestion": "Suggestion",
+  "noneRecorded": "None recorded",
+  "loadingInsights": "Loading insights...",
+  "noSessionData": "No session data available."
+}

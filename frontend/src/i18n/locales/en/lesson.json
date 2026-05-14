@@ -1,0 +1,8 @@
+{
+  "lessonProgress": "lesson {{current}} / {{total}}",
+  "cardProgress": "card {{current}} / {{total}}",
+  "noLessonLoaded": "No lesson loaded",
+  "startFromDashboard": "Start from the dashboard to generate a lesson.",
+  "loadingNextLesson": "Loading next lesson...",
+  "askAura": "Ask Aura"
+}
