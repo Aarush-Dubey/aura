@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import i18n from "../i18n/i18n";
+import type { SupportedLanguage } from "../i18n/languages";
 import type { LessonCard, LessonResponse, MapState, GameState, KnowledgeGraph, LessonPath, Telemetry } from "../api/types";
 
 export type Screen =
@@ -32,6 +34,7 @@ type SessionSlice = {
 };
 
 type SettingsSlice = {
+  language: SupportedLanguage;
   bgTone: "cream" | "white" | "mint" | "dark";
   font: "lexend" | "opendyslexic" | "system";
   learnerMode: LearnerMode;
@@ -92,6 +95,7 @@ const defaultSession: SessionSlice = {
 };
 
 const defaultSettings: SettingsSlice = {
+  language: "en",
   bgTone: "mint",
   font: "lexend",
   learnerMode: "both",
@@ -167,6 +171,10 @@ export const useAuraStore = create<AuraState>((set, get) => ({
     set((s) => {
       const next = { ...s.settings, [key]: value };
       try { localStorage.setItem("aura-settings", JSON.stringify(next)); } catch {}
+      if (key === "language") {
+        i18n.changeLanguage(value as string);
+        document.documentElement.lang = value as string;
+      }
       return { settings: next };
     }),
 
