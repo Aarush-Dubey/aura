@@ -3,8 +3,10 @@ import { CONFIG } from "../config.js";
 import type { CheckEvaluation, SoftCheck } from "../types.js";
 import { fallbackEvaluation } from "./fallbacks.js";
 import { devLog } from "../dev/logs.js";
+import type { SupportedLanguage } from "../i18n/language.js";
+import { LANGUAGE_NAMES } from "../i18n/language.js";
 
-export async function evaluateCheck(check: SoftCheck, answer: string): Promise<CheckEvaluation> {
+export async function evaluateCheck(check: SoftCheck, answer: string, language: SupportedLanguage = 'en'): Promise<CheckEvaluation> {
   try {
     if (!CONFIG.llmUseForEvaluation) {
       devLog("info", "evaluate", "Fast mode: using deterministic evaluation", { checkId: check.id });
@@ -25,6 +27,7 @@ export async function evaluateCheck(check: SoftCheck, answer: string): Promise<C
         "- mark_partial: the answer is close but missing a key piece.",
         "- give_hint: the answer is unclear or too short.",
         "- insert_repair: the answer shows a specific misconception that needs a repair node.",
+        ...(language !== 'en' ? [`The learner may answer in ${LANGUAGE_NAMES[language]}. Evaluate meaning regardless of language.`] : []),
         "Return valid JSON only."
       ].join("\n"),
       JSON.stringify({

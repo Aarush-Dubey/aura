@@ -2,10 +2,12 @@ import { callLLMJson } from "../llm/json.js";
 import { CONFIG } from "../config.js";
 import type { KnowledgeNode, LessonCard } from "../types.js";
 import { devLog } from "../dev/logs.js";
-import { AURA_VOICE_SPEC, cardTypeVoiceInstruction, finalVoiceReminder, findTutorVoiceViolations } from "../llm/voice.js";
+import { AURA_VOICE_SPEC, auraVoiceSpec, cardTypeVoiceInstruction, finalVoiceReminder, findTutorVoiceViolations } from "../llm/voice.js";
 import type { LLMJobType } from "../llm/broker.js";
 import { parseCard, formatRepairPrompt } from "./cardSchemas.js";
 import { fallbackCardForType } from "./fallbacks.js";
+import type { SupportedLanguage } from "../i18n/language.js";
+import { LANGUAGE_NAMES } from "../i18n/language.js";
 
 type CardType = "text_explain" | "mcq" | "fill_blank" | "true_false" | "recap" | "analogy" | "story" | "vocab" | "visual" | "connection" | "flash" | "dragsort";
 
@@ -31,8 +33,8 @@ function normalizeCards(rawCards: unknown[], node: KnowledgeNode): LessonCard[] 
 
 const MAX_REPAIR_ATTEMPTS = 2;
 
-async function generateSingleCard(node: KnowledgeNode, index: number, step: PlannedCard, jobType: LLMJobType): Promise<LessonCard> {
-  const p = singleCardPrompt(node, index, step);
+async function generateSingleCard(node: KnowledgeNode, index: number, step: PlannedCard, jobType: LLMJobType, language: SupportedLanguage = 'en'): Promise<LessonCard> {
+  const p = singleCardPrompt(node, index, step, language);
   let raw: Record<string, unknown> | undefined;
   try {
     const out = await callLLMJson<{ card?: LessonCard; cards?: LessonCard[] }>(p.system, p.user, 0.55, 30_000, 8192, { type: jobType, label: `${node.topicName} card ${index + 1}` });
@@ -73,29 +75,29 @@ async function generateSingleCard(node: KnowledgeNode, index: number, step: Plan
   return fallbackCardForType(node, step.type, index);
 }
 
-export async function generateCardsForNode(node: KnowledgeNode, jobType: LLMJobType = "current_card"): Promise<LessonCard[]> {
+export async function generateCardsForNode(node: KnowledgeNode, jobType: LLMJobType = "current_card", language: SupportedLanguage = 'en'): Promise<LessonCard[]> {
   if (!CONFIG.llmUseForCards) throw new Error("LLM_USE_FOR_CARDS must be true. Lecture cards are Gemma-generated only.");
   devLog("info", "cards", "Generating node lecture with Gemma", { nodeId: node.id, topicName: node.topicName });
-  const plan = await planLecture(node, jobType);
+  const plan = await planLecture(node, jobType, language);
   devLog("info", "cards", "Gemma planned node lecture", { nodeId: node.id, steps: plan.map((step) => `${step.type}:${step.phase ?? "body"}`) });
 
   const cards: LessonCard[] = [];
   for (const [index, step] of plan.entries()) {
     devLog("info", "cards", "Generating Gemma lecture card", { nodeId: node.id, card: index + 1, purpose: step.purpose });
-    const card = await generateSingleCard(node, index, step, jobType);
+    const card = await generateSingleCard(node, index, step, jobType, language);
     cards.push(card);
   }
 
-  const localIssues = localLectureIssues(cards);
+  const localIssues = localLectureIssues(cards, language);
   if (!localIssues.length) {
     devLog("info", "cards", "Polish skipped: local validators passed", { nodeId: node.id });
     return cards;
   }
   devLog("info", "cards", "Local validators requested Gemma polish", { nodeId: node.id, localIssues });
-  return polishLecture(node, cards);
+  return polishLecture(node, cards, language);
 }
 
-export async function generateKnowledgeChunkCards(nodes: KnowledgeNode[]): Promise<LessonCard[]> {
+export async function generateKnowledgeChunkCards(nodes: KnowledgeNode[], language: SupportedLanguage = 'en'): Promise<LessonCard[]> {
   const cards: LessonCard[] = [];
   const batchSize = 2;
   for (let index = 0; index < nodes.length; index += batchSize) {
@@ -106,16 +108,17 @@ export async function generateKnowledgeChunkCards(nodes: KnowledgeNode[]): Promi
       total: nodes.length
     });
     for (const node of batch) {
-      cards.push(...await generateCardsForNode(node));
+      cards.push(...await generateCardsForNode(node, "current_card", language));
     }
   }
   return cards;
 }
 
-async function planLecture(node: KnowledgeNode, jobType: LLMJobType): Promise<PlannedCard[]> {
+async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: SupportedLanguage = 'en'): Promise<PlannedCard[]> {
   const out = await callLLMJson<{ includeEntryQuestion?: boolean; plan: PlannedCard[] }>(
     [
       "You are Gemma 4 planning a concise node lecture for an adaptive learning app.",
+      ...(language !== 'en' ? [`All learner-facing text in the plan must be in ${LANGUAGE_NAMES[language]}.`] : []),
       "Use a variety of card types to keep the learner engaged.",
       "Decide whether an entry question is useful. Do not include one if it would repeat the exit question or lecture intro.",
       "The plan must avoid redundancy. Each card needs a different job.",
@@ -213,7 +216,7 @@ function extractCardText(card: LessonCard): string {
   }
 }
 
-function localLectureIssues(cards: LessonCard[]) {
+function localLectureIssues(cards: LessonCard[], language: SupportedLanguage = 'en') {
   const issues: string[] = [];
   if (cards.length < 4 || cards.length > 8) issues.push("card_count");
   if (!cards.some((card) => card.type === "recap")) issues.push("missing_recap");
@@ -221,7 +224,7 @@ function localLectureIssues(cards: LessonCard[]) {
   const textBodies = cards.map(extractCardText);
   const normalized = textBodies.map((body) => body.toLowerCase().replace(/\s+/g, " ").trim());
   if (new Set(normalized).size !== normalized.length) issues.push("duplicate_body");
-  if (findTutorVoiceViolations(cards).length) issues.push("voice_violation");
+  if (findTutorVoiceViolations(cards, language).length) issues.push("voice_violation");
   if (textBodies.some((body) => /[^\n.!?]{180,}[.!?]/.test(body))) issues.push("long_sentence");
   return issues;
 }
@@ -270,10 +273,10 @@ function cardSchema(node: KnowledgeNode, step: PlannedCard): Record<string, unkn
   }
 }
 
-function singleCardPrompt(node: KnowledgeNode, index: number, step: PlannedCard) {
+function singleCardPrompt(node: KnowledgeNode, index: number, step: PlannedCard, language: SupportedLanguage = 'en') {
   return {
     system: [
-      AURA_VOICE_SPEC,
+      auraVoiceSpec(language),
       "",
       "You are Gemma 4 generating one local lesson card for a desktop learning app.",
       "Generate the actual teaching content yourself from the supplied node/source data.",
@@ -300,11 +303,11 @@ function singleCardPrompt(node: KnowledgeNode, index: number, step: PlannedCard)
   };
 }
 
-async function polishLecture(node: KnowledgeNode, draftCards: LessonCard[]): Promise<LessonCard[]> {
+async function polishLecture(node: KnowledgeNode, draftCards: LessonCard[], language: SupportedLanguage = 'en'): Promise<LessonCard[]> {
   devLog("info", "cards", "Gemma judging lecture redundancy", { nodeId: node.id, cards: draftCards.length });
   const out = await callLLMJson<{ cards: LessonCard[]; notes?: string[] }>(
     [
-      AURA_VOICE_SPEC,
+      auraVoiceSpec(language),
       "",
       "You are Gemma 4 acting as an editor and redundancy judge for a node lecture.",
       "Rewrite the full card sequence so it feels cohesive, non-repetitive, and useful.",
@@ -346,19 +349,19 @@ async function polishLecture(node: KnowledgeNode, draftCards: LessonCard[]): Pro
     devLog("warn", "cards", "Polish returned wrong exit count, keeping originals", { nodeId: node.id, exitCount });
     return draftCards;
   }
-  const voiceViolations = findTutorVoiceViolations(polished);
+  const voiceViolations = findTutorVoiceViolations(polished, language);
   if (voiceViolations.length) {
     devLog("warn", "cards", "Gemma lecture voice violations detected; rewriting", { nodeId: node.id, voiceViolations });
-    polished = await rewriteVoiceViolations(node, polished, voiceViolations);
+    polished = await rewriteVoiceViolations(node, polished, voiceViolations, language);
   }
   devLog("info", "cards", "Gemma polished lecture", { nodeId: node.id, cards: polished.length, notes: out.notes ?? [] });
   return polished;
 }
 
-async function rewriteVoiceViolations(node: KnowledgeNode, cards: LessonCard[], violations: string[]): Promise<LessonCard[]> {
+async function rewriteVoiceViolations(node: KnowledgeNode, cards: LessonCard[], violations: string[], language: SupportedLanguage = 'en'): Promise<LessonCard[]> {
   const out = await callLLMJson<{ cards: LessonCard[]; notes?: string[] }>(
     [
-      AURA_VOICE_SPEC,
+      auraVoiceSpec(language),
       "",
       "You are Gemma 4 rewriting tutor cards only to fix voice, readability, and banned-phrase violations.",
       "Preserve teaching meaning, card ids, card types, mcq phases, option count, correctOptionId, and recap structure.",
@@ -381,7 +384,7 @@ async function rewriteVoiceViolations(node: KnowledgeNode, cards: LessonCard[], 
   );
   if (!Array.isArray(out.cards) || out.cards.length !== cards.length) return cards;
   const rewritten = normalizeCards(out.cards, node);
-  const remaining = findTutorVoiceViolations(rewritten);
+  const remaining = findTutorVoiceViolations(rewritten, language);
   if (remaining.length) devLog("warn", "cards", "Gemma voice rewrite still has violations", { nodeId: node.id, remaining });
   return rewritten;
 }

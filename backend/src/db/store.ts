@@ -2,8 +2,15 @@ import { randomUUID } from "node:crypto";
 import { CONFIG } from "../config.js";
 import type { GameState, KnowledgeGraph, LessonPath, StudentIntent, StudentProfile } from "../types.js";
 import { db } from "./db.js";
+import type { SupportedLanguage } from "../i18n/language.js";
 
 const now = () => new Date().toISOString();
+
+try {
+  db.exec("ALTER TABLE sessions ADD COLUMN language TEXT NOT NULL DEFAULT 'en'");
+} catch {
+  // Column already exists — safe to ignore
+}
 
 export function defaultProfile(): StudentProfile {
   return {
@@ -39,12 +46,12 @@ export function saveProfile(profile: StudentProfile) {
   `).run(profile.id, JSON.stringify(profile), now(), now());
 }
 
-export function createSession(profileId: string, topic: string, intent: StudentIntent, goalMode: string) {
+export function createSession(profileId: string, topic: string, intent: StudentIntent, goalMode: string, language: SupportedLanguage = 'en') {
   const id = randomUUID();
   db.prepare(`
-    INSERT INTO sessions (id, student_profile_id, topic, intent_json, goal_mode, started_at)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `).run(id, profileId, topic, JSON.stringify(intent), goalMode, now());
+    INSERT INTO sessions (id, student_profile_id, topic, intent_json, goal_mode, language, started_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `).run(id, profileId, topic, JSON.stringify(intent), goalMode, language, now());
   return id;
 }
 

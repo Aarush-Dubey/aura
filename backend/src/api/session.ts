@@ -5,13 +5,15 @@ import { CONFIG } from "../config.js";
 import { createSession, getSessionInsights, listSessions, loadGameState, loadGraph, loadPath, loadProfile, loadSession, saveGameState, saveGraph, saveHistory, savePath } from "../db/store.js";
 import { devLog, getDevLogs } from "../dev/logs.js";
 import { notePrefetchHit, runGeminiBodyJob, runGeminiJob, setPrefetchTelemetry } from "../llm/broker.js";
-import { AURA_VOICE_SPEC } from "../llm/voice.js";
+import { AURA_VOICE_SPEC, auraVoiceSpec } from "../llm/voice.js";
 import { buildGraph } from "../pipeline/buildGraph.js";
 import { generateCardsForNode } from "../pipeline/cardGenerator.js";
 import { evaluateCheck } from "../pipeline/evaluate.js";
 import { deriveGoalMode, linearize } from "../pipeline/linearize.js";
 import { collectMissionMetadata, deriveMapState, initializeGameState } from "../pipeline/mapState.js";
 import type { CardInteractionEvent, GameState, KnowledgeGraph, LessonCard, LessonPath, StudentIntent } from "../types.js";
+import { getRequestLanguage } from "../i18n/language.js";
+import type { SupportedLanguage } from "../i18n/language.js";
 
 const router = express.Router();
 const prefetchedNodeCards = new Map<string, LessonCard[]>();
@@ -55,7 +57,7 @@ function advance(graph: KnowledgeGraph, path: LessonPath, gameState: GameState, 
   gameState.recentEvents = gameState.recentEvents.slice(0, 6);
 }
 
-function prefetchNextNodeCards(sessionId: string, graph: KnowledgeGraph, path: LessonPath) {
+function prefetchNextNodeCards(sessionId: string, graph: KnowledgeGraph, path: LessonPath, language: SupportedLanguage = 'en') {
   if (!CONFIG.llmPrefetch) return;
   const nextItem = path.items[path.currentIndex + 1];
   if (!nextItem) return;
@@ -65,7 +67,7 @@ function prefetchNextNodeCards(sessionId: string, graph: KnowledgeGraph, path: L
   if (prefetchedNodeCards.has(key)) return;
   setPrefetchTelemetry("loading", nextNode.topicName);
   devLog("info", "prefetch", "Prefetching next node cards", { sessionId, nodeId: nextNode.id, title: nextNode.topicName });
-  void generateCardsForNode(nextNode, "prefetch_node")
+  void generateCardsForNode(nextNode, "prefetch_node", language)
     .then((cards) => {
       prefetchedNodeCards.set(key, cards);
       setPrefetchTelemetry("ready", nextNode.topicName);
@@ -77,19 +79,19 @@ function prefetchNextNodeCards(sessionId: string, graph: KnowledgeGraph, path: L
     });
 }
 
-async function runStudentTurn(sessionId: string, studentMessage: string) {
+async function runStudentTurn(sessionId: string, studentMessage: string, language: SupportedLanguage = 'en') {
   const session = loadSession(sessionId);
   const graph = loadGraph(String(session.graph_id));
   const path = loadPath(String(session.lesson_path_id));
   const gameState = loadGameState(sessionId);
   const node = activeNode(graph, path);
-  const evaluation = await evaluateCheck(node.comfortCheck, studentMessage);
+  const evaluation = await evaluateCheck(node.comfortCheck, studentMessage, language);
   const passed = evaluation.result === "pass" || evaluation.result === "partial";
 
   advance(graph, path, gameState, passed);
   const nextNode = activeNode(graph, path);
-  const cards = await generateCardsForNode(passed ? nextNode : node);
-  prefetchNextNodeCards(sessionId, graph, path);
+  const cards = await generateCardsForNode(passed ? nextNode : node, "current_card", language);
+  prefetchNextNodeCards(sessionId, graph, path, language);
 
   const history = JSON.parse(String(session.history_json ?? "[]")) as unknown[];
   saveHistory(sessionId, [...history, { role: "student", message: studentMessage }, { role: "assistant", message: passed ? "Nice, this block is ready for the next step." : "I found a gentler stepping stone.", endedOnCheck: true }]);
@@ -118,22 +120,23 @@ router.post("/generateLesson", async (req, res, next) => {
     const cacheId = req.body?.cacheId ? String(req.body.cacheId) : undefined;
     const intent = req.body?.intent as StudentIntent | undefined;
     if (!topic || !intent) return res.status(400).json({ error: "topic and intent are required" });
+    const language = getRequestLanguage(req);
 
-    devLog("info", "api", "POST /generateLesson", { topic, cacheId: cacheId ?? null });
+    devLog("info", "api", "POST /generateLesson", { topic, cacheId: cacheId ?? null, language });
     const profile = loadProfile();
     const goalMode = deriveGoalMode(intent);
-    const sessionId = createSession(profile.id, topic, intent, goalMode);
-    const graph = await buildGraph(topic, profile, { cacheId, intent });
+    const sessionId = createSession(profile.id, topic, intent, goalMode, language);
+    const graph = await buildGraph(topic, profile, { cacheId, intent, language });
     const path = linearize(graph);
     const gameState = initializeGameState(sessionId, graph, path);
     const mapState = deriveMapState(graph, path, gameState);
-    const cards = await generateCardsForNode(activeNode(graph, path));
+    const cards = await generateCardsForNode(activeNode(graph, path), "current_card", language);
     devLog("info", "api", "Generated lesson response", { sessionId, graphId: graph.id, nodes: graph.nodes.length, cards: cards.length, cacheId: cacheId ?? null });
 
     saveGraph(sessionId, graph);
     savePath(sessionId, path);
     saveGameState(sessionId, gameState);
-    prefetchNextNodeCards(sessionId, graph, path);
+    prefetchNextNodeCards(sessionId, graph, path, language);
 
     res.json({
       sessionId,
@@ -156,6 +159,7 @@ router.post("/node/cards", async (req, res, next) => {
     const sessionId = String(req.body?.sessionId ?? "");
     const nodeId = String(req.body?.nodeId ?? "");
     if (!sessionId || !nodeId) return res.status(400).json({ error: "sessionId and nodeId are required" });
+    const language = getRequestLanguage(req);
     devLog("info", "api", "POST /node/cards", { sessionId, nodeId });
     const session = loadSession(sessionId);
     const graph = loadGraph(String(session.graph_id));
@@ -168,7 +172,7 @@ router.post("/node/cards", async (req, res, next) => {
       setPrefetchTelemetry("hit", node.topicName);
       return res.json({ cards: cached, cacheHit: true });
     }
-    const cards = await generateCardsForNode(node);
+    const cards = await generateCardsForNode(node, "current_card", language);
     devLog("info", "api", "Generated node cards", { sessionId, nodeId, cards: cards.length });
     res.json({ cards, cacheHit: false });
   } catch (err) {
@@ -182,6 +186,7 @@ router.post("/generateLessonFromImage", async (req, res, next) => {
     const mimeType = String(req.body?.mimeType ?? "image/jpeg");
     const intent = req.body?.intent as StudentIntent | undefined;
     if (!imageData || !intent) return res.status(400).json({ error: "imageData and intent are required" });
+    const language = getRequestLanguage(req);
 
     devLog("info", "api", "POST /generateLessonFromImage", { mimeType, bytes: imageData.length });
     const extractionPrompt = {
@@ -222,18 +227,18 @@ router.post("/generateLessonFromImage", async (req, res, next) => {
     const topic = String(extracted.topic || extracted.keyConcepts?.[0] || "textbook topic").trim();
     const profile = loadProfile();
     const goalMode = deriveGoalMode(intent);
-    const sessionId = createSession(profile.id, topic, intent, goalMode);
-    const graph = await buildGraph(topic, profile, { intent });
+    const sessionId = createSession(profile.id, topic, intent, goalMode, language);
+    const graph = await buildGraph(topic, profile, { intent, language });
     graph.sourcePacketIds = Array.from(new Set(["image:gemma_vision", ...graph.sourcePacketIds]));
     const path = linearize(graph);
     const gameState = initializeGameState(sessionId, graph, path);
     const mapState = deriveMapState(graph, path, gameState);
-    const cards = await generateCardsForNode(activeNode(graph, path));
+    const cards = await generateCardsForNode(activeNode(graph, path), "current_card", language);
 
     saveGraph(sessionId, graph);
     savePath(sessionId, path);
     saveGameState(sessionId, gameState);
-    prefetchNextNodeCards(sessionId, graph, path);
+    prefetchNextNodeCards(sessionId, graph, path, language);
 
     res.json({
       sessionId,
@@ -256,8 +261,9 @@ router.post("/tutor/respond", async (req, res, next) => {
   try {
     const sessionId = String(req.body?.sessionId ?? "");
     const studentMessage = String(req.body?.studentMessage ?? "");
+    const language = getRequestLanguage(req);
     devLog("info", "api", "POST /tutor/respond", { sessionId, chars: studentMessage.length });
-    res.json(await runStudentTurn(sessionId, studentMessage));
+    res.json(await runStudentTurn(sessionId, studentMessage, language));
   } catch (err) {
     next(err);
   }
@@ -271,6 +277,7 @@ router.post("/chat/ask", async (req, res, next) => {
       | { type?: string; title?: string; body?: string }
       | undefined;
     if (!question) return res.status(400).json({ error: "question is required" });
+    const language = getRequestLanguage(req);
     devLog("info", "api", "POST /chat/ask", { sessionId, chars: question.length });
 
     let lessonContext = "No active lesson.";
@@ -292,7 +299,7 @@ router.post("/chat/ask", async (req, res, next) => {
     }
 
     const prompt = [
-      AURA_VOICE_SPEC,
+      auraVoiceSpec(language),
       "",
       "You are answering a quick learner question via chat. This is conversational text only. Do NOT generate a card. Do NOT produce JSON. Do NOT advance the lesson. Reply in 2 to 4 short sentences. Answer the specific question. If the learner says they are stuck, name the sticking point and give one concrete next step.",
       "",
@@ -342,12 +349,13 @@ router.get("/dev/logs", (req, res) => {
 router.post("/card-event", async (req, res, next) => {
   try {
     const event = req.body as CardInteractionEvent;
+    const language = getRequestLanguage(req);
     if (event.eventType === "hint_requested" || event.eventType === "power_up") {
       return res.json({
         assistantMessage: "Here is a smaller step: look for the one idea that stays the same in the example."
       });
     }
-    return res.json(await runStudentTurn(event.sessionId, JSON.stringify(event.payload ?? {})));
+    return res.json(await runStudentTurn(event.sessionId, JSON.stringify(event.payload ?? {}), language));
   } catch (err) {
     next(err);
   }
@@ -384,13 +392,14 @@ router.get("/sessions", (_req, res, next) => {
 router.get("/session/:id/resume", async (req, res, next) => {
   try {
     const session = loadSession(req.params.id);
+    const sessionLanguage = (String(session.language ?? 'en')) as SupportedLanguage;
     const graph = loadGraph(String(session.graph_id));
     const lessonPath = loadPath(String(session.lesson_path_id));
     const gameState = loadGameState(req.params.id);
     const mapState = deriveMapState(graph, lessonPath, gameState);
     const node = activeNode(graph, lessonPath);
-    const cards = await generateCardsForNode(node, "current_card");
-    prefetchNextNodeCards(req.params.id, graph, lessonPath);
+    const cards = await generateCardsForNode(node, "current_card", sessionLanguage);
+    prefetchNextNodeCards(req.params.id, graph, lessonPath, sessionLanguage);
     res.json({
       sessionId: req.params.id,
       graph,
@@ -423,6 +432,7 @@ function quizOnly(cards: LessonCard[]): LessonCard[] {
 router.post("/workspace/:sessionId/revise", async (req, res, next) => {
   try {
     const sessionId = String(req.params.sessionId);
+    const language = getRequestLanguage(req);
     devLog("info", "api", "POST /workspace/:id/revise", { sessionId });
     const session = loadSession(sessionId);
     const graph = loadGraph(String(session.graph_id));
@@ -434,7 +444,7 @@ router.post("/workspace/:sessionId/revise", async (req, res, next) => {
     }
     const cards: LessonCard[] = [];
     for (const node of reviseNodes) {
-      cards.push(...await generateCardsForNode(node, "current_card"));
+      cards.push(...await generateCardsForNode(node, "current_card", language));
     }
     res.json({ cards, nodeCount: reviseNodes.length, mode: "revise" });
   } catch (err) {
@@ -446,6 +456,7 @@ router.post("/workspace/:sessionId/test/:nodeId", async (req, res, next) => {
   try {
     const sessionId = String(req.params.sessionId);
     const nodeId = String(req.params.nodeId);
+    const language = getRequestLanguage(req);
     devLog("info", "api", "POST /workspace/:id/test/:nodeId", { sessionId, nodeId });
     const session = loadSession(sessionId);
     const graph = loadGraph(String(session.graph_id));
@@ -454,7 +465,7 @@ router.post("/workspace/:sessionId/test/:nodeId", async (req, res, next) => {
     if (node.status !== "mastered") {
       return res.status(400).json({ error: "Lesson not mastered yet." });
     }
-    const raw = await generateCardsForNode(node, "current_card");
+    const raw = await generateCardsForNode(node, "current_card", language);
     const quiz = quizOnly(raw);
     const cards = quiz.length > 0 ? quiz : raw;
     res.json({ cards, nodeCount: 1, mode: "test", scope: "lesson", topic: node.topicName });
@@ -466,6 +477,7 @@ router.post("/workspace/:sessionId/test/:nodeId", async (req, res, next) => {
 router.post("/workspace/:sessionId/test", async (req, res, next) => {
   try {
     const sessionId = String(req.params.sessionId);
+    const language = getRequestLanguage(req);
     devLog("info", "api", "POST /workspace/:id/test", { sessionId });
     const session = loadSession(sessionId);
     const graph = loadGraph(String(session.graph_id));
@@ -476,7 +488,7 @@ router.post("/workspace/:sessionId/test", async (req, res, next) => {
     const picks = mastered.slice(0, 8);
     const cards: LessonCard[] = [];
     for (const node of picks) {
-      const raw = await generateCardsForNode(node, "current_card");
+      const raw = await generateCardsForNode(node, "current_card", language);
       const quiz = quizOnly(raw);
       cards.push(...(quiz.length > 0 ? quiz : raw.slice(0, 2)));
     }

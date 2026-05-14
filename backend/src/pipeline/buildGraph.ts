@@ -5,6 +5,7 @@ import { fallbackGraph } from "./fallbacks.js";
 import { buildGraphFromCachedExa } from "../exa/cacheInput.js";
 import { devLog } from "../dev/logs.js";
 import { createOrienCache } from "../research/orienSearch.js";
+import type { SupportedLanguage } from "../i18n/language.js";
 
 type PlannedConcept = {
   id: string;
@@ -34,7 +35,7 @@ function nodeType(value: PlannedConcept["nodeType"] | undefined, index: number, 
   return "core";
 }
 
-async function buildGemmaPlannedGraph(topic: string, profile: StudentProfile, intent?: StudentIntent): Promise<KnowledgeGraph | null> {
+async function buildGemmaPlannedGraph(topic: string, profile: StudentProfile, intent?: StudentIntent, language: SupportedLanguage = 'en'): Promise<KnowledgeGraph | null> {
   try {
     devLog("info", "graph", "Gemma planning comprehensive topic graph", {
       topic,
@@ -47,7 +48,7 @@ async function buildGemmaPlannedGraph(topic: string, profile: StudentProfile, in
         dyslexiaMode: profile.dyslexiaMode
       }
     });
-    const p = graphPrompt(topic, profile, intent);
+    const p = graphPrompt(topic, profile, intent, language);
     let out = await callLLMJson<{ concepts?: PlannedConcept[]; schema?: PlannedConcept[] }>(p.system, p.user, 0.16, 180_000, 12000);
     let plannedConcepts = Array.isArray(out.concepts) ? out.concepts : Array.isArray(out.schema) ? out.schema : [];
     const minNodes = intent?.depthPreference === "intuition_only" ? 7 : intent?.depthPreference === "deep_mechanical" ? 9 : 8;
@@ -132,7 +133,7 @@ async function buildGemmaPlannedGraph(topic: string, profile: StudentProfile, in
   }
 }
 
-export async function buildGraph(topic: string, profile: StudentProfile, options: { cacheId?: string; intent?: StudentIntent } = {}): Promise<KnowledgeGraph> {
+export async function buildGraph(topic: string, profile: StudentProfile, options: { cacheId?: string; intent?: StudentIntent; language?: SupportedLanguage } = {}): Promise<KnowledgeGraph> {
   if (options.cacheId) {
     const cached = buildGraphFromCachedExa(topic, profile, options.cacheId);
     if (cached) {
@@ -147,7 +148,7 @@ export async function buildGraph(topic: string, profile: StudentProfile, options
   }
 
   if (!options.cacheId) {
-    const planned = await buildGemmaPlannedGraph(topic, profile, options.intent);
+    const planned = await buildGemmaPlannedGraph(topic, profile, options.intent, options.language);
     if (planned) return planned;
   }
 
@@ -165,7 +166,7 @@ export async function buildGraph(topic: string, profile: StudentProfile, options
 
   try {
     devLog("info", "graph", "No usable cache selected/matched; trying LLM graph build", { topic, cacheId: options.cacheId ?? null });
-    const p = graphPrompt(topic, profile, options.intent);
+    const p = graphPrompt(topic, profile, options.intent, options.language);
     const out = await callLLMJson<{ concepts: { id: string; topicName: string; teachingGoal: string; keyTerms?: string[]; commonConfusions?: string[]; intuition?: string; example?: string; practiceStyle?: string }[] }>(p.system, p.user);
     const graph = fallbackGraph(topic, profile);
     if (!Array.isArray(out.concepts) || out.concepts.length < 3) return graph;

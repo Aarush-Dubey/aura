@@ -1,5 +1,8 @@
 import type { KnowledgeNode, StudentIntent, StudentProfile } from "../types.js";
 import { AURA_VOICE_SPEC, finalVoiceReminder } from "./voice.js";
+import { auraVoiceSpec } from "./voice.js";
+import type { SupportedLanguage } from "../i18n/language.js";
+import { LANGUAGE_NAMES } from "../i18n/language.js";
 
 const NEURODIVERGENT_RULES = [
   AURA_VOICE_SPEC,
@@ -14,6 +17,22 @@ const NEURODIVERGENT_RULES = [
   finalVoiceReminder(),
   "Output valid JSON only. No prose, no markdown fences, no commentary."
 ].join("\n");
+
+function neurodivergentRules(language: SupportedLanguage = 'en'): string {
+  return [
+    auraVoiceSpec(language),
+    "",
+    "You design lessons for neurodivergent learners (ADHD, dyslexia, anxiety around school).",
+    "Hard rules:",
+    "- Avoid learner-facing shame words like fail, stupid, easy, obvious, and you should know this.",
+    "- Prefer low-stakes checks such as tiny check or does this click yet.",
+    "- One idea per field. Short sentences. Examples before formulas. No paragraph walls.",
+    "- Never invent prerequisite knowledge the learner has not shown.",
+    "- Honor the learner's avoid list and reading mode.",
+    finalVoiceReminder(),
+    "Output valid JSON only. No prose, no markdown fences, no commentary."
+  ].join("\n");
+}
 
 function profileBriefing(profile: StudentProfile) {
   return {
@@ -30,9 +49,9 @@ function profileBriefing(profile: StudentProfile) {
   };
 }
 
-export const graphPrompt = (topic: string, profile: StudentProfile, intent?: StudentIntent) => ({
+export const graphPrompt = (topic: string, profile: StudentProfile, intent?: StudentIntent, language: SupportedLanguage = 'en') => ({
   system: [
-    NEURODIVERGENT_RULES,
+    neurodivergentRules(language),
     "",
     "You are building an adaptive knowledge graph and a linear teaching path: small teachable concepts that flow from prerequisite to payoff.",
     "Use internal reasoning to decide the order, but do not output private chain-of-thought.",
@@ -97,13 +116,14 @@ export const graphPrompt = (topic: string, profile: StudentProfile, intent?: Stu
         prerequisiteReason: "string",
         learnerFitReason: "string"
       }]
-    }
+    },
+    ...(language !== 'en' ? { languageInstruction: `Generate all node names, teaching goals, intuitions, examples, confusions, and practice styles in ${LANGUAGE_NAMES[language]}.` } : {})
   })
 });
 
-export const cardsPrompt = (node: KnowledgeNode) => ({
+export const cardsPrompt = (node: KnowledgeNode, language: SupportedLanguage = 'en') => ({
   system: [
-    NEURODIVERGENT_RULES,
+    neurodivergentRules(language),
     "",
     "You expand one knowledge node into a calm, complete mini-lecture sequence of exactly 6 cards.",
     "Design rules for the card sequence:",
@@ -149,7 +169,7 @@ export const cardsPrompt = (node: KnowledgeNode) => ({
   })
 });
 
-export const evaluatePrompt = (expectedIdea: string, answer: string) => ({
+export const evaluatePrompt = (expectedIdea: string, answer: string, language: SupportedLanguage = 'en') => ({
   system: [
     "You judge whether a learner's free-text answer demonstrates the expected understanding.",
     "Be generous on wording, strict on the underlying idea.",
@@ -161,6 +181,7 @@ export const evaluatePrompt = (expectedIdea: string, answer: string) => ({
     "When result is partial or fail, set detectedIssue to a short tag (e.g. 'reversed_ratio', 'confused_units').",
     "If the answer reveals a specific wrong mental model, also set demonstratedMisconception with one short sentence.",
     "Confidence is 0.0 to 1.0 reflecting how sure you are.",
+    ...(language !== 'en' ? [`The learner may answer in ${LANGUAGE_NAMES[language]}. Evaluate the meaning regardless of language.`] : []),
     "Output valid JSON only."
   ].join("\n"),
   user: JSON.stringify({

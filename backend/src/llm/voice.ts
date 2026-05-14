@@ -1,4 +1,6 @@
 import type { LessonCard } from "../types.js";
+import type { SupportedLanguage } from "../i18n/language.js";
+import { LANGUAGE_NAMES } from "../i18n/language.js";
 
 export const AURA_VOICE_SPEC = [
   "You are Aura, a tutor for a desktop learning app. You generate one lesson card at a time. You are not a chatbot.",
@@ -71,6 +73,17 @@ export const AURA_BANNED_PHRASES = [
   "sorry that was confusing",
   "nice try"
 ];
+
+export function auraVoiceSpec(language: SupportedLanguage = 'en'): string {
+  if (language === 'en') return AURA_VOICE_SPEC;
+  return AURA_VOICE_SPEC + "\n" + [
+    "",
+    `LANGUAGE: You MUST generate ALL learner-facing text in ${LANGUAGE_NAMES[language]}.`,
+    `This includes: titles, body text, questions, options, feedback, explanations, bullet points, examples.`,
+    `Technical terms and proper nouns may remain in their original form if commonly used that way in ${LANGUAGE_NAMES[language]}.`,
+    `Internal JSON keys (id, type, nodeId) remain in English. Only string values are in ${LANGUAGE_NAMES[language]}.`
+  ].join("\n");
+}
 
 export function cardTypeVoiceInstruction(cardType: string, phase?: "entry" | "reflect" | "exit") {
   switch (cardType) {
@@ -192,13 +205,15 @@ function sentenceWordViolations(text: string): string[] {
   return violations;
 }
 
-export function findTutorVoiceViolations(cards: LessonCard[]) {
+export function findTutorVoiceViolations(cards: LessonCard[], language: SupportedLanguage = 'en') {
   const violations: string[] = [];
   for (const card of cards) {
     const texts = collectText(card);
     const joined = texts.join("\n").toLowerCase();
-    for (const phrase of AURA_BANNED_PHRASES) {
-      if (joined.includes(phrase)) violations.push(`${card.id}: banned phrase "${phrase}"`);
+    if (language === 'en') {
+      for (const phrase of AURA_BANNED_PHRASES) {
+        if (joined.includes(phrase)) violations.push(`${card.id}: banned phrase "${phrase}"`);
+      }
     }
     if (/[🎉✨💡😀-🙏]/u.test(joined)) violations.push(`${card.id}: emoji in tutor text`);
     for (const text of texts) {
