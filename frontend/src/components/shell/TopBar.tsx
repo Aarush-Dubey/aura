@@ -1,12 +1,14 @@
+import { useTranslation } from "react-i18next";
 import { useAuraStore, type Screen } from "../../store/useAuraStore";
 
-const NAV_ITEMS: { screen: Screen; label: string }[] = [
-  { screen: "dashboard", label: "Home" },
-  { screen: "workspace_overview", label: "Workspace" },
-  { screen: "lesson", label: "Lesson" },
+const NAV_ITEMS: { screen: Screen; labelKey: string }[] = [
+  { screen: "dashboard", labelKey: "home" },
+  { screen: "workspace_overview", labelKey: "workspace" },
+  { screen: "lesson", labelKey: "lesson" },
 ];
 
 export function TopBar() {
+  const { t } = useTranslation("common");
   const screen = useAuraStore((s) => s.screen);
   const navigate = useAuraStore((s) => s.navigate);
   const learnerMode = useAuraStore((s) => s.settings.learnerMode);
@@ -53,7 +55,7 @@ export function TopBar() {
           justifySelf: "center",
         }}
       >
-        {NAV_ITEMS.map(({ screen: s, label }) => {
+        {NAV_ITEMS.map(({ screen: s, labelKey }) => {
           const active = s === screen;
           return (
             <button
@@ -73,7 +75,7 @@ export function TopBar() {
                 letterSpacing: ".01em",
               }}
             >
-              {label}
+              {t(labelKey)}
             </button>
           );
         })}
@@ -83,13 +85,13 @@ export function TopBar() {
         {(learnerMode === "both" || learnerMode === "dyslexia") && (
           <span className="chip" data-tone="sage" style={{ padding: "5px 12px", fontSize: 10 }}>
             <span className="dot" />
-            dyslexia mode
+            {t('dyslexiaMode')}
           </span>
         )}
         {(learnerMode === "both" || learnerMode === "adhd") && (
           <span className="chip" data-tone="peach" style={{ padding: "5px 12px", fontSize: 10 }}>
             <span className="dot" />
-            adhd mode
+            {t('adhdMode')}
           </span>
         )}
       </div>

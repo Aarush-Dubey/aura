@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion } from "motion/react";
 import { useAuraStore } from "../../store/useAuraStore";
 import { api } from "../../api/client";
@@ -6,6 +7,7 @@ import { useAudioRecorder } from "../../hooks/useAudioRecorder";
 import { useTTS } from "../../hooks/useTTS";
 
 export function ChatOverlay() {
+  const { t } = useTranslation("chat");
   const isOpen = useAuraStore((s) => s.chat.isOpen);
   const mode = useAuraStore((s) => s.chat.mode);
   const messages = useAuraStore((s) => s.chat.messages);
@@ -66,7 +68,7 @@ export function ChatOverlay() {
       addChatMessage({ role: "aura", text: reply, at: Date.now() });
       if (mode === "voice") ttsSpeak(reply);
     } catch {
-      addChatMessage({ role: "aura", text: "Sorry, I couldn't process that right now.", at: Date.now() });
+      addChatMessage({ role: "aura", text: t('errorProcessing'), at: Date.now() });
     } finally {
       setChatLoading(false);
     }
@@ -131,7 +133,7 @@ export function ChatOverlay() {
                   background: "radial-gradient(circle at 35% 35%, var(--aura-peach), var(--aura-sage))",
                 }}
               />
-              <span style={{ fontWeight: 600, fontSize: 14 }}>Ask Aura</span>
+              <span style={{ fontWeight: 600, fontSize: 14 }}>{t('askAura')}</span>
               <span
                 style={{
                   fontSize: 10,
@@ -176,7 +178,7 @@ export function ChatOverlay() {
           >
             {messages.length === 0 && (
               <div style={{ textAlign: "center", color: "var(--aura-ink-mute)", padding: 24, fontSize: 14 }}>
-                Ask anything about what you're learning.
+                {t('askAnything')}
               </div>
             )}
             {messages.map((msg, i) => (
@@ -250,7 +252,7 @@ export function ChatOverlay() {
               {recording ? (
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                   <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#e74c3c", animation: "aura-breath 1s infinite" }} />
-                  Release
+                  {t('common:release')}
                 </span>
               ) : transcribing ? "..." : (
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -265,7 +267,7 @@ export function ChatOverlay() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-              placeholder="Type your question..."
+              placeholder={t('typeQuestion')}
               style={{
                 flex: 1,
                 padding: "12px 18px",
@@ -285,7 +287,7 @@ export function ChatOverlay() {
               disabled={!input.trim() || isLoading}
               style={{ padding: "10px 18px", fontSize: 13 }}
             >
-              Send
+              {t('send')}
             </button>
           </div>
         </motion.div>
