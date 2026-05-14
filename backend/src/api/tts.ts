@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { execFile } from "child_process";
 import { devLog } from "../dev/logs.js";
+import { getRequestLanguage } from "../i18n/language.js";
+import { getKokoroVoice, getMacosSayVoice } from "./voiceMap.js";
 
 let kokoroInstance: any = null;
 let kokoroLoading = false;
@@ -32,10 +34,10 @@ async function getKokoro() {
   }
 }
 
-function macosSay(text: string): Promise<Buffer> {
+function macosSay(text: string, voice: string = "Samantha"): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     const outFile = `/tmp/aura-tts-${Date.now()}.aiff`;
-    execFile("say", ["-o", outFile, text], (err) => {
+    execFile("say", ["-v", voice, "-o", outFile, text], (err) => {
       if (err) return reject(err);
       import("fs").then(({ readFileSync, unlinkSync }) => {
         try {
@@ -57,15 +59,18 @@ router.post("/tts/speak", async (req, res, next) => {
     const text = String(req.body?.text ?? "").trim();
     if (!text) return res.status(400).json({ error: "text is required" });
 
-    const kokoro = await getKokoro();
+    const language = getRequestLanguage(req);
+    const kokoroVoice = getKokoroVoice(language);
+    const kokoro = kokoroVoice ? await getKokoro() : null;
 
-    if (kokoro) {
-      const audio = await kokoro.generate(text, { voice: "af_heart" });
+    if (kokoro && kokoroVoice) {
+      const audio = await kokoro.generate(text, { voice: kokoroVoice });
       const wav = audio.toWav();
       res.setHeader("Content-Type", "audio/wav");
       res.send(Buffer.from(wav));
     } else {
-      const buf = await macosSay(text);
+      const macVoice = getMacosSayVoice(language);
+      const buf = await macosSay(text, macVoice);
       res.setHeader("Content-Type", "audio/aiff");
       res.send(buf);
     }

@@ -1,10 +1,12 @@
 import { useState, useRef, useCallback } from "react";
 import { API_BASE } from "../api/client";
+import { useAuraStore } from "../store/useAuraStore";
 
 export function useTTS() {
   const [speaking, setSpeaking] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const urlRef = useRef<string | null>(null);
+  const language = useAuraStore((s) => s.settings.language);
 
   const stop = useCallback(() => {
     if (audioRef.current) {
@@ -26,7 +28,7 @@ export function useTTS() {
       const res = await fetch(`${API_BASE}/tts/speak`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text, language }),
       });
       if (!res.ok) throw new Error("TTS request failed");
       const blob = await res.blob();
@@ -56,7 +58,7 @@ export function useTTS() {
     } catch {
       setSpeaking(false);
     }
-  }, [stop]);
+  }, [stop, language]);
 
   return { speak, stop, speaking };
 }
