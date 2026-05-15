@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import type { CardCtx } from "../CardRegistry";
+import { useVoiceInput } from "../../../hooks/useVoiceInput";
+import { useAuraStore } from "../../../store/useAuraStore";
 
 type Data = {
   prompt: string;
@@ -13,6 +15,9 @@ export function RecallCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
   const { t } = useTranslation("cards");
   const [val, setVal] = useState("");
   const [scored, setScored] = useState<"right" | "partial" | "skipped" | null>(null);
+  const voice = useVoiceInput();
+  const language = useAuraStore((s) => s.settings.language);
+  const trackEffort = useAuraStore((s) => s.trackEffort);
 
   const check = () => {
     const ok = data.accept?.some((a) => val.toLowerCase().includes(a.toLowerCase())) ?? false;
@@ -42,6 +47,18 @@ export function RecallCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
           letterSpacing: "inherit",
         }}
       />
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <button
+          className={voice.listening ? "btn btn--peach" : "btn btn--ghost"}
+          onClick={() => voice.toggle((text) => {
+            setVal((current) => [current, text].filter(Boolean).join(current ? " " : ""));
+            trackEffort({ type: "voice_used", label: "Recall answer" });
+          }, language)}
+          disabled={voice.transcribing || Boolean(scored)}
+        >
+          {voice.listening ? t('listening') : voice.transcribing ? "..." : t('sayThought')}
+        </button>
+      </div>
       {scored && scored !== "skipped" && (
         <div
           className="rise"

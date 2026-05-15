@@ -14,6 +14,11 @@
   "animation": "एनिमेशन",
   "focus": "फोकस",
   "focusMode": "फोकस मोड",
+  "profile": "प्रोफ़ाइल",
+  "name": "नाम",
+  "adhdSupport": "ADHD सहायता",
+  "dyslexiaSupport": "डिस्लेक्सिया सहायता",
+  "rewards": "रिवॉर्ड",
   "accessibilitySettings": "सुलभता सेटिंग्स",
   "languageNote": "नए पाठों पर लागू होता है"
 }

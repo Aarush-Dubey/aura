@@ -4,6 +4,28 @@ export type StudentIntent = {
   depthPreference: "intuition_only" | "working_knowledge" | "deep_mechanical";
 };
 
+export type StudentProfile = {
+  id: string;
+  name?: string;
+  language?: string;
+  supportNeeds?: string[];
+  rewardStyle?: "xp" | "badges" | "streaks" | "minimal";
+  xp?: number;
+  streak?: number;
+  readingMode: "standard" | "short_chunks";
+  pace: "slow" | "medium" | "fast";
+  dyslexiaMode: boolean;
+  adhdSupport: boolean;
+  prefers: string[];
+  avoid: string[];
+  strengths: string[];
+  struggles: string[];
+  topicConfidence: Record<string, "low" | "medium" | "high">;
+  recentPatterns: { confusionTriggers: string[]; helpfulStrategies: string[] };
+  conceptMastery: Record<string, unknown>;
+  spacedReviews: unknown[];
+};
+
 export type MapNode = {
   id: string;
   label: string;
@@ -68,7 +90,9 @@ export type LessonCard =
   | { id: string; type: "visual"; nodeId: string; title: string; diagram: string; parts: { id: string; name: string; desc: string }[] }
   | { id: string; type: "connection"; nodeId: string; previous: string; current: string; bridge: string }
   | { id: string; type: "flash"; nodeId: string; cards: { front: string; back: string }[] }
-  | { id: string; type: "dragsort"; nodeId: string; prompt: string; steps: Record<string, string>; shuffled: string[]; correct: string[]; explanation: string };
+  | { id: string; type: "dragsort"; nodeId: string; prompt: string; steps: Record<string, string>; shuffled: string[]; correct: string[]; explanation: string }
+  | { id: string; type: "break"; nodeId: string; prompt?: string; body?: string; reason?: "timer" | "blur" | "stuck" | "manual" }
+  | { id: string; type: "reflect"; nodeId: string; prompt?: string; reason?: "stuck" | "end_block" | "manual" };
 
 export type LessonResponse = {
   sessionId: string;
@@ -105,6 +129,15 @@ export type Telemetry = {
   network: { externalBytes: number; cloudCalls: number };
   memory: { backendRssBytes: number };
   prefetch: { status: string; label: string; updatedAt: string };
+};
+
+export type LlmHealth = {
+  ready: boolean;
+  state: string;
+  expectedModel: string;
+  backend?: string;
+  mtpEnabled?: boolean;
+  detail?: string | null;
 };
 
 export type TutorResponse = Partial<LessonResponse> & {

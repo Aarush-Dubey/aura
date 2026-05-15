@@ -75,10 +75,10 @@ export const AURA_BANNED_PHRASES = [
 ];
 
 export function auraVoiceSpec(language: SupportedLanguage = 'en'): string {
-  if (language === 'en') return AURA_VOICE_SPEC;
   return AURA_VOICE_SPEC + "\n" + [
     "",
     `LANGUAGE: You MUST generate ALL learner-facing text in ${LANGUAGE_NAMES[language]}.`,
+    `Stay in ${LANGUAGE_NAMES[language]} for every learner-visible string.`,
     `This includes: titles, body text, questions, options, feedback, explanations, bullet points, examples.`,
     `Technical terms and proper nouns may remain in their original form if commonly used that way in ${LANGUAGE_NAMES[language]}.`,
     `Internal JSON keys (id, type, nodeId) remain in English. Only string values are in ${LANGUAGE_NAMES[language]}.`

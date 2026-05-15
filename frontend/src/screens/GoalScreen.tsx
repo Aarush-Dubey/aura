@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuraStore } from "../store/useAuraStore";
 import { ScreenShell } from "../components/shell/ScreenShell";
@@ -28,9 +28,14 @@ export function GoalScreen() {
   const navigate = useAuraStore((s) => s.navigate);
   const setSession = useAuraStore((s) => s.setSession);
   const topic = useAuraStore((s) => s.session.topic);
-  const [goal, setGoal] = useState(
-    `I want to understand how ${topic || "this topic"} works — the key concepts, how they connect, and why they matter.`
-  );
+  const language = useAuraStore((s) => s.settings.language);
+  const defaultGoal = () => t('goalTemplate', { topic: topic || t('thisTopic') });
+  const [goal, setGoal] = useState(defaultGoal);
+  const [edited, setEdited] = useState(false);
+
+  useEffect(() => {
+    if (!edited) setGoal(defaultGoal());
+  }, [topic, language, edited]);
 
   return (
     <ScreenShell>
@@ -66,7 +71,7 @@ export function GoalScreen() {
 
         <textarea
           value={goal}
-          onChange={(e) => setGoal(e.target.value)}
+          onChange={(e) => { setEdited(true); setGoal(e.target.value); }}
           rows={5}
           style={{
             width: "100%",

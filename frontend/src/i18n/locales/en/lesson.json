@@ -4,5 +4,10 @@
   "noLessonLoaded": "No lesson loaded",
   "startFromDashboard": "Start from the dashboard to generate a lesson.",
   "loadingNextLesson": "Loading next lesson...",
-  "askAura": "Ask Aura"
+  "askAura": "Ask Aura",
+  "focusBlock": "focus block",
+  "focusComplete": "block complete",
+  "focusBreakPrompt": "Focus block complete",
+  "focusBreakBody": "You reached the end of this focus block. Choose a reset, or keep going if you still have momentum.",
+  "restartFocusBlock": "Restart focus block"
 }

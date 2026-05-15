@@ -11,6 +11,7 @@ type SessionItem = {
   startedAt: string;
   nodeCount: number;
   masteredCount: number;
+  masteryPct?: number;
   currentIndex: number;
   totalItems: number;
 };
@@ -36,6 +37,12 @@ export function DashboardScreen() {
     } catch {
       setResuming(null);
     }
+  }
+
+  async function removeSession(id: string, topic: string) {
+    if (!window.confirm(`Delete workspace "${topic}" permanently?`)) return;
+    await api.deleteSession(id);
+    setSessions((items) => items.filter((item) => item.id !== id));
   }
 
   return (
@@ -89,7 +96,7 @@ export function DashboardScreen() {
           )}
 
           {sessions.map((s) => {
-            const pct = s.totalItems > 0 ? Math.round((s.currentIndex / s.totalItems) * 100) : 0;
+            const pct = s.masteryPct ?? (s.totalItems > 0 ? Math.round((s.currentIndex / s.totalItems) * 100) : 0);
             return (
               <motion.button
                 key={s.id}
@@ -108,10 +115,22 @@ export function DashboardScreen() {
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontWeight: 600, fontSize: 16 }}>{s.topic}</span>
-                  <span className="chip" data-tone="sage" style={{ padding: "3px 8px", fontSize: 10 }}>
-                    <span className="dot" />
-                    {pct}%
-                  </span>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    <span className="chip" data-tone="sage" style={{ padding: "3px 8px", fontSize: 10 }}>
+                      <span className="dot" />
+                      {pct}%
+                    </span>
+                    <button
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        void removeSession(s.id, s.topic);
+                      }}
+                      style={{ border: 0, background: "transparent", color: "var(--aura-clay)", cursor: "pointer", fontSize: 12 }}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
                 <div style={{ height: 4, borderRadius: 999, background: "var(--aura-line-soft)", overflow: "hidden" }}>
                   <div

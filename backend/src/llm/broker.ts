@@ -125,29 +125,53 @@ function extractGeminiText(data: unknown): string {
   return response.candidates?.[0]?.content?.parts?.map((part) => part.text ?? "").join("") ?? "";
 }
 
-async function performGeminiRequest(body: unknown, opts: LLMJobOptions, slot = 0) {
-  const url = geminiUrl(CONFIG.llmModel, slot);
-  const requestStarted = performance.now();
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000)
-  });
-  const responseReceived = performance.now();
+function shouldRecoverLocalLLM(error: unknown) {
+  const message = error instanceof Error ? error.message : String(error);
+  return /fetch failed|econnrefused|econnreset|socket|timed out|timeout|network|terminated|aborted/i.test(message);
+}
 
-  if (isExternalUrl(url)) {
-    cloudCalls += 1;
-    const length = Number(res.headers.get("content-length") ?? 0);
-    externalNetworkBytes += Number.isFinite(length) ? length : 0;
+async function performGeminiRequest(body: unknown, opts: LLMJobOptions, slot = 0) {
+  const { ensureLocalLLM, recoverLocalLLM } = await import("./runtime.js");
+  const status = await ensureLocalLLM();
+  if (!status.ready) {
+    throw new Error(status.detail || status.setup?.message || "Local LiteRT-LM is not ready.");
   }
 
-  if (!res.ok) throw new Error(`LLM error ${res.status}: ${await res.text()}`);
-  const text = extractGeminiText(await res.json());
-  return {
-    text,
-    approximateTtftMs: responseReceived - requestStarted
-  };
+  const url = geminiUrl(CONFIG.llmModel, slot);
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const requestStarted = performance.now();
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000)
+      });
+      const responseReceived = performance.now();
+
+      if (isExternalUrl(url)) {
+        cloudCalls += 1;
+        const length = Number(res.headers.get("content-length") ?? 0);
+        externalNetworkBytes += Number.isFinite(length) ? length : 0;
+      }
+
+      if (!res.ok) throw new Error(`LLM error ${res.status}: ${await res.text()}`);
+      const text = extractGeminiText(await res.json());
+      return {
+        text,
+        approximateTtftMs: responseReceived - requestStarted
+      };
+    } catch (error) {
+      if (attempt === 0 && shouldRecoverLocalLLM(error)) {
+        const detail = error instanceof Error ? error.message : String(error);
+        devLog("warn", "llm", "Gemma request failed, attempting local revive", { detail });
+        await recoverLocalLLM(`Gemma request failed: ${detail}`);
+        continue;
+      }
+      throw error;
+    }
+  }
+  throw new Error("Gemma request failed after retry.");
 }
 
 function pumpQueue() {

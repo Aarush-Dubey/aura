@@ -4,5 +4,10 @@
   "noLessonLoaded": "कोई पाठ लोड नहीं है",
   "startFromDashboard": "पाठ बनाने के लिए डैशबोर्ड से शुरू करें।",
   "loadingNextLesson": "अगला पाठ लोड हो रहा है...",
-  "askAura": "Aura से पूछें"
+  "askAura": "Aura से पूछें",
+  "focusBlock": "फोकस ब्लॉक",
+  "focusComplete": "ब्लॉक पूरा",
+  "focusBreakPrompt": "फोकस ब्लॉक पूरा हुआ",
+  "focusBreakBody": "आप इस फोकस ब्लॉक के अंत तक पहुँच गए। रीसेट चुनें, या लय बनी है तो जारी रखें।",
+  "restartFocusBlock": "फोकस ब्लॉक फिर शुरू करें"
 }

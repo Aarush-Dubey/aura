@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useAuraStore } from "../../store/useAuraStore";
 import { LANGUAGES } from "../../i18n/languages";
 import type { SupportedLanguage } from "../../i18n/languages";
+import { api } from "../../api/client";
 
 function TweakSection({ label }: { label: string }) {
   return (
@@ -126,7 +127,14 @@ export function TweaksPanel() {
   const { t } = useTranslation("settings");
   const [open, setOpen] = useState(false);
   const settings = useAuraStore((s) => s.settings);
+  const profile = useAuraStore((s) => s.profile);
   const setSetting = useAuraStore((s) => s.setSetting);
+  const setProfile = useAuraStore((s) => s.setProfile);
+
+  const saveProfile = async (patch: Record<string, unknown>) => {
+    const next = await api.updateProfile(patch).catch(() => null);
+    if (next) setProfile(next);
+  };
 
   return (
     <>
@@ -190,7 +198,11 @@ export function TweaksPanel() {
             <div style={{ padding: "6px 0" }}>
               <select
                 value={settings.language}
-                onChange={(e) => setSetting("language", e.target.value as SupportedLanguage)}
+                onChange={(e) => {
+                  const language = e.target.value as SupportedLanguage;
+                  setSetting("language", language);
+                  void saveProfile({ language });
+                }}
                 style={{
                   width: "100%",
                   padding: "8px 12px",
@@ -212,6 +224,26 @@ export function TweaksPanel() {
               </div>
             </div>
 
+            <TweakSection label={t('profile', { defaultValue: 'Profile' })} />
+            <div style={{ padding: "6px 0", display: "flex", flexDirection: "column", gap: 8 }}>
+              <label style={{ fontSize: 13 }}>{t('name', { defaultValue: 'Name' })}</label>
+              <input
+                value={profile?.name ?? ""}
+                onChange={(e) => setProfile(profile ? { ...profile, name: e.target.value } : null)}
+                onBlur={(e) => void saveProfile({ name: e.target.value })}
+                style={{
+                  width: "100%",
+                  padding: "8px 12px",
+                  borderRadius: 8,
+                  border: "1px solid var(--aura-line)",
+                  background: "var(--aura-paper-2)",
+                  color: "var(--aura-ink)",
+                  font: "inherit",
+                  fontSize: 13,
+                }}
+              />
+            </div>
+
             <TweakSection label={t('reading')} />
             <TweakRadio label={t('font')} value={settings.font} options={["lexend", "opendyslexic", "system"]} onChange={(v) => setSetting("font", v as any)} />
             <TweakSlider label={t('letterSpacing')} value={settings.letterSpacing} min={0} max={0.12} step={0.01} unit="em" onChange={(v) => setSetting("letterSpacing", v)} />
@@ -228,6 +260,23 @@ export function TweaksPanel() {
 
             <TweakSection label={t('focus')} />
             <TweakToggle label={t('focusMode')} value={settings.focusMode} onChange={(v) => setSetting("focusMode", v)} />
+            <TweakRadio label={t('focusBlockLength')} value={String(settings.focusBlockMinutes)} options={["5", "10", "20", "25"]} onChange={(v) => setSetting("focusBlockMinutes", Number(v) as 5 | 10 | 20 | 25)} />
+            <TweakToggle label={t('proactiveBreaks')} value={settings.proactiveBreaks} onChange={(v) => setSetting("proactiveBreaks", v)} />
+            <TweakToggle label={t('movementBreaks')} value={settings.movementBreaks} onChange={(v) => setSetting("movementBreaks", v)} />
+            <TweakToggle label={t('breakGames')} value={settings.breakGames} onChange={(v) => setSetting("breakGames", v)} />
+            <TweakToggle
+              label={t('adhdSupport', { defaultValue: 'ADHD support' })}
+              value={!!profile?.adhdSupport}
+              onChange={(v) => void saveProfile({ adhdSupport: v })}
+            />
+            <TweakToggle
+              label={t('dyslexiaSupport', { defaultValue: 'Dyslexia support' })}
+              value={!!profile?.dyslexiaMode}
+              onChange={(v) => void saveProfile({ dyslexiaMode: v })}
+            />
+            <div style={{ fontSize: 11, color: "var(--aura-ink-mute)", marginTop: 8 }}>
+              {t('rewards', { defaultValue: 'Rewards' })}: {profile?.xp ?? 0} XP · {profile?.streak ?? 0}d
+            </div>
           </motion.aside>
         )}
       </AnimatePresence>

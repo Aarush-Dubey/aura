@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import i18n from "../i18n/i18n";
 import type { SupportedLanguage } from "../i18n/languages";
-import type { LessonCard, LessonResponse, MapState, GameState, KnowledgeGraph, LessonPath, Telemetry } from "../api/types";
+import type { LessonCard, LessonResponse, MapState, GameState, KnowledgeGraph, LessonPath, LlmHealth, StudentProfile, Telemetry } from "../api/types";
 
 export type Screen =
   | "dashboard"
@@ -20,6 +20,28 @@ type ChatMessage = {
   at: number;
 };
 
+export type EffortEvent = {
+  id: string;
+  type:
+    | "focus_block_started"
+    | "focus_block_completed"
+    | "card_started"
+    | "card_completed"
+    | "answer_submitted"
+    | "hint_requested"
+    | "voice_used"
+    | "break_started"
+    | "break_completed"
+    | "adaptive_nudge";
+  at: number;
+  cardId?: string;
+  nodeId?: string;
+  elapsedMs?: number;
+  correct?: boolean;
+  label?: string;
+  detail?: string;
+};
+
 type SessionSlice = {
   sessionId: string | null;
   graph: KnowledgeGraph | null;
@@ -29,8 +51,10 @@ type SessionSlice = {
   cards: LessonCard[];
   cardCursor: number;
   missionMetadata: LessonResponse["missionMetadata"] | null;
+  openingMessage: string;
   topic: string;
   goal: string;
+  effortEvents: EffortEvent[];
 };
 
 type SettingsSlice = {
@@ -45,6 +69,10 @@ type SettingsSlice = {
   lineHeight: number;
   readAloud: boolean;
   readSpeed: number;
+  focusBlockMinutes: 5 | 10 | 20 | 25;
+  proactiveBreaks: boolean;
+  movementBreaks: boolean;
+  breakGames: boolean;
 };
 
 type ChatSlice = {
@@ -58,8 +86,10 @@ type AuraState = {
   screen: Screen;
   session: SessionSlice;
   settings: SettingsSlice;
+  profile: StudentProfile | null;
   chat: ChatSlice;
   telemetry: Telemetry | null;
+  llmHealth: LlmHealth | null;
 
   navigate: (screen: Screen) => void;
 
@@ -69,8 +99,13 @@ type AuraState = {
   previousCard: () => void;
   setCardCursor: (cursor: number) => void;
   injectCard: (card: LessonCard) => void;
+  trackEffort: (event: Omit<EffortEvent, "id" | "at"> & { at?: number }) => void;
 
   setSetting: <K extends keyof SettingsSlice>(key: K, value: SettingsSlice[K]) => void;
+  setProfile: (profile: StudentProfile | null) => void;
+  patchProfile: (profile: Partial<StudentProfile>) => void;
+  setLlmHealth: (health: LlmHealth | null) => void;
+  clearSession: () => void;
 
   openChat: (mode?: "keyboard" | "voice") => void;
   closeChat: () => void;
@@ -90,8 +125,10 @@ const defaultSession: SessionSlice = {
   cards: [],
   cardCursor: 0,
   missionMetadata: null,
+  openingMessage: "",
   topic: "",
   goal: "",
+  effortEvents: [],
 };
 
 const defaultSettings: SettingsSlice = {
@@ -106,6 +143,10 @@ const defaultSettings: SettingsSlice = {
   lineHeight: 1.65,
   readAloud: false,
   readSpeed: 1,
+  focusBlockMinutes: 10,
+  proactiveBreaks: true,
+  movementBreaks: true,
+  breakGames: true,
 };
 
 const loadSettings = (): SettingsSlice => {
@@ -120,8 +161,10 @@ export const useAuraStore = create<AuraState>((set, get) => ({
   screen: "dashboard",
   session: { ...defaultSession },
   settings: loadSettings(),
+  profile: null,
   chat: { isOpen: false, mode: "keyboard", messages: [], isLoading: false },
   telemetry: null,
+  llmHealth: null,
 
   navigate: (screen) => set({ screen }),
 
@@ -139,7 +182,9 @@ export const useAuraStore = create<AuraState>((set, get) => ({
         cards: response.cards,
         cardCursor: 0,
         missionMetadata: response.missionMetadata,
+        openingMessage: response.openingMessage,
         topic: response.graph.topic,
+        effortEvents: [],
       },
     })),
 
@@ -167,6 +212,21 @@ export const useAuraStore = create<AuraState>((set, get) => ({
       return { session: { ...s.session, cards } };
     }),
 
+  trackEffort: (event) =>
+    set((s) => {
+      const next: EffortEvent = {
+        ...event,
+        id: `${event.type}-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        at: event.at ?? Date.now(),
+      };
+      return {
+        session: {
+          ...s.session,
+          effortEvents: [next, ...s.session.effortEvents].slice(0, 120),
+        },
+      };
+    }),
+
   setSetting: (key, value) =>
     set((s) => {
       const next = { ...s.settings, [key]: value };
@@ -177,6 +237,25 @@ export const useAuraStore = create<AuraState>((set, get) => ({
       }
       return { settings: next };
     }),
+
+  setProfile: (profile) =>
+    set((s) => {
+      if (!profile) return { profile };
+      const language = (profile.language as SupportedLanguage | undefined) ?? s.settings.language;
+      const learnerMode: LearnerMode = profile.dyslexiaMode && profile.adhdSupport ? "both" : profile.dyslexiaMode ? "dyslexia" : profile.adhdSupport ? "adhd" : "none";
+      const nextSettings = { ...s.settings, language, learnerMode };
+      try { localStorage.setItem("aura-settings", JSON.stringify(nextSettings)); } catch {}
+      i18n.changeLanguage(language);
+      document.documentElement.lang = language;
+      return { profile, settings: nextSettings };
+    }),
+
+  patchProfile: (profilePatch) =>
+    set((s) => ({ profile: s.profile ? { ...s.profile, ...profilePatch } : s.profile })),
+
+  setLlmHealth: (health) => set({ llmHealth: health }),
+
+  clearSession: () => set({ session: { ...defaultSession } }),
 
   openChat: (mode = "keyboard") =>
     set((s) => ({ chat: { ...s.chat, isOpen: true, mode } })),

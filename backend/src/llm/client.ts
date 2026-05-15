@@ -1,7 +1,29 @@
 import { CONFIG } from "../config.js";
 import { geminiUrl, runGeminiJob, type LLMJobOptions } from "./broker.js";
+import net from "node:net";
 
 type LLMOpts = LLMJobOptions;
+
+function tcpReady(urlString: string, timeoutMs = 1200): Promise<boolean> {
+  try {
+    const url = new URL(urlString);
+    const port = Number(url.port || (url.protocol === "https:" ? 443 : 80));
+    return new Promise((resolve) => {
+      const socket = net.connect({ host: url.hostname, port });
+      const finish = (ready: boolean) => {
+        socket.removeAllListeners();
+        socket.destroy();
+        resolve(ready);
+      };
+      socket.setTimeout(timeoutMs);
+      socket.once("connect", () => finish(true));
+      socket.once("timeout", () => finish(false));
+      socket.once("error", () => finish(false));
+    });
+  } catch {
+    return Promise.resolve(false);
+  }
+}
 
 function inferJobType(system: string, user: string): LLMJobOptions["type"] {
   const text = `${system}\n${user}`.toLowerCase();
@@ -21,12 +43,7 @@ export async function callLLM(system: string, user: string, opts: LLMOpts = {}):
 
 export async function isLLMReady(): Promise<boolean> {
   if (!CONFIG.llmProbeOnHealth) {
-    try {
-      await fetch(CONFIG.llmBaseUrl, { signal: AbortSignal.timeout(1200) });
-      return true;
-    } catch {
-      return false;
-    }
+    return tcpReady(CONFIG.llmBaseUrl, 1200);
   }
   try {
     const res = await fetch(geminiUrl(), {
@@ -34,9 +51,9 @@ export async function isLLMReady(): Promise<boolean> {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ role: "user", parts: [{ text: "Reply with OK." }] }],
-        generationConfig: { maxOutputTokens: 4, temperature: 0 }
+        generationConfig: { maxOutputTokens: 1, temperature: 0 }
       }),
-      signal: AbortSignal.timeout(60_000)
+      signal: AbortSignal.timeout(8_000)
     });
     return res.ok;
   } catch {

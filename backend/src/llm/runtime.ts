@@ -5,10 +5,74 @@ import { isLLMReady, listModels } from "./client.js";
 let child: ChildProcess | null = null;
 let lastStartupError = "";
 let runtimeMtpEnabled = CONFIG.llmMtpEnabled;
+let ensurePromise: Promise<LlmRuntimeStatus> | null = null;
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export async function ensureLocalLLM() {
+type LlmRuntimeStatus = Awaited<ReturnType<typeof llmStatus>>;
+
+function llmPort() {
+  try {
+    const url = new URL(CONFIG.llmBaseUrl);
+    return url.port || "8080";
+  } catch {
+    return "8080";
+  }
+}
+
+function withStableHost(command: string) {
+  const trimmed = command.trim();
+  if (!/\blitert-lm(?:\.exe)?\b/i.test(trimmed) || !/\sserve\b/i.test(trimmed)) {
+    return trimmed;
+  }
+  if (/\s--host\b/i.test(trimmed)) return trimmed;
+  return `${trimmed} --host 127.0.0.1`;
+}
+
+function maybeRecordLlmError(text: string) {
+  if (!text) return;
+  if (/\"(GET|POST|PUT|DELETE|OPTIONS|HEAD) .* HTTP\/1\.1\" \d{3}/.test(text)) return;
+  if (/starting litert-lm api server/i.test(text)) return;
+  if (/initializing engine for model/i.test(text)) return;
+  if (/using litert-lm backend/i.test(text)) return;
+  lastStartupError = text;
+}
+
+function spawnLocalLLMProcess() {
+  const command = withStableHost(CONFIG.llmStartCommand);
+  child = spawn(command, {
+    shell: true,
+    cwd: process.cwd(),
+    env: {
+      ...process.env,
+      PYTHONUTF8: process.env.PYTHONUTF8 ?? "1",
+      PYTHONIOENCODING: process.env.PYTHONIOENCODING ?? "utf-8",
+      PYTHONLEGACYWINDOWSSTDIO: process.env.PYTHONLEGACYWINDOWSSTDIO ?? "1",
+      LLM_PORT: llmPort(),
+      LITERT_LM_BACKEND: CONFIG.llmBackend,
+      LITERT_LM_MTP: runtimeMtpEnabled ? "true" : "false"
+    },
+    stdio: ["ignore", "pipe", "pipe"],
+    windowsHide: true
+  });
+
+  child.stdout?.on("data", (data) => process.stdout.write(`[llm] ${data}`));
+  child.stderr?.on("data", (data) => {
+    const text = data.toString().trim();
+    maybeRecordLlmError(text);
+    process.stderr.write(`[llm] ${data}`);
+  });
+  child.on("exit", (code, signal) => {
+    if (code && code !== 0) {
+      lastStartupError = `LLM process exited with code ${code}`;
+    } else if (signal) {
+      lastStartupError = `LLM process exited with signal ${signal}`;
+    }
+    child = null;
+  });
+}
+
+async function ensureLocalLLMInner(): Promise<LlmRuntimeStatus> {
   if (await isLLMReady()) return llmStatus("running");
 
   if (!CONFIG.llmAutostart) {
@@ -16,36 +80,29 @@ export async function ensureLocalLLM() {
   }
 
   if (!child) {
-    child = spawn(CONFIG.llmStartCommand, {
-      shell: true,
-      cwd: process.cwd(),
-      env: {
-        ...process.env,
-        LLM_PORT: "8080",
-        LITERT_LM_BACKEND: CONFIG.llmBackend,
-        LITERT_LM_MTP: runtimeMtpEnabled ? "true" : "false"
-      },
-      stdio: ["ignore", "pipe", "pipe"]
-    });
-
-    child.stdout?.on("data", (data) => process.stdout.write(`[llm] ${data}`));
-    child.stderr?.on("data", (data) => {
-      lastStartupError = data.toString();
-      process.stderr.write(`[llm] ${data}`);
-    });
-    child.on("exit", (code) => {
-      if (code && code !== 0) lastStartupError ||= `LLM process exited with code ${code}`;
-      child = null;
-    });
+    lastStartupError = "";
+    spawnLocalLLMProcess();
   }
 
   const startedAt = Date.now();
   while (Date.now() - startedAt < CONFIG.llmReadyTimeoutMs) {
     if (await isLLMReady()) return llmStatus("running");
+    if (!child && CONFIG.llmAutostart) {
+      spawnLocalLLMProcess();
+    }
     await delay(1000);
   }
 
   return llmStatus("setup_required", lastStartupError || "Timed out waiting for local LiteRT-LM Gemma.");
+}
+
+export async function ensureLocalLLM() {
+  if (!ensurePromise) {
+    ensurePromise = ensureLocalLLMInner().finally(() => {
+      ensurePromise = null;
+    });
+  }
+  return ensurePromise;
 }
 
 async function stopOwnedLLM() {
@@ -54,10 +111,26 @@ async function stopOwnedLLM() {
   const exited = new Promise<void>((resolve) => {
     current.once("exit", () => resolve());
   });
-  current.kill();
+
+  if (process.platform === "win32" && current.pid) {
+    const killer = spawn("taskkill", ["/pid", String(current.pid), "/t", "/f"], {
+      stdio: "ignore",
+      windowsHide: true
+    });
+    await new Promise<void>((resolve) => killer.once("exit", () => resolve()));
+  } else {
+    current.kill("SIGTERM");
+  }
+
   await Promise.race([exited, delay(5000)]);
   if (child === current) child = null;
   return true;
+}
+
+export async function recoverLocalLLM(reason: string) {
+  lastStartupError = reason;
+  await stopOwnedLLM();
+  return ensureLocalLLM();
 }
 
 export async function restartLocalLLMWithMtp(enabled: boolean) {
@@ -84,7 +157,7 @@ export async function llmStatus(state?: "running" | "setup_required", detail?: s
     mtpEnabled: runtimeMtpEnabled,
     availableModels: models,
     startupCommandConfigured: Boolean(CONFIG.llmStartCommand),
-    detail: detail || lastStartupError || null,
+    detail: ready ? (detail || null) : detail || lastStartupError || null,
     setup: ready ? null : {
       message: "Install/configure LiteRT-LM locally and import the Gemma 4 LiteRT model before production use.",
       expectedModelRepo: process.env.LLM_MODEL_REPO ?? "litert-community/gemma-4-E2B-it-litert-lm",

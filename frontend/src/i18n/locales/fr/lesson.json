@@ -4,5 +4,10 @@
   "noLessonLoaded": "Aucune leçon chargée",
   "startFromDashboard": "Commencez depuis le tableau de bord pour générer une leçon.",
   "loadingNextLesson": "Chargement de la prochaine leçon...",
-  "askAura": "Demander à Aura"
+  "askAura": "Demander à Aura",
+  "focusBlock": "bloc de concentration",
+  "focusComplete": "bloc terminé",
+  "focusBreakPrompt": "Bloc de concentration terminé",
+  "focusBreakBody": "Vous êtes arrivé au bout de ce bloc. Choisissez une pause, ou continuez si vous avez encore de l'élan.",
+  "restartFocusBlock": "Redémarrer le bloc de concentration"
 }

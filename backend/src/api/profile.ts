@@ -9,7 +9,7 @@ router.get("/profile", (_req, res) => {
 
 router.post("/profile/update", (req, res) => {
   const profile = loadProfile();
-  const explicit = req.body?.explicitPreferences ?? {};
+  const explicit = req.body?.explicitPreferences ?? req.body ?? {};
   const updated = { ...profile, ...explicit };
   saveProfile(updated);
   res.json(updated);

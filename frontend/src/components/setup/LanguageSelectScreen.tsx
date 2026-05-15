@@ -3,11 +3,13 @@ import { LANGUAGES } from "../../i18n/languages";
 import type { SupportedLanguage } from "../../i18n/languages";
 import { useAuraStore } from "../../store/useAuraStore";
 
-export function LanguageSelectScreen() {
+export function LanguageSelectScreen({ onChosen }: { onChosen?: () => void }) {
   const setSetting = useAuraStore((s) => s.setSetting);
 
   const pick = (code: SupportedLanguage) => {
     setSetting("language", code);
+    localStorage.setItem("aura-language-chosen", "1");
+    onChosen?.();
   };
 
   return (

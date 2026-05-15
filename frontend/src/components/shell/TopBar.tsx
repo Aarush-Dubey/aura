@@ -12,6 +12,8 @@ export function TopBar() {
   const screen = useAuraStore((s) => s.screen);
   const navigate = useAuraStore((s) => s.navigate);
   const learnerMode = useAuraStore((s) => s.settings.learnerMode);
+  const llmHealth = useAuraStore((s) => s.llmHealth);
+  const llmBad = llmHealth && !llmHealth.ready;
 
   return (
     <header
@@ -82,6 +84,15 @@ export function TopBar() {
       </nav>
 
       <div style={{ display: "flex", gap: 8, justifySelf: "end" }}>
+        <span
+          className="chip"
+          data-tone={llmBad ? "clay" : "sage"}
+          title={llmBad ? llmHealth.detail ?? "Gemma is not reachable" : "Gemma local model ready"}
+          style={{ padding: "5px 12px", fontSize: 10, color: llmBad ? "var(--aura-clay)" : undefined }}
+        >
+          <span className="dot" />
+          {llmBad ? "Gemma offline" : "Gemma local"}
+        </span>
         {(learnerMode === "both" || learnerMode === "dyslexia") && (
           <span className="chip" data-tone="sage" style={{ padding: "5px 12px", fontSize: 10 }}>
             <span className="dot" />

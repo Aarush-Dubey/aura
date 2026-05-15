@@ -12,6 +12,8 @@ import { api } from "./api/client";
 export function App() {
   const settings = useAuraStore((s) => s.settings);
   const setTelemetry = useAuraStore((s) => s.setTelemetry);
+  const setProfile = useAuraStore((s) => s.setProfile);
+  const setLlmHealth = useAuraStore((s) => s.setLlmHealth);
   const [languageChosen, setLanguageChosen] = useState(
     () => localStorage.getItem("aura-language-chosen") === "1"
   );
@@ -20,17 +22,21 @@ export function App() {
 
   useEffect(() => {
     document.documentElement.lang = settings.language;
-    if (!languageChosen && settings.language !== "en") {
-      localStorage.setItem("aura-language-chosen", "1");
-      setLanguageChosen(true);
-    }
-  }, [settings.language, languageChosen]);
+  }, [settings.language]);
 
   useEffect(() => {
-    api.health().then((h) => {
+    api.profile().then(setProfile).catch(() => {});
+  }, [setProfile]);
+
+  useEffect(() => {
+    const pollHealth = () => api.health().then((h) => {
       if (h.telemetry) setTelemetry(h.telemetry);
+      setLlmHealth(h.llm);
     }).catch(() => {});
-  }, [setTelemetry]);
+    pollHealth();
+    const id = setInterval(pollHealth, 10000);
+    return () => clearInterval(id);
+  }, [setTelemetry, setLlmHealth]);
 
   useEffect(() => {
     const poll = () => api.telemetry().then(setTelemetry).catch(() => undefined);
@@ -47,7 +53,7 @@ export function App() {
   if (!languageChosen) {
     return (
       <div className="aura" data-bg={settings.bgTone} style={styleVars as React.CSSProperties}>
-        <LanguageSelectScreen />
+        <LanguageSelectScreen onChosen={() => setLanguageChosen(true)} />
       </div>
     );
   }

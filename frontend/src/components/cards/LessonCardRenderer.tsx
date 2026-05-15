@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Check, Lightbulb, RotateCcw, Send } from "lucide-react";
 import type { LessonCard } from "../../api/types";
 import { LatexText } from "./LatexText";
@@ -13,6 +14,7 @@ type Props = {
 };
 
 export function LessonCardRenderer({ card, onAnswer, busy, cardIndex, cardCount, onContinue }: Props) {
+  const { t } = useTranslation("cards");
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const canContinue = cardIndex < cardCount - 1;
   const progressLabel = `Card ${cardIndex + 1} of ${cardCount}`;
@@ -114,8 +116,8 @@ export function LessonCardRenderer({ card, onAnswer, busy, cardIndex, cardCount,
         </div>
         <h2><LatexText text={card.statement} /></h2>
         <div className="split-actions">
-          <button disabled={busy} onClick={() => onAnswer("true")}>True</button>
-          <button disabled={busy} onClick={() => onAnswer("false")}>False</button>
+          <button disabled={busy} onClick={() => onAnswer("true")}>{t('true')}</button>
+          <button disabled={busy} onClick={() => onAnswer("false")}>{t('false')}</button>
         </div>
       </section>
     );

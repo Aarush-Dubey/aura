@@ -2,7 +2,7 @@ import express from "express";
 import { jsonrepair } from "jsonrepair";
 import { listCachedExaInputs } from "../exa/cacheInput.js";
 import { CONFIG } from "../config.js";
-import { createSession, getSessionInsights, listSessions, loadGameState, loadGraph, loadPath, loadProfile, loadSession, saveGameState, saveGraph, saveHistory, savePath } from "../db/store.js";
+import { createSession, deleteSession, getSessionInsights, listSessions, loadGameState, loadGraph, loadPath, loadProfile, loadSession, saveGameState, saveGraph, saveHistory, savePath } from "../db/store.js";
 import { devLog, getDevLogs } from "../dev/logs.js";
 import { notePrefetchHit, runGeminiBodyJob, runGeminiJob, setPrefetchTelemetry } from "../llm/broker.js";
 import { AURA_VOICE_SPEC, auraVoiceSpec } from "../llm/voice.js";
@@ -29,13 +29,25 @@ function activeNode(graph: KnowledgeGraph, path: LessonPath) {
   return node;
 }
 
+function personalizedOpening(name: string | undefined, topic: string, nodeCount: number, language: SupportedLanguage) {
+  const who = name?.trim() || "Learner";
+  if (language === "hi") return `${who}, ${topic} के लिए ${nodeCount} छोटे पाठ तैयार हैं। Aura आपकी गति और मदद की ज़रूरत के हिसाब से चलेगा।`;
+  return `${who}, ${nodeCount} small lessons are ready for ${topic}. Aura will tune the pace to your profile.`;
+}
+
+function applyMasteryDelta(node: KnowledgeGraph["nodes"][number], delta: number, floor = 0) {
+  node.mastery = Math.max(floor, Math.min(1, node.mastery + delta));
+  if (node.mastery >= 0.8) node.status = "mastered";
+  else if (node.status === "mastered") node.status = "active";
+}
+
 function advance(graph: KnowledgeGraph, path: LessonPath, gameState: GameState, passed: boolean) {
   const current = activeNode(graph, path);
   if (passed) {
-    current.status = "mastered";
-    current.mastery = Math.min(1, current.mastery + 0.45);
+    current.mastery = Math.max(0.8, Math.min(1, current.mastery + 0.2));
+    if (current.mastery >= 0.8) current.status = "mastered";
     gameState.completedMissionIds = Array.from(new Set([...gameState.completedMissionIds, current.id]));
-    gameState.nodeVisualStates[current.id] = "mastered";
+    gameState.nodeVisualStates[current.id] = current.mastery >= 0.8 ? "mastered" : "ready";
     gameState.recentEvents.unshift({ type: "MISSION_COMPLETED", nodeId: current.id, rewardText: current.mission?.reward ?? "A new block lights up." });
     if (path.currentIndex < path.items.length - 1) {
       path.currentIndex += 1;
@@ -50,7 +62,7 @@ function advance(graph: KnowledgeGraph, path: LessonPath, gameState: GameState, 
     }
   } else {
     current.status = "shaky";
-    current.mastery = Math.max(0, current.mastery - 0.1);
+    applyMasteryDelta(current, -0.1);
     gameState.nodeVisualStates[current.id] = "shaky";
     gameState.recentEvents.unshift({ type: "NODE_BECAME_SHAKY", nodeId: current.id, reason: "This path is getting steep." });
   }
@@ -124,6 +136,7 @@ router.post("/generateLesson", async (req, res, next) => {
 
     devLog("info", "api", "POST /generateLesson", { topic, cacheId: cacheId ?? null, language });
     const profile = loadProfile();
+    profile.language = language;
     const goalMode = deriveGoalMode(intent);
     const sessionId = createSession(profile.id, topic, intent, goalMode, language);
     const graph = await buildGraph(topic, profile, { cacheId, intent, language });
@@ -140,7 +153,7 @@ router.post("/generateLesson", async (req, res, next) => {
 
     res.json({
       sessionId,
-      openingMessage: `Built ${graph.nodes.length} source-backed lecture nodes for ${topic}.`,
+      openingMessage: personalizedOpening(profile.name, topic, graph.nodes.length, language),
       graph,
       lessonPath: path,
       mapState,
@@ -226,6 +239,7 @@ router.post("/generateLessonFromImage", async (req, res, next) => {
     };
     const topic = String(extracted.topic || extracted.keyConcepts?.[0] || "textbook topic").trim();
     const profile = loadProfile();
+    profile.language = language;
     const goalMode = deriveGoalMode(intent);
     const sessionId = createSession(profile.id, topic, intent, goalMode, language);
     const graph = await buildGraph(topic, profile, { intent, language });
@@ -242,7 +256,7 @@ router.post("/generateLessonFromImage", async (req, res, next) => {
 
     res.json({
       sessionId,
-      openingMessage: `Built ${graph.nodes.length} local vision-planned nodes from the image: ${topic}.`,
+      openingMessage: personalizedOpening(profile.name, topic, graph.nodes.length, language),
       graph,
       lessonPath: path,
       mapState,
@@ -349,13 +363,44 @@ router.get("/dev/logs", (req, res) => {
 router.post("/card-event", async (req, res, next) => {
   try {
     const event = req.body as CardInteractionEvent;
-    const language = getRequestLanguage(req);
     if (event.eventType === "hint_requested" || event.eventType === "power_up") {
       return res.json({
         assistantMessage: "Here is a smaller step: look for the one idea that stays the same in the example."
       });
     }
-    return res.json(await runStudentTurn(event.sessionId, JSON.stringify(event.payload ?? {}), language));
+    const session = loadSession(event.sessionId);
+    const graph = loadGraph(String(session.graph_id));
+    const path = loadPath(String(session.lesson_path_id));
+    const gameState = loadGameState(event.sessionId);
+    const node = graph.nodes.find((candidate) => candidate.id === event.nodeId) ?? activeNode(graph, path);
+    const payload = (event.payload ?? {}) as { correct?: boolean; cardType?: string };
+    if (event.eventType === "answer_submitted") {
+      applyMasteryDelta(node, payload.correct ? 0.25 : -0.1);
+    } else if (event.eventType === "card_completed") {
+      const isRecap = payload.cardType === "recap";
+      const cap = isRecap ? 0.75 : 0.6;
+      node.mastery = Math.min(cap, node.mastery + (isRecap ? 0.2 : 0.08));
+      if (node.mastery >= 0.8) node.status = "mastered";
+    }
+    gameState.nodeVisualStates[node.id] = node.mastery >= 0.8 ? "mastered" : node.status === "shaky" ? "shaky" : "active";
+    saveGraph(event.sessionId, graph);
+    saveGameState(event.sessionId, gameState);
+    return res.json({
+      assistantMessage: "Mastery updated.",
+      nodeState: { nodeId: node.id, status: node.status, mastery: node.mastery },
+      mapState: deriveMapState(graph, path, gameState),
+      gameEvents: gameState.recentEvents,
+      gameStatePatch: gameState
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete("/session/:id", (req, res, next) => {
+  try {
+    deleteSession(req.params.id);
+    res.json({ ok: true });
   } catch (err) {
     next(err);
   }

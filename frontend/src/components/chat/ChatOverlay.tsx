@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion } from "motion/react";
 import { useAuraStore } from "../../store/useAuraStore";
 import { api } from "../../api/client";
-import { useAudioRecorder } from "../../hooks/useAudioRecorder";
+import { useVoiceInput } from "../../hooks/useVoiceInput";
 import { useTTS } from "../../hooks/useTTS";
 
 export function ChatOverlay() {
@@ -18,12 +18,14 @@ export function ChatOverlay() {
   const closeChat = useAuraStore((s) => s.closeChat);
   const addChatMessage = useAuraStore((s) => s.addChatMessage);
   const setChatLoading = useAuraStore((s) => s.setChatLoading);
+  const trackEffort = useAuraStore((s) => s.trackEffort);
+  const language = useAuraStore((s) => s.settings.language);
 
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { recording, transcribing, startRecording, stopRecording } = useAudioRecorder();
-  const { speak: ttsSpeak, speaking: ttsSpeaking } = useTTS();
+  const voice = useVoiceInput();
+  const { speak: ttsSpeak } = useTTS();
 
   useEffect(() => {
     if (isOpen) inputRef.current?.focus();
@@ -82,12 +84,11 @@ export function ChatOverlay() {
   }
 
   async function handleVoiceToggle() {
-    if (recording) {
-      const text = await stopRecording();
-      if (text) await sendText(text);
-    } else {
-      await startRecording();
-    }
+    await voice.toggle((text) => {
+      if (!text.trim()) return;
+      trackEffort({ type: "voice_used", label: "Ask Aura" });
+      setInput(text);
+    }, language);
   }
 
   return (
@@ -245,16 +246,16 @@ export function ChatOverlay() {
           >
             <button
               onMouseDown={handleVoiceToggle}
-              className={recording ? "btn btn--peach" : "btn btn--ghost"}
+              className={voice.listening ? "btn btn--peach" : "btn btn--ghost"}
               style={{ padding: "10px 14px", fontSize: 13, position: "relative" }}
-              disabled={transcribing || isLoading}
+              disabled={voice.transcribing || isLoading}
             >
-              {recording ? (
+              {voice.listening ? (
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                   <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#e74c3c", animation: "aura-breath 1s infinite" }} />
                   {t('common:release')}
                 </span>
-              ) : transcribing ? "..." : (
+              ) : voice.transcribing ? "..." : (
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
                   <path d="M19 10v2a7 7 0 0 1-14 0v-2" />

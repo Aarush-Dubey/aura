@@ -1,4 +1,4 @@
-import type { CacheOption, DevLogEntry, LessonCard, LessonResponse, StudentIntent, Telemetry, TutorResponse } from "./types";
+import type { CacheOption, DevLogEntry, LessonCard, LessonResponse, StudentIntent, StudentProfile, Telemetry, TutorResponse } from "./types";
 import { useAuraStore } from "../store/useAuraStore";
 
 const desktopUrl = typeof window !== "undefined" ? (window as unknown as { auraDesktop?: { backendUrl?: string } }).auraDesktop?.backendUrl : undefined;
@@ -40,6 +40,8 @@ async function json<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   health: () => json<{ ok: boolean; llm: { ready: boolean; state: string; expectedModel: string; backend?: string; mtpEnabled?: boolean; detail?: string | null }; telemetry: Telemetry }>("/health"),
+  profile: () => json<StudentProfile>("/profile"),
+  updateProfile: (profile: Partial<StudentProfile>) => json<StudentProfile>("/profile/update", { method: "POST", body: JSON.stringify(profile) }),
   telemetry: () => json<Telemetry>("/telemetry"),
   setMtp: async (enabled: boolean | null) => {
     const result = await json<{ telemetry: Telemetry }>("/llm/mtp", { method: "POST", body: JSON.stringify({ enabled }) });
@@ -53,9 +55,12 @@ export const api = {
     json<{ reply: string }>("/chat/ask", { method: "POST", body: bodyWithLang({ sessionId, question, cardContext }) }),
   caches: (topic: string) => json<{ topic: string; caches: CacheOption[] }>(`/dev/cache?topic=${encodeURIComponent(topic)}`),
   logs: () => json<{ logs: DevLogEntry[] }>("/dev/logs?limit=120"),
-  listSessions: () => json<{ sessions: { id: string; topic: string; startedAt: string; nodeCount: number; masteredCount: number; currentIndex: number; totalItems: number }[] }>("/sessions"),
+  listSessions: () => json<{ sessions: { id: string; topic: string; startedAt: string; nodeCount: number; masteredCount: number; masteryPct?: number; currentIndex: number; totalItems: number }[] }>("/sessions"),
   resumeSession: (id: string) => json<LessonResponse>(`/session/${id}/resume`),
   sessionInsights: (id: string) => json<{ sessionId: string; topic: string; totalNodes: number; masteredNodes: number; shakyNodes: string[]; accuracy: number; timeSpent: string; strongAreas: string[]; suggestion: string }>(`/session/${id}/insights`),
+  deleteSession: (id: string) => json<{ ok: boolean }>(`/session/${id}`, { method: "DELETE" }),
+  cardEvent: (event: { sessionId: string; cardId: string; nodeId: string; eventType: "answer_submitted" | "hint_requested" | "card_completed" | "power_up"; payload?: unknown; telemetry: { responseTimeMs: number; hintUsed: boolean; attemptNumber: number } }) =>
+    json<Partial<TutorResponse>>("/card-event", { method: "POST", body: bodyWithLang(event as unknown as Record<string, unknown>) }),
   workspaceRevise: (sessionId: string) =>
     json<{ cards: LessonCard[]; nodeCount: number; mode: "revise" }>(`/workspace/${sessionId}/revise`, { method: "POST", body: bodyWithLang({}) }),
   workspaceTestLesson: (sessionId: string, nodeId: string) =>

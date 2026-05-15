@@ -83,6 +83,12 @@ export type LessonPath = {
 
 export type StudentProfile = {
   id: string;
+  name?: string;
+  language?: string;
+  supportNeeds?: string[];
+  rewardStyle?: "xp" | "badges" | "streaks" | "minimal";
+  xp?: number;
+  streak?: number;
   readingMode: "standard" | "short_chunks";
   pace: "slow" | "medium" | "fast";
   dyslexiaMode: boolean;

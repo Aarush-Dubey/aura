@@ -15,6 +15,12 @@ try {
 export function defaultProfile(): StudentProfile {
   return {
     id: CONFIG.defaultProfileId,
+    name: "Aarush",
+    language: "en",
+    supportNeeds: ["ADHD support", "dyslexia-friendly reading"],
+    rewardStyle: "xp",
+    xp: 312,
+    streak: 5,
     readingMode: "short_chunks",
     pace: "medium",
     dyslexiaMode: false,
@@ -106,12 +112,21 @@ export function saveHistory(sessionId: string, history: unknown[]) {
   db.prepare("UPDATE sessions SET history_json = ? WHERE id = ?").run(JSON.stringify(history), sessionId);
 }
 
+export function deleteSession(sessionId: string) {
+  const session = loadSession(sessionId);
+  if (session.graph_id) db.prepare("DELETE FROM knowledge_graphs WHERE id = ?").run(String(session.graph_id));
+  if (session.lesson_path_id) db.prepare("DELETE FROM lesson_paths WHERE id = ?").run(String(session.lesson_path_id));
+  db.prepare("DELETE FROM session_game_states WHERE session_id = ?").run(sessionId);
+  db.prepare("DELETE FROM sessions WHERE id = ?").run(sessionId);
+}
+
 export type SessionSummary = {
   id: string;
   topic: string;
   startedAt: string;
   nodeCount: number;
   masteredCount: number;
+  masteryPct: number;
   currentIndex: number;
   totalItems: number;
 };
@@ -134,12 +149,12 @@ export function getSessionInsights(sessionId: string): SessionInsights {
   const path = loadPath(String(session.lesson_path_id));
   const mastered = graph.nodes.filter((n) => n.status === "mastered");
   const shaky = graph.nodes.filter((n) => n.status === "shaky");
-  const accuracy = graph.nodes.length > 0 ? Math.round((mastered.length / graph.nodes.length) * 100) : 0;
+  const accuracy = graph.nodes.length > 0 ? Math.round((graph.nodes.reduce((sum, n) => sum + (n.mastery ?? 0), 0) / graph.nodes.length) * 100) : 0;
   return {
     sessionId,
     topic: String(session.topic),
     totalNodes: graph.nodes.length,
-    masteredNodes: mastered.length,
+    masteredNodes: graph.nodes.filter((n) => (n.mastery ?? 0) >= 0.8).length,
     shakyNodes: shaky.map((n) => n.topicName),
     accuracy,
     timeSpent: `${Math.max(1, Math.round(path.items.length * 2.5))} min`,
@@ -159,13 +174,15 @@ export function listSessions(): SessionSummary[] {
   return rows.map((r) => {
     let nodeCount = 0;
     let masteredCount = 0;
+    let masteryPct = 0;
     let currentIndex = 0;
     let totalItems = 0;
     if (r.graph_id) {
       try {
         const graph = loadGraph(r.graph_id);
         nodeCount = graph.nodes.length;
-        masteredCount = graph.nodes.filter((n) => n.status === "mastered").length;
+        masteredCount = graph.nodes.filter((n) => (n.mastery ?? 0) >= 0.8).length;
+        masteryPct = nodeCount > 0 ? Math.round((graph.nodes.reduce((sum, n) => sum + (n.mastery ?? 0), 0) / nodeCount) * 100) : 0;
       } catch {}
     }
     if (r.lesson_path_id) {
@@ -181,6 +198,7 @@ export function listSessions(): SessionSummary[] {
       startedAt: r.started_at,
       nodeCount,
       masteredCount,
+      masteryPct,
       currentIndex,
       totalItems,
     };

@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import type { LessonCard } from "../../api/types";
+import i18n from "../../i18n/i18n";
 import { HearItContext } from "./CardChrome";
 import { ConceptCard } from "./types/ConceptCard";
 import { VisualCard } from "./types/VisualCard";
@@ -82,9 +83,9 @@ function adaptLegacyCard(card: LessonCard): { type: string; data: any } {
         type: "quiz",
         data: {
           question: card.statement,
-          options: ["True", "False"],
+          options: [i18n.t("cards:true"), i18n.t("cards:false")],
           correct: card.correctAnswer ? 0 : 1,
-          explanation: `The statement is ${card.correctAnswer ? "true" : "false"}.`,
+          explanation: i18n.t("cards:trueFalseExplanation", { value: card.correctAnswer ? i18n.t("cards:true") : i18n.t("cards:false") }),
         },
       };
     case "recap":

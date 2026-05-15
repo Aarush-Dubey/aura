@@ -1,5 +1,18 @@
 import "dotenv/config";
 
+function normalizeLocalUrl(value: string) {
+  if (!value) return "";
+  try {
+    const url = new URL(value);
+    if (url.hostname === "localhost" || url.hostname === "::1") {
+      url.hostname = "127.0.0.1";
+    }
+    return url.toString().replace(/\/$/, "");
+  } catch {
+    return value.replace(/\/$/, "");
+  }
+}
+
 export const CONFIG = {
   exaApiKey: process.env.EXA_API_KEY ?? "",
   useExaCache: (process.env.AURA_USE_EXA_CACHE ?? "true") === "true",
@@ -12,8 +25,8 @@ export const CONFIG = {
   orienMaxResults: Number(process.env.AURA_ORIEN_MAX_RESULTS ?? 5),
   orienFetchTimeoutMs: Number(process.env.AURA_ORIEN_FETCH_TIMEOUT_MS ?? 8_000),
   orienReadyTimeoutMs: Number(process.env.AURA_ORIEN_READY_TIMEOUT_MS ?? 20_000),
-  llmBaseUrl: process.env.LLM_BASE_URL ?? "http://127.0.0.1:8080/v1",
-  llmBaseUrl2: process.env.LLM_BASE_URL_2 ?? "",
+  llmBaseUrl: normalizeLocalUrl(process.env.LLM_BASE_URL ?? "http://127.0.0.1:8080"),
+  llmBaseUrl2: normalizeLocalUrl(process.env.LLM_BASE_URL_2 ?? ""),
   llmModel: process.env.LLM_MODEL ?? "gemma-4-E2B-it",
   llmUseForCards: (process.env.LLM_USE_FOR_CARDS ?? "false") === "true",
   llmUseForEvaluation: (process.env.LLM_USE_FOR_EVALUATION ?? "false") === "true",

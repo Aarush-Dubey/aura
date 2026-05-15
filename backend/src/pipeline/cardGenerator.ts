@@ -18,6 +18,8 @@ type PlannedCard = {
 };
 
 const ALL_CARD_TYPES: readonly string[] = ["text_explain", "mcq", "fill_blank", "true_false", "recap", "analogy", "story", "vocab", "visual", "connection", "flash", "dragsort"];
+const CHECK_CARD_TYPES = new Set<CardType>(["mcq", "fill_blank", "true_false", "dragsort"]);
+const TEACHING_CARD_TYPES = new Set<CardType>(["text_explain", "analogy", "story", "vocab", "visual", "connection", "flash"]);
 
 function normalizeCards(rawCards: unknown[], node: KnowledgeNode): LessonCard[] {
   return rawCards.slice(0, 8).map((raw, index) => {
@@ -120,7 +122,7 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: S
       "You are Gemma 4 planning a concise node lecture for an adaptive learning app.",
       ...(language !== 'en' ? [`All learner-facing text in the plan must be in ${LANGUAGE_NAMES[language]}.`] : []),
       "Use a variety of card types to keep the learner engaged.",
-      "Decide whether an entry question is useful. Do not include one if it would repeat the exit question or lecture intro.",
+      "Do not include entry questions. Teach first, check later.",
       "The plan must avoid redundancy. Each card needs a different job.",
       "Return JSON only."
     ].join("\n"),
@@ -128,7 +130,8 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: S
       task: "Plan a 5 to 8 card lecture sequence for this node using varied card types.",
       node: nodeBrief(node),
       constraints: [
-        "Entry question is optional.",
+        "No check card before card 4. The first 3 cards must teach only.",
+        "Do not include entry questions.",
         "Exit question (mcq) is required.",
         "At least one text_explain card is required.",
         "One recap card at the end is required.",
@@ -139,7 +142,7 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: S
         "Vary the checks: prefer fill_blank or true_false over a second mcq when you need an extra check, so the lesson does not feel like a string of multiple choice."
       ],
       examplePlan: [
-        { type: "text_explain", purpose: "introduce the core idea" },
+        { type: "text_explain", purpose: "introduce the core idea in 80 to 140 words" },
         { type: "analogy", purpose: "map the idea to something familiar" },
         { type: "vocab", purpose: "teach the key term" },
         { type: "mcq", phase: "exit", purpose: "check understanding" },
@@ -147,7 +150,7 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: S
       ],
       cardTypes: {
         text_explain: "lecture, deeper explanation, misconception guard, or worked example",
-        mcq: "entry, reflect, or exit question (3 options, one correct)",
+        mcq: "reflect or exit question (3 options, one correct), never before card 4",
         fill_blank: "single-sentence cloze with one blank; tests precise recall of a key term or short phrase",
         true_false: "single declarative statement (under 18 words) that is unambiguously true or false; good for misconception checks",
         recap: "final summary with 3 bullets",
@@ -161,7 +164,7 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: S
       },
       schema: {
         includeEntryQuestion: "boolean",
-        plan: [{ type: "text_explain|mcq|fill_blank|true_false|recap|analogy|story|vocab|visual|connection|flash|dragsort", phase: "entry|reflect|exit (mcq only)", purpose: "specific non-overlapping job" }]
+        plan: [{ type: "text_explain|mcq|fill_blank|true_false|recap|analogy|story|vocab|visual|connection|flash|dragsort", phase: "reflect|exit (mcq only)", purpose: "specific non-overlapping job" }]
       }
     }),
     0.35,
@@ -178,24 +181,41 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: S
       phase: step.type === "mcq" && ["entry", "reflect", "exit"].includes(String(step.phase)) ? step.phase : undefined,
       purpose: String(step.purpose ?? "")
     })) as PlannedCard[];
-  if (!sanitized.some((step) => step.type === "mcq" && step.phase === "exit")) {
-    sanitized.splice(Math.max(0, sanitized.length - 1), 0, { type: "mcq", phase: "exit", purpose: "check whether the learner can use the node idea without repeating the lecture wording" });
+  let ordered = enforceNoEarlyChecks(sanitized);
+  if (!ordered.some((step) => step.type === "mcq" && step.phase === "exit")) {
+    ordered.splice(Math.max(3, ordered.length - 1), 0, { type: "mcq", phase: "exit", purpose: "check whether the learner can use the node idea without repeating the lecture wording" });
   }
-  if (!sanitized.some((step) => step.type === "recap")) {
-    sanitized.push({ type: "recap", purpose: "summarize only the non-repeated takeaways and next move" });
+  if (!ordered.some((step) => step.type === "recap")) {
+    ordered.push({ type: "recap", purpose: "summarize only the non-repeated takeaways and next move" });
   }
-  if (!sanitized.some((step) => step.type === "text_explain")) {
-    sanitized.unshift({ type: "text_explain", purpose: "introduce the idea with a fresh explanation" });
+  if (!ordered.some((step) => step.type === "text_explain")) {
+    ordered.unshift({ type: "text_explain", purpose: "introduce the idea with a fresh explanation in 80 to 140 words" });
   }
   const newTypes: CardType[] = ["analogy", "story", "vocab", "visual", "connection", "flash", "dragsort"];
-  if (!sanitized.some((step) => newTypes.includes(step.type))) {
+  if (!ordered.some((step) => newTypes.includes(step.type))) {
     const pick = node.keyTerms.length > 0 ? "vocab" as CardType : "analogy" as CardType;
-    sanitized.splice(Math.min(2, sanitized.length), 0, {
+    ordered.splice(Math.min(2, ordered.length), 0, {
       type: pick,
       purpose: pick === "vocab" ? `teach the key term "${node.keyTerms[0]}"` : "map the idea to something the learner already knows"
     });
   }
-  return sanitized.slice(0, 8);
+  return enforceNoEarlyChecks(ordered).slice(0, 8);
+}
+
+function enforceNoEarlyChecks(plan: PlannedCard[]): PlannedCard[] {
+  const teaching = plan.filter((step) => TEACHING_CARD_TYPES.has(step.type));
+  const checks = plan.filter((step) => CHECK_CARD_TYPES.has(step.type));
+  const recaps = plan.filter((step) => step.type === "recap");
+  while (teaching.length < 3) {
+    teaching.push({ type: "text_explain", purpose: "teach one missing prerequisite clearly in 80 to 140 words" });
+  }
+  return [...teaching.slice(0, 3), ...teaching.slice(3), ...checks, ...recaps].map((step, index) => {
+    if (index < 3 && CHECK_CARD_TYPES.has(step.type)) {
+      return { type: "text_explain", purpose: step.purpose || "teach before checking" };
+    }
+    if (step.type === "mcq" && step.phase === "entry") return { ...step, phase: "reflect" };
+    return step;
+  });
 }
 
 function extractCardText(card: LessonCard): string {
@@ -219,6 +239,7 @@ function extractCardText(card: LessonCard): string {
 function localLectureIssues(cards: LessonCard[], language: SupportedLanguage = 'en') {
   const issues: string[] = [];
   if (cards.length < 4 || cards.length > 8) issues.push("card_count");
+  if (cards.slice(0, 3).some((card) => ["mcq", "fill_blank", "true_false", "dragsort"].includes(card.type))) issues.push("early_check");
   if (!cards.some((card) => card.type === "recap")) issues.push("missing_recap");
   if (cards.filter((card) => card.type === "mcq" && card.phase === "exit").length !== 1) issues.push("exit_question_count");
   const textBodies = cards.map(extractCardText);
@@ -226,7 +247,19 @@ function localLectureIssues(cards: LessonCard[], language: SupportedLanguage = '
   if (new Set(normalized).size !== normalized.length) issues.push("duplicate_body");
   if (findTutorVoiceViolations(cards, language).length) issues.push("voice_violation");
   if (textBodies.some((body) => /[^\n.!?]{180,}[.!?]/.test(body))) issues.push("long_sentence");
+  if (cards.some((card) => isTeachingCard(card) && extractCardText(card).split(/\s+/).filter(Boolean).length < 45)) issues.push("too_short");
+  if (language !== "en" && textBodies.some((body) => mostlyLatin(body))) issues.push("language_mismatch");
   return issues;
+}
+
+function isTeachingCard(card: LessonCard) {
+  return ["text_explain", "analogy", "story", "visual", "connection"].includes(card.type);
+}
+
+function mostlyLatin(text: string) {
+  const latin = (text.match(/[A-Za-z]/g) ?? []).length;
+  const letters = (text.match(/\p{L}/gu) ?? []).length;
+  return letters > 40 && latin / letters > 0.55;
 }
 
 function nodeBrief(node: KnowledgeNode) {
@@ -298,6 +331,12 @@ function singleCardPrompt(node: KnowledgeNode, index: number, step: PlannedCard,
         "Do not restate the teachingGoal as the whole card.",
         "Add new information, a new angle, or a useful check."
       ],
+      lengthRules: {
+        teachingCards: "80 to 140 words in the selected language",
+        analogyStoryVisualConnection: "at least 3 meaningful sentences",
+        recap: "3 bullets; each bullet is a complete sentence",
+        checks: "question is short; feedback explanation is clear and specific"
+      },
       requiredShape: cardSchema(node, step)
     })
   };
@@ -326,11 +365,13 @@ async function polishLecture(node: KnowledgeNode, draftCards: LessonCard[], lang
       draftCards,
       outputRules: [
         "Return 4 to 6 cards.",
+        "The first 3 cards must be teaching cards, not checks.",
         "Must include at least two text_explain cards.",
         "Must include exactly one exit mcq.",
         "Must include one recap.",
         "May omit entry mcq if not useful.",
-        "Every mcq must have 3 plausible options with non-duplicate meanings."
+        "Every mcq must have 3 plausible options with non-duplicate meanings.",
+        "Teaching cards must be 80 to 140 words in the selected language."
       ],
       schema: { cards: "LessonCard[]", notes: ["short editor note"] }
     }),

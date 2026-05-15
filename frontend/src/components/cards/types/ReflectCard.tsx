@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CardChrome } from "../CardChrome";
 import type { CardCtx } from "../CardRegistry";
+import { useVoiceInput } from "../../../hooks/useVoiceInput";
+import { useAuraStore } from "../../../store/useAuraStore";
 
 type Data = {
   prompt?: string;
@@ -17,6 +19,10 @@ const OPTION_KEYS = [
 export function ReflectCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
   const { t } = useTranslation("cards");
   const [pick, setPick] = useState<string | null>(null);
+  const [note, setNote] = useState("");
+  const voice = useVoiceInput();
+  const language = useAuraStore((s) => s.settings.language);
+  const trackEffort = useAuraStore((s) => s.trackEffort);
 
   return (
     <CardChrome tone="sky" label={t('quickCheckIn')} sub={t('howWasThat')}>
@@ -53,6 +59,8 @@ export function ReflectCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
       </div>
       <textarea
         rows={2}
+        value={note}
+        onChange={(event) => setNote(event.target.value)}
         placeholder={t('anythingToTell')}
         style={{
           width: "100%",
@@ -67,6 +75,18 @@ export function ReflectCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
           letterSpacing: "inherit",
         }}
       />
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <button
+          className={voice.listening ? "btn btn--peach" : "btn btn--ghost"}
+          onClick={() => voice.toggle((text) => {
+            setNote((current) => [current, text].filter(Boolean).join(current ? " " : ""));
+            trackEffort({ type: "voice_used", label: "Reflection" });
+          }, language)}
+          disabled={voice.transcribing}
+        >
+          {voice.listening ? t('listening') : voice.transcribing ? "..." : t('talkItOut')}
+        </button>
+      </div>
       {pick && (
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <button className="btn btn--sage" onClick={ctx.onNext}>{t('common:continue')}</button>

@@ -10,6 +10,7 @@ export function WorkspaceOverviewScreen() {
   const navigate = useAuraStore((s) => s.navigate);
   const session = useAuraStore((s) => s.session);
   const setSession = useAuraStore((s) => s.setSession);
+  const clearSession = useAuraStore((s) => s.clearSession);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,7 +20,7 @@ export function WorkspaceOverviewScreen() {
   const totalNodes = nodes.length;
   const mastered = nodes.filter((n) => n.status === "mastered").length;
   const shaky = nodes.filter((n) => n.status === "shaky").length;
-  const overallPct = totalNodes > 0 ? Math.round((mastered / totalNodes) * 100) : 0;
+  const overallPct = totalNodes > 0 ? Math.round((nodes.reduce((sum, node) => sum + (node.mastery ?? 0), 0) / totalNodes) * 100) : 0;
   const canRevise = totalNodes > 0 && (shaky > 0 || nodes.some((n) => n.mastery > 0 && n.mastery < 0.6));
   const canFinalTest = totalNodes > 0 && mastered === totalNodes;
 
@@ -89,6 +90,13 @@ export function WorkspaceOverviewScreen() {
       setLoading(false);
     }
   }, [sessionId, loading, setSession, navigate]);
+
+  const deleteWorkspace = useCallback(async () => {
+    if (!sessionId || !window.confirm(`Delete workspace "${topic}" permanently?`)) return;
+    await api.deleteSession(sessionId);
+    clearSession();
+    navigate("dashboard");
+  }, [sessionId, topic, clearSession, navigate]);
 
   if (!graph || !lessonPath) {
     return (
@@ -251,6 +259,9 @@ export function WorkspaceOverviewScreen() {
             {t('backToDashboard')}
           </button>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <button className="btn btn--ghost" onClick={deleteWorkspace} style={{ color: "var(--aura-clay)" }}>
+              Delete
+            </button>
             <button className="btn btn--ghost" onClick={() => navigate("insights")}>
               {t('common:insights')}
             </button>

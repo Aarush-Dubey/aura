@@ -9,13 +9,16 @@ const logDir = path.join(rootDir, "logs");
 fs.mkdirSync(logDir, { recursive: true });
 
 const isWindows = process.platform === "win32";
-const npmBin = isWindows ? "pnpm.cmd" : "pnpm";
+const npmBin = isWindows ? "npm.cmd" : "npm";
 const backendPort = process.env.BACKEND_PORT || "3101";
 const frontendPort = process.env.FRONTEND_PORT || "5174";
 const llmPort = process.env.LLM_PORT || "8080";
 
 const env = {
   ...process.env,
+  PYTHONUTF8: process.env.PYTHONUTF8 || "1",
+  PYTHONIOENCODING: process.env.PYTHONIOENCODING || "utf-8",
+  PYTHONLEGACYWINDOWSSTDIO: process.env.PYTHONLEGACYWINDOWSSTDIO || "1",
   BACKEND_PORT: backendPort,
   LLM_PORT: llmPort,
   LLM_AUTOSTART: process.env.LLM_AUTOSTART || "true",
@@ -79,6 +82,7 @@ function startBackend() {
     cwd: path.join(rootDir, "backend"),
     env,
     stdio: ["ignore", out, err],
+    shell: isWindows,
     windowsHide: true
   });
 }

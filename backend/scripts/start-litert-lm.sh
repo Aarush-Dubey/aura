@@ -2,6 +2,7 @@
 set -euo pipefail
 
 PORT="${LLM_PORT:-8080}"
+HOST="${LLM_HOST:-127.0.0.1}"
 MODEL_PATH="${LLM_MODEL_PATH:-./models/gemma-4-E2B-it-litert-lm}"
 MODEL_REPO="${LLM_MODEL_REPO:-litert-community/gemma-4-E2B-it-litert-lm}"
 LIT_MODEL_NAME="${LLM_LIT_MODEL_NAME:-gemma-4-E2B-it}"
@@ -13,7 +14,7 @@ if [ -n "${LITERT_LM_START_COMMAND:-}" ]; then
 fi
 
 if command -v litert-lm >/dev/null 2>&1; then
-  ARGS=(serve --api gemini --port "$PORT" --backend "$BACKEND")
+  ARGS=(serve --api gemini --host "$HOST" --port "$PORT" --backend "$BACKEND")
   if [ "$MTP" = "true" ]; then
     ARGS+=(--enable-speculative-decoding=true)
   fi

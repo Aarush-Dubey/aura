@@ -14,6 +14,15 @@
   "animation": "Animation",
   "focus": "Focus",
   "focusMode": "Focus mode",
+  "focusBlockLength": "Focus block minutes",
+  "proactiveBreaks": "Offer breaks when time ends",
+  "movementBreaks": "Movement breaks",
+  "breakGames": "Micro break games",
+  "profile": "Profile",
+  "name": "Name",
+  "adhdSupport": "ADHD support",
+  "dyslexiaSupport": "Dyslexia support",
+  "rewards": "Rewards",
   "accessibilitySettings": "Accessibility settings",
   "languageNote": "Applies to new lessons"
 }

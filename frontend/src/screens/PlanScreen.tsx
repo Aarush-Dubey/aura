@@ -11,12 +11,22 @@ type NodePreview = {
   status: "active" | "upcoming";
 };
 
+function safeJobLabel(label?: string) {
+  if (!label) return "";
+  if (label.length > 80 || /You are Aura|Return JSON|Generate exactly|LANGUAGE:/i.test(label)) {
+    return "Gemma is preparing lesson cards";
+  }
+  return label;
+}
+
 export function PlanScreen() {
   const { t } = useTranslation("workspace");
   const navigate = useAuraStore((s) => s.navigate);
   const loadLesson = useAuraStore((s) => s.loadLesson);
   const topic = useAuraStore((s) => s.session.topic);
   const goal = useAuraStore((s) => s.session.goal);
+  const telemetry = useAuraStore((s) => s.telemetry);
+  const llmHealth = useAuraStore((s) => s.llmHealth);
   const [busy, setBusy] = useState(false);
   const [step, setStep] = useState("");
   const [generatedNodes, setGeneratedNodes] = useState<NodePreview[]>([]);
@@ -107,7 +117,7 @@ export function PlanScreen() {
                 lineHeight: 1.5,
               }}
             >
-              <span style={{ fontWeight: 600, color: "var(--aura-ink)", marginRight: 6 }}>Goal:</span>
+              <span style={{ fontWeight: 600, color: "var(--aura-ink)", marginRight: 6 }}>{t('goalLabel')}:</span>
               {goal}
             </div>
           )}
@@ -168,13 +178,14 @@ export function PlanScreen() {
         {busy && (
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
+              display: "grid",
+              gridTemplateColumns: "24px 1fr",
+              alignItems: "start",
               gap: 14,
-              padding: "14px 20px",
+              padding: "18px 20px",
               borderRadius: 14,
-              background: "var(--aura-sage-wash)",
-              border: "1px solid var(--aura-sage-soft)",
+              background: llmHealth && !llmHealth.ready ? "var(--aura-clay-soft)" : "var(--aura-sage-wash)",
+              border: "1px solid " + (llmHealth && !llmHealth.ready ? "var(--aura-clay)" : "var(--aura-sage-soft)"),
             }}
           >
             <div
@@ -187,7 +198,16 @@ export function PlanScreen() {
                 animation: "aura-breath 1.6s ease-in-out infinite",
               }}
             />
-            <span style={{ fontSize: 14, color: "var(--aura-sage-deep)" }}>{step}</span>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              <span style={{ fontSize: 14, color: llmHealth && !llmHealth.ready ? "var(--aura-clay)" : "var(--aura-sage-deep)", fontWeight: 600 }}>
+                {llmHealth && !llmHealth.ready ? `Gemma offline: ${llmHealth.detail ?? "local model not reachable"}` : step}
+              </span>
+              {telemetry?.activeJob && (
+                <span style={{ fontSize: 12, color: "var(--aura-ink-mute)" }}>
+                  {safeJobLabel(telemetry.activeJob.label)} · queue {telemetry.waitingJobs}
+                </span>
+              )}
+            </div>
           </div>
         )}
 
