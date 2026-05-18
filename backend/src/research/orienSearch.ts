@@ -115,7 +115,7 @@ type GemmaKnowledgeStepOutput = {
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function cacheRoot() {
-  return path.resolve(process.cwd(), CONFIG.exaCacheDir);
+  return path.resolve(process.cwd(), CONFIG.researchCacheDir);
 }
 
 function stableId(topic: string) {
@@ -599,7 +599,7 @@ async function buildGemmaKnowledgePacket(topic: string) {
   const plannerSystem = [
     "You are Aura's local Gemma-only curriculum planner.",
     "You only decide the learning steps. You do not write full chunks yet.",
-    "Use your own model knowledge only. Do not use web search, Exa, URLs, citations, or external APIs.",
+    "Use your own model knowledge only. Do not use web search, URLs, citations, or external APIs.",
     "Hard rules:",
     "- Produce 5 to 7 ordered steps.",
     "- Each step must be atomic and distinct.",
@@ -646,7 +646,7 @@ async function buildGemmaKnowledgePacket(topic: string) {
   const expanderSystem = [
     "You are Aura's local Gemma-only step expander.",
     "Expand exactly one planned learning step into one clean teaching chunk.",
-    "Use your own model knowledge only. Do not use web search, Exa, URLs, source names, citations, or external APIs.",
+    "Use your own model knowledge only. Do not use web search, URLs, source names, citations, or external APIs.",
     "Hard rules:",
     "- Stay only on the assigned step. Do not re-teach all earlier steps.",
     "- Make the chunk self-contained, but keep the focus narrow.",

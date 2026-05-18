@@ -2,7 +2,7 @@ import { graphPrompt } from "../llm/prompts.js";
 import { callLLMJson } from "../llm/json.js";
 import type { KnowledgeGraph, StudentIntent, StudentProfile } from "../types.js";
 import { fallbackGraph } from "./fallbacks.js";
-import { buildGraphFromCachedExa } from "../exa/cacheInput.js";
+import { buildGraphFromCachedResearch } from "../research/cacheInput.js";
 import { devLog } from "../dev/logs.js";
 import { createOrienCache } from "../research/orienSearch.js";
 import type { SupportedLanguage } from "../i18n/language.js";
@@ -135,10 +135,9 @@ async function buildGemmaPlannedGraph(topic: string, profile: StudentProfile, in
 
 export async function buildGraph(topic: string, profile: StudentProfile, options: { cacheId?: string; intent?: StudentIntent; language?: SupportedLanguage } = {}): Promise<KnowledgeGraph> {
   if (options.cacheId) {
-    const cached = buildGraphFromCachedExa(topic, profile, options.cacheId);
+    const cached = buildGraphFromCachedResearch(topic, profile, options.cacheId);
     if (cached) {
-      const cacheKind = options.cacheId.startsWith("orien_") ? "OrienSearch" : "Exa";
-      devLog("info", "cache", `Using selected ${cacheKind} cache`, {
+      devLog("info", "cache", "Using selected research cache", {
         graphId: cached.id,
         topic: cached.topic,
         sourcePacketIds: cached.sourcePacketIds
@@ -154,7 +153,7 @@ export async function buildGraph(topic: string, profile: StudentProfile, options
 
   const orienCache = await createOrienCache(topic);
   if (orienCache) {
-    const openGraph = buildGraphFromCachedExa(topic, profile, orienCache.id);
+    const openGraph = buildGraphFromCachedResearch(topic, profile, orienCache.id);
     if (openGraph) {
       devLog("info", "orien", "Using OrienSearch cache for graph", {
         graphId: openGraph.id,

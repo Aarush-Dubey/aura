@@ -12,6 +12,21 @@ if [ -n "${LITERT_LM_START_COMMAND:-}" ]; then
   exec bash -lc "$LITERT_LM_START_COMMAND"
 fi
 
+if [ ! -d "$MODEL_PATH" ] || ! find "$MODEL_PATH" -type f ! -name ".DS_Store" -print -quit | grep -q .; then
+  cat >&2 <<EOF
+Can't find Gemma weights. Please download them before starting Aura.
+
+Expected model:
+  $MODEL_REPO
+
+Put weights here:
+  $MODEL_PATH
+
+Download/import the Gemma LiteRT-LM weights into that folder, or set LLM_MODEL_PATH to the folder that contains them.
+EOF
+  exit 78
+fi
+
 if command -v litert-lm >/dev/null 2>&1; then
   ARGS=(serve --api gemini --port "$PORT" --backend "$BACKEND")
   if [ "$MTP" = "true" ]; then

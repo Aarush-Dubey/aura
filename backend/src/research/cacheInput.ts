@@ -82,7 +82,7 @@ function scoreTopic(requested: string, candidate: string) {
 }
 
 function cacheRoot() {
-  const root = path.resolve(process.cwd(), CONFIG.exaCacheDir);
+  const root = path.resolve(process.cwd(), CONFIG.researchCacheDir);
   return fs.existsSync(root) ? root : null;
 }
 
@@ -92,7 +92,7 @@ function hasKnowledgeArtifacts(dir: string) {
     (fs.existsSync(path.join(dir, "chunks.json")) && (fs.existsSync(path.join(dir, "claims.json")) || fs.existsSync(path.join(dir, "concepts.json"))));
 }
 
-export function listCachedExaInputs(topic = ""): CacheCandidate[] {
+export function listCachedResearchInputs(topic = ""): CacheCandidate[] {
   const root = cacheRoot();
   if (!root) return [];
   return fs.readdirSync(root, { withFileTypes: true })
@@ -119,14 +119,14 @@ export function listCachedExaInputs(topic = ""): CacheCandidate[] {
     .sort((a, b) => Number(b.hasGraphInput) - Number(a.hasGraphInput) || b.score - a.score || a.topic.localeCompare(b.topic)) as CacheCandidate[];
 }
 
-export function findCachedExaInput(topic: string): CacheCandidate | null {
-  if (!CONFIG.useExaCache) return null;
-  const candidates = listCachedExaInputs(topic).filter((candidate) => candidate.hasGraphInput);
+export function findCachedResearchInput(topic: string): CacheCandidate | null {
+  if (!CONFIG.useResearchCache) return null;
+  const candidates = listCachedResearchInputs(topic).filter((candidate) => candidate.hasGraphInput);
 
   return candidates.sort((a, b) => b.score - a.score)[0] ?? null;
 }
 
-export function getCachedExaInput(cacheId: string): CacheCandidate | null {
+export function getCachedResearchInput(cacheId: string): CacheCandidate | null {
   const root = cacheRoot();
   if (!root) return null;
   const dir = path.join(root, cacheId);
@@ -256,8 +256,8 @@ function nodeFromClaim(claim: CachedClaim, chunk: CachedChunk | undefined, index
   };
 }
 
-export function buildGraphFromCachedExa(topic: string, _profile: StudentProfile, cacheId?: string): KnowledgeGraph | null {
-  const candidate = cacheId ? getCachedExaInput(cacheId) : findCachedExaInput(topic);
+export function buildGraphFromCachedResearch(topic: string, _profile: StudentProfile, cacheId?: string): KnowledgeGraph | null {
+  const candidate = cacheId ? getCachedResearchInput(cacheId) : findCachedResearchInput(topic);
   if (!candidate || !candidate.hasGraphInput || (!cacheId && candidate.score <= 0)) return null;
 
   const learnerMap = readJson<{ nodes?: CachedLearnerNode[] }>(path.join(candidate.dir, "learner_map.json"));
@@ -297,7 +297,7 @@ export function buildGraphFromCachedExa(topic: string, _profile: StudentProfile,
       source: nodes[index].id,
       target: node.id,
       relation: "prerequisite" as const,
-      reason: "cached Exa claim sequence"
+      reason: "cached claim sequence"
     }));
   }
 

@@ -1,6 +1,6 @@
 import express from "express";
 import { jsonrepair } from "jsonrepair";
-import { listCachedExaInputs } from "../exa/cacheInput.js";
+import { listCachedResearchInputs } from "../research/cacheInput.js";
 import { CONFIG } from "../config.js";
 import { createSession, getSessionInsights, getRecentAccuracy, listSessions, loadDueReviews, loadGameState, loadGraph, loadPath, loadProfile, loadReviewCard, loadSession, recordAnswer, reviewStats, saveGameState, saveGraph, saveHistory, savePath, saveReviewCard } from "../db/store.js";
 import { createReviewCard, scheduleReview, sortByPriority, dailyNewCardLimit, dailyReviewLimit, type ReviewRating } from "../pipeline/spacedReview.js";
@@ -408,7 +408,7 @@ router.get("/dev/cache", (req, res) => {
   const topic = typeof req.query.topic === "string" ? req.query.topic : "";
   res.json({
     topic,
-    caches: listCachedExaInputs(topic).map((cache) => ({
+    caches: listCachedResearchInputs(topic).map((cache) => ({
       id: cache.id,
       topic: cache.topic,
       subject: cache.curriculum.subject ?? "",

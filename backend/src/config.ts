@@ -1,9 +1,8 @@
 import "dotenv/config";
 
 export const CONFIG = {
-  exaApiKey: process.env.EXA_API_KEY ?? "",
-  useExaCache: (process.env.AURA_USE_EXA_CACHE ?? "true") === "true",
-  exaCacheDir: process.env.AURA_EXA_CACHE_DIR ?? "../aac/outputs/cache",
+  useResearchCache: (process.env.AURA_USE_RESEARCH_CACHE ?? "false") === "true",
+  researchCacheDir: process.env.AURA_RESEARCH_CACHE_DIR ?? "../aac/outputs/cache",
   useOrienSearch: (process.env.AURA_USE_ORIEN_SEARCH ?? "false") === "true",
   orienMode: process.env.AURA_ORIEN_MODE ?? "gemma_knowledge",
   orienAutostart: (process.env.AURA_ORIEN_AUTOSTART ?? "true") === "true",

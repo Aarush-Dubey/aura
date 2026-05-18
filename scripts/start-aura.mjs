@@ -13,6 +13,7 @@ const npmBin = isWindows ? "pnpm.cmd" : "pnpm";
 const backendPort = process.env.BACKEND_PORT || "3101";
 const frontendPort = process.env.FRONTEND_PORT || "5174";
 const llmPort = process.env.LLM_PORT || "8080";
+const defaultModelDir = path.join(rootDir, "backend", "models", "gemma-4-E2B-it-litert-lm");
 
 const env = {
   ...process.env,
@@ -21,6 +22,9 @@ const env = {
   LLM_AUTOSTART: process.env.LLM_AUTOSTART || "true",
   LLM_BASE_URL: process.env.LLM_BASE_URL || `http://localhost:${llmPort}`,
   LLM_MODEL: process.env.LLM_MODEL || "gemma-4-E2B-it",
+  LLM_MODEL_PATH: process.env.LLM_MODEL_PATH || defaultModelDir,
+  LLM_MODEL_REPO: process.env.LLM_MODEL_REPO || "litert-community/gemma-4-E2B-it-litert-lm",
+  LLM_LIT_MODEL_NAME: process.env.LLM_LIT_MODEL_NAME || "gemma-4-E2B-it",
   LLM_USE_FOR_CARDS: process.env.LLM_USE_FOR_CARDS || "true",
   LLM_USE_FOR_EVALUATION: process.env.LLM_USE_FOR_EVALUATION || "true",
   LITERT_LM_BACKEND: process.env.LITERT_LM_BACKEND || "gpu",
@@ -30,10 +34,7 @@ const env = {
 };
 
 if (!env.LLM_START_COMMAND) {
-  const aarushLiteRt = "C:/Users/Aarush/AppData/Local/Programs/Python/Python313/Scripts/litert-lm.exe";
-  env.LLM_START_COMMAND = fs.existsSync(aarushLiteRt)
-    ? `"${aarushLiteRt}" serve --api gemini --port ${llmPort}`
-    : `litert-lm serve --api gemini --port ${llmPort}`;
+  env.LLM_START_COMMAND = "bash ./scripts/start-litert-lm.sh";
 }
 
 function run(command, args, options = {}) {
@@ -62,6 +63,15 @@ async function urlOk(url) {
   }
 }
 
+async function urlReachable(url) {
+  try {
+    await fetch(url, { signal: AbortSignal.timeout(1200) });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function waitForUrl(url, label, maxSeconds = 60) {
   const startedAt = Date.now();
   while (!(await urlOk(url))) {
@@ -70,6 +80,33 @@ async function waitForUrl(url, label, maxSeconds = 60) {
     }
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
+}
+
+function hasModelWeights(modelPath) {
+  if (!fs.existsSync(modelPath)) return false;
+  const stack = [modelPath];
+  while (stack.length) {
+    const current = stack.pop();
+    const stat = fs.statSync(current);
+    if (stat.isFile() && path.basename(current) !== ".DS_Store") return true;
+    if (!stat.isDirectory()) continue;
+    for (const entry of fs.readdirSync(current)) stack.push(path.join(current, entry));
+  }
+  return false;
+}
+
+async function requireGemmaWeightsIfNeeded() {
+  if (env.LLM_AUTOSTART === "false") return;
+  if (await urlReachable(env.LLM_BASE_URL)) return;
+  if (hasModelWeights(env.LLM_MODEL_PATH)) return;
+
+  console.error("Can't find Gemma weights. Please download them before starting Aura.");
+  console.error("");
+  console.error(`Expected model: ${env.LLM_MODEL_REPO}`);
+  console.error(`Put weights here: ${env.LLM_MODEL_PATH}`);
+  console.error("");
+  console.error("Download/import the Gemma LiteRT-LM weights into that folder, or set LLM_MODEL_PATH to the folder that contains them.");
+  process.exit(78);
 }
 
 function startBackend() {
@@ -98,12 +135,15 @@ console.log(`  frontend: http://localhost:${frontendPort}`);
 console.log(`  backend:  http://localhost:${backendPort}`);
 console.log(`  llm:      ${env.LLM_BASE_URL}`);
 console.log(`  model:    ${env.LLM_MODEL}`);
+console.log(`  weights:  ${env.LLM_MODEL_PATH}`);
 console.log("");
 
 if (!fs.existsSync(path.join(rootDir, "backend", "node_modules")) || !fs.existsSync(path.join(rootDir, "frontend", "node_modules"))) {
   console.log("Installing missing Node dependencies...");
   await run(npmBin, ["run", "setup"], { cwd: rootDir });
 }
+
+await requireGemmaWeightsIfNeeded();
 
 let backendChild = null;
 if (await urlOk(`http://localhost:${backendPort}/health`)) {

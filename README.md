@@ -1,77 +1,80 @@
 # Aura
 
-Aura is a fully local desktop learning app. The current main flow uses local Gemma to plan a lesson graph from the learner's topic, goal, and saved profile, then expands each node into lecture cards.
+Aura is a local-first desktop tutor built for hackathon demos. It uses a React/Electron frontend, an Express/SQLite backend, local Gemma through LiteRT-LM for lesson planning, and local Kokoro TTS for audio.
 
-## Start The App
+## Demo Flow
 
-Run once after cloning:
+1. Choose language, topic, goal, depth, and learner mode.
+2. Aura builds a concept graph from the saved learner profile.
+3. Lesson cards are generated node-by-node from the local model.
+4. Exit checks update mastery and unlock the next node.
+5. Review and test modes surface shaky concepts.
 
-```powershell
-npm run setup
-```
+## Tech Stack
 
-Then start everything with one command from the repo root:
+- Frontend: React 19, Vite, Electron, Zustand, Motion
+- Backend: Express, TypeScript, SQLite
+- AI runtime: Gemma served locally with LiteRT-LM
+- Audio: Kokoro TTS with macOS `say` fallback
+- Package manager: pnpm
 
-```powershell
-npm start
-```
+## Setup
 
-Or run the shell wrapper directly from macOS, Linux, Git Bash, or WSL:
+Install pnpm if needed:
 
 ```bash
-sh ./start-aura.sh
+npm install -g pnpm
 ```
 
-That one command starts:
+Install dependencies:
 
-- Vite frontend on `http://localhost:5174`
-- Electron desktop shell
-- Backend API on `http://localhost:3001`
-- Local Gemma through the backend LLM startup protocol, when configured
-
-If Gemma/LiteRT-LM is not installed or configured, the backend will report `setup_required` instead of silently falling back to a paid or remote model.
-
-## Local LLM Rule
-
-Aura is designed to use local Gemma only. Do not use OpenAI or another remote LLM for lesson generation.
-
-Useful environment values:
-
-```powershell
-$env:LLM_AUTOSTART="true"
-$env:LLM_START_COMMAND="litert-lm serve --api gemini --port 8080"
-$env:LLM_BASE_URL="http://localhost:8080"
-$env:LLM_MODEL="gemma-4-E2B-it"
+```bash
+pnpm run setup
 ```
 
-If your LiteRT-LM command is different, set `LLM_START_COMMAND` to the command that serves Gemma locally on port `8080`.
+Copy backend env:
 
-The launcher checks for missing `backend/node_modules` or `frontend/node_modules` and runs `npm run setup` when needed. It also asks the backend to start local Gemma if no LiteRT-LM server is already reachable.
+```bash
+cp backend/.env.example backend/.env
+```
 
-On Windows, `npm start` uses the cross-platform Node launcher directly, so it does not require WSL. The `start-aura.sh` wrapper is for shell environments that can run `sh`.
+If your LiteRT-LM command differs from the default, edit `LLM_START_COMMAND` in `backend/.env`.
 
-## Current Lesson Pipeline
+## Run
 
-The main pipeline is:
+Start backend, frontend, Electron, and local model orchestration:
 
-1. User enters topic, goal, depth, and learner mode.
-2. Backend loads the saved learner profile.
-3. Gemma plans a comprehensive topic graph from topic + goal + profile.
-4. Each planned item becomes one graph node with a role such as `core`, `bridge`, `repair`, `practice`, or `application`.
-5. The app derives a linear lesson plan from the graph dependencies.
-6. Gemma expands the active node into lecture cards.
-7. Selecting another node asks Gemma to expand that node.
+```bash
+pnpm start
+```
 
-Cache behavior:
+Useful URLs:
 
-- Auto cache matching does not override the main Gemma-planned path.
-- Exa/Orien cache is used only when explicitly selected in the UI.
-- `AURA_ORIEN_MODE=gemma_knowledge` generates chunks from local Gemma knowledge only.
+- Frontend: `http://localhost:5174`
+- Backend: `http://localhost:3101`
+- Local LLM: `http://localhost:8080`
 
-## Graph Shape
+Shell wrapper:
 
-Gemma now produces a fuller graph-like plan instead of only a short chain. It can include core nodes, bridge/support nodes, repair nodes for likely misconceptions, and application/practice nodes.
+```bash
+./start-aura.sh
+```
 
-The app still derives a linear teaching path for the current lesson flow, but that path is computed from graph dependencies rather than assuming each node simply points to the next one.
+## Build Check
 
-For example, a repair node can branch from a core probability rule, while a final application node can depend on multiple earlier nodes.
+```bash
+pnpm run build
+```
+
+## Repo Map
+
+```text
+backend/    Express API, SQLite store, local model orchestration
+frontend/   React/Electron app and card renderers
+aac/        Small pipeline examples and research helpers
+scripts/    Cross-platform startup launcher
+```
+
+## Local-Only Rule
+
+Aura should not call a hosted LLM during demos. If Gemma/LiteRT-LM is unavailable, the backend reports setup status instead of silently using a remote model.

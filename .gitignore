@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 .venv/
+package-lock.json
 
 # Build outputs
 dist/
@@ -9,6 +10,7 @@ out/
 
 # Local runtime state
 .env
+logs/
 *.log
 *.err
 *.pid
@@ -31,3 +33,8 @@ exam_work/
 
 # Generated AAC runtime sessions/state
 aac/runtime/
+aac/outputs/
+
+# Local demo captures and scratch files
+videos/
+issues.txt
