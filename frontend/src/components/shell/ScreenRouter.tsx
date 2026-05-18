@@ -7,6 +7,7 @@ import { PlanScreen } from "../../screens/PlanScreen";
 import { LessonScreen } from "../../screens/LessonScreen";
 import { InsightsScreen } from "../../screens/InsightsScreen";
 import { WorkspaceOverviewScreen } from "../../screens/WorkspaceOverviewScreen";
+import { ReviewScreen } from "../../screens/ReviewScreen";
 
 const SCREENS: Record<string, React.ComponentType> = {
   dashboard: DashboardScreen,
@@ -16,6 +17,7 @@ const SCREENS: Record<string, React.ComponentType> = {
   lesson: LessonScreen,
   insights: InsightsScreen,
   workspace_overview: WorkspaceOverviewScreen,
+  review: ReviewScreen,
 };
 
 export function ScreenRouter() {

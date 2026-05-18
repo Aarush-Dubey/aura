@@ -15,6 +15,8 @@ import { RepairCard } from "./types/RepairCard";
 import { ConnectionCard } from "./types/ConnectionCard";
 import { VocabCard } from "./types/VocabCard";
 import { RecapCard } from "./types/RecapCard";
+import { MorphemeCard } from "./types/MorphemeCard";
+import { PhonicsCard } from "./types/PhonicsCard";
 
 export type CardCtx = {
   bionic?: boolean;
@@ -26,6 +28,9 @@ export type CardCtx = {
   onLoadNextNode?: () => void;
   onHearIt?: () => void;
   hearing?: boolean;
+  highlightIndex?: number;
+  highlightWords?: string[];
+  testMode?: boolean;
 };
 
 const REGISTRY: Record<string, ComponentType<{ data: any; ctx: CardCtx }>> = {
@@ -43,6 +48,8 @@ const REGISTRY: Record<string, ComponentType<{ data: any; ctx: CardCtx }>> = {
   connection: ConnectionCard,
   vocab: VocabCard,
   recap: RecapCard,
+  morpheme: MorphemeCard,
+  phonics: PhonicsCard,
 };
 
 function adaptLegacyCard(card: LessonCard): { type: string; data: any } {

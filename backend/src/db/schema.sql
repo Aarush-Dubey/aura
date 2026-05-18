@@ -51,3 +51,30 @@ CREATE TABLE IF NOT EXISTS source_packets (
   cached INTEGER NOT NULL,
   raw_json TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS spaced_reviews (
+  id TEXT PRIMARY KEY,
+  session_id TEXT NOT NULL,
+  node_id TEXT NOT NULL,
+  card_type TEXT NOT NULL,
+  front TEXT NOT NULL,
+  back TEXT NOT NULL,
+  stability REAL NOT NULL DEFAULT 0,
+  difficulty REAL NOT NULL DEFAULT 0,
+  due_date TEXT NOT NULL,
+  last_review TEXT NOT NULL,
+  interval_days REAL NOT NULL DEFAULT 0,
+  reps INTEGER NOT NULL DEFAULT 0,
+  lapses INTEGER NOT NULL DEFAULT 0,
+  state TEXT NOT NULL DEFAULT 'new',
+  created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS session_accuracy (
+  session_id TEXT NOT NULL,
+  card_id TEXT NOT NULL,
+  correct INTEGER NOT NULL,
+  response_ms INTEGER NOT NULL DEFAULT 0,
+  answered_at TEXT NOT NULL,
+  PRIMARY KEY (session_id, card_id)
+);

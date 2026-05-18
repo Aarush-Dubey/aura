@@ -32,11 +32,14 @@ export function LessonScreen() {
   const setSession = useAuraStore((s) => s.setSession);
   const navigate = useAuraStore((s) => s.navigate);
   const openChat = useAuraStore((s) => s.openChat);
-  const { speak, stop, speaking } = useTTS();
+  const { speak, stop, speaking, highlightIndex, words: highlightWords } = useTTS();
   const bionicReading = useAuraStore((s) => s.settings.bionicReading);
   const readAloud = useAuraStore((s) => s.settings.readAloud);
   const focusMode = useAuraStore((s) => s.settings.focusMode);
+  const testMode = useAuraStore((s) => s.session.testMode);
   const [loadingNext, setLoadingNext] = useState(false);
+  const [testAnswers, setTestAnswers] = useState<{ cardId: string; correct: boolean }[]>([]);
+  const [testDone, setTestDone] = useState(false);
   const card = cards[cursor];
 
   const currentIndex = lessonPath?.currentIndex ?? 0;
@@ -83,11 +86,15 @@ export function LessonScreen() {
 
   const handleNext = useCallback(() => {
     if (cursor >= cards.length - 1) {
-      loadNextNode();
+      if (testMode) {
+        setTestDone(true);
+      } else {
+        loadNextNode();
+      }
     } else {
       advanceCard();
     }
-  }, [cursor, cards.length, advanceCard, loadNextNode]);
+  }, [cursor, cards.length, advanceCard, loadNextNode, testMode]);
 
   if (!cards.length) {
     return (
@@ -124,16 +131,27 @@ export function LessonScreen() {
     }
   };
 
+  const handleAnswer = useCallback((correct: boolean) => {
+    if (!sessionId || !card) return;
+    api.recordAnswer(sessionId, card.id, correct).catch(() => {});
+    if (testMode) {
+      setTestAnswers((prev) => [...prev, { cardId: card.id, correct }]);
+    }
+  }, [sessionId, card, testMode]);
+
   const ctx: CardCtx = {
     bionic: bionicReading,
     readAloud,
     onNext: handleNext,
-    onAnswer: (_correct) => {},
+    onAnswer: handleAnswer,
     onSlower: () => {},
     onEnd: () => navigate("workspace_overview"),
     onLoadNextNode: loadNextNode,
     onHearIt: handleHearIt,
     hearing: speaking,
+    highlightIndex,
+    highlightWords,
+    testMode,
   };
 
   return (
@@ -268,7 +286,55 @@ export function LessonScreen() {
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             style={{ width: "100%", maxWidth: 720 }}
           >
-            {card ? (
+            {testDone && testMode && testAnswers.length > 0 ? (
+              <div className="card card-pad-lg" style={{ padding: 32, display: "flex", flexDirection: "column", gap: 20 }}>
+                <h2 className="title" style={{ fontSize: 28, margin: 0, textAlign: "center" }}>Test Results</h2>
+                <div style={{ textAlign: "center" }}>
+                  <span style={{
+                    fontSize: 48,
+                    fontWeight: 700,
+                    color: testAnswers.filter((a) => a.correct).length / testAnswers.length >= 0.7
+                      ? "var(--aura-sage-deep)"
+                      : "var(--aura-clay)",
+                  }}>
+                    {Math.round((testAnswers.filter((a) => a.correct).length / testAnswers.length) * 100)}%
+                  </span>
+                  <p style={{ color: "var(--aura-ink-soft)", fontSize: 14, marginTop: 4 }}>
+                    {testAnswers.filter((a) => a.correct).length} of {testAnswers.length} correct
+                  </p>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {cards.map((c, i) => {
+                    const answer = testAnswers.find((a) => a.cardId === c.id);
+                    const resolved = resolveCard(c);
+                    const question = (resolved.data as any).question || (resolved.data as any).prompt || `Question ${i + 1}`;
+                    const isCorrect = answer?.correct ?? false;
+                    return (
+                      <div key={c.id} style={{
+                        padding: "12px 16px",
+                        borderRadius: 12,
+                        background: isCorrect ? "var(--aura-sage-wash)" : "var(--aura-clay-soft, #fef0ef)",
+                        border: `1px solid ${isCorrect ? "var(--aura-sage)" : "var(--aura-clay)"}`,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                      }}>
+                        <span style={{ fontSize: 16 }}>{isCorrect ? "✓" : "✗"}</span>
+                        <span style={{ fontSize: 14, flex: 1 }}>{question}</span>
+                        <span style={{ fontSize: 12, fontWeight: 600, color: isCorrect ? "var(--aura-sage-deep)" : "var(--aura-clay)" }}>
+                          {isCorrect ? "Correct" : "Incorrect"}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div style={{ display: "flex", justifyContent: "center", gap: 10 }}>
+                  <button className="btn btn--ghost" onClick={() => { setTestAnswers([]); setTestDone(false); navigate("workspace_overview"); }}>
+                    Back to workspace
+                  </button>
+                </div>
+              </div>
+            ) : card ? (
               <AuraCard card={resolveCard(card)} ctx={ctx} />
             ) : (
               <div className="card card-pad-lg" style={{ textAlign: "center", padding: 40 }}>
@@ -289,7 +355,7 @@ export function LessonScreen() {
         onClick={() => openChat("keyboard")}
         style={{
           position: "absolute",
-          bottom: 24,
+          bottom: 72,
           right: 32,
           zIndex: 5,
           display: "flex",

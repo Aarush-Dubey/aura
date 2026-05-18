@@ -8,6 +8,7 @@ export function LanguageSelectScreen() {
 
   const pick = (code: SupportedLanguage) => {
     setSetting("language", code);
+    localStorage.setItem("aura-language-chosen", "1");
   };
 
   return (

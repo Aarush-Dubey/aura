@@ -10,7 +10,8 @@ export type Screen =
   | "plan"
   | "lesson"
   | "insights"
-  | "workspace_overview";
+  | "workspace_overview"
+  | "review";
 
 export type LearnerMode = "both" | "adhd" | "dyslexia" | "none";
 
@@ -31,6 +32,7 @@ type SessionSlice = {
   missionMetadata: LessonResponse["missionMetadata"] | null;
   topic: string;
   goal: string;
+  testMode: boolean;
 };
 
 type SettingsSlice = {
@@ -92,6 +94,7 @@ const defaultSession: SessionSlice = {
   missionMetadata: null,
   topic: "",
   goal: "",
+  testMode: false,
 };
 
 const defaultSettings: SettingsSlice = {
@@ -140,6 +143,7 @@ export const useAuraStore = create<AuraState>((set, get) => ({
         cardCursor: 0,
         missionMetadata: response.missionMetadata,
         topic: response.graph.topic,
+        testMode: false,
       },
     })),
 
@@ -170,6 +174,16 @@ export const useAuraStore = create<AuraState>((set, get) => ({
   setSetting: (key, value) =>
     set((s) => {
       const next = { ...s.settings, [key]: value };
+      if (key === "learnerMode") {
+        const mode = value as LearnerMode;
+        const hasDyslexia = mode === "dyslexia" || mode === "both";
+        if (hasDyslexia) {
+          next.font = "lexend";
+          next.letterSpacing = 0.08;
+          next.lineHeight = 1.8;
+          next.bgTone = "cream";
+        }
+      }
       try { localStorage.setItem("aura-settings", JSON.stringify(next)); } catch {}
       if (key === "language") {
         i18n.changeLanguage(value as string);

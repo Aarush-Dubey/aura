@@ -145,6 +145,12 @@ export function fallbackCardForType(node: KnowledgeNode, type: string, index: nu
       return { id, type: "flash", nodeId: node.id, cards: [{ front: node.keyTerms[0] ?? node.topicName, back: node.teachingGoal }] };
     case "dragsort":
       return { id, type: "dragsort", nodeId: node.id, prompt: "Arrange these steps in order.", steps: { step_a: "First step", step_b: "Second step", step_c: "Third step" }, correct: ["step_a", "step_b", "step_c"], shuffled: ["step_c", "step_a", "step_b"], explanation: "This is the logical order." };
+    case "morpheme": {
+      const word = node.keyTerms[0] ?? node.topicName;
+      return { id, type: "morpheme", nodeId: node.id, word, morphemes: [{ text: word, type: "root", meaning: node.teachingGoal }], meaning: node.teachingGoal, example: node.microLessonPlan.example, related: [] };
+    }
+    case "phonics":
+      return { id, type: "phonics", nodeId: node.id, grapheme: "a", phoneme: "/æ/", examples: [{ word: "cat", highlighted: "a" }], rule: "Short vowel sound." };
     default:
       return { id, type: "text_explain", nodeId: node.id, title: node.topicName, body: `${node.microLessonPlan.intuition}\n\n${node.microLessonPlan.example}`, emphasis: node.keyTerms.slice(0, 3) };
   }

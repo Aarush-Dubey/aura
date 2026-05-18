@@ -1,4 +1,4 @@
-import type { CacheOption, DevLogEntry, LessonCard, LessonResponse, StudentIntent, Telemetry, TutorResponse } from "./types";
+import type { CacheOption, DevLogEntry, LessonCard, LessonResponse, ReviewItem, ReviewStats, StudentIntent, Telemetry, TutorResponse } from "./types";
 import { useAuraStore } from "../store/useAuraStore";
 
 const desktopUrl = typeof window !== "undefined" ? (window as unknown as { auraDesktop?: { backendUrl?: string } }).auraDesktop?.backendUrl : undefined;
@@ -62,4 +62,12 @@ export const api = {
     json<{ cards: LessonCard[]; nodeCount: number; mode: "test"; scope: "lesson"; topic: string }>(`/workspace/${sessionId}/test/${nodeId}`, { method: "POST", body: bodyWithLang({}) }),
   workspaceTestFinal: (sessionId: string) =>
     json<{ cards: LessonCard[]; nodeCount: number; mode: "test"; scope: "final" }>(`/workspace/${sessionId}/test`, { method: "POST", body: bodyWithLang({}) }),
+  reviewsDue: () =>
+    json<{ reviews: ReviewItem[]; stats: ReviewStats }>("/reviews/due"),
+  reviewStats: () =>
+    json<ReviewStats>("/reviews/stats"),
+  reviewAnswer: (id: string, rating: 1 | 2 | 3 | 4) =>
+    json<{ card: ReviewItem; stats: ReviewStats }>(`/reviews/${id}/answer`, { method: "POST", body: JSON.stringify({ rating }) }),
+  recordAnswer: (sessionId: string, cardId: string, correct: boolean, responseMs = 0) =>
+    json<{ accuracy: number; difficulty: string }>("/reviews/record-answer", { method: "POST", body: bodyWithLang({ sessionId, cardId, correct, responseMs }) }),
 };

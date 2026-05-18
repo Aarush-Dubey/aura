@@ -120,6 +120,38 @@ const textExplainSchema = z.object({
   emphasis: z.array(z.string()).optional()
 });
 
+const morphemePartSchema = z.object({
+  text: z.string().min(1),
+  type: z.enum(["prefix", "root", "suffix"]),
+  meaning: z.string()
+});
+
+const morphemeSchema = z.object({
+  id: z.string(),
+  type: z.literal("morpheme"),
+  nodeId: z.string(),
+  word: z.string().min(1),
+  morphemes: z.array(morphemePartSchema).min(1),
+  meaning: z.string().min(1),
+  example: z.string(),
+  related: z.array(z.string())
+});
+
+const phonicsExampleSchema = z.object({
+  word: z.string().min(1),
+  highlighted: z.string()
+});
+
+const phonicsSchema = z.object({
+  id: z.string(),
+  type: z.literal("phonics"),
+  nodeId: z.string(),
+  grapheme: z.string().min(1),
+  phoneme: z.string().min(1),
+  examples: z.array(phonicsExampleSchema).min(1),
+  rule: z.string().min(1)
+});
+
 const schemaByType: Record<string, z.ZodType> = {
   mcq: mcqSchema,
   fill_blank: fillBlankSchema,
@@ -132,7 +164,9 @@ const schemaByType: Record<string, z.ZodType> = {
   connection: connectionSchema,
   flash: flashSchema,
   dragsort: dragsortSchema,
-  text_explain: textExplainSchema
+  text_explain: textExplainSchema,
+  morpheme: morphemeSchema,
+  phonics: phonicsSchema
 };
 
 // --- Coercion: try to fix common Gemma shape mistakes ---
@@ -285,6 +319,37 @@ export function coerceCard(raw: Record<string, unknown>, node: KnowledgeNode, in
     card.correct = Array.isArray(card.correct) ? card.correct.map(String) : Object.keys(steps);
     card.shuffled = Array.isArray(card.shuffled) ? card.shuffled.map(String) : [...(card.correct as string[])].sort(() => Math.random() - 0.5);
     card.explanation = String(card.explanation ?? "");
+  }
+
+  if (type === "morpheme") {
+    card.word = String(card.word ?? card.term ?? "");
+    card.meaning = String(card.meaning ?? card.definition ?? "");
+    card.example = String(card.example ?? "");
+    if (!Array.isArray(card.morphemes)) card.morphemes = [];
+    card.morphemes = (card.morphemes as unknown[]).map(m => {
+      const part = m as Record<string, unknown>;
+      return {
+        text: String(part.text ?? part.morpheme ?? ""),
+        type: ["prefix", "root", "suffix"].includes(String(part.type)) ? part.type : "root",
+        meaning: String(part.meaning ?? "")
+      };
+    });
+    if (!Array.isArray(card.related)) {
+      const rel = splitToArray(card.related);
+      card.related = rel ?? [];
+    }
+  }
+
+  if (type === "phonics") {
+    card.grapheme = String(card.grapheme ?? card.letters ?? card.pattern ?? "");
+    card.phoneme = String(card.phoneme ?? card.sound ?? "");
+    card.rule = String(card.rule ?? card.explanation ?? "");
+    if (!Array.isArray(card.examples)) card.examples = [];
+    card.examples = (card.examples as unknown[]).map(e => {
+      if (typeof e === "string") return { word: e, highlighted: e };
+      const ex = e as Record<string, unknown>;
+      return { word: String(ex.word ?? ""), highlighted: String(ex.highlighted ?? ex.word ?? "") };
+    });
   }
 
   if (type === "text_explain" || !Object.keys(schemaByType).includes(type)) {

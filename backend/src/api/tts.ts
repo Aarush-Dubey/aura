@@ -64,16 +64,24 @@ router.post("/tts/speak", async (req, res, next) => {
     const kokoro = kokoroVoice ? await getKokoro() : null;
 
     if (kokoro && kokoroVoice) {
-      const audio = await kokoro.generate(text, { voice: kokoroVoice });
-      const wav = audio.toWav();
-      res.setHeader("Content-Type", "audio/wav");
-      res.send(Buffer.from(wav));
-    } else {
-      const macVoice = getMacosSayVoice(language);
-      const buf = await macosSay(text, macVoice);
-      res.setHeader("Content-Type", "audio/aiff");
-      res.send(buf);
+      try {
+        const audio = await kokoro.generate(text, { voice: kokoroVoice });
+        const wav = audio.toWav();
+        res.setHeader("Content-Type", "audio/wav");
+        return res.send(Buffer.from(wav));
+      } catch (err) {
+        devLog("warn", "tts", "Kokoro voice unavailable, falling back to macOS say", {
+          language,
+          voice: kokoroVoice,
+          err: String(err),
+        });
+      }
     }
+
+    const macVoice = getMacosSayVoice(language);
+    const buf = await macosSay(text, macVoice);
+    res.setHeader("Content-Type", "audio/aiff");
+    res.send(buf);
   } catch (err) {
     next(err);
   }

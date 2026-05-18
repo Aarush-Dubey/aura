@@ -1,6 +1,6 @@
 import { callLLMJson } from "../llm/json.js";
 import { CONFIG } from "../config.js";
-import type { KnowledgeNode, LessonCard } from "../types.js";
+import type { KnowledgeGraph, KnowledgeNode, LessonCard } from "../types.js";
 import { devLog } from "../dev/logs.js";
 import { AURA_VOICE_SPEC, auraVoiceSpec, cardTypeVoiceInstruction, finalVoiceReminder, findTutorVoiceViolations } from "../llm/voice.js";
 import type { LLMJobType } from "../llm/broker.js";
@@ -9,7 +9,7 @@ import { fallbackCardForType } from "./fallbacks.js";
 import type { SupportedLanguage } from "../i18n/language.js";
 import { LANGUAGE_NAMES } from "../i18n/language.js";
 
-type CardType = "text_explain" | "mcq" | "fill_blank" | "true_false" | "recap" | "analogy" | "story" | "vocab" | "visual" | "connection" | "flash" | "dragsort";
+type CardType = "text_explain" | "mcq" | "fill_blank" | "true_false" | "recap" | "analogy" | "story" | "vocab" | "visual" | "connection" | "flash" | "dragsort" | "morpheme" | "phonics";
 
 type PlannedCard = {
   type: CardType;
@@ -17,7 +17,7 @@ type PlannedCard = {
   purpose: string;
 };
 
-const ALL_CARD_TYPES: readonly string[] = ["text_explain", "mcq", "fill_blank", "true_false", "recap", "analogy", "story", "vocab", "visual", "connection", "flash", "dragsort"];
+const ALL_CARD_TYPES: readonly string[] = ["text_explain", "mcq", "fill_blank", "true_false", "recap", "analogy", "story", "vocab", "visual", "connection", "flash", "dragsort", "morpheme", "phonics"];
 
 function normalizeCards(rawCards: unknown[], node: KnowledgeNode): LessonCard[] {
   return rawCards.slice(0, 8).map((raw, index) => {
@@ -75,10 +75,12 @@ async function generateSingleCard(node: KnowledgeNode, index: number, step: Plan
   return fallbackCardForType(node, step.type, index);
 }
 
-export async function generateCardsForNode(node: KnowledgeNode, jobType: LLMJobType = "current_card", language: SupportedLanguage = 'en'): Promise<LessonCard[]> {
+export type DifficultyTone = "gentle" | "normal" | "stretch";
+
+export async function generateCardsForNode(node: KnowledgeNode, jobType: LLMJobType = "current_card", language: SupportedLanguage = 'en', difficulty: DifficultyTone = "normal"): Promise<LessonCard[]> {
   if (!CONFIG.llmUseForCards) throw new Error("LLM_USE_FOR_CARDS must be true. Lecture cards are Gemma-generated only.");
-  devLog("info", "cards", "Generating node lecture with Gemma", { nodeId: node.id, topicName: node.topicName });
-  const plan = await planLecture(node, jobType, language);
+  devLog("info", "cards", "Generating node lecture with Gemma", { nodeId: node.id, topicName: node.topicName, difficulty });
+  const plan = await planLecture(node, jobType, language, difficulty);
   devLog("info", "cards", "Gemma planned node lecture", { nodeId: node.id, steps: plan.map((step) => `${step.type}:${step.phase ?? "body"}`) });
 
   const cards: LessonCard[] = [];
@@ -114,7 +116,7 @@ export async function generateKnowledgeChunkCards(nodes: KnowledgeNode[], langua
   return cards;
 }
 
-async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: SupportedLanguage = 'en'): Promise<PlannedCard[]> {
+async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: SupportedLanguage = 'en', difficulty: DifficultyTone = "normal"): Promise<PlannedCard[]> {
   const out = await callLLMJson<{ includeEntryQuestion?: boolean; plan: PlannedCard[] }>(
     [
       "You are Gemma 4 planning a concise node lecture for an adaptive learning app.",
@@ -127,6 +129,12 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: S
     JSON.stringify({
       task: "Plan a 5 to 8 card lecture sequence for this node using varied card types.",
       node: nodeBrief(node),
+      difficultyTone: difficulty,
+      difficultyGuidance: difficulty === "gentle"
+        ? "The learner is struggling (accuracy below 65%). Use simpler language, more analogies, shorter explanations, and easier questions. Prefer text_explain and analogy cards over challenging quiz types."
+        : difficulty === "stretch"
+        ? "The learner is excelling (accuracy above 90%). Add more challenging questions, introduce edge cases, and use fill_blank or dragsort to test deeper understanding."
+        : "Normal difficulty. Balance explanation and challenge.",
       constraints: [
         "Entry question is optional.",
         "Exit question (mcq) is required.",
@@ -157,7 +165,9 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: S
         visual: "describes a diagram with labeled parts the learner can explore",
         connection: "bridges from a previously learned idea to the current one",
         flash: "2-4 term/definition flashcards for quick memorization",
-        dragsort: "3-5 steps the learner must arrange in the correct order"
+        dragsort: "3-5 steps the learner must arrange in the correct order",
+        morpheme: "breaks a key word into prefix/root/suffix morphemes with meaning of each part; great for vocabulary building and dyslexia learners",
+        phonics: "teaches a grapheme-phoneme correspondence (letter pattern → sound) with example words and a rule; great for reading/spelling and dyslexia learners"
       },
       schema: {
         includeEntryQuestion: "boolean",
@@ -187,7 +197,7 @@ async function planLecture(node: KnowledgeNode, jobType: LLMJobType, language: S
   if (!sanitized.some((step) => step.type === "text_explain")) {
     sanitized.unshift({ type: "text_explain", purpose: "introduce the idea with a fresh explanation" });
   }
-  const newTypes: CardType[] = ["analogy", "story", "vocab", "visual", "connection", "flash", "dragsort"];
+  const newTypes: CardType[] = ["analogy", "story", "vocab", "visual", "connection", "flash", "dragsort", "morpheme", "phonics"];
   if (!sanitized.some((step) => newTypes.includes(step.type))) {
     const pick = node.keyTerms.length > 0 ? "vocab" as CardType : "analogy" as CardType;
     sanitized.splice(Math.min(2, sanitized.length), 0, {
@@ -212,6 +222,8 @@ function extractCardText(card: LessonCard): string {
     case "connection": return `${card.previous} ${card.current} ${card.bridge}`;
     case "flash": return card.cards.map((c) => `${c.front} ${c.back}`).join(" ");
     case "dragsort": return `${card.prompt} ${Object.values(card.steps).join(" ")} ${card.explanation}`;
+    case "morpheme": return `${card.word} ${card.morphemes.map((m) => `${m.text}(${m.meaning})`).join(" ")} ${card.meaning} ${card.example}`;
+    case "phonics": return `${card.grapheme} ${card.phoneme} ${card.rule} ${card.examples.map((e) => e.word).join(" ")}`;
     default: return JSON.stringify(card);
   }
 }
@@ -268,6 +280,10 @@ function cardSchema(node: KnowledgeNode, step: PlannedCard): Record<string, unkn
       return { card: { ...base, type: "flash", cards: [{ front: "term or question", back: "answer or definition" }] } };
     case "dragsort":
       return { card: { ...base, type: "dragsort", prompt: "Put these steps in order", steps: { step_a: "First step description", step_b: "Second step description", step_c: "Third step description" }, correct: ["step_a", "step_b", "step_c"], shuffled: ["step_c", "step_a", "step_b"], explanation: "why this order matters" } };
+    case "morpheme":
+      return { card: { ...base, type: "morpheme", word: "unhelpful", morphemes: [{ text: "un", type: "prefix", meaning: "not" }, { text: "help", type: "root", meaning: "to assist" }, { text: "ful", type: "suffix", meaning: "full of" }], meaning: "not providing help", example: "The instructions were unhelpful.", related: ["helpful", "helpless", "unhappy"] } };
+    case "phonics":
+      return { card: { ...base, type: "phonics", grapheme: "ph", phoneme: "/f/", examples: [{ word: "phone", highlighted: "ph" }, { word: "elephant", highlighted: "ph" }], rule: "The letters 'ph' together make the /f/ sound, borrowed from Greek." } };
     default:
       return { card: { ...base, type: "text_explain", title: "string", body: "2 to 4 short paragraphs separated by blank lines", emphasis: ["string"] } };
   }
@@ -387,4 +403,42 @@ async function rewriteVoiceViolations(node: KnowledgeNode, cards: LessonCard[], 
   const remaining = findTutorVoiceViolations(rewritten, language);
   if (remaining.length) devLog("warn", "cards", "Gemma voice rewrite still has violations", { nodeId: node.id, remaining });
   return rewritten;
+}
+
+export function interleaveReviewCards(cards: LessonCard[], graph: KnowledgeGraph, currentNodeId: string): LessonCard[] {
+  const masteredNeighborIds = new Set<string>();
+  for (const edge of graph.edges) {
+    if (edge.source === currentNodeId || edge.target === currentNodeId) {
+      const neighborId = edge.source === currentNodeId ? edge.target : edge.source;
+      const neighbor = graph.nodes.find(n => n.id === neighborId);
+      if (neighbor && neighbor.status === "mastered") masteredNeighborIds.add(neighborId);
+    }
+  }
+  if (masteredNeighborIds.size === 0) return cards;
+
+  const neighbors = graph.nodes.filter(n => masteredNeighborIds.has(n.id));
+  const reviewCards: LessonCard[] = [];
+  const picked = neighbors.sort(() => Math.random() - 0.5).slice(0, 2);
+  for (const neighbor of picked) {
+    reviewCards.push({
+      id: `interleave_${neighbor.id}_${Date.now()}`,
+      type: "mcq",
+      nodeId: neighbor.id,
+      prompt: `Quick review: ${neighbor.teachingGoal}`,
+      options: [
+        { id: "a", text: neighbor.keyTerms[0] ?? "Correct concept" },
+        { id: "b", text: "A common misconception" },
+        { id: "c", text: "An unrelated idea" }
+      ],
+      correctOptionId: "a",
+      feedback: { correct: `Right! This connects back to ${neighbor.topicName}.`, incorrectGeneric: `Review: the key idea is about ${neighbor.topicName}.` },
+      phase: "reflect"
+    });
+  }
+
+  if (reviewCards.length === 0) return cards;
+  const result = [...cards];
+  const insertIdx = Math.min(3, Math.floor(result.length / 2));
+  result.splice(insertIdx, 0, ...reviewCards);
+  return result;
 }

@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { CONFIG } from "../config.js";
 import type { GameState, KnowledgeGraph, LessonPath, StudentIntent, StudentProfile } from "../types.js";
+import type { ReviewCard } from "../pipeline/spacedReview.js";
 import { db } from "./db.js";
 import type { SupportedLanguage } from "../i18n/language.js";
 
@@ -8,9 +9,27 @@ const now = () => new Date().toISOString();
 
 try {
   db.exec("ALTER TABLE sessions ADD COLUMN language TEXT NOT NULL DEFAULT 'en'");
-} catch {
-  // Column already exists — safe to ignore
-}
+} catch {}
+
+try {
+  db.exec(`CREATE TABLE IF NOT EXISTS spaced_reviews (
+    id TEXT PRIMARY KEY, session_id TEXT NOT NULL, node_id TEXT NOT NULL,
+    card_type TEXT NOT NULL, front TEXT NOT NULL, back TEXT NOT NULL,
+    stability REAL NOT NULL DEFAULT 0, difficulty REAL NOT NULL DEFAULT 0,
+    due_date TEXT NOT NULL, last_review TEXT NOT NULL,
+    interval_days REAL NOT NULL DEFAULT 0, reps INTEGER NOT NULL DEFAULT 0,
+    lapses INTEGER NOT NULL DEFAULT 0, state TEXT NOT NULL DEFAULT 'new',
+    created_at TEXT NOT NULL
+  )`);
+} catch {}
+
+try {
+  db.exec(`CREATE TABLE IF NOT EXISTS session_accuracy (
+    session_id TEXT NOT NULL, card_id TEXT NOT NULL,
+    correct INTEGER NOT NULL, response_ms INTEGER NOT NULL DEFAULT 0,
+    answered_at TEXT NOT NULL, PRIMARY KEY (session_id, card_id)
+  )`);
+} catch {}
 
 export function defaultProfile(): StudentProfile {
   return {
@@ -185,4 +204,89 @@ export function listSessions(): SessionSummary[] {
       totalItems,
     };
   });
+}
+
+// ── Spaced Review CRUD ──────────────────────────────────────────────────
+
+export function saveReviewCard(card: ReviewCard) {
+  db.prepare(`
+    INSERT INTO spaced_reviews (id, session_id, node_id, card_type, front, back, stability, difficulty, due_date, last_review, interval_days, reps, lapses, state, created_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(id) DO UPDATE SET stability=excluded.stability, difficulty=excluded.difficulty, due_date=excluded.due_date, last_review=excluded.last_review, interval_days=excluded.interval_days, reps=excluded.reps, lapses=excluded.lapses, state=excluded.state
+  `).run(card.id, card.sessionId, card.nodeId, card.cardType, card.front, card.back, card.stability, card.difficulty, card.dueDate, card.lastReview, card.interval, card.reps, card.lapses, card.state, now());
+}
+
+export function loadDueReviews(limit = 100): ReviewCard[] {
+  const rows = db.prepare(`
+    SELECT * FROM spaced_reviews WHERE due_date <= ? ORDER BY due_date ASC LIMIT ?
+  `).all(now(), limit) as any[];
+  return rows.map(rowToReviewCard);
+}
+
+export function loadAllReviews(): ReviewCard[] {
+  const rows = db.prepare(`SELECT * FROM spaced_reviews ORDER BY due_date ASC`).all() as any[];
+  return rows.map(rowToReviewCard);
+}
+
+export function loadReviewsBySession(sessionId: string): ReviewCard[] {
+  const rows = db.prepare(`SELECT * FROM spaced_reviews WHERE session_id = ? ORDER BY due_date ASC`).all(sessionId) as any[];
+  return rows.map(rowToReviewCard);
+}
+
+export function loadReviewCard(id: string): ReviewCard | undefined {
+  const row = db.prepare(`SELECT * FROM spaced_reviews WHERE id = ?`).get(id) as any;
+  return row ? rowToReviewCard(row) : undefined;
+}
+
+export function reviewStats(): { total: number; due: number; newCount: number; learning: number; review: number } {
+  const total = (db.prepare(`SELECT COUNT(*) as c FROM spaced_reviews`).get() as any).c;
+  const due = (db.prepare(`SELECT COUNT(*) as c FROM spaced_reviews WHERE due_date <= ?`).get(now()) as any).c;
+  const newCount = (db.prepare(`SELECT COUNT(*) as c FROM spaced_reviews WHERE state = 'new'`).get() as any).c;
+  const learning = (db.prepare(`SELECT COUNT(*) as c FROM spaced_reviews WHERE state IN ('learning','relearning')`).get() as any).c;
+  const review = (db.prepare(`SELECT COUNT(*) as c FROM spaced_reviews WHERE state = 'review'`).get() as any).c;
+  return { total, due, newCount, learning, review };
+}
+
+function rowToReviewCard(row: any): ReviewCard {
+  return {
+    id: row.id,
+    sessionId: row.session_id,
+    nodeId: row.node_id,
+    cardType: row.card_type,
+    front: row.front,
+    back: row.back,
+    stability: row.stability,
+    difficulty: row.difficulty,
+    dueDate: row.due_date,
+    lastReview: row.last_review,
+    interval: row.interval_days,
+    reps: row.reps,
+    lapses: row.lapses,
+    state: row.state,
+  };
+}
+
+// ── Session Accuracy Tracking ───────────────────────────────────────────
+
+export function recordAnswer(sessionId: string, cardId: string, correct: boolean, responseMs = 0) {
+  db.prepare(`
+    INSERT INTO session_accuracy (session_id, card_id, correct, response_ms, answered_at)
+    VALUES (?, ?, ?, ?, ?)
+    ON CONFLICT(session_id, card_id) DO UPDATE SET correct=excluded.correct, response_ms=excluded.response_ms, answered_at=excluded.answered_at
+  `).run(sessionId, cardId, correct ? 1 : 0, responseMs, now());
+}
+
+export function getSessionAccuracy(sessionId: string): { total: number; correct: number; rate: number } {
+  const row = db.prepare(`
+    SELECT COUNT(*) as total, SUM(correct) as correct FROM session_accuracy WHERE session_id = ?
+  `).get(sessionId) as { total: number; correct: number };
+  return { total: row.total, correct: row.correct ?? 0, rate: row.total > 0 ? (row.correct ?? 0) / row.total : 0 };
+}
+
+export function getRecentAccuracy(sessionId: string, windowSize = 5): number {
+  const rows = db.prepare(`
+    SELECT correct FROM session_accuracy WHERE session_id = ? ORDER BY answered_at DESC LIMIT ?
+  `).all(sessionId, windowSize) as { correct: number }[];
+  if (rows.length === 0) return 0.8;
+  return rows.reduce((sum, r) => sum + r.correct, 0) / rows.length;
 }

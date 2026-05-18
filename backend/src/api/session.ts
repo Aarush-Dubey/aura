@@ -2,21 +2,24 @@ import express from "express";
 import { jsonrepair } from "jsonrepair";
 import { listCachedExaInputs } from "../exa/cacheInput.js";
 import { CONFIG } from "../config.js";
-import { createSession, getSessionInsights, listSessions, loadGameState, loadGraph, loadPath, loadProfile, loadSession, saveGameState, saveGraph, saveHistory, savePath } from "../db/store.js";
+import { createSession, getSessionInsights, getRecentAccuracy, listSessions, loadDueReviews, loadGameState, loadGraph, loadPath, loadProfile, loadReviewCard, loadSession, recordAnswer, reviewStats, saveGameState, saveGraph, saveHistory, savePath, saveReviewCard } from "../db/store.js";
+import { createReviewCard, scheduleReview, sortByPriority, dailyNewCardLimit, dailyReviewLimit, type ReviewRating } from "../pipeline/spacedReview.js";
 import { devLog, getDevLogs } from "../dev/logs.js";
 import { notePrefetchHit, runGeminiBodyJob, runGeminiJob, setPrefetchTelemetry } from "../llm/broker.js";
 import { AURA_VOICE_SPEC, auraVoiceSpec } from "../llm/voice.js";
 import { buildGraph } from "../pipeline/buildGraph.js";
-import { generateCardsForNode } from "../pipeline/cardGenerator.js";
+import { generateCardsForNode, interleaveReviewCards } from "../pipeline/cardGenerator.js";
+import { fallbackCardForType } from "../pipeline/fallbacks.js";
 import { evaluateCheck } from "../pipeline/evaluate.js";
 import { deriveGoalMode, linearize } from "../pipeline/linearize.js";
 import { collectMissionMetadata, deriveMapState, initializeGameState } from "../pipeline/mapState.js";
-import type { CardInteractionEvent, GameState, KnowledgeGraph, LessonCard, LessonPath, StudentIntent } from "../types.js";
+import type { CardInteractionEvent, GameState, KnowledgeGraph, KnowledgeNode, LessonCard, LessonPath, StudentIntent } from "../types.js";
 import { getRequestLanguage } from "../i18n/language.js";
 import type { SupportedLanguage } from "../i18n/language.js";
 
 const router = express.Router();
 const prefetchedNodeCards = new Map<string, LessonCard[]>();
+const prefetchingNodeCards = new Set<string>();
 
 function prefetchKey(sessionId: string, nodeId: string) {
   return `${sessionId}:${nodeId}`;
@@ -29,7 +32,61 @@ function activeNode(graph: KnowledgeGraph, path: LessonPath) {
   return node;
 }
 
-function advance(graph: KnowledgeGraph, path: LessonPath, gameState: GameState, passed: boolean) {
+function extractReviewPairs(cards: LessonCard[]): { front: string; back: string; cardType: string }[] {
+  const pairs: { front: string; back: string; cardType: string }[] = [];
+  for (const card of cards) {
+    switch (card.type) {
+      case "mcq": {
+        const correct = card.options.find((o) => o.id === card.correctOptionId);
+        if (correct) pairs.push({ front: card.prompt, back: correct.text, cardType: "mcq" });
+        break;
+      }
+      case "vocab":
+        pairs.push({ front: `What does "${card.word}" mean?`, back: `${card.meaning}. Example: ${card.example}`, cardType: "vocab" });
+        break;
+      case "fill_blank":
+        pairs.push({ front: card.prompt, back: card.acceptedAnswers[0] ?? "", cardType: "fill_blank" });
+        break;
+      case "true_false":
+        pairs.push({ front: card.statement, back: card.correctAnswer ? "True" : "False", cardType: "true_false" });
+        break;
+      case "flash":
+        for (const f of card.cards) pairs.push({ front: f.front, back: f.back, cardType: "flash" });
+        break;
+      case "morpheme":
+        pairs.push({ front: `Break down the word "${card.word}"`, back: card.morphemes.map((m) => `${m.text} (${m.type}: ${m.meaning})`).join(" + "), cardType: "morpheme" });
+        break;
+      case "connection":
+        pairs.push({ front: `How does "${card.previous}" connect to "${card.current}"?`, back: card.bridge, cardType: "connection" });
+        break;
+      default:
+        break;
+    }
+  }
+  return pairs;
+}
+
+function nodeReviewPairs(node: KnowledgeNode): { front: string; back: string; cardType: string }[] {
+  const pairs: { front: string; back: string; cardType: string }[] = [];
+  if (node.comfortCheck?.prompt && node.comfortCheck?.expectedIdea) {
+    pairs.push({ front: node.comfortCheck.prompt, back: node.comfortCheck.expectedIdea, cardType: "comfort_check" });
+  }
+  if (node.keyTerms.length > 0) {
+    pairs.push({ front: `What is "${node.keyTerms[0]}" in the context of ${node.topicName}?`, back: node.teachingGoal, cardType: "key_term" });
+  }
+  if (node.commonConfusions?.length > 0) {
+    pairs.push({ front: `True or false: ${node.commonConfusions[0]}`, back: "False — this is a common misconception.", cardType: "misconception" });
+  }
+  if (node.microLessonPlan?.intuition) {
+    pairs.push({ front: `Explain the core idea behind ${node.topicName}.`, back: node.microLessonPlan.intuition, cardType: "core_idea" });
+  }
+  if (pairs.length === 0) {
+    pairs.push({ front: node.topicName, back: node.teachingGoal, cardType: "node_mastered" });
+  }
+  return pairs;
+}
+
+function advance(graph: KnowledgeGraph, path: LessonPath, gameState: GameState, passed: boolean, sessionId?: string, lessonCards?: LessonCard[]) {
   const current = activeNode(graph, path);
   if (passed) {
     current.status = "mastered";
@@ -37,6 +94,15 @@ function advance(graph: KnowledgeGraph, path: LessonPath, gameState: GameState, 
     gameState.completedMissionIds = Array.from(new Set([...gameState.completedMissionIds, current.id]));
     gameState.nodeVisualStates[current.id] = "mastered";
     gameState.recentEvents.unshift({ type: "MISSION_COMPLETED", nodeId: current.id, rewardText: current.mission?.reward ?? "A new block lights up." });
+    if (sessionId) {
+      const cardPairs = lessonCards ? extractReviewPairs(lessonCards) : [];
+      const nodePairs = nodeReviewPairs(current);
+      const allPairs = cardPairs.length > 0 ? cardPairs : nodePairs;
+      for (const pair of allPairs.slice(0, 4)) {
+        const reviewCard = createReviewCard(sessionId, current.id, pair.cardType, pair.front, pair.back);
+        saveReviewCard(reviewCard);
+      }
+    }
     if (path.currentIndex < path.items.length - 1) {
       path.currentIndex += 1;
       const next = activeNode(graph, path);
@@ -57,6 +123,15 @@ function advance(graph: KnowledgeGraph, path: LessonPath, gameState: GameState, 
   gameState.recentEvents = gameState.recentEvents.slice(0, 6);
 }
 
+type DifficultyTone = "gentle" | "normal" | "stretch";
+
+function adaptiveDifficulty(sessionId: string): DifficultyTone {
+  const accuracy = getRecentAccuracy(sessionId, 5);
+  if (accuracy < 0.65) return "gentle";
+  if (accuracy > 0.90) return "stretch";
+  return "normal";
+}
+
 function prefetchNextNodeCards(sessionId: string, graph: KnowledgeGraph, path: LessonPath, language: SupportedLanguage = 'en') {
   if (!CONFIG.llmPrefetch) return;
   const nextItem = path.items[path.currentIndex + 1];
@@ -64,16 +139,19 @@ function prefetchNextNodeCards(sessionId: string, graph: KnowledgeGraph, path: L
   const nextNode = graph.nodes.find((candidate) => candidate.id === nextItem.nodeId);
   if (!nextNode) return;
   const key = prefetchKey(sessionId, nextNode.id);
-  if (prefetchedNodeCards.has(key)) return;
+  if (prefetchedNodeCards.has(key) || prefetchingNodeCards.has(key)) return;
+  prefetchingNodeCards.add(key);
   setPrefetchTelemetry("loading", nextNode.topicName);
   devLog("info", "prefetch", "Prefetching next node cards", { sessionId, nodeId: nextNode.id, title: nextNode.topicName });
   void generateCardsForNode(nextNode, "prefetch_node", language)
     .then((cards) => {
       prefetchedNodeCards.set(key, cards);
+      prefetchingNodeCards.delete(key);
       setPrefetchTelemetry("ready", nextNode.topicName);
       devLog("info", "prefetch", "Prefetched next node cards", { sessionId, nodeId: nextNode.id, cards: cards.length });
     })
     .catch((error) => {
+      prefetchingNodeCards.delete(key);
       setPrefetchTelemetry("failed", nextNode.topicName);
       devLog("warn", "prefetch", "Prefetch failed", { sessionId, nodeId: nextNode.id, message: error instanceof Error ? error.message : String(error) });
     });
@@ -88,9 +166,11 @@ async function runStudentTurn(sessionId: string, studentMessage: string, languag
   const evaluation = await evaluateCheck(node.comfortCheck, studentMessage, language);
   const passed = evaluation.result === "pass" || evaluation.result === "partial";
 
-  advance(graph, path, gameState, passed);
+  advance(graph, path, gameState, passed, sessionId);
+  const difficulty = adaptiveDifficulty(sessionId);
   const nextNode = activeNode(graph, path);
-  const cards = await generateCardsForNode(passed ? nextNode : node, "current_card", language);
+  let cards = await generateCardsForNode(passed ? nextNode : node, "current_card", language, difficulty);
+  if (passed) cards = interleaveReviewCards(cards, graph, nextNode.id);
   prefetchNextNodeCards(sessionId, graph, path, language);
 
   const history = JSON.parse(String(session.history_json ?? "[]")) as unknown[];
@@ -350,6 +430,10 @@ router.post("/card-event", async (req, res, next) => {
   try {
     const event = req.body as CardInteractionEvent;
     const language = getRequestLanguage(req);
+    if (event.eventType === "answer_submitted" && event.sessionId && event.cardId) {
+      const correct = (event.payload as any)?.correct === true;
+      recordAnswer(event.sessionId, event.cardId, correct, event.telemetry?.responseTimeMs ?? 0);
+    }
     if (event.eventType === "hint_requested" || event.eventType === "power_up") {
       return res.json({
         assistantMessage: "Here is a smaller step: look for the one idea that stays the same in the example."
@@ -467,8 +551,18 @@ router.post("/workspace/:sessionId/test/:nodeId", async (req, res, next) => {
     }
     const raw = await generateCardsForNode(node, "current_card", language);
     const quiz = quizOnly(raw);
-    const cards = quiz.length > 0 ? quiz : raw;
-    res.json({ cards, nodeCount: 1, mode: "test", scope: "lesson", topic: node.topicName });
+    while (quiz.length < 3) {
+      const fb = [
+        fallbackCardForType(node, "mcq", quiz.length),
+        fallbackCardForType(node, "true_false", quiz.length + 10),
+        fallbackCardForType(node, "fill_blank", quiz.length + 20),
+      ];
+      for (const f of fb) {
+        if (QUIZ_TYPES.has(f.type) && quiz.length < 3) quiz.push(f);
+      }
+      break;
+    }
+    res.json({ cards: quiz.slice(0, 3), nodeCount: 1, mode: "test", scope: "lesson", topic: node.topicName });
   } catch (err) {
     next(err);
   }
@@ -496,6 +590,45 @@ router.post("/workspace/:sessionId/test", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+// ── Spaced Review API ───────────────────────────────────────────────────
+
+router.get("/reviews/due", (_req, res, next) => {
+  try {
+    const due = loadDueReviews(dailyReviewLimit);
+    const sorted = sortByPriority(due);
+    res.json({ reviews: sorted, stats: reviewStats() });
+  } catch (err) { next(err); }
+});
+
+router.get("/reviews/stats", (_req, res, next) => {
+  try {
+    res.json(reviewStats());
+  } catch (err) { next(err); }
+});
+
+router.post("/reviews/:id/answer", (req, res, next) => {
+  try {
+    const id = String(req.params.id);
+    const rating = Number(req.body?.rating) as ReviewRating;
+    if (![1, 2, 3, 4].includes(rating)) return res.status(400).json({ error: "rating must be 1-4" });
+    const card = loadReviewCard(id);
+    if (!card) return res.status(404).json({ error: "Review card not found" });
+    const updated = scheduleReview(card, rating);
+    saveReviewCard(updated);
+    devLog("info", "api", "Review answered", { id, rating, nextDue: updated.dueDate, interval: updated.interval });
+    res.json({ card: updated, stats: reviewStats() });
+  } catch (err) { next(err); }
+});
+
+router.post("/reviews/record-answer", (req, res, next) => {
+  try {
+    const { sessionId, cardId, correct, responseMs } = req.body ?? {};
+    if (!sessionId || !cardId) return res.status(400).json({ error: "sessionId and cardId required" });
+    recordAnswer(sessionId, cardId, correct === true, responseMs ?? 0);
+    res.json({ accuracy: getRecentAccuracy(sessionId, 5), difficulty: adaptiveDifficulty(sessionId) });
+  } catch (err) { next(err); }
 });
 
 export default router;

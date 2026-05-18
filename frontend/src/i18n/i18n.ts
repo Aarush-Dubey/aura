@@ -95,7 +95,19 @@ function bundle(common: any, dashboard: any, workspace: any, lesson: any, cards:
   return { common, dashboard, workspace, lesson, cards, settings, insights, chat };
 }
 
+function getSavedLanguage(): string {
+  try {
+    const raw = localStorage.getItem("aura-settings");
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed.language) return parsed.language;
+    }
+  } catch {}
+  return "en";
+}
+
 i18n.use(initReactI18next).init({
+  lng: getSavedLanguage(),
   fallbackLng: "en",
   ns: ["common", "dashboard", "workspace", "lesson", "cards", "settings", "insights", "chat"],
   defaultNS: "common",

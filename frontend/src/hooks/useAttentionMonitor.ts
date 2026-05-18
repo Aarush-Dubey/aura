@@ -22,7 +22,8 @@ export function useAttentionMonitor() {
     injectedReflect.current = false;
   }, [cardCursor]);
 
-  const shouldMonitor = screen === "lesson" && (learnerMode === "both" || learnerMode === "adhd");
+  const testMode = useAuraStore((s) => s.session.testMode);
+  const shouldMonitor = screen === "lesson" && !testMode && (learnerMode === "both" || learnerMode === "adhd");
 
   const handleBlur = useCallback(() => {
     if (!shouldMonitor) return;

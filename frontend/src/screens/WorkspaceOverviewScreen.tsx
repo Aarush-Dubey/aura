@@ -66,7 +66,7 @@ export function WorkspaceOverviewScreen() {
     setError(null);
     try {
       const result = await api.workspaceTestFinal(sessionId);
-      setSession({ cards: result.cards, cardCursor: 0 });
+      setSession({ cards: result.cards, cardCursor: 0, testMode: true });
       navigate("lesson");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not start final test.");
@@ -81,7 +81,7 @@ export function WorkspaceOverviewScreen() {
     setError(null);
     try {
       const result = await api.workspaceTestLesson(sessionId, nodeId);
-      setSession({ cards: result.cards, cardCursor: 0 });
+      setSession({ cards: result.cards, cardCursor: 0, testMode: true });
       navigate("lesson");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not start lesson test.");

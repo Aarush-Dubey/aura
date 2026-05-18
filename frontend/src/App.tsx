@@ -8,6 +8,7 @@ import { LanguageSelectScreen } from "./components/setup/LanguageSelectScreen";
 import { useChatKeyboard } from "./hooks/useChatKeyboard";
 import { useAttentionMonitor } from "./hooks/useAttentionMonitor";
 import { api } from "./api/client";
+import i18n from "./i18n/i18n";
 
 export function App() {
   const settings = useAuraStore((s) => s.settings);
@@ -20,8 +21,10 @@ export function App() {
 
   useEffect(() => {
     document.documentElement.lang = settings.language;
-    if (!languageChosen && settings.language !== "en") {
-      localStorage.setItem("aura-language-chosen", "1");
+    if (i18n.language !== settings.language) {
+      i18n.changeLanguage(settings.language);
+    }
+    if (!languageChosen && localStorage.getItem("aura-language-chosen") === "1") {
       setLanguageChosen(true);
     }
   }, [settings.language, languageChosen]);

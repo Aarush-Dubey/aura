@@ -14,20 +14,22 @@ export function QuizCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
   const { t } = useTranslation("cards");
   const [picked, setPicked] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
+  const isTest = ctx.testMode === true;
 
   return (
-    <CardChrome tone="sage" label={t('quickCheck')} sub={t('noPenalty')}>
+    <CardChrome tone="sage" label={isTest ? t('testQuestion', 'Test') : t('quickCheck')} sub={isTest ? t('answersAtEnd', 'Answers revealed at the end') : t('noPenalty')}>
       <h2 className="title" style={{ fontSize: 24, margin: 0, lineHeight: 1.3 }}>{data.question}</h2>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {data.options.map((o, i) => {
           const isPicked = picked === i;
-          const isRight = revealed && i === data.correct;
-          const isWrong = revealed && isPicked && i !== data.correct;
+          const showResult = revealed && !isTest;
+          const isRight = showResult && i === data.correct;
+          const isWrong = showResult && isPicked && i !== data.correct;
           let bg = "var(--aura-paper-2)";
           let bd = "var(--aura-line)";
           if (isRight) { bg = "var(--aura-sage-wash)"; bd = "var(--aura-sage)"; }
           else if (isWrong) { bg = "var(--aura-clay-soft)"; bd = "var(--aura-clay)"; }
-          else if (isPicked) { bg = "var(--aura-paper)"; bd = "var(--aura-ink-soft)"; }
+          else if (isPicked) { bg = isTest ? "var(--aura-sage-wash)" : "var(--aura-paper)"; bd = isTest ? "var(--aura-sage)" : "var(--aura-ink-soft)"; }
           return (
             <button
               key={i}
@@ -73,11 +75,12 @@ export function QuizCard({ data, ctx }: { data: Data; ctx: CardCtx }) {
               <span style={{ flex: 1 }}>{o}</span>
               {isRight && <span style={{ color: "var(--aura-sage-deep)", fontSize: 12, fontWeight: 600 }}>{t('correct')}</span>}
               {isWrong && <span style={{ color: "var(--aura-clay)", fontSize: 12, fontWeight: 600 }}>{t('notThisOne')}</span>}
+              {isTest && isPicked && <span style={{ color: "var(--aura-sage-deep)", fontSize: 12, fontWeight: 600 }}>{t('selected', 'Selected')}</span>}
             </button>
           );
         })}
       </div>
-      {revealed && (
+      {revealed && !isTest && (
         <div
           className="rise"
           style={{

@@ -110,7 +110,9 @@ export type LessonCard =
   | { id: string; type: "visual"; nodeId: string; title: string; diagram: string; parts: { id: string; name: string; desc: string }[] }
   | { id: string; type: "connection"; nodeId: string; previous: string; current: string; bridge: string }
   | { id: string; type: "flash"; nodeId: string; cards: { front: string; back: string }[] }
-  | { id: string; type: "dragsort"; nodeId: string; prompt: string; steps: Record<string, string>; shuffled: string[]; correct: string[]; explanation: string };
+  | { id: string; type: "dragsort"; nodeId: string; prompt: string; steps: Record<string, string>; shuffled: string[]; correct: string[]; explanation: string }
+  | { id: string; type: "morpheme"; nodeId: string; word: string; morphemes: { text: string; type: "prefix" | "root" | "suffix"; meaning: string }[]; meaning: string; example: string; related: string[] }
+  | { id: string; type: "phonics"; nodeId: string; grapheme: string; phoneme: string; examples: { word: string; highlighted: string }[]; rule: string };
 
 export type MapNode = {
   id: string;

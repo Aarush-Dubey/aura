@@ -70,11 +70,11 @@ export function InsightsScreen() {
             {t('sessionComplete')}
           </div>
           <h1 className="title" style={{ fontSize: 44, margin: 0, lineHeight: 1.1 }}>
-            {data ? `${data.topic} — ${t('accuracy', { value: data.accuracy })}` : t('sessionInsights')}
+            {data ? `${data.topic} — ${t('accuracy', { pct: data.accuracy })}` : t('sessionInsights')}
           </h1>
           {data && (
             <p style={{ fontSize: 15, color: "var(--aura-ink-soft)", marginTop: 10 }}>
-              {t('nodesMastered', { mastered: data.masteredNodes, total: data.totalNodes })} · {data.timeSpent}
+              {t('nodesMastered', { mastered: data.masteredNodes, total: data.totalNodes, time: data.timeSpent })}
             </p>
           )}
         </div>

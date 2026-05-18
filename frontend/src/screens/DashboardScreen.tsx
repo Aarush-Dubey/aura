@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useAuraStore } from "../store/useAuraStore";
 import { ScreenShell } from "../components/shell/ScreenShell";
 import { api } from "../api/client";
+import type { ReviewStats } from "../api/types";
 
 type SessionItem = {
   id: string;
@@ -22,9 +23,11 @@ export function DashboardScreen() {
   const [sessions, setSessions] = useState<SessionItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [resuming, setResuming] = useState<string | null>(null);
+  const [reviewStats, setReviewStats] = useState<ReviewStats | null>(null);
 
   useEffect(() => {
     api.listSessions().then((r) => setSessions(r.sessions)).catch(() => {}).finally(() => setLoading(false));
+    api.reviewStats().then(setReviewStats).catch(() => {});
   }, []);
 
   async function resume(id: string) {
@@ -82,6 +85,35 @@ export function DashboardScreen() {
             <span style={{ fontSize: 13, color: "var(--aura-ink-soft)" }}>{t('startNewTopic')}</span>
           </motion.button>
 
+          {reviewStats && reviewStats.due > 0 && (
+            <motion.button
+              className="card card-pad"
+              onClick={() => navigate("review")}
+              whileHover={{ y: -2, boxShadow: "0 4px 12px rgba(60,45,25,.1)" }}
+              whileTap={{ scale: 0.97 }}
+              style={{
+                cursor: "pointer",
+                textAlign: "left",
+                border: "1.5px solid var(--aura-sage)",
+                background: "var(--aura-sage-wash)",
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ fontWeight: 600 }}>{t('spacedReview', 'Spaced Review')}</span>
+                <span className="chip" data-tone="amber" style={{ padding: "3px 8px", fontSize: 10 }}>
+                  <span className="dot" />
+                  {reviewStats.due} due
+                </span>
+              </div>
+              <span style={{ fontSize: 13, color: "var(--aura-ink-soft)" }}>
+                {t('reviewDueDescription', 'Review cards are waiting. Short session, big retention boost.')}
+              </span>
+            </motion.button>
+          )}
+
           {loading && (
             <div className="card card-pad" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ color: "var(--aura-ink-mute)", fontSize: 13 }}>{t('loadingSessions')}</span>
@@ -125,7 +157,7 @@ export function DashboardScreen() {
                 </div>
                 <div style={{ fontSize: 12, color: "var(--aura-ink-mute)", display: "flex", gap: 12 }}>
                   <span>{s.nodeCount} {t('nodes')}</span>
-                  <span>{t('masteredCount', { count: s.masteredCount })}</span>
+                  <span>{s.masteredCount} {t('masteredCount')}</span>
                   <span>{new Date(s.startedAt).toLocaleDateString()}</span>
                 </div>
                 {resuming === s.id && (
