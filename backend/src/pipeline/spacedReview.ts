@@ -17,7 +17,7 @@ export type ReviewCard = {
   front: string;        // question/prompt
   back: string;         // answer
   stability: number;    // FSRS stability (days)
-  difficulty: number;   // FSRS difficulty (0–1)
+  difficulty: number;   // FSRS difficulty on the canonical [1,10] scale
   dueDate: string;      // ISO date string
   lastReview: string;   // ISO date string
   interval: number;     // days until next review
@@ -30,6 +30,17 @@ export type ReviewCard = {
 
 export const dailyNewCardLimit = 20;
 export const dailyReviewLimit = 100;
+
+// Canonical FSRS difficulty lives on [1,10]. The stability equations below
+// (`11 - D`, `D^(-w)`) are written for that scale; clamping D outside it makes
+// `D^(-w)` blow up to Infinity as D→0.
+const DIFFICULTY_MIN = 1;
+const DIFFICULTY_MAX = 10;
+
+// Hard ceiling on scheduling interval (days). Matches Anki's default of 100
+// years. Without it, a long run of perfect recalls can push stability high
+// enough that `Date.setDate` overflows into an invalid date.
+const MAX_INTERVAL_DAYS = 36_500;
 
 // FSRS-5 optimised parameter vector
 const w: readonly number[] = [
@@ -52,7 +63,7 @@ const w: readonly number[] = [
   2.61,  // w[16]
 ];
 
-const REQUEST_RETENTION = 0.9;
+export const REQUEST_RETENTION = 0.9;
 const LN_RETENTION = Math.log(REQUEST_RETENTION); // ln(0.9) ≈ −0.10536
 
 // ---- Helpers --------------------------------------------------------------
@@ -69,7 +80,7 @@ function elapsedDays(last: string, now: string): number {
 }
 
 /** Compute the next interval (in days) from stability and desired retention. */
-function nextInterval(stability: number): number {
+export function nextInterval(stability: number): number {
   // interval = S * (R^(1/ln(0.9)) − 1)  where we want R = requestRetention
   // Simplifies to: interval = S / factor  where factor = −ln(0.9) / ln(requestRetention)
   // But since requestRetention IS 0.9, interval ≈ S * 1 = S (exactly when R = 0.9).
@@ -85,11 +96,11 @@ function nextInterval(stability: number): number {
   // With requestRetention = 0.9: I = 9 * S * (1/0.9 - 1) = 9 * S * (1/9) = S.
   // So interval = S days (rounded, minimum 1).
   const interval = 9 * stability * (1 / REQUEST_RETENTION - 1);
-  return Math.max(1, Math.round(interval));
+  return clamp(Math.round(interval), 1, MAX_INTERVAL_DAYS);
 }
 
 /** Retrievability: R(t, S) using the power-forgetting-curve form. */
-function retrievability(elapsed: number, stability: number): number {
+export function retrievability(elapsed: number, stability: number): number {
   // FSRS-5 power curve: R = (1 + FACTOR * t/S) ^ DECAY
   // with FACTOR = 19/81, DECAY = -0.5
   const FACTOR = 19 / 81;
@@ -98,10 +109,10 @@ function retrievability(elapsed: number, stability: number): number {
   return Math.pow(1 + (FACTOR * elapsed) / stability, DECAY);
 }
 
-/** Initial difficulty D0(G) = w[4] - exp(w[5] * (G - 1)) + 1 */
+/** Initial difficulty D0(G) = w[4] - exp(w[5] * (G - 1)) + 1, on the [1,10] scale. */
 function initialDifficulty(rating: ReviewRating): number {
   const d = w[4] - Math.exp(w[5] * (rating - 1)) + 1;
-  return clamp(d, 0, 1);
+  return clamp(d, DIFFICULTY_MIN, DIFFICULTY_MAX);
 }
 
 /** Initial stability S0(G) = w[G-1] */
@@ -116,7 +127,7 @@ function initialStability(rating: ReviewRating): number {
 function nextDifficulty(d: number, rating: ReviewRating): number {
   const d0 = initialDifficulty(rating);
   const next = w[7] * d0 + (1 - w[7]) * (d - w[6] * (rating - 3));
-  return clamp(next, 0, 1);
+  return clamp(next, DIFFICULTY_MIN, DIFFICULTY_MAX);
 }
 
 /**
@@ -230,7 +241,7 @@ export function scheduleReview(card: ReviewCard, rating: ReviewRating): ReviewCa
 
   // Clamp final values
   newStability = Math.max(0.1, newStability);
-  newDifficulty = clamp(newDifficulty, 0, 1);
+  newDifficulty = clamp(newDifficulty, DIFFICULTY_MIN, DIFFICULTY_MAX);
 
   const interval = nextInterval(newStability);
   const dueDate = addDays(now, interval);

@@ -66,6 +66,23 @@ Shell wrapper:
 pnpm run build
 ```
 
+## Tests
+
+The algorithmic core — the FSRS-5 spaced-repetition scheduler and the LLM
+priority broker — is covered by a deterministic test suite (property-based
+tests, a retention backtest, scheduler-correctness tests, transaction
+atomicity, and request validation). It runs in ~2s with no network and no
+local model, and runs in CI on every push.
+
+```bash
+pnpm --dir backend test          # full suite
+pnpm --dir backend test:watch    # watch mode
+pnpm --dir backend test:bench    # FSRS retention backtest + calibration table
+```
+
+See [ENGINEERING.md](ENGINEERING.md) for the validation methodology (including a
+correctness bug the property tests caught in the scheduler).
+
 ## Repo Map
 
 ```text

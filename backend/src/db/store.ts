@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { CONFIG } from "../config.js";
 import type { GameState, KnowledgeGraph, LessonPath, StudentIntent, StudentProfile } from "../types.js";
 import type { ReviewCard } from "../pipeline/spacedReview.js";
-import { db } from "./db.js";
+import { db, transaction } from "./db.js";
 import type { SupportedLanguage } from "../i18n/language.js";
 
 const now = () => new Date().toISOString();
@@ -124,6 +124,20 @@ export function loadGameState(sessionId: string): GameState {
 export function saveHistory(sessionId: string, history: unknown[]) {
   db.prepare("UPDATE sessions SET history_json = ? WHERE id = ?").run(JSON.stringify(history), sessionId);
 }
+
+/**
+ * Persist the graph, lesson path, and game state for a session as a single
+ * atomic unit. These three writes are always logically coupled — a crash or a
+ * serialization failure partway through would otherwise leave the session in a
+ * torn state (e.g. an advanced path pointing at a stale graph).
+ */
+export const saveSessionArtifacts = transaction(
+  (sessionId: string, graph: KnowledgeGraph, path: LessonPath, gameState: GameState) => {
+    saveGraph(sessionId, graph);
+    savePath(sessionId, path);
+    saveGameState(sessionId, gameState);
+  }
+);
 
 export type SessionSummary = {
   id: string;

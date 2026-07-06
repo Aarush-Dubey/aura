@@ -2,7 +2,7 @@ import express from "express";
 import { jsonrepair } from "jsonrepair";
 import { listCachedResearchInputs } from "../research/cacheInput.js";
 import { CONFIG } from "../config.js";
-import { createSession, getSessionInsights, getRecentAccuracy, listSessions, loadDueReviews, loadGameState, loadGraph, loadPath, loadProfile, loadReviewCard, loadSession, recordAnswer, reviewStats, saveGameState, saveGraph, saveHistory, savePath, saveReviewCard } from "../db/store.js";
+import { createSession, getSessionInsights, getRecentAccuracy, listSessions, loadDueReviews, loadGameState, loadGraph, loadPath, loadProfile, loadReviewCard, loadSession, recordAnswer, reviewStats, saveHistory, saveReviewCard, saveSessionArtifacts } from "../db/store.js";
 import { createReviewCard, scheduleReview, sortByPriority, dailyNewCardLimit, dailyReviewLimit, type ReviewRating } from "../pipeline/spacedReview.js";
 import { devLog, getDevLogs } from "../dev/logs.js";
 import { notePrefetchHit, runGeminiBodyJob, runGeminiJob, setPrefetchTelemetry } from "../llm/broker.js";
@@ -16,6 +16,16 @@ import { collectMissionMetadata, deriveMapState, initializeGameState } from "../
 import type { CardInteractionEvent, GameState, KnowledgeGraph, KnowledgeNode, LessonCard, LessonPath, StudentIntent } from "../types.js";
 import { getRequestLanguage } from "../i18n/language.js";
 import type { SupportedLanguage } from "../i18n/language.js";
+import {
+  validateBody,
+  generateLessonSchema,
+  generateLessonFromImageSchema,
+  nodeCardsSchema,
+  tutorRespondSchema,
+  chatAskSchema,
+  reviewAnswerSchema,
+  recordAnswerSchema,
+} from "./validation.js";
 
 const router = express.Router();
 const prefetchedNodeCards = new Map<string, LessonCard[]>();
@@ -175,9 +185,7 @@ async function runStudentTurn(sessionId: string, studentMessage: string, languag
 
   const history = JSON.parse(String(session.history_json ?? "[]")) as unknown[];
   saveHistory(sessionId, [...history, { role: "student", message: studentMessage }, { role: "assistant", message: passed ? "Nice, this block is ready for the next step." : "I found a gentler stepping stone.", endedOnCheck: true }]);
-  saveGraph(sessionId, graph);
-  savePath(sessionId, path);
-  saveGameState(sessionId, gameState);
+  saveSessionArtifacts(sessionId, graph, path, gameState);
 
   return {
     assistantMessage: passed ? "Gemma generated the next node." : "Gemma regenerated this node with the current response in mind.",
@@ -194,7 +202,7 @@ async function runStudentTurn(sessionId: string, studentMessage: string, languag
   };
 }
 
-router.post("/generateLesson", async (req, res, next) => {
+router.post("/generateLesson", validateBody(generateLessonSchema), async (req, res, next) => {
   try {
     const topic = String(req.body?.topic ?? "").trim();
     const cacheId = req.body?.cacheId ? String(req.body.cacheId) : undefined;
@@ -213,9 +221,7 @@ router.post("/generateLesson", async (req, res, next) => {
     const cards = await generateCardsForNode(activeNode(graph, path), "current_card", language);
     devLog("info", "api", "Generated lesson response", { sessionId, graphId: graph.id, nodes: graph.nodes.length, cards: cards.length, cacheId: cacheId ?? null });
 
-    saveGraph(sessionId, graph);
-    savePath(sessionId, path);
-    saveGameState(sessionId, gameState);
+    saveSessionArtifacts(sessionId, graph, path, gameState);
     prefetchNextNodeCards(sessionId, graph, path, language);
 
     res.json({
@@ -234,7 +240,7 @@ router.post("/generateLesson", async (req, res, next) => {
   }
 });
 
-router.post("/node/cards", async (req, res, next) => {
+router.post("/node/cards", validateBody(nodeCardsSchema), async (req, res, next) => {
   try {
     const sessionId = String(req.body?.sessionId ?? "");
     const nodeId = String(req.body?.nodeId ?? "");
@@ -260,7 +266,7 @@ router.post("/node/cards", async (req, res, next) => {
   }
 });
 
-router.post("/generateLessonFromImage", async (req, res, next) => {
+router.post("/generateLessonFromImage", validateBody(generateLessonFromImageSchema), async (req, res, next) => {
   try {
     const imageData = String(req.body?.imageData ?? "");
     const mimeType = String(req.body?.mimeType ?? "image/jpeg");
@@ -315,9 +321,7 @@ router.post("/generateLessonFromImage", async (req, res, next) => {
     const mapState = deriveMapState(graph, path, gameState);
     const cards = await generateCardsForNode(activeNode(graph, path), "current_card", language);
 
-    saveGraph(sessionId, graph);
-    savePath(sessionId, path);
-    saveGameState(sessionId, gameState);
+    saveSessionArtifacts(sessionId, graph, path, gameState);
     prefetchNextNodeCards(sessionId, graph, path, language);
 
     res.json({
@@ -337,7 +341,7 @@ router.post("/generateLessonFromImage", async (req, res, next) => {
   }
 });
 
-router.post("/tutor/respond", async (req, res, next) => {
+router.post("/tutor/respond", validateBody(tutorRespondSchema), async (req, res, next) => {
   try {
     const sessionId = String(req.body?.sessionId ?? "");
     const studentMessage = String(req.body?.studentMessage ?? "");
@@ -349,7 +353,7 @@ router.post("/tutor/respond", async (req, res, next) => {
   }
 });
 
-router.post("/chat/ask", async (req, res, next) => {
+router.post("/chat/ask", validateBody(chatAskSchema), async (req, res, next) => {
   try {
     const sessionId = String(req.body?.sessionId ?? "");
     const question = String(req.body?.question ?? "").trim();
@@ -608,11 +612,10 @@ router.get("/reviews/stats", (_req, res, next) => {
   } catch (err) { next(err); }
 });
 
-router.post("/reviews/:id/answer", (req, res, next) => {
+router.post("/reviews/:id/answer", validateBody(reviewAnswerSchema), (req, res, next) => {
   try {
     const id = String(req.params.id);
-    const rating = Number(req.body?.rating) as ReviewRating;
-    if (![1, 2, 3, 4].includes(rating)) return res.status(400).json({ error: "rating must be 1-4" });
+    const rating = req.body.rating as ReviewRating;
     const card = loadReviewCard(id);
     if (!card) return res.status(404).json({ error: "Review card not found" });
     const updated = scheduleReview(card, rating);
@@ -622,10 +625,9 @@ router.post("/reviews/:id/answer", (req, res, next) => {
   } catch (err) { next(err); }
 });
 
-router.post("/reviews/record-answer", (req, res, next) => {
+router.post("/reviews/record-answer", validateBody(recordAnswerSchema), (req, res, next) => {
   try {
-    const { sessionId, cardId, correct, responseMs } = req.body ?? {};
-    if (!sessionId || !cardId) return res.status(400).json({ error: "sessionId and cardId required" });
+    const { sessionId, cardId, correct, responseMs } = req.body;
     recordAnswer(sessionId, cardId, correct === true, responseMs ?? 0);
     res.json({ accuracy: getRecentAccuracy(sessionId, 5), difficulty: adaptiveDifficulty(sessionId) });
   } catch (err) { next(err); }

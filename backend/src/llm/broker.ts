@@ -1,6 +1,8 @@
 import { performance } from "node:perf_hooks";
 import { CONFIG } from "../config.js";
 import { devLog } from "../dev/logs.js";
+import { MinHeap } from "../util/minHeap.js";
+import { RollingWindow } from "../util/percentile.js";
 
 export type LLMJobType =
   | "graph_plan"
@@ -34,10 +36,24 @@ type QueueEntry = {
   priority: number;
   label: string;
   queuedAt: number;
+  seq: number;
   run: (slot: number) => Promise<string>;
   resolve: (value: string) => void;
   reject: (error: unknown) => void;
 };
+
+/**
+ * Broker scheduling order: strict priority (lower number first), FIFO tie-break
+ * within a priority level via a monotonic sequence number. Exported so the
+ * scheduler-correctness tests exercise the exact ordering the broker uses.
+ */
+export function compareQueueEntries(
+  a: Pick<QueueEntry, "priority" | "seq">,
+  b: Pick<QueueEntry, "priority" | "seq">
+): boolean {
+  if (a.priority !== b.priority) return a.priority < b.priority;
+  return a.seq < b.seq;
+}
 
 type CompletedJob = {
   id: string;
@@ -60,10 +76,14 @@ type BrokerEvent = {
 };
 
 let nextJobId = 1;
+let nextSeq = 1;
 const activeSlots: (QueueEntry | null)[] = [null, null];
-const queue: QueueEntry[] = [];
+const queue = new MinHeap<QueueEntry>(compareQueueEntries);
 const events: BrokerEvent[] = [];
 const completed: CompletedJob[] = [];
+// Rolling windows for latency percentiles (last 200 jobs).
+const totalMsWindow = new RollingWindow(200);
+const queueMsWindow = new RollingWindow(200);
 let externalNetworkBytes = 0;
 let cloudCalls = 0;
 let mtpOverride: boolean | null = null;
@@ -100,10 +120,6 @@ function pushEvent(event: BrokerEvent) {
 
 function approximateTokens(text: string) {
   return Math.max(1, Math.ceil(text.length / 4));
-}
-
-function sortQueue() {
-  queue.sort((a, b) => a.priority - b.priority || a.queuedAt - b.queuedAt);
 }
 
 function isExternalUrl(url: string) {
@@ -151,11 +167,10 @@ async function performGeminiRequest(body: unknown, opts: LLMJobOptions, slot = 0
 }
 
 function pumpQueue() {
-  while (queue.length > 0) {
+  while (queue.size > 0) {
     const slot = freeSlotIndex();
     if (slot === -1) return;
-    sortQueue();
-    const job = queue.shift();
+    const job = queue.pop();
     if (!job) return;
 
     activeSlots[slot] = job;
@@ -226,6 +241,7 @@ function enqueueGeminiBody(body: unknown, opts: LLMJobOptions) {
       priority,
       label,
       queuedAt: performance.now(),
+      seq: nextSeq++,
       resolve,
       reject,
       run: async (slot: number) => {
@@ -234,12 +250,16 @@ function enqueueGeminiBody(body: unknown, opts: LLMJobOptions) {
         const finished = performance.now();
         const tokens = approximateTokens(result.text);
         const decodeSeconds = Math.max(0.001, (finished - started) / 1000);
+        const queueMs = started - entry.queuedAt;
+        const totalMs = finished - entry.queuedAt;
+        totalMsWindow.add(totalMs);
+        queueMsWindow.add(queueMs);
         completed.unshift({
           id,
           type,
           label,
-          queueMs: started - entry.queuedAt,
-          totalMs: finished - entry.queuedAt,
+          queueMs,
+          totalMs,
           approximateTtftMs: result.approximateTtftMs,
           outputChars: result.text.length,
           approximateTokens: tokens,
@@ -252,7 +272,6 @@ function enqueueGeminiBody(body: unknown, opts: LLMJobOptions) {
       }
     };
     queue.push(entry);
-    sortQueue();
     pushEvent({ at: nowIso(), type: "queued", message: `Queued ${type}: ${label}` });
     pumpQueue();
   });
@@ -295,17 +314,22 @@ export function brokerTelemetry() {
     model: CONFIG.llmModel,
     backend: CONFIG.llmBackend,
     mtpEnabled: effectiveMtp(),
-    engineState: activeCount() > 0 || queue.length ? "busy" : "warm",
+    engineState: activeCount() > 0 || queue.size ? "busy" : "warm",
     slots: maxSlots(),
     activeJobs: activeSlots.filter(Boolean).map(job => job ? { id: job.id, type: job.type, label: job.label, priority: job.priority } : null),
     activeJob: activeSlots.find(Boolean) ? { id: activeSlots.find(Boolean)!.id, type: activeSlots.find(Boolean)!.type, label: activeSlots.find(Boolean)!.label, priority: activeSlots.find(Boolean)!.priority } : null,
-    queue: queue.map((job) => ({ id: job.id, type: job.type, label: job.label, priority: job.priority })),
-    waitingJobs: queue.length,
-    pausedJobs: activeCount() > 0 && queue.length ? queue.length : 0,
+    queue: queue.toSortedArray().map((job) => ({ id: job.id, type: job.type, label: job.label, priority: job.priority })),
+    waitingJobs: queue.size,
+    pausedJobs: activeCount() > 0 && queue.size ? queue.size : 0,
     dualInstance: !!CONFIG.llmBaseUrl2,
     recentEvents: events,
     lastJob: completed[0] ?? null,
     completedJobs: completed.slice(0, 5),
+    latency: {
+      samples: totalMsWindow.size,
+      totalMs: totalMsWindow.percentiles([50, 95, 99]),
+      queueMs: queueMsWindow.percentiles([50, 95, 99])
+    },
     network: {
       externalBytes: externalNetworkBytes,
       cloudCalls
